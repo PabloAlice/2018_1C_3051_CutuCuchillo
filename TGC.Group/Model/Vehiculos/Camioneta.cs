@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BulletSharp;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +11,8 @@ namespace TGC.Group.Model.Vehiculos
 {
     class Camioneta : Vehiculo
     {
-        public Camioneta(string mediaDir, TGCVector3 posicionInicial) : base(mediaDir, posicionInicial)
+        public Camioneta(string mediaDir, TGCVector3 posicionInicial, DynamicsWorld world, float mass, float size, VehicleTuning tuning)
+            : base(mediaDir, posicionInicial, world, mass, size, tuning)
         {
             TgcSceneLoader loader = new TgcSceneLoader();
             TgcMesh ruedaIzquierda = loader.loadSceneFromFile(mediaDir + "meshCreator\\meshes\\Vehiculos\\Camioneta\\Rueda\\Rueda-TgcScene.xml").Meshes[0];
