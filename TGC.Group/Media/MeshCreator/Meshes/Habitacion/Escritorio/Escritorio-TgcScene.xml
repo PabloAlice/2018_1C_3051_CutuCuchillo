@@ -11,7 +11,7 @@
 				<specular>[229.5,229.5,229.5,255.0]</specular>
 				<opacity>100.0</opacity>
 				<alphaBlendEnable>false</alphaBlendEnable>
-				<bitmap uvTiling='[1.0,1.0]' uvOffset='[0.0,0.0]'>1.jpg</bitmap>
+				<bitmap uvTiling='[1.0,1.0]' uvOffset='[0.0,0.0]'>escritorio1.jpg</bitmap>
 			</subM>
 			<subM name='Material #26' type='Standardmaterial'>
 				<ambient>[149.94,149.94,149.94,255.0]</ambient>
@@ -19,7 +19,7 @@
 				<specular>[229.5,229.5,229.5,255.0]</specular>
 				<opacity>100.0</opacity>
 				<alphaBlendEnable>false</alphaBlendEnable>
-				<bitmap uvTiling='[1.0,1.0]' uvOffset='[0.0,0.0]'>2.jpg</bitmap>
+				<bitmap uvTiling='[1.0,1.0]' uvOffset='[0.0,0.0]'>escritorio2.jpg</bitmap>
 			</subM>
 			<subM name='Material #27' type='Standardmaterial'>
 				<ambient>[149.94,149.94,149.94,255.0]</ambient>
@@ -27,7 +27,7 @@
 				<specular>[229.5,229.5,229.5,255.0]</specular>
 				<opacity>100.0</opacity>
 				<alphaBlendEnable>false</alphaBlendEnable>
-				<bitmap uvTiling='[1.0,1.0]' uvOffset='[0.0,0.0]'>3.jpg</bitmap>
+				<bitmap uvTiling='[1.0,1.0]' uvOffset='[0.0,0.0]'>escritorio3.jpg</bitmap>
 			</subM>
 			<subM name='Material #28' type='Standardmaterial'>
 				<ambient>[149.94,149.94,149.94,255.0]</ambient>
@@ -35,7 +35,7 @@
 				<specular>[229.5,229.5,229.5,255.0]</specular>
 				<opacity>100.0</opacity>
 				<alphaBlendEnable>false</alphaBlendEnable>
-				<bitmap uvTiling='[1.0,1.0]' uvOffset='[0.0,0.0]'>4.jpg</bitmap>
+				<bitmap uvTiling='[1.0,1.0]' uvOffset='[0.0,0.0]'>escritorio4.jpg</bitmap>
 			</subM>
 			<subM name='Material #29' type='Standardmaterial'>
 				<ambient>[149.94,149.94,149.94,255.0]</ambient>
@@ -43,7 +43,7 @@
 				<specular>[229.5,229.5,229.5,255.0]</specular>
 				<opacity>100.0</opacity>
 				<alphaBlendEnable>false</alphaBlendEnable>
-				<bitmap uvTiling='[1.0,1.0]' uvOffset='[0.0,0.0]'>5.jpg</bitmap>
+				<bitmap uvTiling='[1.0,1.0]' uvOffset='[0.0,0.0]'>escritorio5.jpg</bitmap>
 			</subM>
 		</m>
 	</materials>
