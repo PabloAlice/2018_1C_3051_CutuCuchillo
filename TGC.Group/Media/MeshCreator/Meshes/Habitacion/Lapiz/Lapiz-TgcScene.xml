@@ -11,7 +11,7 @@
 				<specular>[229.5,229.5,229.5,255.0]</specular>
 				<opacity>100.0</opacity>
 				<alphaBlendEnable>false</alphaBlendEnable>
-				<bitmap uvTiling='[1.0,1.0]' uvOffset='[0.0,0.0]'>5.jpg</bitmap>
+				<bitmap uvTiling='[1.0,1.0]' uvOffset='[0.0,0.0]'>lapiz5.jpg</bitmap>
 			</subM>
 			<subM name='Material #26' type='Standardmaterial'>
 				<ambient>[149.94,149.94,149.94,255.0]</ambient>
@@ -19,7 +19,7 @@
 				<specular>[229.5,229.5,229.5,255.0]</specular>
 				<opacity>100.0</opacity>
 				<alphaBlendEnable>false</alphaBlendEnable>
-				<bitmap uvTiling='[1.0,1.0]' uvOffset='[0.0,0.0]'>4.jpg</bitmap>
+				<bitmap uvTiling='[1.0,1.0]' uvOffset='[0.0,0.0]'>lapiz4.jpg</bitmap>
 			</subM>
 			<subM name='Material #27' type='Standardmaterial'>
 				<ambient>[149.94,149.94,149.94,255.0]</ambient>
@@ -27,7 +27,7 @@
 				<specular>[229.5,229.5,229.5,255.0]</specular>
 				<opacity>100.0</opacity>
 				<alphaBlendEnable>false</alphaBlendEnable>
-				<bitmap uvTiling='[1.0,2.7]' uvOffset='[0.0,0.0]'>3.jpg</bitmap>
+				<bitmap uvTiling='[1.0,2.7]' uvOffset='[0.0,0.0]'>lapiz3.jpg</bitmap>
 			</subM>
 			<subM name='Material #28' type='Standardmaterial'>
 				<ambient>[149.94,149.94,149.94,255.0]</ambient>
@@ -35,7 +35,7 @@
 				<specular>[229.5,229.5,229.5,255.0]</specular>
 				<opacity>100.0</opacity>
 				<alphaBlendEnable>false</alphaBlendEnable>
-				<bitmap uvTiling='[1.0,1.0]' uvOffset='[0.0,0.0]'>6.jpg</bitmap>
+				<bitmap uvTiling='[1.0,1.0]' uvOffset='[0.0,0.0]'>lapiz6.jpg</bitmap>
 			</subM>
 			<subM name='Material #29' type='Standardmaterial'>
 				<ambient>[149.94,149.94,149.94,255.0]</ambient>
@@ -43,7 +43,7 @@
 				<specular>[229.5,229.5,229.5,255.0]</specular>
 				<opacity>100.0</opacity>
 				<alphaBlendEnable>false</alphaBlendEnable>
-				<bitmap uvTiling='[1.0,1.0]' uvOffset='[0.0,0.0]'>7.jpg</bitmap>
+				<bitmap uvTiling='[1.0,1.0]' uvOffset='[0.0,0.0]'>lapiz7.jpg</bitmap>
 			</subM>
 		</m>
 	</materials>

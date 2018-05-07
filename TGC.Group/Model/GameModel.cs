@@ -1,5 +1,6 @@
 using Microsoft.DirectX.DirectInput;
 using System.Drawing;
+using System;
 using TGC.Core.Direct3D;
 using TGC.Core.Example;
 using TGC.Core.Geometry;
@@ -28,23 +29,23 @@ namespace TGC.Group.Model
         private TGCVector3 camaraDesplazamiento = new TGCVector3(0,5,40);
         private TGCBox cubo;
         private TgcScene scene;
-        private TgcText2D textoVelocidadVehiculo, textoAlturaVehiculo;
-        private TgcMesh jabon;
+        private TgcText2D textoVelocidadVehiculo, textoAlturaVehiculo, textoPosX, textoPosZ;
+        private TgcMesh jabon, mLibroAnalisis, mLibroOperativos, mMoneda, mPelota, mRegla;
 
         public override void Init()
         {
 
             //en caso de querer cargar una escena
             TgcSceneLoader loader = new TgcSceneLoader();
-            this.scene = loader.loadSceneFromFile(MediaDir + "Texturas\\Habitacion\\escenaFinal-TgcScene.xml");
+            this.scene = loader.loadSceneFromFile(MediaDir + "MeshCreator\\Scenes\\Habitacion\\habitacion-TgcScene.xml");
             foreach (var mesh in this.scene.Meshes)
             {
                 mesh.Scale = new TGCVector3(12f, 12f, 12f);
             }
 
-            this.jabon = new TgcSceneLoader().loadSceneFromFile(MediaDir + "MeshCreator\\Meshes\\Bathroom\\Jabon\\Jabon-TgcScene.xml").Meshes[0];
+            initMeshes();
 
-
+            
             //creo el vehiculo liviano
             //si quiero crear un vehiculo pesado (camion) hago esto
             // VehiculoPesado camion = new VehiculoPesado(rutaAMesh);
@@ -110,6 +111,20 @@ namespace TGC.Group.Model
             this.textoAlturaVehiculo.Size = new Size(0, 0);
             this.textoAlturaVehiculo.Color = Color.Gold;
 
+            this.textoPosX = new TgcText2D();
+            dialogo = "Posicion X = {0}";
+            this.textoPosX.Text = string.Format(dialogo, auto.posicion().X);
+            this.textoPosX.Position = new Point(70, 50);
+            this.textoPosX.Size = new Size(0, 0);
+            this.textoPosX.Color = Color.Gold;
+
+            this.textoPosZ = new TgcText2D();
+            dialogo = "Posicion Z = {0}";
+            this.textoPosZ.Text = string.Format(dialogo, auto.posicion().Z.ToString());
+            this.textoPosZ.Position = new Point(70, 80);
+            this.textoPosZ.Size = new Size(0, 0);
+            this.textoPosZ.Color = Color.Gold;
+
 
             this.auto.setElapsedTime(ElapsedTime);
 
@@ -164,8 +179,12 @@ namespace TGC.Group.Model
 
             this.PreRender();
 
+            renderMeshes();
+
             this.textoVelocidadVehiculo.render();
             this.textoAlturaVehiculo.render();
+            this.textoPosX.render();
+            this.textoPosZ.render();
 
             this.scene.RenderAll();
             
@@ -183,6 +202,9 @@ namespace TGC.Group.Model
 
         public override void Dispose()
         {
+
+            disposeMeshes();
+
             //Dispose del auto.
             this.auto.dispose();
 
@@ -194,6 +216,93 @@ namespace TGC.Group.Model
             this.textoAlturaVehiculo.Dispose();
             //Dispose TextoAlturaVehiculo
             this.textoAlturaVehiculo.Dispose();
+
+            this.textoPosX.Dispose();
+            this.textoPosZ.Dispose();
+        }
+
+        private void initMeshes()
+        {
+            this.jabon = new TgcSceneLoader().loadSceneFromFile(MediaDir + "MeshCreator\\Meshes\\Bathroom\\Jabon\\Jabon-TgcScene.xml").Meshes[0];
+            mLibroAnalisis = new TgcSceneLoader().loadSceneFromFile(MediaDir + "MeshCreator\\Meshes\\Habitacion\\Libros\\Analisis\\Analisis-TgcScene.xml").Meshes[0];
+            mLibroOperativos = new TgcSceneLoader().loadSceneFromFile(MediaDir + "MeshCreator\\Meshes\\Habitacion\\Libros\\Operativos\\Operativos-TgcScene.xml").Meshes[0];
+            mMoneda = new TgcSceneLoader().loadSceneFromFile(MediaDir + "MeshCreator\\Meshes\\Habitacion\\Moneda\\Moneda-TgcScene.xml").Meshes[0];
+            mPelota = new TgcSceneLoader().loadSceneFromFile(MediaDir + "MeshCreator\\Meshes\\Habitacion\\Pelota\\Pelota-TgcScene.xml").Meshes[0];
+            //mRegla = new TgcSceneLoader().loadSceneFromFile(MediaDir + "MeshCreator\\Meshes\\Habitacion\\Regla2\\Regla2-TgcScene.xml").Meshes[0];  
+
+        }
+
+        private void renderMeshes()
+        {
+            Random rnd = new Random();
+
+            jabon.Position = new TGCVector3(-1400f, 0f, 1820f);
+            jabon.Rotation = new TGCVector3(0f, 0f, 0f);
+            jabon.Render();
+            jabon.RotateX(-FastMath.QUARTER_PI * 2 / 3);
+            jabon.Move(0f, 7f, -20f);
+            jabon.Render();
+
+            mLibroAnalisis.Position = new TGCVector3(0f, 0f, 500f);
+            mLibroAnalisis.Rotation = new TGCVector3(0f, 0f, 0f);
+            mLibroAnalisis.Scale = new TGCVector3(1.2f, 1.2f, 1.2f);
+            mLibroAnalisis.RotateY(FastMath.PI_HALF);
+            mLibroAnalisis.RotateX(-FastMath.PI_HALF * 7 / 9);
+            mLibroAnalisis.Move(275f, 32f, -370f);
+            mLibroAnalisis.Render();
+
+            mLibroOperativos.Position = new TGCVector3(0f, 0f, 500f);
+            mLibroOperativos.Rotation = new TGCVector3(0f, 0f, 0f);
+            mLibroOperativos.Scale = new TGCVector3(1.2f, 1.2f, 1.2f);
+            mLibroOperativos.RotateY(FastMath.PI_HALF);
+            mLibroOperativos.RotateX(-FastMath.PI_HALF * 7 / 9);
+            mLibroOperativos.Move(265f, 32f, -320f);
+            mLibroOperativos.Render();
+
+            mMoneda.Position = new TGCVector3(-1500f, 0f, -500);
+            mMoneda.Rotation = new TGCVector3(0f, 0f, 0f);
+            mMoneda.Render();
+            mMoneda.Move(5f, 1f, 5f);
+            mMoneda.Render();
+            mMoneda.Move(-7F, 1f, 0f);
+            mMoneda.RotateZ(0.2f);
+            mMoneda.Render();
+
+            mMoneda.Position = new TGCVector3(1000f, 0f, -750);
+            mMoneda.Rotation = new TGCVector3(0f, 0f, 0f);
+            mMoneda.Render();
+            mMoneda.Move(5f, 1f, 5f);
+            mMoneda.Render();
+            mMoneda.Move(-7F, 1f, 0f);
+            mMoneda.RotateZ(0.2f);
+            mMoneda.Render();
+
+            mMoneda.Position = new TGCVector3(200f, 0f, 200f);
+            mMoneda.Rotation = new TGCVector3(0f, 0f, 0f);
+            mMoneda.Render();
+            mMoneda.Move(5f, 1f, 5f);
+            mMoneda.Render();
+            mMoneda.Move(-7F, 1f, 0f);
+            mMoneda.RotateZ(0.2f);
+            mMoneda.Render();
+
+            mPelota.Position = new TGCVector3(-1000f, 0f, 0f);
+            mPelota.Scale = new TGCVector3(4f, 4f, 4f);
+            mPelota.Render();
+
+            //mRegla.Position = new TGCVector3(0f, 0f, 0f);
+           // mRegla.Render();
+
+
+        }
+
+        private void disposeMeshes()
+        {
+            jabon.Dispose();
+            mLibroAnalisis.Dispose();
+            mLibroOperativos.Dispose();
+            mMoneda.Dispose();
+            mPelota.Dispose();
         }
     }
 }
