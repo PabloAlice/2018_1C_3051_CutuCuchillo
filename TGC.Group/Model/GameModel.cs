@@ -31,7 +31,7 @@ namespace TGC.Group.Model
         private TgcScene scene;
         private TgcText2D textoVelocidadVehiculo, textoAlturaVehiculo;
         private TgcMesh jabon;
-
+        private RigidBody ballBody;
         public override void Init()
         {
             this.SetPhysicWorld();
@@ -51,7 +51,7 @@ namespace TGC.Group.Model
             // VehiculoPesado camion = new VehiculoPesado(rutaAMesh);
             // se hace esta distinción de vehiculo liviano y pesado por que cada uno tiene diferentes velocidades,
             // peso, salto, etc.
-            this.auto = new Camioneta(MediaDir, new TGCVector3(0f, 0f, 0f), this.dynamicsWorld, 800, 1f, new VehicleTuning());
+            this.auto = new Camioneta(MediaDir, new TGCVector3 (0f, 100f, 0f), this.dynamicsWorld, 800, 1f, new VehicleTuning());
 
             //creo un cubo para tomarlo de referencia (para ver como se mueve el auto)
             this.cubo = TGCBox.fromSize(new TGCVector3(-50, 10, -20), new TGCVector3(15, 15, 15), Color.Black);
@@ -60,7 +60,7 @@ namespace TGC.Group.Model
             //que te permite configurar la posicion, el lookat, etc. Lo que hacemos al heredar, es reescribir algunos
             //metodos y setear valores default para que la camara quede mirando al auto en 3era persona
 
-            this.camaraInterna = new CamaraEnTerceraPersona(auto.mesh.Position + camaraDesplazamiento, 7.5f, -55);
+            this.camaraInterna = new CamaraEnTerceraPersona(new TGCVector3(auto.vehicle.RigidBody.CenterOfMassPosition) + camaraDesplazamiento, 7.5f, -55);
             this.Camara = camaraInterna;
 
             var floorShape = new StaticPlaneShape(TGCVector3.Up.ToBsVector, 0);
@@ -73,10 +73,27 @@ namespace TGC.Group.Model
             floorBody.Restitution = 1f;
             floorBody.UserObject = "floorBody";
             dynamicsWorld.AddRigidBody(floorBody);
-
         }
 
-        private void SetPhysicWorld()
+        public RigidBody CreateBox(float size, float mass, float x, float y, float z, float yaw, float pitch, float roll)
+        {
+            //Se crea una caja de tamaño 20 con rotaciones y origien en 10,100,10 y 1kg de masa.
+            var boxShape = new BoxShape(size, size, size);
+            var boxTransform = TGCMatrix.RotationYawPitchRoll(yaw, pitch, roll).ToBsMatrix;
+            boxTransform.Origin = new TGCVector3(x, y, z).ToBsVector;
+            DefaultMotionState boxMotionState = new DefaultMotionState(boxTransform);
+            //Es importante calcular la inercia caso contrario el objeto no rotara.
+            var boxLocalInertia = boxShape.CalculateLocalInertia(mass);
+            var boxInfo = new RigidBodyConstructionInfo(1f, boxMotionState, boxShape, boxLocalInertia);
+            var boxBody = new RigidBody(boxInfo);
+            boxBody.LinearFactor = TGCVector3.One.ToBsVector;
+            //boxBody.SetDamping(0.7f, 0.9f);
+            //boxBody.Restitution = 1f;
+            return boxBody;
+        }
+ 
+
+         private void SetPhysicWorld()
         {
             //Creamos el mundo fisico por defecto.
             collisionConfiguration = new DefaultCollisionConfiguration();
@@ -92,8 +109,57 @@ namespace TGC.Group.Model
         {
             this.PreUpdate();
             dynamicsWorld.StepSimulation(1 / 60f, 10);
-            this.auto.VehicleOnUpdate();
+            this.auto.setElapsedTime(ElapsedTime);
 
+            this.textoVelocidadVehiculo = new TgcText2D();
+            string dialogo = "Velocidad = {0}km";
+            this.textoVelocidadVehiculo.Text = string.Format(dialogo, this.auto.gEngineForce);
+            //text3.Align = TgcText2D.TextAlign.RIGHT;
+            this.textoVelocidadVehiculo.Position = new Point(55, 15);
+            this.textoVelocidadVehiculo.Size = new Size(0, 0);
+            this.textoVelocidadVehiculo.Color = Color.Gold;
+
+            this.textoAlturaVehiculo = new TgcText2D();
+            string dialogo2 = "Velocidad salto = {0}";
+            this.textoAlturaVehiculo.Text = string.Format(dialogo2, 0);
+            //text3.Align = TgcText2D.TextAlign.RIGHT;
+            this.textoAlturaVehiculo.Position = new Point(55, 25);
+            this.textoAlturaVehiculo.Size = new Size(0, 0);
+            this.textoAlturaVehiculo.Color = Color.Gold;
+
+            //si el usuario teclea la W y ademas no tecla la D o la A
+            if (Input.keyDown(Key.W))
+            {
+               // this.ballBody = this.CreateBox(10f, 0.1f, 0, 110, 0, 0, 0, 0);
+                //ballBody.SetDamping(0.1f, 0.1f);
+                //ballBody.Restitution = 0.9f;
+                //dynamicsWorld.AddRigidBody(ballBody);
+                //hago avanzar al auto hacia adelante. Le paso el Elapsed Time que se utiliza para
+                //multiplicarlo a la velocidad del auto y no depender del hardware del computador
+                this.auto.onForward();
+            }
+
+            //lo mismo que para avanzar pero para retroceder
+            if (Input.keyDown(Key.S))
+            {
+                this.auto.onBack();
+            }
+
+            //si el usuario teclea D
+            if (Input.keyDown(Key.D))
+            {
+                this.auto.onRight();
+                
+            }else if (Input.keyDown(Key.A))
+            {
+                this.auto.onLeft();
+            }
+
+            //Si apreta espacio, salta
+            if (Input.keyDown(Key.Space))
+            {
+                this.auto.onBreak();
+            }
             if (Input.keyDown(Key.NumPad4))
             {
                 this.camaraInterna.rotateY(-0.05f);
@@ -119,60 +185,9 @@ namespace TGC.Group.Model
             {
                 this.camaraInterna.OffsetForward -= 0.3f;
             }
-
-            this.textoVelocidadVehiculo = new TgcText2D();
-            string dialogo = "Velocidad = {0}km";
-            this.textoVelocidadVehiculo.Text = string.Format(dialogo, 0);
-            //text3.Align = TgcText2D.TextAlign.RIGHT;
-            this.textoVelocidadVehiculo.Position = new Point(55, 15);
-            this.textoVelocidadVehiculo.Size = new Size(0, 0);
-            this.textoVelocidadVehiculo.Color = Color.Gold;
-
-            this.textoAlturaVehiculo = new TgcText2D();
-            string dialogo2 = "Velocidad salto = {0}";
-            this.textoAlturaVehiculo.Text = string.Format(dialogo2, 0);
-            //text3.Align = TgcText2D.TextAlign.RIGHT;
-            this.textoAlturaVehiculo.Position = new Point(55, 25);
-            this.textoAlturaVehiculo.Size = new Size(0, 0);
-            this.textoAlturaVehiculo.Color = Color.Gold;
-
-
-            this.auto.setElapsedTime(ElapsedTime);
-
-            //si el usuario teclea la W y ademas no tecla la D o la A
-            if (Input.keyDown(Key.W))
-            {
-                //hago avanzar al auto hacia adelante. Le paso el Elapsed Time que se utiliza para
-                //multiplicarlo a la velocidad del auto y no depender del hardware del computador
-                this.auto.onForward();
-
-            }
-
-            //lo mismo que para avanzar pero para retroceder
-            if (Input.keyDown(Key.S))
-            {
-                this.auto.onBack();
-            }
-
-            //si el usuario teclea D
-            if (Input.keyDown(Key.D))
-            {
-                this.auto.onRight();
-                
-            }else if (Input.keyDown(Key.A))
-            {
-                this.auto.onLeft();
-            }
-
-            //Si apreta espacio, salta
-            if (Input.keyDown(Key.Space))
-            {
-                this.auto.onBreak();
-            }
-
             //Hacer que la camara siga al personaje en su nueva posicion
-            this.camaraInterna.Target = auto.mesh.Position + auto.vectorAdelante * 30 ;
-
+            this.camaraInterna.Target = new TGCVector3(auto.vehicle.RigidBody.CenterOfMassPosition) + auto.vectorAdelante * 30 ;
+            this.auto.VehicleOnUpdate();
             this.PostUpdate();
         }
 
@@ -188,11 +203,10 @@ namespace TGC.Group.Model
 
             this.auto.Render();
 
-            this.cubo.Transform =
-                TGCMatrix.Scaling(cubo.Scale)
-                            * TGCMatrix.RotationYawPitchRoll(cubo.Rotation.Y, cubo.Rotation.X, cubo.Rotation.Z)
-                            * TGCMatrix.Translation(cubo.Position);
+           
+            this.cubo.Transform = new TGCMatrix(this.auto.vehicle.RigidBody.InterpolationWorldTransform);
             this.cubo.Render();
+           
             //this.jabon.Render();
             this.PostRender();
         }

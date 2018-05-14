@@ -1,4 +1,5 @@
 ﻿using BulletSharp;
+using BulletSharp.Math;
 using TGC.Core.Mathematica;
 using TGC.Core.SceneLoader;
 using TGC.Group.Model.Vehiculos;
@@ -19,7 +20,7 @@ namespace TGC.Group.Model
         // btRaycastVehicle is the interface for the constraint that implements the raycast vehicle
         // notice that for higher-quality slow-moving vehicles, another approach might be better
         // implementing explicit hinged-wheel constraints with cylinder collision, rather then raycasts
-        float gEngineForce = 0.0f;
+        public float gEngineForce = 0.0f;
         float gBreakingForce = 0.0f;
 
         const float maxEngineForce = 1500.0f;//this should be engine/velocity dependent
@@ -47,33 +48,23 @@ namespace TGC.Group.Model
         
         private float elapsedTime;
         protected VehicleTuning vehicleTuning;
-        protected RaycastVehicle vehicle;
-        protected RigidBody chassis;
+        public RaycastVehicle vehicle;
 
-        public Vehiculo(string mediaDir, TGCVector3 posicionInicial)
-        {
-            this.vectorAdelante = new TGCVector3(0, 0, 1);
-            this.crearMesh(mediaDir + "meshCreator\\meshes\\Vehiculos\\Camioneta\\Camioneta-TgcScene.xml", posicionInicial);
-            this.elapsedTime = 0f;
-            this.deltaTiempoAvance = new Timer();
-            this.deltaTiempoSalto = new Timer();
-        }
         public Vehiculo(string mediaDir, TGCVector3 posicionInicial, DynamicsWorld world, float mass, float size, VehicleTuning vehicleTuning)
         {
             this.elapsedTime = 0f;
             this.deltaTiempoAvance = new Timer();
             this.deltaTiempoSalto = new Timer();
             this.crearMesh(mediaDir + "meshCreator\\meshes\\Vehiculos\\Camioneta\\Camioneta-TgcScene.xml", posicionInicial);
-
-            this.chassis = RigidBodies.CreateVehicleRigidBody(mass, size, posicionInicial);
-            world.AddRigidBody(this.chassis);
-            this.chassis.ActivationState = ActivationState.DisableDeactivation;
-            this.mesh.Transform = new TGCMatrix(this.chassis.InterpolationWorldTransform);
+            TGCMatrix vehicleTr = new TGCMatrix(Matrix.Translation(0, 100, 0));
+            var chassis = RigidBodies.CreateVehicleRigidBody(mass, size, posicionInicial);
             this.vehicleTuning = vehicleTuning;
             this.vehicle = new RaycastVehicle(vehicleTuning, chassis, new DefaultVehicleRaycaster(world));
             world.AddAction(this.vehicle);
-            world.AddRigidBody(this.chassis);
+            chassis.ActivationState = ActivationState.DisableDeactivation;
+            // world.AddRigidBody(this.vehicle.RigidBody);
             this.SetWheels();
+            this.vehicle.RigidBody.WorldTransform = vehicleTr.ToBsMatrix;
         }
 
         public void VehicleOnUpdate()
@@ -180,8 +171,8 @@ namespace TGC.Group.Model
 
         public void Render()
         {
+            this.mesh.Transform = new TGCMatrix(this.vehicle.RigidBody.InterpolationWorldTransform);
             this.mesh.Render();
-            this.ruedas.Render();
         }
 
         public void dispose()
