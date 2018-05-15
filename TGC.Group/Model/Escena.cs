@@ -24,6 +24,8 @@ namespace TGC.Group.Model
         //banio
         private Objeto bathtub, inodoro, cepillo, esponja, jabon, banqueta, espejo;
 
+        private Seccion cocina, banio, habitacion;
+
         private List<Objeto> objetosEscenario = new List<Objeto>();
 
         private Escena()
