@@ -61,28 +61,18 @@ namespace TGC.Group.Model.Vehiculos.Estados
 
         virtual public void Right(CamaraEnTerceraPersona camara)
         {
-            if (auto.GetVelocidadActual() == 0) return;
             float rotacionReal = auto.GetVelocidadDeRotacion() * auto.GetElapsedTime();
             rotacionReal = (auto.GetVelocidadActual() > 0) ? rotacionReal : -rotacionReal;
-            TGCMatrix matrizDeRotacion = TGCMatrix.RotationY(rotacionReal);
-            auto.Rotate(rotacionReal);
-            auto.vectorAdelante.TransformCoordinate(matrizDeRotacion);
-            camara.rotateY(rotacionReal);
-            auto.RotateOBB(rotacionReal);
+            this.auto.Girar(rotacionReal, camara);
 
         }
 
         //lo mismo que arriba
         virtual public void Left(CamaraEnTerceraPersona camara)
         {
-            if (auto.GetVelocidadActual() == 0) return;
             float rotacionReal = auto.GetVelocidadDeRotacion() * auto.GetElapsedTime();
             rotacionReal = (auto.GetVelocidadActual() < 0) ? rotacionReal : -rotacionReal;
-            TGCMatrix matrizDeRotacion = TGCMatrix.RotationY(rotacionReal);
-            auto.Rotate(rotacionReal);
-            auto.vectorAdelante.TransformCoordinate(matrizDeRotacion);
-            camara.rotateY(rotacionReal);
-            auto.RotateOBB(rotacionReal);
+            this.auto.Girar(rotacionReal, camara);
         }
 
         protected void liberarRecursos()

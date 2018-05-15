@@ -110,6 +110,15 @@ namespace TGC.Group.Model
             return this.mesh.Position;
         }
 
+        public void Girar(float rotacionReal, CamaraEnTerceraPersona camara)
+        {
+            TGCMatrix matrizDeRotacion = TGCMatrix.RotationY(rotacionReal);
+            this.Rotate(rotacionReal);
+            this.vectorAdelante.TransformCoordinate(matrizDeRotacion);
+            camara.rotateY(rotacionReal);
+            this.RotateOBB(rotacionReal);
+        }
+
         public void SetElapsedTime(float time)
         {
             this.elapsedTime = time;
