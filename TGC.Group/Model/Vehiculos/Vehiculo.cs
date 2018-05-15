@@ -12,7 +12,7 @@ namespace TGC.Group.Model
     {
 
         public TgcMesh mesh;
-        private TgcBoundingOrientedBox obb;
+        private BoundingOrientedBox obb;
         private Timer deltaTiempoAvance;
         private Timer deltaTiempoSalto;
         public TGCVector3 vectorAdelante;
@@ -47,13 +47,18 @@ namespace TGC.Group.Model
             this.aceleracionRetroceso = this.aceleracionAvance * 0.8f;
             this.vectorDireccion = this.vectorAdelante;
             this.estado = new Stopped(this);
-
+            this.obb = new BoundingOrientedBox(this.mesh.BoundingBox);
 
         }
 
         public EstadoVehiculo GetEstado()
         {
             return estado;
+        }
+
+        public void RotateOBB(float rotacion)
+        {
+            this.obb.Rotate(rotacion);
         }
 
         private void CrearMesh(string rutaAMesh, TGCVector3 posicionInicial)
@@ -124,12 +129,6 @@ namespace TGC.Group.Model
             return this.velocidadActual;
         }
 
-        private void ActualizarBoundingOrientedBox()
-        {
-            this.obb = TgcBoundingOrientedBox.computeFromAABB(this.mesh.BoundingBox);
-            this.obb.setRotation(TGCVector3.transform(new TGCVector3(1, 1, 1), this.rotado));
-        }
-
         private void RenderBoundingOrientedBox()
         {
             this.obb.Render();
@@ -138,7 +137,7 @@ namespace TGC.Group.Model
         public void Render()
         {
             this.mesh.Render();
-            this.ActualizarBoundingOrientedBox();
+            this.obb.ActualizarBoundingOrientedBox(this.mesh.BoundingBox);
             this.RenderBoundingOrientedBox();
             delanteraIzquierda.Render();
             delanteraDerecha.Render();
@@ -146,6 +145,11 @@ namespace TGC.Group.Model
             {
                 rueda.Render();
             }
+        }
+
+        public BoundingOrientedBox GetBoundingOrientedBox()
+        {
+            return this.obb;
         }
 
         public void Dispose()
@@ -236,7 +240,7 @@ namespace TGC.Group.Model
         {
             var transformacion = GetTransformacion();
             this.mesh.Transform = transformacion;
-            this.mesh.BoundingBox.transform(transformacion);
+            this.mesh.BoundingBox.transform(this.escalado * this.traslado);
             this.delanteraIzquierda.Transform(this.GetTransformacion());
             this.delanteraDerecha.Transform(this.GetTransformacion());
 

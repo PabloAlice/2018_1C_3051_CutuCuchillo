@@ -68,6 +68,7 @@ namespace TGC.Group.Model.Vehiculos.Estados
             auto.Rotate(rotacionReal);
             auto.vectorAdelante.TransformCoordinate(matrizDeRotacion);
             camara.rotateY(rotacionReal);
+            auto.RotateOBB(rotacionReal);
 
         }
 
@@ -81,6 +82,7 @@ namespace TGC.Group.Model.Vehiculos.Estados
             auto.Rotate(rotacionReal);
             auto.vectorAdelante.TransformCoordinate(matrizDeRotacion);
             camara.rotateY(rotacionReal);
+            auto.RotateOBB(rotacionReal);
         }
 
         protected void liberarRecursos()
