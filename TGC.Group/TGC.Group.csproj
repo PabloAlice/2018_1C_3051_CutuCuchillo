@@ -93,6 +93,7 @@
     <Compile Include="Model\ConceptosGlobales.cs" />
     <Compile Include="Model\Escena.cs" />
     <Compile Include="Model\Objeto.cs" />
+    <Compile Include="Model\Seccion.cs" />
     <Compile Include="Model\Textos.cs" />
     <Compile Include="Model\OperacionesConVectores.cs" />
     <Compile Include="Model\GameModel.cs" />

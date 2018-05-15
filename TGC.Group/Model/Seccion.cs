@@ -9,7 +9,7 @@ namespace TGC.Group.Model
 {
     class Seccion
     {
-        private List<Objeto> objetos;
+        private List<Objeto> objetos = new List<Objeto>();
         private TGCVector3 limite1, limite2, limite3, limite4;
 
         public void Add(Objeto objeto)
@@ -22,6 +22,14 @@ namespace TGC.Group.Model
             foreach (Objeto objeto in this.objetos)
             {
                 objeto.Render();
+            }
+        }
+
+        public void Dispose()
+        {
+            foreach (Objeto objeto in this.objetos)
+            {
+                objeto.Dispose();
             }
         }
     }

@@ -30,6 +30,8 @@ namespace TGC.Group.Model
             foreach (TgcMesh elemento in this.elementos)
             {
                 elemento.Render();
+                //por ahora, para ver los boundings
+                elemento.BoundingBox.Render();
             }
         }
 
