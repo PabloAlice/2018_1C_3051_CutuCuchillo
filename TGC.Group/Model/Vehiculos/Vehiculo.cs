@@ -105,12 +105,6 @@ namespace TGC.Group.Model
             return this.vectorAdelante;
         }
 
-        //devuelve la posicion del auto en el mapa, sirve para la camara
-        public TGCVector3 GetPosicionCero()
-        {
-            return this.mesh.Position;
-        }
-
         public void Girar(float rotacionReal, CamaraEnTerceraPersona camara)
         {
             TGCMatrix matrizDeRotacion = TGCMatrix.RotationY(rotacionReal);

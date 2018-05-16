@@ -59,12 +59,10 @@ namespace TGC.Group.Model.Vehiculos.Estados
         {
             auto.SetVelocidadActualDeSalto(this.VelocidadFisicaDeSalto());
             float desplazamientoEnY = auto.GetVelocidadActualDeSalto() * auto.GetElapsedTime();
-            desplazamientoEnY = (TGCVector3.transform(auto.GetPosicionCero(), auto.GetTransformacion()).Y + desplazamientoEnY < 0) ? -TGCVector3.transform(auto.GetPosicionCero(), auto.GetTransformacion()).Y : desplazamientoEnY;
+            desplazamientoEnY = (this.auto.GetPosicion().Y + desplazamientoEnY < 0) ? -this.auto.GetPosicion().Y : desplazamientoEnY;
             TGCVector3 nuevoDesplazamiento = new TGCVector3(0, desplazamientoEnY, 0);
-            //this.move(nuevoDesplazamiento);
-            //this.move(auto.getVectorAdelante() * this.initialSpeed * auto.getElapsedTime());
             this.Move(nuevoDesplazamiento + auto.GetVectorAdelante() * this.initialSpeed * auto.GetElapsedTime());
-            if(TGCVector3.transform(auto.GetPosicionCero(), auto.GetTransformacion()).Y == 0)
+            if(this.auto.GetPosicion().Y == 0)
             {
                 auto.GetDeltaTiempoSalto().resetear();
                 auto.SetVelocidadActualDeSalto(auto.GetVelocidadMaximaDeSalto());

@@ -41,7 +41,7 @@ namespace TGC.Group.Model
             this.auto = new Camioneta(MediaDir, new TGCVector3(-0f, 0f, 0f));
             Escena.getInstance().SetVehiculo(this.auto);
 
-            this.camaraInterna = new CamaraEnTerceraPersona(auto.GetPosicionCero() + camaraDesplazamiento, 0.8f, -33);
+            this.camaraInterna = new CamaraEnTerceraPersona(camaraDesplazamiento, 0.8f, -33);
             this.Camara = camaraInterna;
         }
 
@@ -133,7 +133,7 @@ namespace TGC.Group.Model
 
             this.auto.GetEstado().JumpUpdate();
 
-            this.camaraInterna.Target = (TGCVector3.transform(auto.GetPosicionCero(), auto.GetTransformacion())) + auto.GetVectorAdelante() * 30 ;
+            this.camaraInterna.Target = (this.auto.GetPosicion()) + auto.GetVectorAdelante() * 30 ;
 
             //Comentado para que los sonidos funcionen correctamente
             //this.auto = Escena.getInstance().calculateCollisions(this.auto);
