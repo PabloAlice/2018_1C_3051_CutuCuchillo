@@ -116,7 +116,7 @@ namespace TGC.Group.Model
             TGCMatrix matrizDeRotacion = TGCMatrix.RotationY(rotacionReal);
             this.Rotate(rotacionReal);
             this.vectorAdelante.TransformCoordinate(matrizDeRotacion);
-            this.RotarDelanteras(rotacionReal);
+            this.RotarDelanteras((this.GetVelocidadActual() > 0) ? rotacionReal : -rotacionReal);
             camara.rotateY(rotacionReal);
             this.RotateOBB(rotacionReal);
         }
