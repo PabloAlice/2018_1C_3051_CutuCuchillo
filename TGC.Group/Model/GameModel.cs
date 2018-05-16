@@ -37,9 +37,9 @@ namespace TGC.Group.Model
         {
             ConceptosGlobales.getInstance().SetMediaDir(this.MediaDir);
             ConceptosGlobales.getInstance().SetDispositivoDeAudio(this.DirectSound.DsDevice);
-            Escena.getInstance().init(this.MediaDir);
+            Escena.getInstance().Init(this.MediaDir);
             this.auto = new Camioneta(MediaDir, new TGCVector3(-0f, 0f, 0f));
-            this.auto.mesh.AutoTransform = false;
+            Escena.getInstance().SetVehiculo(this.auto);
 
             this.camaraInterna = new CamaraEnTerceraPersona(auto.GetPosicionCero() + camaraDesplazamiento, 0.8f, -33);
             this.Camara = camaraInterna;
@@ -185,7 +185,7 @@ namespace TGC.Group.Model
 
             this.PreRender();
 
-            Escena.getInstance().render();
+            Escena.getInstance().Render();
 
             this.textoVelocidadVehiculo.render();
 
@@ -202,7 +202,7 @@ namespace TGC.Group.Model
 
         public override void Dispose()
         {
-            Escena.getInstance().dispose();
+            Escena.getInstance().Dispose();
             this.auto.Dispose();
            
         }

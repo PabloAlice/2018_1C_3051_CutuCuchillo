@@ -66,6 +66,7 @@ namespace TGC.Group.Model
             TgcSceneLoader loader = new TgcSceneLoader();
             TgcScene scene = loader.loadSceneFromFile(rutaAMesh);
             this.mesh = scene.Meshes[0];
+            this.mesh.AutoTransform = false;
             this.rotado = TGCMatrix.RotationY(FastMath.PI);
             this.escalado = TGCMatrix.Scaling(this.escaladoInicial);
             this.traslado = TGCMatrix.Translation(posicionInicial.X, posicionInicial.Y, posicionInicial.Z);
