@@ -10,11 +10,11 @@ using System.Drawing;
 
 namespace TGC.Group.Model
 {
-    class Objeto
+    class SceneElement
     {
         private List<TgcMesh> elementos;
 
-        public Objeto(List<TgcMesh> elementos, TGCMatrix transformacion)
+        public SceneElement(List<TgcMesh> elementos, TGCMatrix transformacion)
         {
             this.elementos = elementos;
             foreach (TgcMesh elemento in this.elementos)
