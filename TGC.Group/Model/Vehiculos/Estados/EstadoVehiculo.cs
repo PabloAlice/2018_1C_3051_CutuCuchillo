@@ -91,5 +91,10 @@ namespace TGC.Group.Model.Vehiculos.Estados
             this.auto.SetEstado(nuevoEstado);
         }
 
+        public void UpdateWheels()
+        {
+            var rotacionReal = this.auto.GetVelocidadActual() * this.auto.GetElapsedTime();
+            this.auto.ActualizarDelanteras(Math.Abs(rotacionReal));
+        }
     }
 }
