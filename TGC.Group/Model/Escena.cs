@@ -17,7 +17,7 @@ namespace TGC.Group.Model
         private Vehiculo auto;
         private String mediaDir = "";
 
-        private Objeto scene;
+        private SceneElement scene;
         private Seccion cocina, banio, habitacion;
 
         private Escena()
@@ -139,7 +139,7 @@ namespace TGC.Group.Model
 
         }
 
-        private Objeto GiveMeAnObject(string ruta, TGCVector3 escala, TGCVector3 rotacion, TGCVector3 traslado)
+        private SceneElement GiveMeAnObject(string ruta, TGCVector3 escala, TGCVector3 rotacion, TGCVector3 traslado)
         {
             TgcScene tgcScene = new TgcSceneLoader().loadSceneFromFile(mediaDir + ruta);
 
@@ -151,7 +151,7 @@ namespace TGC.Group.Model
             TGCMatrix matrixTraslacion = TGCMatrix.Translation(traslado);
             TGCMatrix transformacion = matrixEscalado * matrixRotacion * matrixTraslacion;
 
-            Objeto nuevoObjeto = new Objeto(tgcScene.Meshes, transformacion);
+            SceneElement nuevoObjeto = new SceneElement(tgcScene.Meshes, transformacion);
 
             return nuevoObjeto;
 

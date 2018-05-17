@@ -12,6 +12,7 @@ namespace TGC.Group.Model
     {
         public SceneRepeatedElement(List<TgcMesh> elementos, TGCMatrix transformacion) : base(elementos, transformacion)
         {
+
         }
     }
 }
