@@ -9,7 +9,7 @@ namespace TGC.Group.Model
 {
     class Seccion
     {
-        private List<Objeto> objetos = new List<Objeto>();
+        private List<SceneElement> objetos = new List<SceneElement>();
         private TGCVector3 puntoMinimo, puntoMaximo;
 
         public Seccion(TGCVector3 puntoMinimo, TGCVector3 puntoMaximo)
@@ -28,14 +28,14 @@ namespace TGC.Group.Model
             return this.puntoMaximo;
         }
 
-        public void Add(Objeto objeto)
+        public void Add(SceneElement objeto)
         {
             this.objetos.Add(objeto);
         }
 
         public void Render()
         {
-            foreach (Objeto objeto in this.objetos)
+            foreach (SceneElement objeto in this.objetos)
             {
                 objeto.Render();
             }
@@ -43,7 +43,7 @@ namespace TGC.Group.Model
 
         public void Dispose()
         {
-            foreach (Objeto objeto in this.objetos)
+            foreach (SceneElement objeto in this.objetos)
             {
                 objeto.Dispose();
             }
