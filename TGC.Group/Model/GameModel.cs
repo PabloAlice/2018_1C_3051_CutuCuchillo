@@ -121,6 +121,11 @@ namespace TGC.Group.Model
                 this.auto.GetEstado().Left(camaraInterna);
             }
 
+            if(!Input.keyDown(Key.A) && !Input.keyDown(Key.D))
+            {
+                this.auto.GetEstado().UpdateWheels();
+            }
+
             if (Input.keyDown(Key.Space))
             {
                 this.auto.GetEstado().Jump();

@@ -45,5 +45,9 @@ namespace TGC.Group.Model.Vehiculos.Estados
             auto.RotarDelanteras(rotacionReal);
         }
 
+        public override void UpdateWheels()
+        {
+            return;
+        }
     }
 }
