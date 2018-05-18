@@ -273,5 +273,10 @@ namespace TGC.Group.Model
             delanteraDerecha.RotateY(rotacion);
         }
 
+        public void UpdateFrontWheels(float rotacion)
+        {
+            delanteraIzquierda.UpdateRotationY(rotacion);
+            delanteraDerecha.UpdateRotationY(rotacion);
+        }
     }
 }

@@ -82,14 +82,19 @@ namespace TGC.Group.Model.Vehiculos.Estados
             }
         }
 
-        public override void Right(CamaraEnTerceraPersona camara)
-        {
-            //TODO mover ruedas;
-        }
-
         public override void Left(CamaraEnTerceraPersona camara)
         {
-            //TODO mover ruedas;
+            this.auto.RotarDelanteras(-this.auto.GetVelocidadDeRotacion() * this.auto.GetElapsedTime());
+        }
+
+        public override void Right(CamaraEnTerceraPersona camara)
+        {
+            this.auto.RotarDelanteras(this.auto.GetVelocidadDeRotacion() * this.auto.GetElapsedTime());
+        }
+
+        public override void UpdateWheels()
+        {
+            return;
         }
     }
 }
