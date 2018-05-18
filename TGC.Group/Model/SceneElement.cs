@@ -12,20 +12,31 @@ namespace TGC.Group.Model
 {
     class SceneElement
     {
-        private List<TgcMesh> elementos;
+        protected List<TgcMesh> elementos;
 
         public SceneElement(List<TgcMesh> elementos, TGCMatrix transformacion)
         {
             this.elementos = elementos;
-            foreach (TgcMesh elemento in this.elementos)
+            transform(transformacion);
+        }
+
+        public SceneElement(List<TgcMesh> elementos)
+        {
+            this.elementos = elementos;
+        }
+
+        public void transform(TGCMatrix transformacion)
+        {
+            foreach(TgcMesh elemento in this.elementos)
             {
                 elemento.AutoTransform = false;
                 elemento.Transform = transformacion;
                 elemento.BoundingBox.transform(transformacion);
             }
         }
+       
 
-        public void Render()
+        public virtual void Render()
         {
             foreach (TgcMesh elemento in this.elementos)
             {
