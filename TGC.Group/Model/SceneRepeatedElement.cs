@@ -10,9 +10,22 @@ namespace TGC.Group.Model
 {
     class SceneRepeatedElement : SceneElement
     {
-        public SceneRepeatedElement(List<TgcMesh> elementos, TGCMatrix transformacion) : base(elementos, transformacion)
-        {
 
+        private List<TGCMatrix> transformations;
+
+        public SceneRepeatedElement(List<TgcMesh> meshList, List<TGCMatrix> transformations) : base(meshList)
+        {
+            this.transformations = transformations;
+            this.elementos = meshList;
         }
+
+        public override void Render()
+        {
+            foreach (TGCMatrix transformation in transformations)
+            {
+               transform(transformation);
+               base.Render();
+            }
+        }       
     }
 }
