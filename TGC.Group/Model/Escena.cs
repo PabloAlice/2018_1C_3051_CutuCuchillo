@@ -140,7 +140,7 @@ namespace TGC.Group.Model
             transformaciones = new List<TGCMatrix>();
             transformaciones.Add(generateTransformation(new TGCVector3(0.25f, 0.25f, 0.25f), new TGCVector3(0, 0, 0), new TGCVector3(-48f, 0f, 174f)));
             transformaciones.Add(generateTransformation(new TGCVector3(0.25f, 0.25f, 0.25f), new TGCVector3(0, 0, 0), new TGCVector3(127f, 0f, 254f)));
-            this.cocina.Add(this.GiveMeAnObject("MeshCreator\\Meshes\\Cocina\\Latas\\Frigoles\\Frigoles-TgcScene.xml", transformaciones));
+            this.cocina.Add(this.GiveMeAnObject("MeshCreator\\Meshes\\Cocina\\Latas\\Frijoles\\Frijoles-TgcScene.xml", transformaciones));
 
             this.cocina.Add(this.GiveMeAnObject("MeshCreator\\Meshes\\Cocina\\Microondas\\Microondas-TgcScene.xml", generateTransformation(new TGCVector3(0.5f, 0.5f, 0.5f), new TGCVector3(0, FastMath.PI_HALF + FastMath.PI, 0), new TGCVector3(10f, 65f, 345f))));
 
