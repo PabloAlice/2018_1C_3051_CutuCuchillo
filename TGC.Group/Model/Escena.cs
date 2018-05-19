@@ -18,6 +18,7 @@ namespace TGC.Group.Model
         private String mediaDir = "";
 
         private SceneElement scene;
+        private List<SceneElement> puertas = new List<SceneElement>();
         private Seccion cocina, banio, habitacion;
 
         private Escena()
@@ -77,137 +78,149 @@ namespace TGC.Group.Model
 
             this.mediaDir = mediaDir;
 
-            this.scene = this.GiveMeAnObject("Texturas\\Habitacion\\escenaFinal-TgcScene.xml", generateTransformation(new TGCVector3(1, 1, 1), new TGCVector3(0, 0, 0), new TGCVector3(0, 0, 0)));
+            this.scene = this.GiveMeAnObject("Texturas\\Habitacion\\escenaFinal-TgcScene.xml", GenerateTransformation(new TGCVector3(1, 1, 1), new TGCVector3(0, 0, 0), new TGCVector3(0, 0, 0)));
             //cocina
-            this.cocina.Add(this.GiveMeAnObject("MeshCreator\\Meshes\\Cocina\\DispenserAgua\\DispenserAgua-TgcScene.xml", generateTransformation(new TGCVector3(1f, 1f, 1f), new TGCVector3(0, 0, 0), new TGCVector3(-32f, -1f, 360f))));
-            this.cocina.Add(this.GiveMeAnObject("MeshCreator\\Meshes\\Cocina\\Mesa\\Mesa-TgcScene.xml", generateTransformation(new TGCVector3(1f, 1f, 1f), new TGCVector3(0, FastMath.PI_HALF, 0), new TGCVector3(94f, 0f, 335f))));
-            this.cocina.Add(this.GiveMeAnObject("MeshCreator\\Meshes\\Cocina\\Heladera\\Heladera-TgcScene.xml", generateTransformation(new TGCVector3(1f, 1f, 1f), new TGCVector3(0, 0, 0), new TGCVector3(190f, -1f, 180f))));
-            this.cocina.Add(this.GiveMeAnObject("MeshCreator\\Meshes\\Cocina\\Tacho\\Tacho-TgcScene.xml", generateTransformation(new TGCVector3(0.6f, 0.6f, 0.6f), new TGCVector3(0, 0, 0), new TGCVector3(-30f, -1f, 165f))));
+            this.cocina.Add(this.GiveMeAnObject("MeshCreator\\Meshes\\Cocina\\DispenserAgua\\DispenserAgua-TgcScene.xml", GenerateTransformation(new TGCVector3(1f, 1f, 1f), new TGCVector3(0, 0, 0), new TGCVector3(-32f, -1f, 360f))));
+            this.cocina.Add(this.GiveMeAnObject("MeshCreator\\Meshes\\Cocina\\Mesa\\Mesa-TgcScene.xml", GenerateTransformation(new TGCVector3(1f, 1f, 1f), new TGCVector3(0, FastMath.PI_HALF, 0), new TGCVector3(94f, 0f, 335f))));
+            this.cocina.Add(this.GiveMeAnObject("MeshCreator\\Meshes\\Cocina\\Heladera\\Heladera-TgcScene.xml", GenerateTransformation(new TGCVector3(1f, 1f, 1f), new TGCVector3(0, 0, 0), new TGCVector3(191f, -1f, 184f))));
+            this.cocina.Add(this.GiveMeAnObject("MeshCreator\\Meshes\\Cocina\\Tacho\\Tacho-TgcScene.xml", GenerateTransformation(new TGCVector3(0.6f, 0.6f, 0.6f), new TGCVector3(0, 0, 0), new TGCVector3(-30f, -1f, 165f))));
 
             transformaciones = new List<TGCMatrix>();
-            transformaciones.Add(generateTransformation(new TGCVector3(0.4f, 0.4f, 0.4f), new TGCVector3(0, -FastMath.QUARTER_PI, 0), new TGCVector3(116f, 0f, 295f)));
-            transformaciones.Add(generateTransformation(new TGCVector3(0.4f, 0.4f, 0.4f), new TGCVector3(0, -FastMath.QUARTER_PI, 0), new TGCVector3(90f, 0f, 265f)));
-            transformaciones.Add(generateTransformation(new TGCVector3(0.4f, 0.4f, 0.4f), new TGCVector3(0, -FastMath.PI_HALF, 0), new TGCVector3(140f, 0f, 335f)));
-            this.cocina.Add(this.GiveMeAnObject("MeshCreator\\Meshes\\Cocina\\Silla\\silla-TgcScene.xml", transformaciones));
-            this.cocina.Add(this.GiveMeAnObject("MeshCreator\\Meshes\\Cocina\\Mueble\\Mueble-TgcScene.xml", generateTransformation(new TGCVector3(1f, 1f, 0.5f), new TGCVector3(0, 0, 0), new TGCVector3(10f, -1f, 357f))));
+            transformaciones.Add(GenerateTransformation(new TGCVector3(0.4f, 0.4f, 0.4f), new TGCVector3(0, -FastMath.QUARTER_PI, 0), new TGCVector3(116f, 0f, 295f)));
+            transformaciones.Add(GenerateTransformation(new TGCVector3(0.4f, 0.4f, 0.4f), new TGCVector3(0, -FastMath.QUARTER_PI, 0), new TGCVector3(90f, 0f, 265f)));
+            transformaciones.Add(GenerateTransformation(new TGCVector3(0.4f, 0.4f, 0.4f), new TGCVector3(0, -FastMath.PI_HALF, 0), new TGCVector3(140f, 0f, 335f)));
+            this.cocina.Add(this.GiveMeAnObject("MeshCreator\\Meshes\\Cocina\\Silla\\Silla-TgcScene.xml", transformaciones));
+            this.cocina.Add(this.GiveMeAnObject("MeshCreator\\Meshes\\Cocina\\Mueble\\Mueble-TgcScene.xml", GenerateTransformation(new TGCVector3(1f, 1f, 0.5f), new TGCVector3(0, 0, 0), new TGCVector3(14f, -1f, 357f))));
 
             transformaciones = new List<TGCMatrix>();
-            transformaciones.Add(generateTransformation(new TGCVector3(0.15f, 0.15f, 0.15f), new TGCVector3(0, 0, 0), new TGCVector3(110f, 23.85f, 290f)));
-            transformaciones.Add(generateTransformation(new TGCVector3(0.15f, 0.15f, 0.15f), new TGCVector3(0, -FastMath.QUARTER_PI, 0), new TGCVector3(110f, 25.1f, 290f)));
+            transformaciones.Add(GenerateTransformation(new TGCVector3(0.15f, 0.15f, 0.15f), new TGCVector3(0, 0, 0), new TGCVector3(110f, 23.85f, 290f)));
+            transformaciones.Add(GenerateTransformation(new TGCVector3(0.15f, 0.15f, 0.15f), new TGCVector3(0, -FastMath.QUARTER_PI, 0), new TGCVector3(110f, 25.1f, 290f)));
             this.cocina.Add(this.GiveMeAnObject("MeshCreator\\Meshes\\Habitacion\\Libros\\Comun\\Comun-TgcScene.xml", transformaciones));
-            this.cocina.Add(this.GiveMeAnObject("MeshCreator\\Meshes\\Habitacion\\Libros\\Arquitectura\\Arquitectura-TgcScene.xml", generateTransformation(new TGCVector3(0.15f, 0.15f, 0.15f), new TGCVector3(0, -FastMath.PI_HALF, 0), new TGCVector3(110f, 26.35f, 290f))));
-            this.cocina.Add(this.GiveMeAnObject("MeshCreator\\Meshes\\Habitacion\\Caja\\Caja-TgcScene.xml", generateTransformation(new TGCVector3(0.25f, 0.26f, 0.25f), new TGCVector3(0, -FastMath.QUARTER_PI, 0), new TGCVector3(65f, 0f, 235f))));
-            this.cocina.Add(this.GiveMeAnObject("MeshCreator\\Meshes\\Cocina\\Mueble\\Mueble-TgcScene.xml", generateTransformation(new TGCVector3(1f, 1f, 0.5f), new TGCVector3(0, FastMath.PI_HALF, 0), new TGCVector3(202f, 0f, 342f))));
-            this.cocina.Add(this.GiveMeAnObject("MeshCreator\\Meshes\\Habitacion\\Toma\\Toma-TgcScene.xml", generateTransformation(new TGCVector3(0.5f, 0.5f, 0.5f), new TGCVector3(0, 0f, FastMath.PI_HALF), new TGCVector3(60f, 15f, 378f))));
+            this.cocina.Add(this.GiveMeAnObject("MeshCreator\\Meshes\\Habitacion\\Libros\\Arquitectura\\Arquitectura-TgcScene.xml", GenerateTransformation(new TGCVector3(0.15f, 0.15f, 0.15f), new TGCVector3(0, -FastMath.PI_HALF, 0), new TGCVector3(110f, 26.35f, 290f))));
+            this.cocina.Add(this.GiveMeAnObject("MeshCreator\\Meshes\\Habitacion\\Caja\\Caja-TgcScene.xml", GenerateTransformation(new TGCVector3(0.25f, 0.26f, 0.25f), new TGCVector3(0, -FastMath.QUARTER_PI, 0), new TGCVector3(65f, 0f, 235f))));
+            this.cocina.Add(this.GiveMeAnObject("MeshCreator\\Meshes\\Cocina\\Mueble\\Mueble-TgcScene.xml", GenerateTransformation(new TGCVector3(1f, 1f, 0.5f), new TGCVector3(0, FastMath.PI_HALF, 0), new TGCVector3(202f, 0f, 342f))));
+            this.cocina.Add(this.GiveMeAnObject("MeshCreator\\Meshes\\Habitacion\\Toma\\Toma-TgcScene.xml", GenerateTransformation(new TGCVector3(0.5f, 0.5f, 0.5f), new TGCVector3(0, 0f, FastMath.PI_HALF), new TGCVector3(60f, 15f, 378f))));
 
             transformaciones = new List<TGCMatrix>();
-            transformaciones.Add(generateTransformation(new TGCVector3(0.07f, 0.07f, 0.07f), new TGCVector3(0, 0, 0), new TGCVector3(94f, 43.5f, 340f)));
-            transformaciones.Add(generateTransformation(new TGCVector3(0.07f, 0.07f, 0.07f), new TGCVector3(0, FastMath.PI, 0), new TGCVector3(70f, 43.5f, 315f)));
-            transformaciones.Add(generateTransformation(new TGCVector3(0.07f, 0.07f, 0.07f), new TGCVector3(0, FastMath.PI_HALF, 0), new TGCVector3(125f, 43.5f, 355f)));
-            transformaciones.Add(generateTransformation(new TGCVector3(0.07f, 0.07f, 0.07f), new TGCVector3(0, -FastMath.PI_HALF, 0), new TGCVector3(130f, 43.5f, 325f)));
+            transformaciones.Add(GenerateTransformation(new TGCVector3(0.07f, 0.07f, 0.07f), new TGCVector3(0, 0, 0), new TGCVector3(94f, 43.5f, 340f)));
+            transformaciones.Add(GenerateTransformation(new TGCVector3(0.07f, 0.07f, 0.07f), new TGCVector3(0, FastMath.PI, 0), new TGCVector3(70f, 43.5f, 315f)));
+            transformaciones.Add(GenerateTransformation(new TGCVector3(0.07f, 0.07f, 0.07f), new TGCVector3(0, FastMath.PI_HALF, 0), new TGCVector3(125f, 43.5f, 355f)));
+            transformaciones.Add(GenerateTransformation(new TGCVector3(0.07f, 0.07f, 0.07f), new TGCVector3(0, -FastMath.PI_HALF, 0), new TGCVector3(130f, 43.5f, 325f)));
             this.cocina.Add(this.GiveMeAnObject("MeshCreator\\Meshes\\Cocina\\CopaMadera\\CopaMadera-TgcScene.xml", transformaciones));
 
             transformaciones = new List<TGCMatrix>();
-            transformaciones.Add(generateTransformation(new TGCVector3(0.07f, 0.07f, 0.07f), new TGCVector3(0, 0, 0), new TGCVector3(120f, 39.3f, 312f)));
-            transformaciones.Add(generateTransformation(new TGCVector3(0.07f, 0.07f, 0.07f), new TGCVector3(0, -FastMath.PI_HALF, 0), new TGCVector3(50f, 39.3f, 350f)));
-            transformaciones.Add(generateTransformation(new TGCVector3(0.07f, 0.07f, 0.07f), new TGCVector3(0, FastMath.PI, 0), new TGCVector3(80f, 39.3f, 340f)));
-            transformaciones.Add(generateTransformation(new TGCVector3(0.07f, 0.07f, 0.07f), new TGCVector3(0, -FastMath.PI, 0), new TGCVector3(130f, 39.3f, 330f)));
-            transformaciones.Add(generateTransformation(new TGCVector3(0.07f, 0.07f, 0.07f), new TGCVector3(0, 0, 0), new TGCVector3(105f, 39.3f, 327f)));
-            transformaciones.Add(generateTransformation(new TGCVector3(0.07f, 0.07f, 0.07f), new TGCVector3(0, FastMath.PI_HALF, 0), new TGCVector3(67f, 39.3f, 328f)));
+            transformaciones.Add(GenerateTransformation(new TGCVector3(0.07f, 0.07f, 0.07f), new TGCVector3(0, 0, 0), new TGCVector3(120f, 39.3f, 312f)));
+            transformaciones.Add(GenerateTransformation(new TGCVector3(0.07f, 0.07f, 0.07f), new TGCVector3(0, -FastMath.PI_HALF, 0), new TGCVector3(50f, 39.3f, 350f)));
+            transformaciones.Add(GenerateTransformation(new TGCVector3(0.07f, 0.07f, 0.07f), new TGCVector3(0, FastMath.PI, 0), new TGCVector3(80f, 39.3f, 340f)));
+            transformaciones.Add(GenerateTransformation(new TGCVector3(0.07f, 0.07f, 0.07f), new TGCVector3(0, -FastMath.PI, 0), new TGCVector3(130f, 39.3f, 330f)));
+            transformaciones.Add(GenerateTransformation(new TGCVector3(0.07f, 0.07f, 0.07f), new TGCVector3(0, 0, 0), new TGCVector3(105f, 39.3f, 327f)));
+            transformaciones.Add(GenerateTransformation(new TGCVector3(0.07f, 0.07f, 0.07f), new TGCVector3(0, FastMath.PI_HALF, 0), new TGCVector3(67f, 39.3f, 328f)));
             this.cocina.Add(this.GiveMeAnObject("MeshCreator\\Meshes\\Cocina\\Tenedor\\Tenedor-TgcScene.xml", transformaciones));
             
-            this.cocina.Add(this.GiveMeAnObject("MeshCreator\\Meshes\\Cocina\\Esponja\\Esponja-TgcScene.xml", generateTransformation(new TGCVector3(0.2f, 0.2f, 0.2f), new TGCVector3(0, 0, 0), new TGCVector3(94f, 39.3f, 325f))));
-            this.cocina.Add(this.GiveMeAnObject("MeshCreator\\Meshes\\Cocina\\Mueble2\\Mueble2-TgcScene.xml", generateTransformation(new TGCVector3(1f, 1f, 0.5f), new TGCVector3(0, FastMath.PI_HALF, 0), new TGCVector3(202f, 0f, 270f))));
+            this.cocina.Add(this.GiveMeAnObject("MeshCreator\\Meshes\\Cocina\\Esponja\\Esponja-TgcScene.xml", GenerateTransformation(new TGCVector3(0.2f, 0.2f, 0.2f), new TGCVector3(0, 0, 0), new TGCVector3(94f, 39.3f, 325f))));
+            this.cocina.Add(this.GiveMeAnObject("MeshCreator\\Meshes\\Cocina\\Mueble2\\Mueble2-TgcScene.xml", GenerateTransformation(new TGCVector3(1f, 1f, 0.5f), new TGCVector3(0, FastMath.PI_HALF, 0), new TGCVector3(202f, 0f, 270f))));
 
             transformaciones = new List<TGCMatrix>();
-            transformaciones.Add(generateTransformation(new TGCVector3(0.25f, 0.25f, 0.25f), new TGCVector3(0, 0, 0), new TGCVector3(3f, 0f, 310f)));
-            transformaciones.Add(generateTransformation(new TGCVector3(0.25f, 0.25f, 0.25f), new TGCVector3(0, 0, 0), new TGCVector3(109f, 0f, 324f)));
-            transformaciones.Add(generateTransformation(new TGCVector3(0.25f, 0.25f, 0.25f), new TGCVector3(0, 0, 0), new TGCVector3(85f, 0f, 241f)));
+            transformaciones.Add(GenerateTransformation(new TGCVector3(0.65f, 0.65f, 0.65f), new TGCVector3(0, -FastMath.PI_HALF, 0), new TGCVector3(202f, 100f, 270f)));
+            transformaciones.Add(GenerateTransformation(new TGCVector3(0.65f, 0.65f, 0.65f), new TGCVector3(0, -FastMath.PI_HALF, 0), new TGCVector3(202f, 100f, 342f)));
+            this.cocina.Add(this.GiveMeAnObject("MeshCreator\\Meshes\\Cocina\\MueblePared\\MueblePared-TgcScene.xml", transformaciones));
+
+            transformaciones = new List<TGCMatrix>();
+            transformaciones.Add(GenerateTransformation(new TGCVector3(0.25f, 0.25f, 0.25f), new TGCVector3(0, 0, 0), new TGCVector3(3f, 0f, 310f)));
+            transformaciones.Add(GenerateTransformation(new TGCVector3(0.25f, 0.25f, 0.25f), new TGCVector3(0, 0, 0), new TGCVector3(109f, 0f, 324f)));
+            transformaciones.Add(GenerateTransformation(new TGCVector3(0.25f, 0.25f, 0.25f), new TGCVector3(0, 0, 0), new TGCVector3(85f, 0f, 241f)));
             this.cocina.Add(this.GiveMeAnObject("MeshCreator\\Meshes\\Cocina\\Latas\\Pepsi\\Pepsi-TgcScene.xml", transformaciones));
 
             transformaciones = new List<TGCMatrix>();
-            transformaciones.Add(generateTransformation(new TGCVector3(0.25f, 0.25f, 0.25f), new TGCVector3(0, 0, 0), new TGCVector3(60f, 0f, 344f)));
-            transformaciones.Add(generateTransformation(new TGCVector3(0.25f, 0.25f, 0.25f), new TGCVector3(0, 0, 0), new TGCVector3(58f, 0f, 293f)));
-            transformaciones.Add(generateTransformation(new TGCVector3(0.25f, 0.25f, 0.25f), new TGCVector3(0, 0, 0), new TGCVector3(114f, 0f, 282f)));
+            transformaciones.Add(GenerateTransformation(new TGCVector3(0.25f, 0.25f, 0.25f), new TGCVector3(0, 0, 0), new TGCVector3(60f, 0f, 344f)));
+            transformaciones.Add(GenerateTransformation(new TGCVector3(0.25f, 0.25f, 0.25f), new TGCVector3(0, 0, 0), new TGCVector3(58f, 0f, 293f)));
+            transformaciones.Add(GenerateTransformation(new TGCVector3(0.25f, 0.25f, 0.25f), new TGCVector3(0, 0, 0), new TGCVector3(114f, 0f, 282f)));
             this.cocina.Add(this.GiveMeAnObject("MeshCreator\\Meshes\\Cocina\\Latas\\Fanta\\Fanta-TgcScene.xml", transformaciones));
 
             transformaciones = new List<TGCMatrix>();
-            transformaciones.Add(generateTransformation(new TGCVector3(0.25f, 0.25f, 0.25f), new TGCVector3(0, 0, 0), new TGCVector3(177f, 0f, 341f)));
-            transformaciones.Add(generateTransformation(new TGCVector3(0.25f, 0.25f, 0.25f), new TGCVector3(0, 0, 0), new TGCVector3(-43f, 0f, 315f)));
-            transformaciones.Add(generateTransformation(new TGCVector3(0.25f, 0.25f, 0.25f), new TGCVector3(0, 0, 0), new TGCVector3(77f, 0f, 154f)));
+            transformaciones.Add(GenerateTransformation(new TGCVector3(0.25f, 0.25f, 0.25f), new TGCVector3(0, 0, 0), new TGCVector3(177f, 0f, 341f)));
+            transformaciones.Add(GenerateTransformation(new TGCVector3(0.25f, 0.25f, 0.25f), new TGCVector3(0, 0, 0), new TGCVector3(-43f, 0f, 315f)));
+            transformaciones.Add(GenerateTransformation(new TGCVector3(0.25f, 0.25f, 0.25f), new TGCVector3(0, 0, 0), new TGCVector3(77f, 0f, 154f)));
             this.cocina.Add(this.GiveMeAnObject("MeshCreator\\Meshes\\Cocina\\Latas\\CocaCola\\CocaCola-TgcScene.xml", transformaciones));
 
             transformaciones = new List<TGCMatrix>();
-            transformaciones.Add(generateTransformation(new TGCVector3(0.25f, 0.25f, 0.25f), new TGCVector3(0, 0, 0), new TGCVector3(-48f, 0f, 174f)));
-            transformaciones.Add(generateTransformation(new TGCVector3(0.25f, 0.25f, 0.25f), new TGCVector3(0, 0, 0), new TGCVector3(127f, 0f, 254f)));
+            transformaciones.Add(GenerateTransformation(new TGCVector3(0.25f, 0.25f, 0.25f), new TGCVector3(0, 0, 0), new TGCVector3(-48f, 0f, 174f)));
+            transformaciones.Add(GenerateTransformation(new TGCVector3(0.25f, 0.25f, 0.25f), new TGCVector3(0, 0, 0), new TGCVector3(127f, 0f, 254f)));
             this.cocina.Add(this.GiveMeAnObject("MeshCreator\\Meshes\\Cocina\\Latas\\Frijoles\\Frijoles-TgcScene.xml", transformaciones));
 
-            this.cocina.Add(this.GiveMeAnObject("MeshCreator\\Meshes\\Cocina\\Microondas\\Microondas-TgcScene.xml", generateTransformation(new TGCVector3(0.5f, 0.5f, 0.5f), new TGCVector3(0, FastMath.PI_HALF + FastMath.PI, 0), new TGCVector3(10f, 65f, 345f))));
+            this.cocina.Add(this.GiveMeAnObject("MeshCreator\\Meshes\\Cocina\\Microondas\\Microondas-TgcScene.xml", GenerateTransformation(new TGCVector3(0.5f, 0.5f, 0.5f), new TGCVector3(0, FastMath.PI_HALF + FastMath.PI, 0), new TGCVector3(10f, 63f, 344f))));
 
             
 
             //banio
-            this.banio.Add(this.GiveMeAnObject("MeshCreator\\Meshes\\Bathroom\\Jabon\\Jabon-TgcScene.xml", generateTransformation(new TGCVector3(0.7f, 0.7f, 0.7f), new TGCVector3(0, 0, 0), new TGCVector3(-75f, 0f, 265f))));
-            this.banio.Add(this.GiveMeAnObject("MeshCreator\\Meshes\\Bathroom\\Bathtub\\Bathtub-TgcScene.xml", generateTransformation(new TGCVector3(1.5f, 1.8f, 1.5f), new TGCVector3(0, 0, 0), new TGCVector3(-164f, 0f, 270f))));
-            this.banio.Add(this.GiveMeAnObject("MeshCreator\\Meshes\\Bathroom\\InodoroCuadrado\\InodoroCuadrado-TgcScene.xml",generateTransformation(new TGCVector3(2f, 3f, 3f), new TGCVector3(0, 0, 0), new TGCVector3(-85, 0f, 175))));
-            this.banio.Add(this.GiveMeAnObject("MeshCreator\\Meshes\\Bathroom\\Cepillo\\Cepillo-TgcScene.xml", generateTransformation(new TGCVector3(1.4f, 1.4f, 1.4f), new TGCVector3(0, FastMath.QUARTER_PI, 0), new TGCVector3(-125, 0f, 170f))));
-            this.banio.Add(this.GiveMeAnObject("MeshCreator\\Meshes\\Bathroom\\Esponja\\Esponja-TgcScene.xml", generateTransformation(new TGCVector3(1f, 1f, 1f), new TGCVector3(0, FastMath.QUARTER_PI, 0), new TGCVector3(-165, 0f, 190))));
-            this.banio.Add(this.GiveMeAnObject("MeshCreator\\Meshes\\Habitacion\\Banqueta\\Banqueta-TgcScene.xml", generateTransformation(new TGCVector3(0.4f, 0.35f, 0.4f), new TGCVector3(0, 0, 0), new TGCVector3(-170, 0f, 215))));
-            this.banio.Add(this.GiveMeAnObject("MeshCreator\\Meshes\\Bathroom\\Espejo\\Espejo-TgcScene.xml", generateTransformation(new TGCVector3(1f, 1f, 1f), new TGCVector3(0, 0, 0), new TGCVector3(-90f, 0f, 298f))));
+            this.banio.Add(this.GiveMeAnObject("MeshCreator\\Meshes\\Bathroom\\Jabon\\Jabon-TgcScene.xml", GenerateTransformation(new TGCVector3(0.7f, 0.7f, 0.7f), new TGCVector3(0, 0, 0), new TGCVector3(-75f, 0f, 265f))));
+            this.banio.Add(this.GiveMeAnObject("MeshCreator\\Meshes\\Bathroom\\Bathtub\\Bathtub-TgcScene.xml", GenerateTransformation(new TGCVector3(1.5f, 1.8f, 1.5f), new TGCVector3(0, 0, 0), new TGCVector3(-164f, 0f, 270f))));
+            this.banio.Add(this.GiveMeAnObject("MeshCreator\\Meshes\\Bathroom\\InodoroCuadrado\\InodoroCuadrado-TgcScene.xml",GenerateTransformation(new TGCVector3(2f, 3f, 3f), new TGCVector3(0, 0, 0), new TGCVector3(-85, 0f, 175))));
+            this.banio.Add(this.GiveMeAnObject("MeshCreator\\Meshes\\Bathroom\\Cepillo\\Cepillo-TgcScene.xml", GenerateTransformation(new TGCVector3(1.4f, 1.4f, 1.4f), new TGCVector3(0, FastMath.QUARTER_PI, 0), new TGCVector3(-125, 0f, 170f))));
+            this.banio.Add(this.GiveMeAnObject("MeshCreator\\Meshes\\Bathroom\\Esponja\\Esponja-TgcScene.xml", GenerateTransformation(new TGCVector3(1f, 1f, 1f), new TGCVector3(0, FastMath.QUARTER_PI, 0), new TGCVector3(-165, 0f, 190))));
+            this.banio.Add(this.GiveMeAnObject("MeshCreator\\Meshes\\Habitacion\\Banqueta\\Banqueta-TgcScene.xml", GenerateTransformation(new TGCVector3(0.4f, 0.35f, 0.4f), new TGCVector3(0, 0, 0), new TGCVector3(-170, 0f, 215))));
+            this.banio.Add(this.GiveMeAnObject("MeshCreator\\Meshes\\Bathroom\\Espejo\\Espejo-TgcScene.xml", GenerateTransformation(new TGCVector3(1f, 1f, 1f), new TGCVector3(0, 0, 0), new TGCVector3(-90f, 0f, 298f))));
            
-            this.banio.Add(this.GiveMeAnObject("MeshCreator\\Meshes\\Bathroom\\TuboMetal\\TuboMetal-TgcScene.xml", generateTransformation(new TGCVector3(0.1f, 0.1f, 0.1f), new TGCVector3(0, -FastMath.PI_HALF, 0), new TGCVector3(-215f, 3.7f, 193f))));
-            this.banio.Add(this.GiveMeAnObject("MeshCreator\\Meshes\\Bathroom\\TuboMetal2\\TuboMetal2-TgcScene.xml", generateTransformation(new TGCVector3(0.1f, 0.1f, 0.1f), new TGCVector3(0, 0, 0), new TGCVector3(-89f, 3.2f, 207f))));
-            this.banio.Add(this.GiveMeAnObject("MeshCreator\\Meshes\\Bathroom\\TuboMetal3\\TuboMetal3-TgcScene.xml", generateTransformation(new TGCVector3(0.1f, 0.1f, 0.1f), new TGCVector3(0, 0, 0), new TGCVector3(-108f, 11f, 294f))));
+            this.banio.Add(this.GiveMeAnObject("MeshCreator\\Meshes\\Bathroom\\TuboMetal\\TuboMetal-TgcScene.xml", GenerateTransformation(new TGCVector3(0.1f, 0.1f, 0.1f), new TGCVector3(0, -FastMath.PI_HALF, 0), new TGCVector3(-215f, 3.7f, 193f))));
+            this.banio.Add(this.GiveMeAnObject("MeshCreator\\Meshes\\Bathroom\\TuboMetal2\\TuboMetal2-TgcScene.xml", GenerateTransformation(new TGCVector3(0.1f, 0.1f, 0.1f), new TGCVector3(0, 0, 0), new TGCVector3(-89f, 3.2f, 207f))));
+            this.banio.Add(this.GiveMeAnObject("MeshCreator\\Meshes\\Bathroom\\TuboMetal3\\TuboMetal3-TgcScene.xml", GenerateTransformation(new TGCVector3(0.1f, 0.1f, 0.1f), new TGCVector3(0, 0, 0), new TGCVector3(-108f, 11f, 294f))));
 
             //habitacion
-            this.habitacion.Add(this.GiveMeAnObject("MeshCreator\\Meshes\\Habitacion\\Cama\\Cama-TgcScene.xml", generateTransformation(new TGCVector3(1, 1, 1), new TGCVector3(0, FastMath.PI, 0), new TGCVector3(-36f, 0, -124f))));
-            this.habitacion.Add(this.GiveMeAnObject("MeshCreator\\Meshes\\Habitacion\\MesaDeLuz\\MesaDeLuz-TgcScene.xml", generateTransformation(new TGCVector3(1, 1, 1), new TGCVector3(0, FastMath.PI, 0), new TGCVector3(22f, 0, -158f))));
-            this.habitacion.Add(this.GiveMeAnObject("MeshCreator\\Meshes\\Habitacion\\Placard\\Placard-TgcScene.xml", generateTransformation(new TGCVector3(1, 1, 1), new TGCVector3(0, -FastMath.PI_HALF, 0), new TGCVector3(-205f, 0, -122f))));
-            this.habitacion.Add(this.GiveMeAnObject("MeshCreator\\Meshes\\Habitacion\\Armario\\Armario-TgcScene.xml", generateTransformation(new TGCVector3(1, 1, 1), new TGCVector3(0, -FastMath.PI_HALF, 0), new TGCVector3(-30f, 0, 110f))));
-            this.habitacion.Add(this.GiveMeAnObject("MeshCreator\\Meshes\\Habitacion\\Escritorio\\Escritorio-TgcScene.xml", generateTransformation(new TGCVector3(1, 1, 1), new TGCVector3(0, 0, 0), new TGCVector3(183f, 0f, -107f))));
-            this.habitacion.Add(this.GiveMeAnObject("MeshCreator\\Meshes\\Habitacion\\SillaEscritorio\\SillaEscritorio-TgcScene.xml", generateTransformation(new TGCVector3(0.5f, 0.3f, 0.5f), new TGCVector3(0, 0, 0), new TGCVector3(151f, -1f, -101f))));
-            this.habitacion.Add(this.GiveMeAnObject("MeshCreator\\Meshes\\Habitacion\\CajaZapatillas\\CajaZapatillas-TgcScene.xml", generateTransformation(new TGCVector3(0.5f, 0.5f, 0.5f), new TGCVector3(0, FastMath.PI_HALF, 0), new TGCVector3(100f, 0f, -147f))));
-            this.habitacion.Add(this.GiveMeAnObject("MeshCreator\\Meshes\\Habitacion\\Sillon\\Sillon-TgcScene.xml", generateTransformation(new TGCVector3(1f, 1f, 1f), new TGCVector3(0f, FastMath.PI+FastMath.PI_HALF, 0f), new TGCVector3(-180f, -0.5f, 20f))));
-            this.habitacion.Add(this.GiveMeAnObject("MeshCreator\\Meshes\\Habitacion\\Escoba\\Escoba-TgcScene.xml", generateTransformation(new TGCVector3(1.3f, 1.3f, 1.3f), new TGCVector3(FastMath.PI_HALF, 0, 0), new TGCVector3(-105f, 1f, -60f))));
-            this.habitacion.Add(this.GiveMeAnObject("MeshCreator\\Meshes\\Habitacion\\Rubik\\Rubik-TgcScene.xml", generateTransformation(new TGCVector3(0.4f, 0.4f, 0.4f), new TGCVector3(0, 0, 0), new TGCVector3(100f, 0f, -100f))));
+            this.habitacion.Add(this.GiveMeAnObject("MeshCreator\\Meshes\\Habitacion\\Cama\\Cama-TgcScene.xml", GenerateTransformation(new TGCVector3(1, 1, 1), new TGCVector3(0, FastMath.PI, 0), new TGCVector3(-36f, 0, -124f))));
+            this.habitacion.Add(this.GiveMeAnObject("MeshCreator\\Meshes\\Habitacion\\MesaDeLuz\\MesaDeLuz-TgcScene.xml", GenerateTransformation(new TGCVector3(1, 1, 1), new TGCVector3(0, FastMath.PI, 0), new TGCVector3(22f, 0, -158f))));
+            this.habitacion.Add(this.GiveMeAnObject("MeshCreator\\Meshes\\Habitacion\\Placard\\Placard-TgcScene.xml", GenerateTransformation(new TGCVector3(1.2f, 1.5f, 1), new TGCVector3(0, -FastMath.PI_HALF, 0), new TGCVector3(-200f, 0, -105f))));
+            this.habitacion.Add(this.GiveMeAnObject("MeshCreator\\Meshes\\Habitacion\\Armario\\Armario-TgcScene.xml", GenerateTransformation(new TGCVector3(1, 1, 1), new TGCVector3(0, -FastMath.PI_HALF, 0), new TGCVector3(-30f, 0, 110f))));
+            this.habitacion.Add(this.GiveMeAnObject("MeshCreator\\Meshes\\Habitacion\\Escritorio\\Escritorio-TgcScene.xml", GenerateTransformation(new TGCVector3(1, 1, 1), new TGCVector3(0, 0, 0), new TGCVector3(183f, 0f, -107f))));
+            this.habitacion.Add(this.GiveMeAnObject("MeshCreator\\Meshes\\Cocina\\Silla\\Silla-TgcScene.xml", GenerateTransformation(new TGCVector3(0.6f, 0.6f, 0.6f), new TGCVector3(0, FastMath.PI_HALF, 0), new TGCVector3(151f, -1f, -101f))));
+            this.habitacion.Add(this.GiveMeAnObject("MeshCreator\\Meshes\\Habitacion\\CajaZapatillas\\CajaZapatillas-TgcScene.xml", GenerateTransformation(new TGCVector3(0.5f, 0.5f, 0.5f), new TGCVector3(0, FastMath.PI_HALF, 0), new TGCVector3(100f, 0f, -147f))));
+            this.habitacion.Add(this.GiveMeAnObject("MeshCreator\\Meshes\\Habitacion\\Sillon\\Sillon-TgcScene.xml", GenerateTransformation(new TGCVector3(1f, 1f, 1f), new TGCVector3(0f, FastMath.PI+FastMath.PI_HALF, 0f), new TGCVector3(-180f, -0.5f, 20f))));
+            this.habitacion.Add(this.GiveMeAnObject("MeshCreator\\Meshes\\Habitacion\\Escoba\\Escoba-TgcScene.xml", GenerateTransformation(new TGCVector3(1.3f, 1.3f, 1.3f), new TGCVector3(FastMath.PI_HALF, 0, 0), new TGCVector3(-105f, 1f, -60f))));
+            this.habitacion.Add(this.GiveMeAnObject("MeshCreator\\Meshes\\Habitacion\\Rubik\\Rubik-TgcScene.xml", GenerateTransformation(new TGCVector3(0.4f, 0.4f, 0.4f), new TGCVector3(0, 0, 0), new TGCVector3(100f, 0f, -100f))));
 
             transformaciones = new List<TGCMatrix>();
-            transformaciones.Add(generateTransformation(new TGCVector3(0.2f, 0.2f, 0.2f), new TGCVector3(0, 0, FastMath.PI_HALF), new TGCVector3(-10f, 1f, 3f)));
-            transformaciones.Add(generateTransformation(new TGCVector3(0.2f, 0.2f, 0.2f), new TGCVector3(0, 1f, 0), new TGCVector3(-75f, 0f, -100f)));
-            transformaciones.Add(generateTransformation(new TGCVector3(0.2f, 0.2f, 0.2f), new TGCVector3(0, 0f, FastMath.PI_HALF), new TGCVector3(75f, 1f, 10f)));
+            transformaciones.Add(GenerateTransformation(new TGCVector3(0.2f, 0.2f, 0.2f), new TGCVector3(0, 0, FastMath.PI_HALF), new TGCVector3(-10f, 1f, 3f)));
+            transformaciones.Add(GenerateTransformation(new TGCVector3(0.2f, 0.2f, 0.2f), new TGCVector3(0, 1f, 0), new TGCVector3(-75f, 0f, -100f)));
+            transformaciones.Add(GenerateTransformation(new TGCVector3(0.2f, 0.2f, 0.2f), new TGCVector3(0, 0f, FastMath.PI_HALF), new TGCVector3(75f, 1f, 10f)));
             this.habitacion.Add(this.GiveMeAnObject("MeshCreator\\Meshes\\Habitacion\\Rastis\\Rasti-1\\Rastis-1-TgcScene.xml", transformaciones));
 
             transformaciones = new List<TGCMatrix>();
-            transformaciones.Add(generateTransformation(new TGCVector3(0.2f, 0.2f, 0.2f), new TGCVector3(0, 1f, 0f), new TGCVector3(45f, 0f, 20f)));
-            transformaciones.Add(generateTransformation(new TGCVector3(0.2f, 0.2f, 0.2f), new TGCVector3(0, 2f, 0f), new TGCVector3(40f, 0f, -20f)));
-            transformaciones.Add(generateTransformation(new TGCVector3(0.2f, 0.2f, 0.2f), new TGCVector3(0, 3f, 0f), new TGCVector3(-50f, 0f, 20f)));
+            transformaciones.Add(GenerateTransformation(new TGCVector3(0.2f, 0.2f, 0.2f), new TGCVector3(0, 1f, 0f), new TGCVector3(45f, 0f, 20f)));
+            transformaciones.Add(GenerateTransformation(new TGCVector3(0.2f, 0.2f, 0.2f), new TGCVector3(0, 2f, 0f), new TGCVector3(40f, 0f, -20f)));
+            transformaciones.Add(GenerateTransformation(new TGCVector3(0.2f, 0.2f, 0.2f), new TGCVector3(0, 3f, 0f), new TGCVector3(-50f, 0f, 20f)));
             this.habitacion.Add(this.GiveMeAnObject("MeshCreator\\Meshes\\Habitacion\\Rastis\\Rasti-2\\Rastis-2-TgcScene.xml", transformaciones));
 
             transformaciones = new List<TGCMatrix>();
-            transformaciones.Add(generateTransformation(new TGCVector3(0.2f, 0.2f, 0.2f), new TGCVector3(0, 0f, 0f), new TGCVector3(22f, 0f, 0f)));
-            transformaciones.Add(generateTransformation(new TGCVector3(0.2f, 0.2f, 0.2f), new TGCVector3(0, 2f, 0f), new TGCVector3(-100f, 0f, 45f)));
-            transformaciones.Add(generateTransformation(new TGCVector3(0.2f, 0.2f, 0.2f), new TGCVector3(0, 1f, 0f), new TGCVector3(100f, 0f, 50f)));
+            transformaciones.Add(GenerateTransformation(new TGCVector3(0.2f, 0.2f, 0.2f), new TGCVector3(0, 0f, 0f), new TGCVector3(22f, 0f, 0f)));
+            transformaciones.Add(GenerateTransformation(new TGCVector3(0.2f, 0.2f, 0.2f), new TGCVector3(0, 2f, 0f), new TGCVector3(-100f, 0f, 45f)));
+            transformaciones.Add(GenerateTransformation(new TGCVector3(0.2f, 0.2f, 0.2f), new TGCVector3(0, 1f, 0f), new TGCVector3(100f, 0f, 50f)));
             this.habitacion.Add(this.GiveMeAnObject("MeshCreator\\Meshes\\Habitacion\\Rastis\\Rasti-4\\Rastis-4-TgcScene.xml", transformaciones));
 
             transformaciones = new List<TGCMatrix>();
-            transformaciones.Add(generateTransformation(new TGCVector3(0.2f, 0.2f, 0.2f), new TGCVector3(0, 1f, 0f), new TGCVector3(0f, 0f, -50f)));
-            transformaciones.Add(generateTransformation(new TGCVector3(0.2f, 0.2f, 0.2f), new TGCVector3(0, 1f, 0f), new TGCVector3(-120f, 0f, -10f)));
-            transformaciones.Add(generateTransformation(new TGCVector3(0.2f, 0.2f, 0.2f), new TGCVector3(0, 1f, 0f), new TGCVector3(-200f, 0f, -200f)));
+            transformaciones.Add(GenerateTransformation(new TGCVector3(0.2f, 0.2f, 0.2f), new TGCVector3(0, 1f, 0f), new TGCVector3(0f, 0f, -50f)));
+            transformaciones.Add(GenerateTransformation(new TGCVector3(0.2f, 0.2f, 0.2f), new TGCVector3(0, 1f, 0f), new TGCVector3(-120f, 0f, -10f)));
+            transformaciones.Add(GenerateTransformation(new TGCVector3(0.2f, 0.2f, 0.2f), new TGCVector3(0, 1f, 0f), new TGCVector3(-200f, 0f, -200f)));
             this.habitacion.Add(this.GiveMeAnObject("MeshCreator\\Meshes\\Habitacion\\Rastis\\Rasti-6\\Rastis-6-TgcScene.xml", transformaciones));
 
             transformaciones = new List<TGCMatrix>();
-            transformaciones.Add(generateTransformation(new TGCVector3(0.5f, 0.5f, 0.5f), new TGCVector3(0, 0f, FastMath.PI_HALF), new TGCVector3(-110f, 15f, 144f)));
-            transformaciones.Add(generateTransformation(new TGCVector3(0.5f, 0.5f, 0.5f), new TGCVector3(0, 0f, FastMath.PI_HALF), new TGCVector3(60f, 15f, 144f)));
+            transformaciones.Add(GenerateTransformation(new TGCVector3(0.5f, 0.5f, 0.5f), new TGCVector3(0, 0f, FastMath.PI_HALF), new TGCVector3(-110f, 15f, 144f)));
+            transformaciones.Add(GenerateTransformation(new TGCVector3(0.5f, 0.5f, 0.5f), new TGCVector3(0, 0f, FastMath.PI_HALF), new TGCVector3(60f, 15f, 144f)));
             this.habitacion.Add(this.GiveMeAnObject("MeshCreator\\Meshes\\Habitacion\\Toma\\Toma-TgcScene.xml", transformaciones));
 
-            this.habitacion.Add(this.GiveMeAnObject("MeshCreator\\Meshes\\Habitacion\\Pelota\\Pelota-TgcScene.xml", generateTransformation(new TGCVector3(0.4f, 0.4f, 0.4f), new TGCVector3(0, 0f, 0), new TGCVector3(153f, 0f, 85f))));
-            this.habitacion.Add(this.GiveMeAnObject("MeshCreator\\Meshes\\Habitacion\\Notebook\\Notebook-TgcScene.xml", generateTransformation(new TGCVector3(0.5f, 0.5f, 0.5f), new TGCVector3(0, 0, 0), new TGCVector3(165f, 44f, -99f))));
-            this.habitacion.Add(this.GiveMeAnObject("MeshCreator\\Meshes\\Habitacion\\Libros\\Arquitectura\\Arquitectura-TgcScene.xml", generateTransformation(new TGCVector3(0.5f, 0.5f, 0.5f), new TGCVector3(0, 0, 0), new TGCVector3(170f, 44f, -139f))));
-            this.habitacion.Add(this.GiveMeAnObject("MeshCreator\\Meshes\\Habitacion\\Cargador\\Cargador-TgcScene.xml", generateTransformation(new TGCVector3(0.2f, 0.2f, 0.2f), new TGCVector3(0, 0, 0), new TGCVector3(197f, 44f, -70f))));
-            this.habitacion.Add(this.GiveMeAnObject("MeshCreator\\Meshes\\Habitacion\\Banqueta\\Banqueta-TgcScene.xml", generateTransformation(new TGCVector3(0.5f, 0.5f, 0.5f), new TGCVector3(0, 0, 0), new TGCVector3(182f, 0f, -11f))));
-            this.habitacion.Add(this.GiveMeAnObject("MeshCreator\\Meshes\\Habitacion\\Celular\\Celular-TgcScene.xml", generateTransformation(new TGCVector3(0.1f, 0.1f, 0.1f), new TGCVector3(0, 0, 0), new TGCVector3(24f, 32f, -154f))));
-            this.habitacion.Add(this.GiveMeAnObject("MeshCreator\\Meshes\\Habitacion\\CajaPizza\\CajaPizza-TgcScene.xml", generateTransformation(new TGCVector3(0.5f, 0.5f, 0.5f), new TGCVector3(0, 0, 0), new TGCVector3(-173f, 28f, 15f))));
-            this.habitacion.Add(this.GiveMeAnObject("MeshCreator\\Meshes\\Habitacion\\Lapiz\\Lapiz-TgcScene.xml", generateTransformation(new TGCVector3(0.3f, 0.3f, 0.3f), new TGCVector3(0, FastMath.PI_HALF, 0), new TGCVector3(207f, 45f, -130f))));
+            this.habitacion.Add(this.GiveMeAnObject("MeshCreator\\Meshes\\Habitacion\\Pelota\\Pelota-TgcScene.xml", GenerateTransformation(new TGCVector3(0.4f, 0.4f, 0.4f), new TGCVector3(0, 0f, 0), new TGCVector3(153f, 0f, 85f))));
+            this.habitacion.Add(this.GiveMeAnObject("MeshCreator\\Meshes\\Habitacion\\Notebook\\Notebook-TgcScene.xml", GenerateTransformation(new TGCVector3(0.5f, 0.5f, 0.5f), new TGCVector3(0, 0, 0), new TGCVector3(174f, 44f, -99f))));
+            this.habitacion.Add(this.GiveMeAnObject("MeshCreator\\Meshes\\Habitacion\\Libros\\Arquitectura\\Arquitectura-TgcScene.xml", GenerateTransformation(new TGCVector3(0.5f, 0.3f, 0.5f), new TGCVector3(0, 0, 0), new TGCVector3(178f, 44f, -139f))));
+            this.habitacion.Add(this.GiveMeAnObject("MeshCreator\\Meshes\\Habitacion\\Cargador\\Cargador-TgcScene.xml", GenerateTransformation(new TGCVector3(0.2f, 0.2f, 0.2f), new TGCVector3(0, 0, 0), new TGCVector3(197f, 44f, -70f))));
+            this.habitacion.Add(this.GiveMeAnObject("MeshCreator\\Meshes\\Habitacion\\Banqueta\\Banqueta-TgcScene.xml", GenerateTransformation(new TGCVector3(0.5f, 0.5f, 0.5f), new TGCVector3(0, 0, 0), new TGCVector3(182f, 0f, -13f))));
+            this.habitacion.Add(this.GiveMeAnObject("MeshCreator\\Meshes\\Habitacion\\Celular\\Celular-TgcScene.xml", GenerateTransformation(new TGCVector3(0.1f, 0.1f, 0.1f), new TGCVector3(0, 0, 0), new TGCVector3(24f, 32.2f, -154f))));
+            this.habitacion.Add(this.GiveMeAnObject("MeshCreator\\Meshes\\Habitacion\\CajaPizza\\CajaPizza-TgcScene.xml", GenerateTransformation(new TGCVector3(0.5f, 0.5f, 0.5f), new TGCVector3(0, 0, 0), new TGCVector3(-173f, 28f, 15f))));
+            this.habitacion.Add(this.GiveMeAnObject("MeshCreator\\Meshes\\Habitacion\\Lapiz\\Lapiz-TgcScene.xml", GenerateTransformation(new TGCVector3(0.3f, 0.3f, 0.3f), new TGCVector3(0, FastMath.PI_HALF, 0), new TGCVector3(208f, 45f, -130f))));
+
+            //puertas
+            transformaciones = new List<TGCMatrix>();
+            transformaciones.Add(GenerateTransformation(new TGCVector3(1f, 2.26f, 1.88f), new TGCVector3(0, FastMath.PI_HALF, 0), new TGCVector3(-173.6f, 0, 145)));
+            transformaciones.Add(GenerateTransformation(new TGCVector3(1f, 2.26f, 2f), new TGCVector3(0, -FastMath.PI_HALF, 0), new TGCVector3(131.5f, 0, 145.5f)));
+            transformaciones.Add(GenerateTransformation(new TGCVector3(1f, 2.26f, 1.6f), new TGCVector3(0, 0, 0), new TGCVector3(-52.5f, 0, 260f)));
+            this.puertas.Add(this.GiveMeAnObject("MeshCreator\\Meshes\\Otros\\Puerta\\Puerta-TgcScene.xml", transformaciones));
         }
 
         private SceneElement GiveMeAnObject(string ruta, TGCMatrix transformacion)
@@ -225,7 +238,7 @@ namespace TGC.Group.Model
             return nuevoObjeto;
         }
 
-        private TGCMatrix generateTransformation(TGCVector3 escala, TGCVector3 rotacion, TGCVector3 traslado)
+        private TGCMatrix GenerateTransformation(TGCVector3 escala, TGCVector3 rotacion, TGCVector3 traslado)
         {
             TGCMatrix matrixEscalado = TGCMatrix.Scaling(escala);
             TGCMatrix matrixRotacionX = TGCMatrix.RotationX(rotacion.X);
@@ -240,11 +253,19 @@ namespace TGC.Group.Model
         public void Render()
         {
             this.scene.Render();
+            foreach (SceneElement puerta in this.puertas)
+            {
+                puerta.Render();
+            }
             this.UbicacionVehiculo().Render();
         }
 
         public void Dispose()
         {
+            foreach (SceneElement puerta in this.puertas)
+            {
+                puerta.Dispose();
+            }
             this.scene.Dispose();
             this.habitacion.Dispose();
             this.cocina.Dispose();
