@@ -113,10 +113,11 @@ namespace TGC.Group.Model
 
         public void Girar(float rotacionReal, CamaraEnTerceraPersona camara)
         {
+            var rotacionRueda = (rotacionReal > 0) ? 1f * this.GetElapsedTime() : -1f * this.GetElapsedTime();
             TGCMatrix matrizDeRotacion = TGCMatrix.RotationY(rotacionReal);
             this.Rotate(rotacionReal);
             this.vectorAdelante.TransformCoordinate(matrizDeRotacion);
-            this.RotarDelanteras((this.GetVelocidadActual() > 0) ? rotacionReal : -rotacionReal);
+            this.RotarDelanteras((this.GetVelocidadActual() > 0) ? rotacionRueda : -rotacionRueda);
             camara.rotateY(rotacionReal);
             this.RotateOBB(rotacionReal);
         }
