@@ -97,6 +97,7 @@ namespace TGC.Group.Model
             dialogo = "OffsetForward = {0}";
             dialogo = string.Format(dialogo, this.camaraInterna.OffsetForward);
             textoOffsetF = Textos.newText(dialogo, 120, 85);
+            
 
 
             this.auto.SetElapsedTime(ElapsedTime);

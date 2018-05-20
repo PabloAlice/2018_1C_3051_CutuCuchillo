@@ -101,5 +101,12 @@ namespace TGC.Group.Model.Vehiculos
                 return -rotation;
             }
         }
+
+        public double FrontVectorAngle()
+        {
+            var dot = TGCVector3.Dot(this.vectorAdelante, new TGCVector3(0, 0, 1));
+            var modulusProduct = this.vectorAdelante.Length() * new TGCVector3(0, 0, 1).Length();
+            return Math.Acos(dot / modulusProduct);
+        }
     }
 }
