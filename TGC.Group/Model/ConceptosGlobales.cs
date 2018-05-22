@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using TGC.Core.Sound;
 using Microsoft.DirectX.DirectSound;
+using TGC.Core.Mathematica;
 
 namespace TGC.Group.Model
 {
@@ -44,6 +45,18 @@ namespace TGC.Group.Model
         public Device GetDispositivoDeAudio()
         {
             return this.dispositivoDeAudio;
+        }
+
+        public TGCMatrix GenerateTransformation(TGCVector3 escala, TGCVector3 rotacion, TGCVector3 traslado)
+        {
+            TGCMatrix matrixEscalado = TGCMatrix.Scaling(escala);
+            TGCMatrix matrixRotacionX = TGCMatrix.RotationX(rotacion.X);
+            TGCMatrix matrixRotacionY = TGCMatrix.RotationY(rotacion.Y);
+            TGCMatrix matrixRotacionZ = TGCMatrix.RotationZ(rotacion.Z);
+            TGCMatrix matrixRotacion = matrixRotacionX * matrixRotacionY * matrixRotacionZ;
+            TGCMatrix matrixTraslacion = TGCMatrix.Translation(traslado);
+            TGCMatrix transformacion = matrixEscalado * matrixRotacion * matrixTraslacion;
+            return transformacion;
         }
     }
 }

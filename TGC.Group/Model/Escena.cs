@@ -221,6 +221,10 @@ namespace TGC.Group.Model
             transformaciones.Add(GenerateTransformation(new TGCVector3(1f, 2.26f, 2f), new TGCVector3(0, -FastMath.PI_HALF, 0), new TGCVector3(131.5f, 0, 145.5f)));
             transformaciones.Add(GenerateTransformation(new TGCVector3(1f, 2.26f, 1.6f), new TGCVector3(0, 0, 0), new TGCVector3(-52.5f, 0, 260f)));
             this.puertas.Add(this.GiveMeAnObject("MeshCreator\\Meshes\\Otros\\Puerta\\Puerta-TgcScene.xml", transformaciones));
+
+            //portales
+            
+
         }
 
         private SceneElement GiveMeAnObject(string ruta, TGCMatrix transformacion)
@@ -258,6 +262,8 @@ namespace TGC.Group.Model
                 puerta.Render();
             }
             this.UbicacionVehiculo().Render();
+
+            Portals.getInstance().render();
         }
 
         public void Dispose()
@@ -270,6 +276,9 @@ namespace TGC.Group.Model
             this.habitacion.Dispose();
             this.cocina.Dispose();
             this.banio.Dispose();
+
+            Portals.getInstance().dispose();
+
         }
 
         /*public Camioneta calculateCollisions(Camioneta auto)
