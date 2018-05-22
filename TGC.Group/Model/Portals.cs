@@ -57,55 +57,75 @@ namespace TGC.Group.Model
             TGCVector3 scale = new TGCVector3(0.2f, 0.2f, 0.2f);
             float altura = 0f;
 
+            //portal que va de abajo del escritorio, hacia arriba del escritorio (unidireccional)
             portals.Add(new Portal(
                 scale, new TGCVector3(0,0,0), new TGCVector3(159f,altura,-162f), 
                 new TGCVector3(0f,0f,0f),
                 FastMath.PI));
 
+            //portal que conecta la habitacion con la cocina (bidireccional)
             portals.Add(new Portal(
                 scale, new TGCVector3(0, 0, 0), new TGCVector3(133f, altura, 143f),
                 new TGCVector3(133f, 0f, 150f),
                 0f));
 
             portals.Add(new Portal(
-                scale, new TGCVector3(0, 0, 0), new TGCVector3(136f, altura, 148f),
+                scale, new TGCVector3(0, 0, 0), new TGCVector3(133f, altura, 149f),
                 new TGCVector3(133f, 0f, 140f),
                 0));
 
+            //portal que va de abajo de la mesa, hacia la arriba de la mesa (unidireccional)
             portals.Add(new Portal(
                 scale, new TGCVector3(0, 0, 0), new TGCVector3(65f, altura, 378f),
                 new TGCVector3(139f, 50f, 348f),
                 0));
 
+            //portal que va de abajo del mueble de la cocina, hacia arriba del mueblePared (unidireccional)
             portals.Add(new Portal(
-                scale, new TGCVector3(0, 0, 0), new TGCVector3(190f, altura, 373f),
+                scale, new TGCVector3(0, FastMath.PI_HALF, 0), new TGCVector3(224f, altura, 375.5f),
                 new TGCVector3(190f, 60f, 372f),
                 0));
 
+            //portal que va de abajo del mueble de la cocina, hacia arriba del mueblePared (unidireccional)
             portals.Add(new Portal(
-                scale, new TGCVector3(0, FastMath.PI_HALF, 0), new TGCVector3(-49f, altura, 260f),
+                scale, new TGCVector3(0, 0, 0), new TGCVector3(197f, altura, 312f),
+                new TGCVector3(190f, 60f, 372f),
+                0));
+
+            //portal que conecta el baño con la cocina (bidireccional)
+            portals.Add(new Portal(
+                scale, new TGCVector3(0, FastMath.PI_HALF, 0), new TGCVector3(-48f, altura, 258f),
                 new TGCVector3(-60f, 0f, 291f),
                 0));
 
             portals.Add(new Portal(
-                scale, new TGCVector3(0, 0, 0), new TGCVector3(-143f, altura, 148f),
+                scale, new TGCVector3(0, FastMath.PI_HALF, 0), new TGCVector3(-55f, altura, 258f),
+                new TGCVector3(-60f, 0f, 291f),
+                0));
+
+            //portal que conecta el baño con la habitacion
+            portals.Add(new Portal(
+                scale, new TGCVector3(0, 0, 0), new TGCVector3(-170f, altura, 148f),
                 new TGCVector3(-143f, 0f, 139f),
                 0));
 
             portals.Add(new Portal(
-                scale, new TGCVector3(0, 0, 0), new TGCVector3(-142f, altura, 142f),
+                scale, new TGCVector3(0, 0, 0), new TGCVector3(-170f, altura, 142f),
                 new TGCVector3(-142f, 0f, 151f),
                 0));
 
+            //portal que va desde abajo del placard hacia arriba del placard
             portals.Add(new Portal(
                 scale, new TGCVector3(0, 0, 0), new TGCVector3(-202f, altura, -159f),
                 new TGCVector3(-202f, 70f, -157f),
                 0));
 
+            //portal que va desde abajo de la cama hacia arriba de la cama
             portals.Add(new Portal(
-                scale, new TGCVector3(0, 0, 0), new TGCVector3(-35f, altura, -173.7f),
+                scale, new TGCVector3(0, 0, 0), new TGCVector3(-35f, altura, -173f),
                 new TGCVector3(-202f, 70f, -157f),
                 0));
+
         }
 
         private void CheckPortals(Vehiculo car)
