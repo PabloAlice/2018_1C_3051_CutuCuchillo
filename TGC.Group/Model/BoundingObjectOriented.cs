@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
 using TGC.Core.BoundingVolumes;
 using TGC.Core.Mathematica;
 
@@ -33,6 +34,11 @@ namespace TGC.Group.Model
         public void Rotate(float rotacion)
         {
             this.rotacionObb += rotacion;
+        }
+
+        public void SetRenderColor(Color color)
+        {
+            this.obb.setRenderColor(color);
         }
     }
 }
