@@ -26,19 +26,21 @@ namespace TGC.Group.Model
         private float velocidadActualDeSalto;
         protected float velocidadRotacion = 1f;
         protected float velocidadInicialDeSalto = 15f;
-        protected float velocidadMaximaDeAvance = 30f;
+        protected float velocidadMaximaDeAvance = 120f;
         protected float aceleracionAvance = 0.3f;
         protected float aceleracionRetroceso;
         private float aceleracionGravedad = 0.5f;
         private float elapsedTime = 0f;
         protected float constanteDeRozamiento = 0.2f;
         protected float constanteFrenado = 1f;
+        public SoundsManager SoundsManager { get; set; }
         protected TGCVector3 escaladoInicial = new TGCVector3(0.005f, 0.005f, 0.005f);
         //se guarda el traslado inicial porque se usa como pivote
         protected TGCMatrix trasladoInicial;
 
-        public Vehiculo(string mediaDir, TGCVector3 posicionInicial)
+        public Vehiculo(string mediaDir, TGCVector3 posicionInicial, SoundsManager soundsManager)
         {
+            this.SoundsManager = soundsManager;
             this.vectorAdelante = new TGCVector3(0, 0, 1);
             this.CrearMesh(mediaDir + "meshCreator\\meshes\\Vehiculos\\Camioneta\\Camioneta-TgcScene.xml", posicionInicial);
             this.velocidadActualDeSalto = this.velocidadInicialDeSalto;

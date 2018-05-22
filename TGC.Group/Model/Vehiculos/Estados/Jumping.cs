@@ -17,7 +17,7 @@ namespace TGC.Group.Model.Vehiculos.Estados
             this.initialSpeed = auto.GetVelocidadActual();
             this.audio = new Tgc3dSound(ConceptosGlobales.getInstance().GetMediaDir() + "Sound\\Salto.wav", this.auto.GetPosicion(), ConceptosGlobales.getInstance().GetDispositivoDeAudio());
             this.audio.MinDistance = 50f;
-            this.audio.play();
+           // this.audio.play();
         }
 
         public override void Advance()
