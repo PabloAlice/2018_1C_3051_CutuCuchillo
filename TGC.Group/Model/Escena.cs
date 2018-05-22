@@ -263,7 +263,7 @@ namespace TGC.Group.Model
             }
             this.UbicacionVehiculo().Render();
 
-            Portals.getInstance().render();
+            Portals.GetInstance().Render();
         }
 
         public void Dispose()
@@ -277,7 +277,7 @@ namespace TGC.Group.Model
             this.cocina.Dispose();
             this.banio.Dispose();
 
-            Portals.getInstance().dispose();
+            Portals.GetInstance().Dispose();
 
         }
 

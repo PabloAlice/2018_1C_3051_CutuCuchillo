@@ -50,10 +50,7 @@ namespace TGC.Group.Model
         public TGCMatrix GenerateTransformation(TGCVector3 escala, TGCVector3 rotacion, TGCVector3 traslado)
         {
             TGCMatrix matrixEscalado = TGCMatrix.Scaling(escala);
-            TGCMatrix matrixRotacionX = TGCMatrix.RotationX(rotacion.X);
-            TGCMatrix matrixRotacionY = TGCMatrix.RotationY(rotacion.Y);
-            TGCMatrix matrixRotacionZ = TGCMatrix.RotationZ(rotacion.Z);
-            TGCMatrix matrixRotacion = matrixRotacionX * matrixRotacionY * matrixRotacionZ;
+            TGCMatrix matrixRotacion = TGCMatrix.RotationYawPitchRoll(rotacion.Y, rotacion.X, rotacion.Z);
             TGCMatrix matrixTraslacion = TGCMatrix.Translation(traslado);
             TGCMatrix transformacion = matrixEscalado * matrixRotacion * matrixTraslacion;
             return transformacion;

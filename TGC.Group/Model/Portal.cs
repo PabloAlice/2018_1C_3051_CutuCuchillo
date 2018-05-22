@@ -11,11 +11,13 @@ namespace TGC.Group.Model
     {
         private TGCVector3 targetPosition;
         private float targetRotation;
-        private TGCMatrix position;
+        private TGCMatrix rotation, scalation, translation;
 
-        public Portal(TGCMatrix position, TGCVector3 targetPos, float targetRot)
+        public Portal(TGCVector3 scalation, TGCVector3 rotation, TGCVector3 translation, TGCVector3 targetPos, float targetRot)
         {
-            this.position = position;
+            this.scalation = TGCMatrix.Scaling(scalation);
+            this.rotation = TGCMatrix.RotationYawPitchRoll(rotation.Y, rotation.X, rotation.Z);
+            this.translation = TGCMatrix.Translation(translation);
             this.targetPosition = targetPos;
             this.targetRotation = targetRot;
         }
@@ -30,9 +32,14 @@ namespace TGC.Group.Model
             return targetRotation;
         }
 
-        public TGCMatrix getPosition()
+        public TGCMatrix GetTransformation()
         {
-            return position;
+            return this.scalation * this.rotation * this.translation;
+        }
+
+        public void Rotate(TGCMatrix rotation)
+        {
+            this.rotation = rotation * this.rotation;
         }
 
     }

@@ -12,17 +12,17 @@ namespace TGC.Group.Model
     {
         private static Portals instance;
         private List<Portal> portals = new List<Portal>();
-        private TgcScene portal;
-        String mediaDir = ConceptosGlobales.getInstance().GetMediaDir();
+        private TgcMesh portal;
 
         private Portals()
         {
-            this.portal = new TgcSceneLoader().loadSceneFromFile(mediaDir + "MeshCreator\\Meshes\\Otros\\Portal\\Portal-TgcScene.xml");
-            initPortals();
+            TgcScene scene = new TgcSceneLoader().loadSceneFromFile(ConceptosGlobales.getInstance().GetMediaDir() + "MeshCreator\\Meshes\\Otros\\Portal\\Portal-TgcScene.xml");
+            this.portal = scene.Meshes[0];
+            InitPortals();
         }
 
         
-        public static Portals getInstance()
+        public static Portals GetInstance()
         {
             if (instance == null)
             {
@@ -45,77 +45,77 @@ namespace TGC.Group.Model
             }
         }*/
 
-        private void move(TGCMatrix transformation)
+        private void Move(TGCMatrix transformation)
         {
-            foreach (TgcMesh mesh in this.portal.Meshes)
-            {
-                mesh.AutoTransform = false;
-                mesh.Transform = transformation;
-                mesh.BoundingBox.transform(transformation);
-            }
+                portal.AutoTransform = false;
+                portal.Transform = transformation;
+                portal.BoundingBox.transform(transformation);
         }
 
-        private void initPortals()
+        private void InitPortals()
         {
+            TGCVector3 scale = new TGCVector3(0.2f, 0.2f, 0.2f);
+            float altura = 0f;
+
             portals.Add(new Portal(
-                ConceptosGlobales.getInstance().GenerateTransformation(new TGCVector3(0.3f,0.3f,0.3f), new TGCVector3(0,0,0), new TGCVector3(159f,0f,-162f)), 
+                scale, new TGCVector3(0,0,0), new TGCVector3(159f,altura,-162f), 
                 new TGCVector3(0f,0f,0f),
                 FastMath.PI));
 
             portals.Add(new Portal(
-                ConceptosGlobales.getInstance().GenerateTransformation(new TGCVector3(0.3f, 0.3f, 0.3f), new TGCVector3(0, 0, 0), new TGCVector3(133f, 0f, 143f)),
+                scale, new TGCVector3(0, 0, 0), new TGCVector3(133f, altura, 143f),
                 new TGCVector3(133f, 0f, 150f),
                 0f));
 
             portals.Add(new Portal(
-                ConceptosGlobales.getInstance().GenerateTransformation(new TGCVector3(0.3f, 0.3f, 0.3f), new TGCVector3(0, 0, 0), new TGCVector3(136f, 0f, 148f)),
+                scale, new TGCVector3(0, 0, 0), new TGCVector3(136f, altura, 148f),
                 new TGCVector3(133f, 0f, 140f),
                 0));
 
             portals.Add(new Portal(
-                ConceptosGlobales.getInstance().GenerateTransformation(new TGCVector3(0.3f, 0.3f, 0.3f), new TGCVector3(0, 0, 0), new TGCVector3(65f, 0f, 378f)),
+                scale, new TGCVector3(0, 0, 0), new TGCVector3(65f, altura, 378f),
                 new TGCVector3(139f, 50f, 348f),
                 0));
 
             portals.Add(new Portal(
-                ConceptosGlobales.getInstance().GenerateTransformation(new TGCVector3(0.3f, 0.3f, 0.3f), new TGCVector3(0, 0, 0), new TGCVector3(190f, 0f, 373f)),
+                scale, new TGCVector3(0, 0, 0), new TGCVector3(190f, altura, 373f),
                 new TGCVector3(190f, 60f, 372f),
                 0));
 
             portals.Add(new Portal(
-                ConceptosGlobales.getInstance().GenerateTransformation(new TGCVector3(0.3f, 0.3f, 0.3f), new TGCVector3(0, FastMath.PI_HALF, 0), new TGCVector3(-49f, 0f, 260f)),
+                scale, new TGCVector3(0, FastMath.PI_HALF, 0), new TGCVector3(-49f, altura, 260f),
                 new TGCVector3(-60f, 0f, 291f),
                 0));
 
             portals.Add(new Portal(
-                ConceptosGlobales.getInstance().GenerateTransformation(new TGCVector3(0.3f, 0.3f, 0.3f), new TGCVector3(0, 0, 0), new TGCVector3(-143f, 0f, 148f)),
+                scale, new TGCVector3(0, 0, 0), new TGCVector3(-143f, altura, 148f),
                 new TGCVector3(-143f, 0f, 139f),
                 0));
 
             portals.Add(new Portal(
-                ConceptosGlobales.getInstance().GenerateTransformation(new TGCVector3(0.3f, 0.3f, 0.3f), new TGCVector3(0, 0, 0), new TGCVector3(-142f, 0f, 142f)),
+                scale, new TGCVector3(0, 0, 0), new TGCVector3(-142f, altura, 142f),
                 new TGCVector3(-142f, 0f, 151f),
                 0));
 
             portals.Add(new Portal(
-                ConceptosGlobales.getInstance().GenerateTransformation(new TGCVector3(0.3f, 0.3f, 0.3f), new TGCVector3(0, 0, 0), new TGCVector3(-202f, 0f, -159f)),
+                scale, new TGCVector3(0, 0, 0), new TGCVector3(-202f, altura, -159f),
                 new TGCVector3(-202f, 70f, -157f),
                 0));
 
             portals.Add(new Portal(
-                ConceptosGlobales.getInstance().GenerateTransformation(new TGCVector3(0.3f, 0.3f, 0.3f), new TGCVector3(0, 0, 0), new TGCVector3(-35f, 0f, -173.7f)),
+                scale, new TGCVector3(0, 0, 0), new TGCVector3(-35f, altura, -173.7f),
                 new TGCVector3(-202f, 70f, -157f),
                 0));
         }
 
-        private void checkPortals(Vehiculo car)
+        private void CheckPortals(Vehiculo car)
         {
             foreach(Portal portal in portals)
             {
-                move(portal.getPosition());
-                if (!areDistantPositions(this.portal.Meshes[0].Position, car.GetPosicion()))
+                Move(portal.GetTransformation());
+                if (!AreDistantPositions(this.portal.Position, car.GetPosicion()))
                 {
-                    if (collide(car))
+                    if (Collide(car))
                     {
                         car.Move(portal.getTargetPosition());
                         car.Rotate(portal.getTargetRotation());
@@ -125,12 +125,12 @@ namespace TGC.Group.Model
             }
         }
 
-        private Boolean collide(Vehiculo car)
+        private Boolean Collide(Vehiculo car)
         {
             return false;
         }
 
-        private Boolean areDistantPositions(TGCVector3 posA, TGCVector3 posB)
+        private Boolean AreDistantPositions(TGCVector3 posA, TGCVector3 posB)
         {
             float distX = Math.Abs(posA.X - posB.X);
             float distZ = Math.Abs(posA.Z - posB.Z);
@@ -138,27 +138,25 @@ namespace TGC.Group.Model
             return distX > 10f || distZ > 10f ? true : false;
         }
 
-        public void render()
+        public void Render()
         {
-            foreach(Portal portal in portals)
+            foreach(Portal portal in this.portals)
             {
-                renderPortal(portal);
+                this.RenderPortal(portal);
             }
         }
 
-        private void renderPortal(Portal portal)
+        private void RenderPortal(Portal portal)
         {
-            foreach (TgcMesh mesh in this.portal.Meshes)
-            {
-                mesh.AutoTransform = false;
-                mesh.Transform = portal.getPosition();
-                mesh.Render();
-            }
+                this.portal.AutoTransform = false;
+                this.portal.Transform = portal.GetTransformation();
+                portal.Rotate(TGCMatrix.RotationZ(0.05f));
+                this.portal.Render();
         }
 
-        public void dispose()
+        public void Dispose()
         {
-            this.portal.DisposeAll();
+            this.portal.Dispose();
         }
     }
 }
