@@ -99,7 +99,6 @@
     <Compile Include="Model\OperacionesConVectores.cs" />
     <Compile Include="Model\GameModel.cs" />
     <Compile Include="Model\Timer.cs" />
-    <Compile Include="Model\Vehiculos\BorrarEstaClase.cs" />
     <Compile Include="Model\Vehiculos\Rueda.cs" />
     <Compile Include="Model\Vehiculos\Estados\Forward.cs" />
     <Compile Include="Model\Vehiculos\Estados\Backward.cs" />
