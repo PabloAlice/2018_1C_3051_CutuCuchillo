@@ -92,6 +92,8 @@
     <Compile Include="Model\CamaraEnTerceraPersona.cs" />
     <Compile Include="Model\ConceptosGlobales.cs" />
     <Compile Include="Model\Escena.cs" />
+    <Compile Include="Model\Portal.cs" />
+    <Compile Include="Model\Portals.cs" />
     <Compile Include="Model\SceneElement.cs" />
     <Compile Include="Model\SceneRepeatedElement.cs" />
     <Compile Include="Model\Seccion.cs" />
