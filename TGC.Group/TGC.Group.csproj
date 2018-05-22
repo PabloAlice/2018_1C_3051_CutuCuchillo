@@ -99,6 +99,7 @@
     <Compile Include="Model\OperacionesConVectores.cs" />
     <Compile Include="Model\GameModel.cs" />
     <Compile Include="Model\Timer.cs" />
+    <Compile Include="Model\Vehiculos\BorrarEstaClase.cs" />
     <Compile Include="Model\Vehiculos\Rueda.cs" />
     <Compile Include="Model\Vehiculos\Estados\Forward.cs" />
     <Compile Include="Model\Vehiculos\Estados\Backward.cs" />
@@ -107,7 +108,9 @@
     <Compile Include="Model\Vehiculos\Estados\Stopped.cs" />
     <Compile Include="Model\Vehiculos\Estados\EstadoVehiculo.cs" />
     <Compile Include="Model\Vehiculos\Camioneta.cs" />
+    <Compile Include="Model\Vehiculos\SoundsManager.cs" />
     <Compile Include="Model\Vehiculos\Vehiculo.cs" />
+    <Compile Include="MyAbrstactions\Tgc3dSound.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form\GameForm.resx">
@@ -179,6 +182,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Media\cajaMadera4.jpg" />
+    <Content Include="Media\CarSounds\accelerating.wav" />
+    <Content Include="Media\CarSounds\desaccelerating.wav" />
+    <Content Include="Media\CarSounds\max-vel.wav" />
+    <Content Include="Media\CarSounds\min-vel.wav" />
     <Content Include="Media\LogoTGC-TgcScene.xml" />
   </ItemGroup>
   <ItemGroup />
