@@ -40,7 +40,7 @@ namespace TGC.Group.Model
             Scene.getInstance().Init(this.MediaDir);
             this.camaraInterna = new CamaraEnTerceraPersona(camaraDesplazamiento, 0.8f, -33);
             this.Camara = camaraInterna;
-            this.auto = new Camioneta(new TGCVector3(-0f, 0f, 0f), new SoundsManager(this.MediaDir + "CarSounds//min-vel.wav", this.MediaDir + "CarSounds//max-vel.wav", this.MediaDir + "CarSounds//accelerating.wav", this.MediaDir + "CarSounds//desaccelerating.wav", new TGCVector3(-0f, 0f, 0f)));
+            this.auto = new Camioneta(camaraInterna, new TGCVector3(-0f, 0f, 0f), new SoundsManager(this.MediaDir + "CarSounds//min-vel.wav", this.MediaDir + "CarSounds//max-vel.wav", this.MediaDir + "CarSounds//accelerating.wav", this.MediaDir + "CarSounds//desaccelerating.wav", new TGCVector3(-0f, 0f, 0f)));
             Scene.getInstance().SetVehiculo(this.auto);
             
         }
@@ -101,7 +101,7 @@ namespace TGC.Group.Model
 
 
             this.auto.SetElapsedTime(ElapsedTime);
-            this.auto.Action(this.Input, camaraInterna);
+            this.auto.Action(this.Input);
 
             this.camaraInterna.Target = (this.auto.GetPosicion()) + auto.GetVectorAdelante() * 30 ;
 

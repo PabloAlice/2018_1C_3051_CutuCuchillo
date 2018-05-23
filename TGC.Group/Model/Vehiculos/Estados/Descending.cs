@@ -82,12 +82,12 @@ namespace TGC.Group.Model.Vehiculos.Estados
             }
         }
 
-        public override void Left(CamaraEnTerceraPersona camara)
+        public override void Left()
         {
             this.auto.RotarDelanteras(-this.auto.GetVelocidadDeRotacion() * this.auto.GetElapsedTime());
         }
 
-        public override void Right(CamaraEnTerceraPersona camara)
+        public override void Right()
         {
             this.auto.RotarDelanteras(this.auto.GetVelocidadDeRotacion() * this.auto.GetElapsedTime());
         }

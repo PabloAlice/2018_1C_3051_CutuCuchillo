@@ -59,20 +59,20 @@ namespace TGC.Group.Model.Vehiculos.Estados
             return auto.GetVelocidadActualDeSalto() + (-auto.GetAceleracionGravedad()) * auto.GetDeltaTiempoSalto().tiempoTranscurrido();
         }
 
-        virtual public void Right(CamaraEnTerceraPersona camara)
+        virtual public void Right()
         {
             float rotacionReal = auto.GetVelocidadDeRotacion() * auto.GetElapsedTime();
             rotacionReal = (auto.GetVelocidadActual() > 0) ? rotacionReal : -rotacionReal;
-            this.auto.Girar(rotacionReal, camara);
+            this.auto.Girar(rotacionReal);
 
         }
 
         //lo mismo que arriba
-        virtual public void Left(CamaraEnTerceraPersona camara)
+        virtual public void Left()
         {
             float rotacionReal = auto.GetVelocidadDeRotacion() * auto.GetElapsedTime();
             rotacionReal = (auto.GetVelocidadActual() < 0) ? rotacionReal : -rotacionReal;
-            this.auto.Girar(rotacionReal, camara);
+            this.auto.Girar(rotacionReal);
         }
 
         protected void liberarRecursos()

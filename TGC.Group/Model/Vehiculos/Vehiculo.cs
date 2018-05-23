@@ -39,9 +39,11 @@ namespace TGC.Group.Model
         protected TGCVector3 escaladoInicial = new TGCVector3(0.005f, 0.005f, 0.005f);
         //se guarda el traslado inicial porque se usa como pivote
         protected TGCMatrix trasladoInicial;
+        protected CamaraEnTerceraPersona camara;
 
-        public Vehiculo(TGCVector3 posicionInicial, SoundsManager soundsManager)
+        public Vehiculo(CamaraEnTerceraPersona camara, TGCVector3 posicionInicial, SoundsManager soundsManager)
         {
+            this.camara = camara;
             this.SoundsManager = soundsManager;
             this.vectorAdelante = new TGCVector3(0, 0, 1);
             this.CrearMesh(ConceptosGlobales.getInstance().GetMediaDir() + "meshCreator\\meshes\\Vehiculos\\Camioneta\\Camioneta-TgcScene.xml", posicionInicial);
@@ -115,14 +117,14 @@ namespace TGC.Group.Model
             return this.vectorAdelante;
         }
 
-        public void Girar(float rotacionReal, CamaraEnTerceraPersona camara)
+        public void Girar(float rotacionReal)
         {
             var rotacionRueda = (rotacionReal > 0) ? 1f * this.GetElapsedTime() : -1f * this.GetElapsedTime();
             TGCMatrix matrizDeRotacion = TGCMatrix.RotationY(rotacionReal);
             this.Rotate(rotacionReal);
             this.vectorAdelante.TransformCoordinate(matrizDeRotacion);
             this.RotarDelanteras((this.GetVelocidadActual() > 0) ? rotacionRueda : -rotacionRueda);
-            camara.rotateY(rotacionReal);
+            this.camara.rotateY(rotacionReal);
             this.RotateOBB(rotacionReal);
         }
 
@@ -290,7 +292,7 @@ namespace TGC.Group.Model
             delanteraDerecha.UpdateRotationY(rotacion);
         }
 
-        public void Action(TgcD3dInput input, CamaraEnTerceraPersona camara)
+        public void Action(TgcD3dInput input)
         {
             if (input.keyDown(Key.W))
             {
@@ -309,12 +311,12 @@ namespace TGC.Group.Model
 
             if (input.keyDown(Key.D))
             {
-                this.estado.Right(camara);
+                this.estado.Right();
 
             }
             else if (input.keyDown(Key.A))
             {
-                this.estado.Left(camara);
+                this.estado.Left();
             }
 
             if (!input.keyDown(Key.A) && !input.keyDown(Key.D))
