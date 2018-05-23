@@ -62,7 +62,7 @@ namespace TGC.Group.Model.Vehiculos.Estados
             desplazamientoEnY = (this.auto.GetPosicion().Y + desplazamientoEnY < 0) ? -this.auto.GetPosicion().Y : desplazamientoEnY;
             TGCVector3 nuevoDesplazamiento = new TGCVector3(0, desplazamientoEnY, 0);
             this.Move(nuevoDesplazamiento + auto.GetVectorAdelante() * this.initialSpeed * auto.GetElapsedTime());
-            if(this.auto.GetPosicion().Y != 0)
+            if(this.auto.GetPosicion().Y == 0)
             {
                 auto.GetDeltaTiempoSalto().resetear();
                 auto.SetVelocidadActualDeSalto(auto.GetVelocidadMaximaDeSalto());

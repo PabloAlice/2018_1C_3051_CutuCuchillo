@@ -10,7 +10,7 @@ namespace TGC.Group.Model.Vehiculos
 {
     class Camioneta : Vehiculo
     {
-        public Camioneta(string mediaDir, TGCVector3 posicionInicial) : base(mediaDir, posicionInicial)
+        public Camioneta(string mediaDir, TGCVector3 posicionInicial, SoundsManager soundsManager) : base(mediaDir, posicionInicial, soundsManager)
         {
             //creo los meshes de las ruedas y luego agrego cada object Rueda(mesh,posicion) a la lista de ruedas;
             TgcSceneLoader loader = new TgcSceneLoader();

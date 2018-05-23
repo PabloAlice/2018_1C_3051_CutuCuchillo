@@ -12,54 +12,66 @@ namespace TGC.Group.Model
 {
     class SceneElement
     {
-        protected List<TgcMesh> elementos;
+        protected List<MeshObb> elementos = new List<MeshObb>();
 
         public SceneElement(List<TgcMesh> elementos, TGCMatrix transformacion)
         {
-            this.elementos = elementos;
-            transform(transformacion);
+            foreach (TgcMesh mesh in elementos)
+            {
+                this.elementos.Add(new MeshObb(mesh));
+            }
+            this.transform(transformacion);
         }
 
         public SceneElement(List<TgcMesh> elementos)
         {
-            this.elementos = elementos;
+            foreach (TgcMesh mesh in elementos)
+            {
+                this.elementos.Add(new MeshObb(mesh));
+            }
         }
 
         public void transform(TGCMatrix transformacion)
         {
-            foreach(TgcMesh elemento in this.elementos)
+            foreach(MeshObb elemento in this.elementos)
             {
-                elemento.AutoTransform = false;
-                elemento.Transform = transformacion;
-                elemento.BoundingBox.transform(transformacion);
+                elemento.Transform(transformacion);
             }
         }
        
 
         public virtual void Render()
         {
-            foreach (TgcMesh elemento in this.elementos)
+            foreach (MeshObb elemento in this.elementos)
             {
-                elemento.Render();
-                //por ahora, para ver los boundings
-                elemento.BoundingBox.Render();
+                elemento.mesh.Render();
+                elemento.obb.Render();
             }
         }
 
         public void RenderBoundingBox()
         {
-            foreach (TgcMesh elemento in this.elementos)
+            foreach (MeshObb elemento in this.elementos)
             {
-                elemento.BoundingBox.Render();
+                elemento.obb.Render();
             }
         }
 
-        public TgcMesh TestColision(TgcMesh mesh)
+        public MeshObb TestColision(MeshObb meshObb)
         {
-
-            foreach (TgcMesh elemento in this.elementos)
+            /*
+             * 
+             * 
+             * 
+             * Revisar esto, ahora deberia chequearse con MeshObb
+             * 
+             * 
+             * 
+             *
+             */
+            foreach (MeshObb elemento in this.elementos)
             {
-                if (TgcCollisionUtils.testAABBAABB(mesh.BoundingBox, elemento.BoundingBox))
+                if (TgcCollisionUtils.testAABBAABB(meshObb.mesh.BoundingBox, elemento.mesh.BoundingBox))
                 {
                     return elemento;
                 }
@@ -71,17 +83,18 @@ namespace TGC.Group.Model
 
         public void Dispose()
         {
-            foreach (TgcMesh elemento in this.elementos)
+            foreach (MeshObb elemento in this.elementos)
             {
-                elemento.Dispose();
+                //no se por que rompe esta garcha
+                //elemento.mesh.Dispose();
             }
         }
 
         public void SetColorBoundingBox(Color color)
         {
-            foreach (TgcMesh elemento in this.elementos)
+            foreach (MeshObb elemento in this.elementos)
             {
-                elemento.BoundingBox.setRenderColor(color);
+                elemento.obb.SetRenderColor(color);
             }
         }
     }
