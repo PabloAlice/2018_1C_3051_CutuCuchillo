@@ -46,7 +46,7 @@ namespace TGC.Group.Model
             this.camara = camara;
             this.SoundsManager = soundsManager;
             this.vectorAdelante = new TGCVector3(0, 0, 1);
-            this.CrearMesh(ConceptosGlobales.getInstance().GetMediaDir() + "meshCreator\\meshes\\Vehiculos\\Camioneta\\Camioneta-TgcScene.xml", posicionInicial);
+            this.CrearMesh(ConceptosGlobales.GetInstance().GetMediaDir() + "meshCreator\\meshes\\Vehiculos\\Camioneta\\Camioneta-TgcScene.xml", posicionInicial);
             this.velocidadActualDeSalto = this.velocidadInicialDeSalto;
             this.deltaTiempoAvance = new Timer();
             this.deltaTiempoSalto = new Timer();

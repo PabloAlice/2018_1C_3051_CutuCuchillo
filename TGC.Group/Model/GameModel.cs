@@ -35,13 +35,13 @@ namespace TGC.Group.Model
 
         public override void Init()
         {
-            ConceptosGlobales.getInstance().SetMediaDir(this.MediaDir);
-            ConceptosGlobales.getInstance().SetDispositivoDeAudio(this.DirectSound.DsDevice);
-            Scene.getInstance().Init(this.MediaDir);
+            ConceptosGlobales.GetInstance().SetMediaDir(this.MediaDir);
+            ConceptosGlobales.GetInstance().SetDispositivoDeAudio(this.DirectSound.DsDevice);
+            Scene.GetInstance().Init(this.MediaDir);
             this.camaraInterna = new CamaraEnTerceraPersona(camaraDesplazamiento, 0.8f, -33);
             this.Camara = camaraInterna;
             this.auto = new Camioneta(camaraInterna, new TGCVector3(-0f, 0f, 0f), new SoundsManager(this.MediaDir + "CarSounds//min-vel.wav", this.MediaDir + "CarSounds//max-vel.wav", this.MediaDir + "CarSounds//accelerating.wav", this.MediaDir + "CarSounds//desaccelerating.wav", new TGCVector3(-0f, 0f, 0f)));
-            Scene.getInstance().SetVehiculo(this.auto);
+            Scene.GetInstance().SetVehiculo(this.auto);
             
         }
 
@@ -126,7 +126,7 @@ namespace TGC.Group.Model
 
             this.PreRender();
 
-            Scene.getInstance().Render();
+            Scene.GetInstance().Render();
 
             this.textoVelocidadVehiculo.render();
             this.textoPosicionVehiculo.render();
@@ -142,7 +142,7 @@ namespace TGC.Group.Model
 
         public override void Dispose()
         {
-            Scene.getInstance().Dispose();
+            Scene.GetInstance().Dispose();
             this.auto.Dispose();
            
         }

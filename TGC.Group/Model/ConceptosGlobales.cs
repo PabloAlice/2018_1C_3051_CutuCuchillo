@@ -17,7 +17,7 @@ namespace TGC.Group.Model
         {
         }
 
-        public static ConceptosGlobales getInstance()
+        public static ConceptosGlobales GetInstance()
         {
             if (instance == null)
             {

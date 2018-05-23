@@ -15,7 +15,7 @@ namespace TGC.Group.Model.Vehiculos.Estados
         public Descending(Vehiculo auto, float initialSpeed) : base(auto)
         {
             this.initialSpeed = initialSpeed;
-            this.audio = new Tgc3dSound(ConceptosGlobales.getInstance().GetMediaDir() + "Sound\\Caida.wav", this.auto.GetPosicion(), ConceptosGlobales.getInstance().GetDispositivoDeAudio());
+            this.audio = new Tgc3dSound(ConceptosGlobales.GetInstance().GetMediaDir() + "Sound\\Caida.wav", this.auto.GetPosicion(), ConceptosGlobales.GetInstance().GetDispositivoDeAudio());
             this.audio.MinDistance = 50f;
         }
 

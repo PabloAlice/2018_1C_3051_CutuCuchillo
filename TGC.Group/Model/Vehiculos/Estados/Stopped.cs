@@ -14,7 +14,7 @@ namespace TGC.Group.Model.Vehiculos.Estados
 
         public Stopped(Vehiculo auto) : base(auto)
         {
-            this.audio = new Tgc3dSound(ConceptosGlobales.getInstance().GetMediaDir() + "Sound\\Motor.wav", this.auto.GetPosicion(), ConceptosGlobales.getInstance().GetDispositivoDeAudio());
+            this.audio = new Tgc3dSound(ConceptosGlobales.GetInstance().GetMediaDir() + "Sound\\Motor.wav", this.auto.GetPosicion(), ConceptosGlobales.GetInstance().GetDispositivoDeAudio());
             this.audio.MinDistance = 50f;
             // this.audio.play(true);
         }

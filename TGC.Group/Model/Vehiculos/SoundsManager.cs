@@ -24,10 +24,10 @@ namespace TGC.Group.Model.Vehiculos
         {
             var bufferDescription = new BufferDescription();
             bufferDescription.ControlFrequency = true;
-            this.minVelSound = new Tgc3dSound(minVelWAV, position, ConceptosGlobales.getInstance().GetDispositivoDeAudio());
-            this.maxVelSound = new Tgc3dSound(maxVelWAV, position, ConceptosGlobales.getInstance().GetDispositivoDeAudio());
-            this.acceleratingVelSound = new Tgc3dSound(acceleratingWAV, position, ConceptosGlobales.getInstance().GetDispositivoDeAudio(), bufferDescription);
-            this.desacceleratingVelSound = new Tgc3dSound(desacceleratingWAV, position, ConceptosGlobales.getInstance().GetDispositivoDeAudio(), bufferDescription);
+            this.minVelSound = new Tgc3dSound(minVelWAV, position, ConceptosGlobales.GetInstance().GetDispositivoDeAudio());
+            this.maxVelSound = new Tgc3dSound(maxVelWAV, position, ConceptosGlobales.GetInstance().GetDispositivoDeAudio());
+            this.acceleratingVelSound = new Tgc3dSound(acceleratingWAV, position, ConceptosGlobales.GetInstance().GetDispositivoDeAudio(), bufferDescription);
+            this.desacceleratingVelSound = new Tgc3dSound(desacceleratingWAV, position, ConceptosGlobales.GetInstance().GetDispositivoDeAudio(), bufferDescription);
             this.desacceleratingVelSound.SoundBuffer.SetCurrentPosition(LAST_BUFFER_POSITION);
             this.PlayMinVel();
         }

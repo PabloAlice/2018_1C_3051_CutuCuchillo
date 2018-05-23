@@ -23,7 +23,7 @@ namespace TGC.Group.Model
         public void CreateMesh(TGCMatrix transformationMatrix)
         {
             TgcSceneLoader loader = new TgcSceneLoader();
-            TgcScene scene = loader.loadSceneFromFile(ConceptosGlobales.getInstance().GetMediaDir() + "meshCreator\\meshes\\Otros\\Portal\\Portal-TgcScene.xml");
+            TgcScene scene = loader.loadSceneFromFile(ConceptosGlobales.GetInstance().GetMediaDir() + "meshCreator\\meshes\\Otros\\Portal\\Portal-TgcScene.xml");
             this.mesh = scene.Meshes[0];
             this.mesh.AutoTransform = false;
             this.mesh.Transform = transformationMatrix;
