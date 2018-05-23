@@ -294,6 +294,33 @@ namespace TGC.Group.Model
 
         public void Action(TgcD3dInput input)
         {
+            if (input.keyDown(Key.NumPad4))
+            {
+                this.camara.rotateY(-0.005f);
+            }
+            if (input.keyDown(Key.NumPad6))
+            {
+                this.camara.rotateY(0.005f);
+            }
+
+            if (input.keyDown(Key.RightArrow))
+            {
+                this.camara.OffsetHeight += 0.05f;
+            }
+            if (input.keyDown(Key.LeftArrow))
+            {
+                this.camara.OffsetHeight -= 0.05f;
+            }
+
+            if (input.keyDown(Key.UpArrow))
+            {
+                this.camara.OffsetForward += 0.05f;
+            }
+            if (input.keyDown(Key.DownArrow))
+            {
+                this.camara.OffsetForward -= 0.05f;
+            }
+
             if (input.keyDown(Key.W))
             {
                 this.SoundsManager.PlayAccelerating();
@@ -335,6 +362,7 @@ namespace TGC.Group.Model
             }
 
             this.estado.JumpUpdate();
+            this.camara.Target = (this.GetPosicion()) + this.GetVectorAdelante() * 30;
         }
     }
 }

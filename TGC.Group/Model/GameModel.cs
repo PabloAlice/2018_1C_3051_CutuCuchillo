@@ -48,33 +48,6 @@ namespace TGC.Group.Model
         public override void Update()
         {
             this.PreUpdate();
-           
-            if (Input.keyDown(Key.NumPad4))
-            {
-                this.camaraInterna.rotateY(-0.005f);
-            }
-            if (Input.keyDown(Key.NumPad6))
-            {
-                this.camaraInterna.rotateY(0.005f);
-            }
-
-            if (Input.keyDown(Key.RightArrow))
-            {
-                this.camaraInterna.OffsetHeight += 0.05f;
-            }
-            if (Input.keyDown(Key.LeftArrow))
-            {
-                this.camaraInterna.OffsetHeight -= 0.05f;
-            }
-
-            if (Input.keyDown(Key.UpArrow))
-            {
-                this.camaraInterna.OffsetForward += 0.05f;
-            }
-            if (Input.keyDown(Key.DownArrow))
-            {
-                this.camaraInterna.OffsetForward -= 0.05f;
-            }
 
             string dialogo;
 
@@ -102,8 +75,6 @@ namespace TGC.Group.Model
 
             this.auto.SetElapsedTime(ElapsedTime);
             this.auto.Action(this.Input);
-
-            this.camaraInterna.Target = (this.auto.GetPosicion()) + auto.GetVectorAdelante() * 30 ;
 
             //Comentado para que los sonidos funcionen correctamente
             //this.auto = Escena.getInstance().calculateCollisions(this.auto);
@@ -158,7 +129,6 @@ namespace TGC.Group.Model
             Scene.getInstance().Render();
 
             this.textoVelocidadVehiculo.render();
-
             this.textoPosicionVehiculo.render();
             this.textoVectorAdelante.render();
             this.textoOffsetF.render();
