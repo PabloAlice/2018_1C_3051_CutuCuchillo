@@ -84,7 +84,7 @@ namespace TGC.Group.Model
             TgcScene scene = loader.loadSceneFromFile(rutaAMesh);
             this.mesh = scene.Meshes[0];
             this.mesh.AutoTransform = false;
-            this.rotado = TGCMatrix.RotationY(FastMath.PI);
+            this.rotado = TGCMatrix.RotationYawPitchRoll(0,0,0);
             this.escalado = TGCMatrix.Scaling(this.escaladoInicial);
             this.traslado = TGCMatrix.Translation(posicionInicial.X, posicionInicial.Y, posicionInicial.Z);
             this.trasladoInicial = traslado;
