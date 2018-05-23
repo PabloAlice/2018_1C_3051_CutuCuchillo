@@ -28,7 +28,7 @@ namespace TGC.Group.Model
         private float velocidadActualDeSalto;
         protected float velocidadRotacion = 1f;
         protected float velocidadInicialDeSalto = 15f;
-        protected float velocidadMaximaDeAvance = 120f;
+        protected float velocidadMaximaDeAvance = 60f;
         protected float aceleracionAvance = 0.3f;
         protected float aceleracionRetroceso;
         private float aceleracionGravedad = 0.5f;
@@ -89,7 +89,7 @@ namespace TGC.Group.Model
         {
             double anguloRadianes = delanteraIzquierda.FrontVectorAngle();
             Console.WriteLine("angle: " + (float)anguloRadianes);
-            if(anguloRadianes == 0)
+            if(anguloRadianes <= 0.5f )
             {
                 return this.velocidadRotacion;
             }
