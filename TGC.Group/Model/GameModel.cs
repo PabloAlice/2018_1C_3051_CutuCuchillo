@@ -75,6 +75,7 @@ namespace TGC.Group.Model
 
             this.auto.SetElapsedTime(ElapsedTime);
             this.auto.Action(this.Input);
+            Scene.GetInstance().DetectCollision();
 
             //Comentado para que los sonidos funcionen correctamente
             //this.auto = Escena.getInstance().calculateCollisions(this.auto);
