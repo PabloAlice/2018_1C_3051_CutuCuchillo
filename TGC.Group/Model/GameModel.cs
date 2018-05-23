@@ -38,10 +38,11 @@ namespace TGC.Group.Model
             ConceptosGlobales.getInstance().SetMediaDir(this.MediaDir);
             ConceptosGlobales.getInstance().SetDispositivoDeAudio(this.DirectSound.DsDevice);
             Scene.getInstance().Init(this.MediaDir);
-            this.auto = new Camioneta(MediaDir, new TGCVector3(-0f, 0f, 0f), new SoundsManager(this.MediaDir + "CarSounds//min-vel.wav", this.MediaDir + "CarSounds//max-vel.wav", this.MediaDir + "CarSounds//accelerating.wav", this.MediaDir + "CarSounds//desaccelerating.wav", new TGCVector3(-0f, 0f, 0f)));
-            Scene.getInstance().SetVehiculo(this.auto);
             this.camaraInterna = new CamaraEnTerceraPersona(camaraDesplazamiento, 0.8f, -33);
             this.Camara = camaraInterna;
+            this.auto = new Camioneta(new TGCVector3(-0f, 0f, 0f), new SoundsManager(this.MediaDir + "CarSounds//min-vel.wav", this.MediaDir + "CarSounds//max-vel.wav", this.MediaDir + "CarSounds//accelerating.wav", this.MediaDir + "CarSounds//desaccelerating.wav", new TGCVector3(-0f, 0f, 0f)));
+            Scene.getInstance().SetVehiculo(this.auto);
+            
         }
 
         public override void Update()

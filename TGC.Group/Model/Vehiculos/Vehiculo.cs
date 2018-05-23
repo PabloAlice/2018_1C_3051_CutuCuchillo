@@ -40,11 +40,11 @@ namespace TGC.Group.Model
         //se guarda el traslado inicial porque se usa como pivote
         protected TGCMatrix trasladoInicial;
 
-        public Vehiculo(string mediaDir, TGCVector3 posicionInicial, SoundsManager soundsManager)
+        public Vehiculo(TGCVector3 posicionInicial, SoundsManager soundsManager)
         {
             this.SoundsManager = soundsManager;
             this.vectorAdelante = new TGCVector3(0, 0, 1);
-            this.CrearMesh(mediaDir + "meshCreator\\meshes\\Vehiculos\\Camioneta\\Camioneta-TgcScene.xml", posicionInicial);
+            this.CrearMesh(ConceptosGlobales.getInstance().GetMediaDir() + "meshCreator\\meshes\\Vehiculos\\Camioneta\\Camioneta-TgcScene.xml", posicionInicial);
             this.velocidadActualDeSalto = this.velocidadInicialDeSalto;
             this.deltaTiempoAvance = new Timer();
             this.deltaTiempoSalto = new Timer();
