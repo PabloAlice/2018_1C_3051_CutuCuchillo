@@ -4,43 +4,44 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TGC.Core.Mathematica;
+using TGC.Core.SceneLoader;
 
 namespace TGC.Group.Model
 {
     class Portal
     {
-        private TGCVector3 targetPosition;
-        private float targetRotation;
-        private TGCMatrix rotation, scalation, translation;
+        TGCVector3 position;
+        TgcMesh mesh;
 
-        public Portal(TGCVector3 scalation, TGCVector3 rotation, TGCVector3 translation, TGCVector3 targetPos, float targetRot)
+        public Portal(TGCVector3 position, TGCMatrix transformationMatrix)
         {
-            this.scalation = TGCMatrix.Scaling(scalation);
-            this.rotation = TGCMatrix.RotationYawPitchRoll(rotation.Y, rotation.X, rotation.Z);
-            this.translation = TGCMatrix.Translation(translation);
-            this.targetPosition = targetPos;
-            this.targetRotation = targetRot;
+            this.position = position;
+            this.CreateMesh(transformationMatrix);
+            
         }
 
-        public TGCVector3 getTargetPosition()
+        public void CreateMesh(TGCMatrix transformationMatrix)
         {
-            return targetPosition;
+            TgcSceneLoader loader = new TgcSceneLoader();
+            TgcScene scene = loader.loadSceneFromFile(ConceptosGlobales.getInstance().GetMediaDir() + "meshCreator\\meshes\\Otros\\Portal\\Portal-TgcScene.xml");
+            this.mesh = scene.Meshes[0];
+            this.mesh.AutoTransform = false;
+            this.mesh.Transform = transformationMatrix;
         }
 
-        public float getTargetRotation()
+        public TGCVector3 GetPosition()
         {
-            return targetRotation;
+            return this.position;
         }
 
-        public TGCMatrix GetTransformation()
+        public void Dispose()
         {
-            return this.scalation * this.rotation * this.translation;
+            this.mesh.Dispose();
         }
 
-        public void Rotate(TGCMatrix rotation)
+        public void Render()
         {
-            this.rotation = rotation * this.rotation;
+            this.mesh.Render();
         }
-
     }
 }

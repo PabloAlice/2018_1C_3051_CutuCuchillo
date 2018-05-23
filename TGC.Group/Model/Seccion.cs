@@ -10,6 +10,7 @@ namespace TGC.Group.Model
     class Seccion
     {
         private List<SceneElement> objetos = new List<SceneElement>();
+        private List<TypeOfPortal> portales = new List<TypeOfPortal>();
         private TGCVector3 puntoMinimo, puntoMaximo;
 
         public Seccion(TGCVector3 puntoMinimo, TGCVector3 puntoMaximo)
@@ -28,16 +29,35 @@ namespace TGC.Group.Model
             return this.puntoMaximo;
         }
 
-        public void Add(SceneElement objeto)
+        public void AddElements(SceneElement objeto)
         {
             this.objetos.Add(objeto);
         }
 
+        public void AddPortals(TypeOfPortal portal)
+        {
+            this.portales.Add(portal);
+        }
+
         public void Render()
+        {
+            this.RenderElements();
+            this.RenderPortals();
+        }
+
+        public void RenderElements()
         {
             foreach (SceneElement objeto in this.objetos)
             {
                 objeto.Render();
+            }
+        }
+
+        public void RenderPortals()
+        {
+            foreach (TypeOfPortal portal in this.portales)
+            {
+                portal.Render();
             }
         }
 
@@ -46,6 +66,11 @@ namespace TGC.Group.Model
             foreach (SceneElement objeto in this.objetos)
             {
                 objeto.Dispose();
+            }
+
+            foreach (TypeOfPortal portal in this.portales)
+            {
+                portal.Dispose();
             }
         }
     }
