@@ -78,6 +78,7 @@ namespace TGC.Group.Model
                 if(TgcCollisionUtils.testObbAABB(car.GetTGCBoundingOrientedBox(), portal.GetBoundingBox()))
                 {
                     portal.GetBoundingBox().setRenderColor(Color.Red);
+                    portal.Collide(car);
                 }
             }
         }

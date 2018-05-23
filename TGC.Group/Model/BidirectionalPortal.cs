@@ -27,5 +27,11 @@ namespace TGC.Group.Model
             this.targetPortal.Dispose();
         }
 
+        public override void Collide(Vehiculo car)
+        {
+            //no implementado
+            return;
+        }
+
     }
 }

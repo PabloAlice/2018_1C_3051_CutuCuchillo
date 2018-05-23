@@ -57,6 +57,11 @@ namespace TGC.Group.Model
 
         }
 
+        public void Displace(TGCMatrix nuevaPosicion)
+        {
+            this.traslado = nuevaPosicion;
+        }
+
         public EstadoVehiculo GetEstado()
         {
             return estado;

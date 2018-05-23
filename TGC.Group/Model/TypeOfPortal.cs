@@ -29,6 +29,8 @@ namespace TGC.Group.Model
             return this.originPortal.GetBoundingBox();
         }
 
+        abstract public void Collide(Vehiculo car);
+
         /*
         public void checkCollision(Vehiculo car)
         {

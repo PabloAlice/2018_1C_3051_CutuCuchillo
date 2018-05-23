@@ -21,6 +21,11 @@ namespace TGC.Group.Model
             return this.targetPosition;
         }
 
+        public override void Collide(Vehiculo car)
+        {
+            car.Displace(TGCMatrix.Translation(this.targetPosition.X, this.targetPosition.Y, this.targetPosition.Z));
+        }
+
         /*
         public TGCVector3 getTargetPosition()
         {
