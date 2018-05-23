@@ -24,7 +24,7 @@ namespace TGC.Group.Model
             this.originPortal.Dispose();
         }
 
-        virtual public void Render()
+        public void Render()
         {
             this.originPortal.Render();
         }

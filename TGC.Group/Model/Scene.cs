@@ -248,7 +248,7 @@ namespace TGC.Group.Model
             transformation = ConceptosGlobales.getInstance().GenerateTransformation(scale, new TGCVector3(0, 0, 0), new TGCVector3(133f, 0, 143f));
             portal = new Portal(new TGCVector3(133f, 0, 143f), transformation);
             transformation2 = ConceptosGlobales.getInstance().GenerateTransformation(scale, new TGCVector3(0, 0, 0), new TGCVector3(133f, 0, 149f));
-            portal2 = new Portal(new TGCVector3(133f, 0, 149f), transformation);
+            portal2 = new Portal(new TGCVector3(133f, 0, 149f), transformation2);
             this.habitacion.AddPortals(new BidirectionalPortal(portal, portal2));
             this.cocina.AddPortals(new BidirectionalPortal(portal2, portal));
 
@@ -274,7 +274,7 @@ namespace TGC.Group.Model
             transformation = ConceptosGlobales.getInstance().GenerateTransformation(scale, new TGCVector3(0, FastMath.PI_HALF, 0), new TGCVector3(-48f, 0, 258f));
             portal = new Portal(new TGCVector3(133f, 0, 143f), transformation);
             transformation2 = ConceptosGlobales.getInstance().GenerateTransformation(scale, new TGCVector3(0, FastMath.PI_HALF, 0), new TGCVector3(-55f, 0, 258f));
-            portal2 = new Portal(new TGCVector3(133f, 0, 149f), transformation);
+            portal2 = new Portal(new TGCVector3(133f, 0, 149f), transformation2);
             this.cocina.AddPortals(new BidirectionalPortal(portal, portal2));
             this.banio.AddPortals(new BidirectionalPortal(portal2, portal));
 
@@ -283,7 +283,7 @@ namespace TGC.Group.Model
             transformation = ConceptosGlobales.getInstance().GenerateTransformation(scale, new TGCVector3(0, 0, 0), new TGCVector3(-170f, 0, 148f));
             portal = new Portal(new TGCVector3(133f, 0, 143f), transformation);
             transformation2 = ConceptosGlobales.getInstance().GenerateTransformation(scale, new TGCVector3(0, 0, 0), new TGCVector3(-170f, 0, 142f));
-            portal2 = new Portal(new TGCVector3(133f, 0, 149f), transformation);
+            portal2 = new Portal(new TGCVector3(133f, 0, 149f), transformation2);
             this.banio.AddPortals(new BidirectionalPortal(portal, portal2));
             this.habitacion.AddPortals(new BidirectionalPortal(portal2, portal));
 

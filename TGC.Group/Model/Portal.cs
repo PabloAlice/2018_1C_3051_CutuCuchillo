@@ -36,12 +36,19 @@ namespace TGC.Group.Model
 
         public void Dispose()
         {
-            this.mesh.Dispose();
+            //no se por que rompe esta mierda
+            //this.mesh.Dispose();
         }
 
         public void Render()
         {
+            this.Rotate(TGCMatrix.RotationZ(0.05f));
             this.mesh.Render();
+        }
+
+        public void Rotate(TGCMatrix Rotation)
+        {
+            this.mesh.Transform = Rotation * this.mesh.Transform;
         }
     }
 }
