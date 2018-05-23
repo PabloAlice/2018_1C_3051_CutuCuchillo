@@ -57,9 +57,15 @@ namespace TGC.Group.Model
 
         }
 
-        public void Displace(TGCMatrix nuevaPosicion)
+        public void ChangePosition(TGCMatrix nuevaPosicion)
         {
-            this.traslado = nuevaPosicion;
+            this.SetTranslate(nuevaPosicion);
+        }
+
+        public void SetTranslate(TGCMatrix newTranslate)
+        {
+            this.traslado = newTranslate;
+            this.Transform();
         }
 
         public EstadoVehiculo GetEstado()
@@ -78,7 +84,7 @@ namespace TGC.Group.Model
             TgcScene scene = loader.loadSceneFromFile(rutaAMesh);
             this.mesh = scene.Meshes[0];
             this.mesh.AutoTransform = false;
-            this.rotado = TGCMatrix.RotationY(FastMath.PI);
+            this.rotado = TGCMatrix.RotationYawPitchRoll(0,0,0);
             this.escalado = TGCMatrix.Scaling(this.escaladoInicial);
             this.traslado = TGCMatrix.Translation(posicionInicial.X, posicionInicial.Y, posicionInicial.Z);
             this.trasladoInicial = traslado;
@@ -160,7 +166,6 @@ namespace TGC.Group.Model
         public void Render()
         {
             this.mesh.Render();
-            this.obb.ActualizarBoundingOrientedBox(this.mesh.BoundingBox);
             this.RenderBoundingOrientedBox();
             delanteraIzquierda.Render();
             delanteraDerecha.Render();
@@ -269,6 +274,7 @@ namespace TGC.Group.Model
             var transformacion = GetTransformacion();
             this.mesh.Transform = transformacion;
             this.mesh.BoundingBox.transform(this.escalado * this.traslado);
+            this.obb.ActualizarBoundingOrientedBox(this.mesh.BoundingBox);
             this.delanteraIzquierda.Transform(this.GetTransformacion());
             this.delanteraDerecha.Transform(this.GetTransformacion());
 

@@ -6,9 +6,11 @@ namespace TGC.Group.Model
     abstract class TypeOfPortal
     {
         protected Portal originPortal;
+        protected TGCVector3 outDirection;
 
-        public TypeOfPortal(Portal originPortal)
+        public TypeOfPortal(Portal originPortal, TGCVector3 outDirection)
         {
+            this.outDirection = outDirection;
             this.originPortal = originPortal;
         }
 

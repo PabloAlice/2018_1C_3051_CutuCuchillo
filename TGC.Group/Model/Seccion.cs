@@ -72,7 +72,6 @@ namespace TGC.Group.Model
 
         public void DetectPortalsCollision(Vehiculo car)
         {
-            System.Console.WriteLine("holi");
             foreach (TypeOfPortal portal in this.portales)
             {
                 if(TgcCollisionUtils.testObbAABB(car.GetTGCBoundingOrientedBox(), portal.GetBoundingBox()))

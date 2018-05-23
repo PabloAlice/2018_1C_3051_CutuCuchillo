@@ -11,7 +11,7 @@ namespace TGC.Group.Model
     {
         private TGCVector3 targetPosition;
 
-        public UnidirectionalPortal(Portal originPortal, TGCVector3 targetPosition) : base(originPortal)
+        public UnidirectionalPortal(Portal originPortal, TGCVector3 targetPosition, TGCVector3 outDirection) : base(originPortal, outDirection)
         {
             this.targetPosition = targetPosition;
         }
@@ -23,7 +23,7 @@ namespace TGC.Group.Model
 
         public override void Collide(Vehiculo car)
         {
-            car.Displace(TGCMatrix.Translation(this.targetPosition.X, this.targetPosition.Y, this.targetPosition.Z));
+            car.ChangePosition(TGCMatrix.Translation(this.targetPosition.X, this.targetPosition.Y, this.targetPosition.Z));
         }
 
         /*

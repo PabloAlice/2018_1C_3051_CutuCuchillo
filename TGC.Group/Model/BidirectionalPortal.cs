@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TGC.Core.Mathematica;
+using TGC.Core.Collision;
 
 namespace TGC.Group.Model
 {
@@ -11,7 +12,7 @@ namespace TGC.Group.Model
     {
         private Portal targetPortal;
 
-        public BidirectionalPortal(Portal originPortal, Portal targetPortal) : base(originPortal)
+        public BidirectionalPortal(Portal originPortal, Portal targetPortal, TGCVector3 outDirection) : base(originPortal, outDirection)
         {
             this.targetPortal = targetPortal;
         }
@@ -29,7 +30,14 @@ namespace TGC.Group.Model
 
         public override void Collide(Vehiculo car)
         {
-            //no implementado
+            TGCVector3 newPosition = this.targetPortal.GetPosition();
+            float epsilon = 0f;
+            car.ChangePosition(TGCMatrix.Translation(newPosition.X, newPosition.Y, newPosition.Z));
+            while (TgcCollisionUtils.testObbAABB(car.GetTGCBoundingOrientedBox(), this.targetPortal.GetBoundingBox()))
+            {
+                epsilon += 0.01f;
+                car.ChangePosition(TGCMatrix.Translation(newPosition.X + epsilon, newPosition.Y + epsilon, newPosition.Z + epsilon));
+            }
             return;
         }
 
