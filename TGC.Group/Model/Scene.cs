@@ -18,7 +18,6 @@ namespace TGC.Group.Model
         private String mediaDir = "";
 
         private SceneElement scene;
-        private List<SceneElement> puertas = new List<SceneElement>();
         private Seccion cocina, banio, habitacion;
 
         private Scene()
@@ -215,15 +214,24 @@ namespace TGC.Group.Model
             this.habitacion.Add(this.GiveMeAnObject("MeshCreator\\Meshes\\Habitacion\\CajaPizza\\CajaPizza-TgcScene.xml", GenerateTransformation(new TGCVector3(0.5f, 0.5f, 0.5f), new TGCVector3(0, 0, 0), new TGCVector3(-173f, 28f, 15f))));
             this.habitacion.Add(this.GiveMeAnObject("MeshCreator\\Meshes\\Habitacion\\Lapiz\\Lapiz-TgcScene.xml", GenerateTransformation(new TGCVector3(0.3f, 0.3f, 0.3f), new TGCVector3(0, FastMath.PI_HALF, 0), new TGCVector3(208f, 45f, -130f))));
 
+
             //puertas
             transformaciones = new List<TGCMatrix>();
             transformaciones.Add(GenerateTransformation(new TGCVector3(1f, 2.26f, 1.88f), new TGCVector3(0, FastMath.PI_HALF, 0), new TGCVector3(-173.6f, 0, 145)));
             transformaciones.Add(GenerateTransformation(new TGCVector3(1f, 2.26f, 2f), new TGCVector3(0, -FastMath.PI_HALF, 0), new TGCVector3(131.5f, 0, 145.5f)));
-            transformaciones.Add(GenerateTransformation(new TGCVector3(1f, 2.26f, 1.6f), new TGCVector3(0, 0, 0), new TGCVector3(-52.5f, 0, 260f)));
-            this.puertas.Add(this.GiveMeAnObject("MeshCreator\\Meshes\\Otros\\Puerta\\Puerta-TgcScene.xml", transformaciones));
+            this.habitacion.Add(this.GiveMeAnObject("MeshCreator\\Meshes\\Otros\\Puerta\\Puerta-TgcScene.xml", transformaciones));
 
-            //portales
-            
+
+            transformaciones = new List<TGCMatrix>();
+            transformaciones.Add(GenerateTransformation(new TGCVector3(1f, 2.26f, 2f), new TGCVector3(0, -FastMath.PI_HALF, 0), new TGCVector3(131.5f, 0, 145.5f)));
+            transformaciones.Add(GenerateTransformation(new TGCVector3(1f, 2.26f, 1.6f), new TGCVector3(0, 0, 0), new TGCVector3(-52.5f, 0, 260f)));
+            this.cocina.Add(this.GiveMeAnObject("MeshCreator\\Meshes\\Otros\\Puerta\\Puerta-TgcScene.xml", transformaciones));
+
+            transformaciones = new List<TGCMatrix>();
+            transformaciones.Add(GenerateTransformation(new TGCVector3(1f, 2.26f, 1.6f), new TGCVector3(0, 0, 0), new TGCVector3(-52.5f, 0, 260f)));
+            transformaciones.Add(GenerateTransformation(new TGCVector3(1f, 2.26f, 1.88f), new TGCVector3(0, FastMath.PI_HALF, 0), new TGCVector3(-173.6f, 0, 145)));
+            this.banio.Add(this.GiveMeAnObject("MeshCreator\\Meshes\\Otros\\Puerta\\Puerta-TgcScene.xml", transformaciones));
+
 
         }
 
@@ -235,7 +243,7 @@ namespace TGC.Group.Model
 
         }
 
-        private SceneElement GiveMeAnObject(string ruta, List<TGCMatrix> transformations)
+        private SceneRepeatedElement GiveMeAnObject(string ruta, List<TGCMatrix> transformations)
         {
             TgcScene tgcScene = new TgcSceneLoader().loadSceneFromFile(mediaDir + ruta);
             SceneRepeatedElement nuevoObjeto = new SceneRepeatedElement(tgcScene.Meshes, transformations);
@@ -254,21 +262,12 @@ namespace TGC.Group.Model
         public void Render()
         {
             this.scene.Render();
-            foreach (SceneElement puerta in this.puertas)
-            {
-                puerta.Render();
-            }
             this.UbicacionVehiculo().Render();
-
             Portals.GetInstance().Render();
         }
 
         public void Dispose()
         {
-            foreach (SceneElement puerta in this.puertas)
-            {
-                puerta.Dispose();
-            }
             this.scene.Dispose();
             this.habitacion.Dispose();
             this.cocina.Dispose();
