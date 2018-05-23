@@ -243,7 +243,7 @@ namespace TGC.Group.Model
             //portal que va abajo del escritorio y que se dirige arriba del escritorio
             transformation = ConceptosGlobales.GetInstance().GenerateTransformation(scale, new TGCVector3(0, 0, 0), new TGCVector3(159f, 0, -162f));
             portal = new Portal(new TGCVector3(159f, 0, -162f), transformation);
-            targetPosition = new TGCVector3(0,0,0);
+            targetPosition = new TGCVector3(164,49,-141);
             this.habitacion.AddPortals(new UnidirectionalPortal(portal, targetPosition));
 
             //portal que conecta la habitacion con la cocina (bidireccional)
@@ -269,7 +269,7 @@ namespace TGC.Group.Model
             //portal que va de abajo del mueble de la cocina, hacia arriba del mueblePared (unidireccional)
             transformation = ConceptosGlobales.GetInstance().GenerateTransformation(scale, new TGCVector3(0, 0, 0), new TGCVector3(197f, 0, 312f));
             portal = new Portal(new TGCVector3(159f, 0, -162f), transformation);
-            targetPosition = new TGCVector3(0, 0, 0);
+            targetPosition = new TGCVector3(205, 145, 365);
             this.cocina.AddPortals(new UnidirectionalPortal(portal, targetPosition));
 
             //portal que conecta el baño con la cocina (bidireccional)
@@ -298,7 +298,7 @@ namespace TGC.Group.Model
             //portal que va desde abajo de la cama hacia arriba de la cama
             transformation = ConceptosGlobales.GetInstance().GenerateTransformation(scale, new TGCVector3(0, 0, 0), new TGCVector3(-35f, 0, -173f));
             portal = new Portal(new TGCVector3(159f, 0, -162f), transformation);
-            targetPosition = new TGCVector3(0, 0, 0);
+            targetPosition = new TGCVector3(-37, 20, -142);
             this.habitacion.AddPortals(new UnidirectionalPortal(portal, targetPosition));
 
         }
