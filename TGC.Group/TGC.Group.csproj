@@ -91,7 +91,7 @@
     <Compile Include="Model\BoundingObjectOriented.cs" />
     <Compile Include="Model\CamaraEnTerceraPersona.cs" />
     <Compile Include="Model\ConceptosGlobales.cs" />
-    <Compile Include="Model\Escena.cs" />
+    <Compile Include="Model\Scene.cs" />
     <Compile Include="Model\MeshObb.cs" />
     <Compile Include="Model\Portal.cs" />
     <Compile Include="Model\Portals.cs" />

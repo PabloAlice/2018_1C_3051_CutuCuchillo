@@ -10,11 +10,11 @@ namespace TGC.Group.Model.Vehiculos
 {
     class Camioneta : Vehiculo
     {
-        public Camioneta(string mediaDir, TGCVector3 posicionInicial, SoundsManager soundsManager) : base(mediaDir, posicionInicial, soundsManager)
+        public Camioneta(CamaraEnTerceraPersona camara, TGCVector3 posicionInicial, SoundsManager soundsManager) : base(camara, posicionInicial, soundsManager)
         {
             //creo los meshes de las ruedas y luego agrego cada object Rueda(mesh,posicion) a la lista de ruedas;
             TgcSceneLoader loader = new TgcSceneLoader();
-            TgcMesh ruedaIzquierda = loader.loadSceneFromFile(mediaDir + "meshCreator\\meshes\\Vehiculos\\Camioneta\\Rueda\\Rueda-TgcScene.xml").Meshes[0];
+            TgcMesh ruedaIzquierda = loader.loadSceneFromFile(ConceptosGlobales.getInstance().GetMediaDir() + "meshCreator\\meshes\\Vehiculos\\Camioneta\\Rueda\\Rueda-TgcScene.xml").Meshes[0];
             TgcMesh ruedaDerecha = ruedaIzquierda.clone("ruedaDerecha");
             TgcMesh ruedaTraseraIzquierda = ruedaIzquierda.clone("ruedaTraseraIzquierda");
             TgcMesh ruedaTraseraDerecha = ruedaIzquierda.clone("ruedaTraseraDerecha");

@@ -33,13 +33,13 @@ namespace TGC.Group.Model.Vehiculos.Estados
             this.cambiarEstado(new Backward(this.auto));
         }
 
-        override public void Left(CamaraEnTerceraPersona camara)
+        override public void Left()
         {
             float rotacionReal = -1f * auto.GetElapsedTime();
             auto.RotarDelanteras(rotacionReal);
         }
 
-        override public void Right(CamaraEnTerceraPersona camara)
+        override public void Right()
         {
             float rotacionReal = 1f * auto.GetElapsedTime();
             auto.RotarDelanteras(rotacionReal);
