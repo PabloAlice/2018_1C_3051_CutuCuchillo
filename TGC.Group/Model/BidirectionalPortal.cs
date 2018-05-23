@@ -31,12 +31,12 @@ namespace TGC.Group.Model
         public override void Collide(Vehiculo car)
         {
             TGCVector3 newPosition = this.targetPortal.GetPosition();
-            float epsilon = 0f;
+            TGCMatrix translation = TGCMatrix.Translation(0,0,0);
             car.ChangePosition(TGCMatrix.Translation(newPosition.X, newPosition.Y, newPosition.Z));
             while (TgcCollisionUtils.testObbAABB(car.GetTGCBoundingOrientedBox(), this.targetPortal.GetBoundingBox()))
             {
-                epsilon += 0.01f;
-                car.ChangePosition(TGCMatrix.Translation(newPosition.X + epsilon, newPosition.Y + epsilon, newPosition.Z + epsilon));
+                translation *= TGCMatrix.Translation(this.outDirection * 0.1f);
+                car.ChangePosition(TGCMatrix.Translation(newPosition) * translation);
             }
             return;
         }
