@@ -37,9 +37,9 @@ namespace TGC.Group.Model
         {
             ConceptosGlobales.getInstance().SetMediaDir(this.MediaDir);
             ConceptosGlobales.getInstance().SetDispositivoDeAudio(this.DirectSound.DsDevice);
-            Escena.getInstance().Init(this.MediaDir);
+            Scene.getInstance().Init(this.MediaDir);
             this.auto = new Camioneta(MediaDir, new TGCVector3(-0f, 0f, 0f), new SoundsManager(this.MediaDir + "CarSounds//min-vel.wav", this.MediaDir + "CarSounds//max-vel.wav", this.MediaDir + "CarSounds//accelerating.wav", this.MediaDir + "CarSounds//desaccelerating.wav", new TGCVector3(-0f, 0f, 0f)));
-            Escena.getInstance().SetVehiculo(this.auto);
+            Scene.getInstance().SetVehiculo(this.auto);
             this.camaraInterna = new CamaraEnTerceraPersona(camaraDesplazamiento, 0.8f, -33);
             this.Camara = camaraInterna;
         }
@@ -100,46 +100,7 @@ namespace TGC.Group.Model
 
 
             this.auto.SetElapsedTime(ElapsedTime);
-
-            if (Input.keyDown(Key.W))
-            {
-                this.auto.SoundsManager.PlayAccelerating();
-                this.auto.GetEstado().Advance();
-            } else
-            {
-                this.auto.SoundsManager.PlayDesaccelerating();
-            }
-
-            if (Input.keyDown(Key.S))
-            {
-                this.auto.GetEstado().Back();
-            }
-
-            if (Input.keyDown(Key.D))
-            {
-                this.auto.GetEstado().Right(camaraInterna);
-                
-            }else if (Input.keyDown(Key.A))
-            {
-                this.auto.GetEstado().Left(camaraInterna);
-            }
-
-            if(!Input.keyDown(Key.A) && !Input.keyDown(Key.D))
-            {
-                this.auto.GetEstado().UpdateWheels();
-            }
-
-            if (Input.keyDown(Key.Space))
-            {
-                this.auto.GetEstado().Jump();
-            }
-
-            if (!Input.keyDown(Key.W) && !Input.keyDown(Key.S))
-            {
-                this.auto.GetEstado().SpeedUpdate();
-            }
-
-            this.auto.GetEstado().JumpUpdate();
+            this.auto.Action(this.Input, camaraInterna);
 
             this.camaraInterna.Target = (this.auto.GetPosicion()) + auto.GetVectorAdelante() * 30 ;
 
@@ -193,7 +154,7 @@ namespace TGC.Group.Model
 
             this.PreRender();
 
-            Escena.getInstance().Render();
+            Scene.getInstance().Render();
 
             this.textoVelocidadVehiculo.render();
 
@@ -210,7 +171,7 @@ namespace TGC.Group.Model
 
         public override void Dispose()
         {
-            Escena.getInstance().Dispose();
+            Scene.getInstance().Dispose();
             this.auto.Dispose();
            
         }

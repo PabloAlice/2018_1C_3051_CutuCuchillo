@@ -11,9 +11,9 @@ using TGC.Group.Model.Vehiculos.Estados;
 
 namespace TGC.Group.Model
 {
-    class Escena
+    class Scene
     {
-        private static Escena instance;
+        private static Scene instance;
         private Vehiculo auto;
         private String mediaDir = "";
 
@@ -21,7 +21,7 @@ namespace TGC.Group.Model
         private List<SceneElement> puertas = new List<SceneElement>();
         private Seccion cocina, banio, habitacion;
 
-        private Escena()
+        private Scene()
         {
             this.cocina = new Seccion(new TGCVector3(-52, 0, 145), new TGCVector3(226, 0, 380));
             this.habitacion = new Seccion(new TGCVector3(-221,0,-174), new TGCVector3(226,0,145));
@@ -29,11 +29,11 @@ namespace TGC.Group.Model
 
         }
 
-        public static Escena getInstance()
+        public static Scene getInstance()
         {
             if (instance == null)
             {
-                instance = new Escena();
+                instance = new Scene();
             }
 
             return instance;
@@ -245,10 +245,7 @@ namespace TGC.Group.Model
         private TGCMatrix GenerateTransformation(TGCVector3 escala, TGCVector3 rotacion, TGCVector3 traslado)
         {
             TGCMatrix matrixEscalado = TGCMatrix.Scaling(escala);
-            TGCMatrix matrixRotacionX = TGCMatrix.RotationX(rotacion.X);
-            TGCMatrix matrixRotacionY = TGCMatrix.RotationY(rotacion.Y);
-            TGCMatrix matrixRotacionZ = TGCMatrix.RotationZ(rotacion.Z);
-            TGCMatrix matrixRotacion = matrixRotacionX * matrixRotacionY * matrixRotacionZ;
+            TGCMatrix matrixRotacion = TGCMatrix.RotationYawPitchRoll(rotacion.Y, rotacion.X, rotacion.Z);
             TGCMatrix matrixTraslacion = TGCMatrix.Translation(traslado);
             TGCMatrix transformacion = matrixEscalado * matrixRotacion * matrixTraslacion;
             return transformacion;

@@ -5,6 +5,8 @@ using TGC.Core.SceneLoader;
 using TGC.Group.Model.Vehiculos.Estados;
 using TGC.Group.Model.Vehiculos;
 using TGC.Core.BoundingVolumes;
+using TGC.Core.Input;
+using Microsoft.DirectX.DirectInput;
 
 namespace TGC.Group.Model
 {
@@ -286,6 +288,51 @@ namespace TGC.Group.Model
         {
             delanteraIzquierda.UpdateRotationY(rotacion);
             delanteraDerecha.UpdateRotationY(rotacion);
+        }
+
+        public void Action(TgcD3dInput input, CamaraEnTerceraPersona camara)
+        {
+            if (input.keyDown(Key.W))
+            {
+                this.SoundsManager.PlayAccelerating();
+                this.estado.Advance();
+            }
+            else
+            {
+                this.SoundsManager.PlayDesaccelerating();
+            }
+
+            if (input.keyDown(Key.S))
+            {
+                this.estado.Back();
+            }
+
+            if (input.keyDown(Key.D))
+            {
+                this.estado.Right(camara);
+
+            }
+            else if (input.keyDown(Key.A))
+            {
+                this.estado.Left(camara);
+            }
+
+            if (!input.keyDown(Key.A) && !input.keyDown(Key.D))
+            {
+                this.estado.UpdateWheels();
+            }
+
+            if (input.keyDown(Key.Space))
+            {
+                this.estado.Jump();
+            }
+
+            if (!input.keyDown(Key.W) && !input.keyDown(Key.S))
+            {
+                this.estado.SpeedUpdate();
+            }
+
+            this.estado.JumpUpdate();
         }
     }
 }
