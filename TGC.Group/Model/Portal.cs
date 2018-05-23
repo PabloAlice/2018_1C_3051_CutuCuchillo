@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TGC.Core.BoundingVolumes;
 using TGC.Core.Mathematica;
 using TGC.Core.SceneLoader;
 
@@ -27,6 +28,7 @@ namespace TGC.Group.Model
             this.mesh = scene.Meshes[0];
             this.mesh.AutoTransform = false;
             this.mesh.Transform = transformationMatrix;
+            this.mesh.BoundingBox.transform(transformationMatrix);
         }
 
         public TGCVector3 GetPosition()
@@ -44,11 +46,17 @@ namespace TGC.Group.Model
         {
             this.Rotate(TGCMatrix.RotationZ(0.05f));
             this.mesh.Render();
+            this.mesh.BoundingBox.Render();
         }
 
         public void Rotate(TGCMatrix Rotation)
         {
             this.mesh.Transform = Rotation * this.mesh.Transform;
+        }
+
+        public TgcBoundingAxisAlignBox GetBoundingBox()
+        {
+            return this.mesh.BoundingBox;
         }
     }
 }

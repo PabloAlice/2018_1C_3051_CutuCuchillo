@@ -44,7 +44,7 @@ namespace TGC.Group.Model
 
         public void DetectCollision()
         {
-
+            this.VehicleUbication().DetectCollision(this.auto);
         }
 
         private bool IsBetween(TGCVector3 interes, TGCVector3 pmin, TGCVector3 pmax)

@@ -4,6 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TGC.Core.Mathematica;
+using TGC.Core.Collision;
+using TGC.Core.BoundingVolumes;
+using System.Drawing;
 
 namespace TGC.Group.Model
 {
@@ -59,6 +62,28 @@ namespace TGC.Group.Model
             {
                 portal.Render();
             }
+        }
+
+        public void DetectCollision(Vehiculo car)
+        {
+            this.DetectPortalsCollision(car);
+            this.DetectObjetsCollision(car);
+        }
+
+        public void DetectPortalsCollision(Vehiculo car)
+        {
+            foreach (TypeOfPortal portal in this.portales)
+            {
+                if(TgcCollisionUtils.testObbAABB(car.GetTGCBoundingOrientedBox(), portal.GetBoundingBox()))
+                {
+                    portal.GetBoundingBox().setRenderColor(Color.Red);
+                }
+            }
+        }
+
+        public void DetectObjetsCollision(Vehiculo car)
+        {
+            return;
         }
 
         public void Dispose()

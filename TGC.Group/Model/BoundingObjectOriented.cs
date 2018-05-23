@@ -40,5 +40,10 @@ namespace TGC.Group.Model
         {
             this.obb.setRenderColor(color);
         }
+
+        public TgcBoundingOrientedBox GetBoundingOrientedBox()
+        {
+            return this.obb;
+        }
     }
 }

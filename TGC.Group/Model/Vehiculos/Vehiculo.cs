@@ -165,6 +165,11 @@ namespace TGC.Group.Model
             }
         }
 
+        public TgcBoundingOrientedBox GetTGCBoundingOrientedBox()
+        {
+            return this.obb.GetBoundingOrientedBox();
+        }
+
         public BoundingOrientedBox GetBoundingOrientedBox()
         {
             return this.obb;
