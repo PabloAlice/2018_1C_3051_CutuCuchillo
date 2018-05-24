@@ -115,6 +115,7 @@
     <Compile Include="Model\Vehiculos\Camioneta.cs" />
     <Compile Include="Model\Vehiculos\SoundsManager.cs" />
     <Compile Include="Model\Vehiculos\Vehiculo.cs" />
+    <Compile Include="Model\Weapons.cs" />
     <Compile Include="MyAbrstactions\Tgc3dSound.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
