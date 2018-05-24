@@ -14,6 +14,7 @@ namespace TGC.Group.Model
     {
         private List<SceneElement> objetos = new List<SceneElement>();
         private List<TypeOfPortal> portales = new List<TypeOfPortal>();
+        private List<Weapons> weapons = new List<Weapons>();
         private TGCVector3 puntoMinimo, puntoMaximo;
 
         public Seccion(TGCVector3 puntoMinimo, TGCVector3 puntoMaximo)
