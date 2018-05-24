@@ -28,7 +28,9 @@ namespace TGC.Group.Model
         }
 
         private Camioneta auto;
+        private ObjectManagement manager;
         private CamaraEnTerceraPersona camaraInterna;
+        private CamaraEnTerceraPersona camaraManagement;
         private TGCVector3 camaraDesplazamiento = new TGCVector3(0,5,40);
         private TgcText2D textoVelocidadVehiculo, textoOffsetH, textoOffsetF, textoPosicionVehiculo, textoVectorAdelante;
 
@@ -39,10 +41,13 @@ namespace TGC.Group.Model
             ConceptosGlobales.GetInstance().SetDispositivoDeAudio(this.DirectSound.DsDevice);
             Scene.GetInstance().Init(this.MediaDir);
             this.camaraInterna = new CamaraEnTerceraPersona(camaraDesplazamiento, 0.8f, -33);
+            //this.camaraManagement = new CamaraEnTerceraPersona(camaraDesplazamiento, 3f, -50);
             this.Camara = camaraInterna;
+            //this.Camara = camaraManagement;
             this.auto = new Camioneta(camaraInterna, new TGCVector3(-0f, 0f, 0f), new SoundsManager(this.MediaDir + "CarSounds//min-vel.wav", this.MediaDir + "CarSounds//max-vel.wav", this.MediaDir + "CarSounds//accelerating.wav", this.MediaDir + "CarSounds//desaccelerating.wav", new TGCVector3(-0f, 0f, 0f)));
             Scene.GetInstance().SetVehiculo(this.auto);
-            
+            //manager = new ObjectManagement(MediaDir + "meshCreator\\meshes\\Habitacion\\Billetes\\Billete2\\Billete2-TgcScene.xml", camaraManagement);
+
         }
 
         public override void Update()
@@ -70,11 +75,12 @@ namespace TGC.Group.Model
             dialogo = "OffsetForward = {0}";
             dialogo = string.Format(dialogo, this.camaraInterna.OffsetForward);
             textoOffsetF = Textos.newText(dialogo, 120, 85);
+
+
             
-
-
             this.auto.SetElapsedTime(ElapsedTime);
             this.auto.Action(this.Input);
+            //this.manager.Action(this.Input);
             Scene.GetInstance().DetectCollision();
 
             //Comentado para que los sonidos funcionen correctamente
@@ -137,6 +143,9 @@ namespace TGC.Group.Model
                        
             this.auto.Transform();
             this.auto.Render();
+
+            //this.manager.Transform();
+            //this.manager.Render();
 
             this.PostRender();
         }
