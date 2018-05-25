@@ -18,6 +18,7 @@ namespace TGC.Group.Model
         private Timer deltaTiempoAvance;
         private Timer deltaTiempoSalto;
         public TGCVector3 vectorAdelante;
+        public TGCVector3 vectorAdelanteSalto { get; set; }
         public TGCMatrix traslado, rotado, escalado;
         protected List<Rueda> ruedas = new List<Rueda>();
         protected Rueda delanteraIzquierda;
