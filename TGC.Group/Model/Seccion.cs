@@ -12,9 +12,7 @@ namespace TGC.Group.Model
 {
     class Seccion
     {
-        private List<SceneElement> objetos = new List<SceneElement>();
-        private List<TypeOfPortal> portales = new List<TypeOfPortal>();
-        private List<Weapons> weapons = new List<Weapons>();
+        private List<Collidable> objetos = new List<Collidable>();
         private TGCVector3 puntoMinimo, puntoMaximo;
 
         public Seccion(TGCVector3 puntoMinimo, TGCVector3 puntoMaximo)
@@ -33,71 +31,32 @@ namespace TGC.Group.Model
             return this.puntoMaximo;
         }
 
-        public void AddElements(SceneElement objeto)
+        public void AddElements(Collidable objeto)
         {
             this.objetos.Add(objeto);
         }
 
-        public void AddPortals(TypeOfPortal portal)
-        {
-            this.portales.Add(portal);
-        }
-
         public void Render()
         {
-            this.RenderElements();
-            this.RenderPortals();
-        }
-
-        public void RenderElements()
-        {
-            foreach (SceneElement objeto in this.objetos)
+            foreach (Collidable objeto in this.objetos)
             {
                 objeto.Render();
             }
         }
 
-        public void RenderPortals()
+        public void HandleCollisions(Vehiculo car)
         {
-            foreach (TypeOfPortal portal in this.portales)
+            foreach (Collidable objeto in objetos)
             {
-                portal.Render();
+                objeto.HandleCollisions(car);
             }
-        }
-
-        public void DetectCollision(Vehiculo car)
-        {
-            this.DetectPortalsCollision(car);
-            this.DetectObjetsCollision(car);
-        }
-
-        public void DetectPortalsCollision(Vehiculo car)
-        {
-            foreach (TypeOfPortal portal in this.portales)
-            {
-                if(TgcCollisionUtils.testObbAABB(car.GetTGCBoundingOrientedBox(), portal.GetBoundingBox()))
-                {
-                    portal.GetBoundingBox().setRenderColor(Color.Red);
-                    portal.Collide(car);
-                }
-            }
-        }
-
-        public void DetectObjetsCollision(Vehiculo car)
-        {
-            return;
         }
 
         public void Dispose()
         {
-            foreach (SceneElement objeto in this.objetos)
+            foreach (Collidable objeto in this.objetos)
             {
                 objeto.Dispose();
-            }
-
-            foreach (TypeOfPortal portal in this.portales)
-            {
-                portal.Dispose();
             }
         }
     }

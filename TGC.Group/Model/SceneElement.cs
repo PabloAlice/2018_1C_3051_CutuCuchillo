@@ -10,7 +10,7 @@ using System.Drawing;
 
 namespace TGC.Group.Model
 {
-    class SceneElement
+    class SceneElement : Collidable
     {
         protected List<MeshObb> elementos = new List<MeshObb>();
 
@@ -96,6 +96,11 @@ namespace TGC.Group.Model
             {
                 elemento.obb.SetRenderColor(color);
             }
+        }
+
+        public void HandleCollisions(Vehiculo car)
+        {
+            return;
         }
     }
 }

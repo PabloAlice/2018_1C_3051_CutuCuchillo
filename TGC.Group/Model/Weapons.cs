@@ -8,7 +8,7 @@ using TGC.Core.Mathematica;
 
 namespace TGC.Group.Model
 {
-    class Weapons
+    class Weapons : Collidable
     {
         private TgcMesh billet;
         private TgcMesh weapon;
@@ -27,6 +27,11 @@ namespace TGC.Group.Model
             this.scalation = scale;
         }
 
+        public void Render()
+        {
+            return;
+        }
+
         private TgcMesh CreateMesh(string path)
         {
             TgcSceneLoader loader = new TgcSceneLoader();
@@ -37,6 +42,16 @@ namespace TGC.Group.Model
             this.scalation = TGCMatrix.Scaling(new TGCVector3(1,1,1));
             this.traslation = TGCMatrix.Translation(new TGCVector3(0,0,0));
             return mesh;
+        }
+
+        public void HandleCollisions(Vehiculo car)
+        {
+            return;
+        }
+
+        public void Dispose()
+        {
+            return;
         }
     }
 }
