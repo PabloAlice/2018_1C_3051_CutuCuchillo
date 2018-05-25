@@ -36,6 +36,11 @@ namespace TGC.Group.Model
             this.objetos.Add(objeto);
         }
 
+        public void remove(Collidable objeto)
+        {
+            objetos.Remove(objeto);
+        }
+
         public void Render()
         {
             foreach (Collidable objeto in this.objetos)
@@ -50,6 +55,7 @@ namespace TGC.Group.Model
             {
                 objeto.HandleCollisions(car);
             }
+
         }
 
         public void Dispose()

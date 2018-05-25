@@ -35,7 +35,7 @@ namespace TGC.Group.Model
 
         public void HandleCollisions(Vehiculo car)
         {
-            if (TgcCollisionUtils.testObbAABB(car.GetTGCBoundingOrientedBox(), this.GetBoundingBox()))                {
+            if (TgcCollisionUtils.testObbAABB(car.GetTGCBoundingOrientedBox(), this.GetBoundingBox())){
                 this.GetBoundingBox().setRenderColor(Color.Red);
                 this.Collide(car);
             }

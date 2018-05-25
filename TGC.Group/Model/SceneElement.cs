@@ -44,18 +44,17 @@ namespace TGC.Group.Model
         {
             foreach (MeshObb elemento in this.elementos)
             {
-                elemento.mesh.Render();
-                elemento.obb.Render();
+                elemento.Render();
             }
         }
 
-        public void RenderBoundingBox()
+        /*public void RenderBoundingBox()
         {
             foreach (MeshObb elemento in this.elementos)
             {
                 elemento.obb.Render();
             }
-        }
+        }*/
 
         public MeshObb TestColision(MeshObb meshObb)
         {
@@ -71,7 +70,7 @@ namespace TGC.Group.Model
              */
             foreach (MeshObb elemento in this.elementos)
             {
-                if (TgcCollisionUtils.testAABBAABB(meshObb.mesh.BoundingBox, elemento.mesh.BoundingBox))
+                if (TgcCollisionUtils.testAABBAABB(meshObb.getMesh().BoundingBox, elemento.getMesh().BoundingBox))
                 {
                     return elemento;
                 }
@@ -90,13 +89,13 @@ namespace TGC.Group.Model
             }
         }
 
-        public void SetColorBoundingBox(Color color)
+        /*public void SetColorBoundingBox(Color color)
         {
             foreach (MeshObb elemento in this.elementos)
             {
                 elemento.obb.SetRenderColor(color);
             }
-        }
+        }*/
 
         public void HandleCollisions(Vehiculo car)
         {

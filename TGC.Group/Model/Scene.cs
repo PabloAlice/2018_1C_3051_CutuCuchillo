@@ -170,7 +170,7 @@ namespace TGC.Group.Model
             this.banio.AddElements(this.GiveMeAnObject("MeshCreator\\Meshes\\Bathroom\\TuboMetal3\\TuboMetal3-TgcScene.xml", GenerateTransformation(new TGCVector3(0.1f, 0.1f, 0.1f), new TGCVector3(0, 0, 0), new TGCVector3(-108f, 11f, 294f))));
 
             //habitacion
-            this.habitacion.AddElements(new Misile(TGCMatrix.Translation(0f, 0f, 0f)));
+            this.habitacion.AddElements(new Misile(TGCMatrix.Translation(0f, 0f, 10f)));
 
             this.habitacion.AddElements(this.GiveMeAnObject("MeshCreator\\Meshes\\Habitacion\\Cama\\Cama-TgcScene.xml", GenerateTransformation(new TGCVector3(1, 1, 1), new TGCVector3(0, FastMath.PI, 0), new TGCVector3(-36f, 0, -124f))));
             this.habitacion.AddElements(this.GiveMeAnObject("MeshCreator\\Meshes\\Habitacion\\MesaDeLuz\\MesaDeLuz-TgcScene.xml", GenerateTransformation(new TGCVector3(1, 1, 1), new TGCVector3(0, FastMath.PI, 0), new TGCVector3(22f, 0, -158f))));
@@ -345,6 +345,10 @@ namespace TGC.Group.Model
             this.cocina.Dispose();
             this.banio.Dispose();
 
+        }
+        public void remove(Collidable objeto)
+        {
+            VehicleUbication().remove(objeto);
         }
 
         /*public Camioneta calculateCollisions(Camioneta auto)

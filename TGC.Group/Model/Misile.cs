@@ -19,7 +19,12 @@ namespace TGC.Group.Model
             InitializeMeshes();
         }
 
-        protected override TGCMatrix getHeight()
+        protected override void Collide(Vehiculo car)
+        {
+
+        }
+
+        protected override TGCMatrix GetHeight()
         {
             return TGCMatrix.Translation(0f, 2.2f, 0f);
         }

@@ -5,42 +5,47 @@ using System.Text;
 using System.Threading.Tasks;
 using TGC.Core.SceneLoader;
 using TGC.Core.Mathematica;
+using TGC.Core.Collision;
 
 namespace TGC.Group.Model
 {
     abstract class Weapon : Collidable
     {
-        private TgcMesh billet;
-        private TgcMesh weapon;
+        private MeshObb billet;
+        private MeshObb weapon;
         protected TGCMatrix translation, rotation, scalation;
-        protected String billetPath, weaponPath; 
+        protected String billetPath, weaponPath;
+        bool isVisible;
 
         public Weapon(TGCMatrix translate)
         {
             this.rotation = TGCMatrix.RotationYawPitchRoll(0f, 0f, 0f);
             this.translation = translate;
+            isVisible = true;
         }
 
         public void Render()
         {
+            if (!isVisible)
+            {
+                return;
+            }
+
             Update();
             
-            billet.Transform = TGCMatrix.Scaling(0.04f, 0.04f, 0.04f) * TGCMatrix.RotationYawPitchRoll(0f, -FastMath.PI_HALF, 0f) * rotation * translation * TGCMatrix.Translation(0f, 0.7f, 0f);
-            weapon.Transform = scalation * rotation * translation * getHeight();
+            billet.Transform(TGCMatrix.Scaling(0.04f, 0.04f, 0.04f) * TGCMatrix.RotationYawPitchRoll(0f, -FastMath.PI_HALF, 0f) * rotation * translation * TGCMatrix.Translation(0f, 0.7f, 0f));
+            weapon.Transform(scalation * rotation * translation * GetHeight());
 
             billet.Render();
             weapon.Render();
-
         }
 
-        protected abstract TGCMatrix getHeight();
+        protected abstract TGCMatrix GetHeight();
 
         protected virtual void InitializeMeshes()
         {
-            weapon = new TgcSceneLoader().loadSceneFromFile(weaponPath).Meshes[0];
-            weapon.AutoTransform = false;
-            billet = new TgcSceneLoader().loadSceneFromFile(billetPath).Meshes[0];
-            billet.AutoTransform = false;
+            weapon = new MeshObb(new TgcSceneLoader().loadSceneFromFile(weaponPath).Meshes[0]);
+            billet = new MeshObb(new TgcSceneLoader().loadSceneFromFile(billetPath).Meshes[0]);
         }
 
         private void Update()
@@ -50,8 +55,16 @@ namespace TGC.Group.Model
 
         public void HandleCollisions(Vehiculo car)
         {
-            return;
+            if (TgcCollisionUtils.testObbObb(car.GetTGCBoundingOrientedBox(), billet.getObb().GetBoundingOrientedBox()) && isVisible)
+            {
+                car.addWeapon(this);
+                this.Collide(car);
+                this.isVisible = false;
+            }
         }
+
+        
+        protected abstract void Collide(Vehiculo car);
 
         public void Dispose()
         {

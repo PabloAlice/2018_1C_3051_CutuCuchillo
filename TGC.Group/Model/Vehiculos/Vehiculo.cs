@@ -41,6 +41,8 @@ namespace TGC.Group.Model
         protected TGCMatrix trasladoInicial;
         protected CamaraEnTerceraPersona camara;
 
+        private List<Weapon> weapons = new List<Weapon>();
+
         public Vehiculo(CamaraEnTerceraPersona camara, TGCVector3 posicionInicial, SoundsManager soundsManager)
         {
             this.camara = camara;
@@ -136,6 +138,11 @@ namespace TGC.Group.Model
             this.RotarDelanteras((this.GetVelocidadActual() > 0) ? rotacionRueda : -rotacionRueda);
             this.camara.rotateY(rotacionReal);
             this.RotateOBB(rotacionReal);
+        }
+
+        public void addWeapon(Weapon weapon)
+        {
+            this.weapons.Add(weapon);
         }
 
         public void SetElapsedTime(float time)

@@ -10,8 +10,8 @@ namespace TGC.Group.Model
 {
     class MeshObb
     {
-        public TgcMesh mesh;
-        public BoundingOrientedBox obb;
+        private TgcMesh mesh;
+        private BoundingOrientedBox obb;
 
         public MeshObb(TgcMesh mesh)
         {
@@ -30,6 +30,27 @@ namespace TGC.Group.Model
             this.mesh.Transform = transformataion;
             this.mesh.BoundingBox.transform(transformataion);
             this.ActualizarBoundingOrientedBox();
+        }
+
+        public void Render()
+        {
+            this.mesh.Render();
+            this.obb.Render();
+        }
+
+        public void Dispose()
+        {
+            this.mesh.Dispose();
+        }
+
+        public TgcMesh getMesh()
+        {
+            return this.mesh;
+        }
+
+        public BoundingOrientedBox getObb()
+        {
+            return this.obb;
         }
     }
 }
