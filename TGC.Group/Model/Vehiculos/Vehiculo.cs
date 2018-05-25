@@ -99,7 +99,6 @@ namespace TGC.Group.Model
         public float GetVelocidadDeRotacion()
         {
             double anguloRadianes = delanteraIzquierda.FrontVectorAngle();
-            Console.WriteLine("angle: " + (float)anguloRadianes);
             if(anguloRadianes <= 0.5f )
             {
                 return this.velocidadRotacion;
