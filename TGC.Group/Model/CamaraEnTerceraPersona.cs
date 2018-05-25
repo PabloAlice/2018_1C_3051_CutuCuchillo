@@ -5,12 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using TGC.Core.Camara;
 using TGC.Core.Mathematica;
+using TGC.Core.Geometry;
 
 namespace TGC.Group.Model
 {
     class CamaraEnTerceraPersona:TgcCamera
     {
         private TGCVector3 position;
+        private TGCPlane plano;
 
         /// <summary>
         ///     Crear una nueva camara
@@ -34,6 +36,11 @@ namespace TGC.Group.Model
             TargetDisplacement = targetDisplacement;
             OffsetHeight = offsetHeight;
             OffsetForward = offsetForward;
+        }
+
+        public void CreatePlane(TGCVector3 normal)
+        {
+            this.plano = TGCPlane.FromPointNormal(this.position, normal);
         }
 
         /// <summary>
