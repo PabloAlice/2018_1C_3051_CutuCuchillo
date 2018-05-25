@@ -1,9 +1,11 @@
 ﻿using TGC.Core.Mathematica;
 using TGC.Core.BoundingVolumes;
+using TGC.Core.Collision;
+using System.Drawing;
 
 namespace TGC.Group.Model
 {
-    abstract class TypeOfPortal
+    abstract class TypeOfPortal : Collidable
     {
         protected Portal originPortal;
         protected TGCVector3 outDirection;
@@ -29,6 +31,14 @@ namespace TGC.Group.Model
         public TgcBoundingAxisAlignBox GetBoundingBox()
         {
             return this.originPortal.GetBoundingBox();
+        }
+
+        public void HandleCollisions(Vehiculo car)
+        {
+            if (TgcCollisionUtils.testObbAABB(car.GetTGCBoundingOrientedBox(), this.GetBoundingBox()))                {
+                this.GetBoundingBox().setRenderColor(Color.Red);
+                this.Collide(car);
+            }
         }
 
         abstract public void Collide(Vehiculo car);

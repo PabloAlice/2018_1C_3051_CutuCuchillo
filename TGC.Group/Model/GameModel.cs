@@ -44,7 +44,7 @@ namespace TGC.Group.Model
             //this.camaraManagement = new CamaraEnTerceraPersona(camaraDesplazamiento, 3f, -50);
             this.Camara = camaraInterna;
             //this.Camara = camaraManagement;
-            this.auto = new Camioneta(camaraInterna, new TGCVector3(-0f, 0f, 0f), new SoundsManager(this.MediaDir + "CarSounds//min-vel.wav", this.MediaDir + "CarSounds//max-vel.wav", this.MediaDir + "CarSounds//accelerating.wav", this.MediaDir + "CarSounds//desaccelerating.wav", new TGCVector3(-0f, 0f, 0f)));
+            this.auto = new Camioneta(camaraInterna, new TGCVector3(0f, 0f, 0f), new SoundsManager(this.MediaDir + "CarSounds//min-vel.wav", this.MediaDir + "CarSounds//max-vel.wav", this.MediaDir + "CarSounds//accelerating.wav", this.MediaDir + "CarSounds//desaccelerating.wav", new TGCVector3(-0f, 0f, 0f)));
             Scene.GetInstance().SetVehiculo(this.auto);
             //manager = new ObjectManagement(MediaDir + "meshCreator\\meshes\\Habitacion\\Billetes\\Billete2\\Billete2-TgcScene.xml", camaraManagement);
 
@@ -81,7 +81,7 @@ namespace TGC.Group.Model
             this.auto.SetElapsedTime(ElapsedTime);
             this.auto.Action(this.Input);
             //this.manager.Action(this.Input);
-            Scene.GetInstance().DetectCollision();
+            Scene.GetInstance().HandleCollisions();
 
             //Comentado para que los sonidos funcionen correctamente
             //this.auto = Escena.getInstance().calculateCollisions(this.auto);

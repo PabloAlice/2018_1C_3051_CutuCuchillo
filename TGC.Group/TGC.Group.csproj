@@ -91,6 +91,7 @@
     <Compile Include="Model\BidirectionalPortal.cs" />
     <Compile Include="Model\BoundingObjectOriented.cs" />
     <Compile Include="Model\CamaraEnTerceraPersona.cs" />
+    <Compile Include="Model\Collidable.cs" />
     <Compile Include="Model\ConceptosGlobales.cs" />
     <Compile Include="Model\ObjectManagement.cs" />
     <Compile Include="Model\Portal.cs" />
