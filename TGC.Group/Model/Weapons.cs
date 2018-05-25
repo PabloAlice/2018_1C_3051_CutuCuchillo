@@ -8,40 +8,44 @@ using TGC.Core.Mathematica;
 
 namespace TGC.Group.Model
 {
-    class Weapons : Collidable
+    abstract class Weapon : Collidable
     {
         private TgcMesh billet;
         private TgcMesh weapon;
-        private TGCMatrix traslation, rotation, scalation;
+        protected TGCMatrix translation, rotation, scalation;
+        protected String billetPath, weaponPath; 
 
-        public Weapons(string billetPath, string weaponPath)
+        public Weapon(TGCMatrix translate)
         {
-            this.billet = this.CreateMesh(billetPath);
-            this.weapon = this.CreateMesh(weaponPath);
-        }
-
-        public void SetTransformation(TGCMatrix scale, TGCMatrix rotate, TGCMatrix translate)
-        {
-            this.traslation = translate;
-            this.rotation = rotate;
-            this.scalation = scale;
+            this.rotation = TGCMatrix.RotationYawPitchRoll(0f, 0f, 0f);
+            this.translation = translate;
         }
 
         public void Render()
         {
-            return;
+            Update();
+            
+            billet.Transform = TGCMatrix.Scaling(0.04f, 0.04f, 0.04f) * TGCMatrix.RotationYawPitchRoll(0f, -FastMath.PI_HALF, 0f) * rotation * translation * TGCMatrix.Translation(0f, 0.7f, 0f);
+            weapon.Transform = scalation * rotation * translation * getHeight();
+
+            billet.Render();
+            weapon.Render();
+
         }
 
-        private TgcMesh CreateMesh(string path)
+        protected abstract TGCMatrix getHeight();
+
+        protected virtual void InitializeMeshes()
         {
-            TgcSceneLoader loader = new TgcSceneLoader();
-            TgcScene scene = loader.loadSceneFromFile(path);
-            TgcMesh mesh = scene.Meshes[0];
-            mesh.AutoTransform = false;
-            this.rotation = TGCMatrix.RotationYawPitchRoll(0, 0, 0);
-            this.scalation = TGCMatrix.Scaling(new TGCVector3(1,1,1));
-            this.traslation = TGCMatrix.Translation(new TGCVector3(0,0,0));
-            return mesh;
+            weapon = new TgcSceneLoader().loadSceneFromFile(weaponPath).Meshes[0];
+            weapon.AutoTransform = false;
+            billet = new TgcSceneLoader().loadSceneFromFile(billetPath).Meshes[0];
+            billet.AutoTransform = false;
+        }
+
+        private void Update()
+        {
+            this.rotation = rotation * TGCMatrix.RotationYawPitchRoll(1f * ConceptosGlobales.GetInstance().GetElapsedTime(), 0f, 0f);
         }
 
         public void HandleCollisions(Vehiculo car)
@@ -51,7 +55,8 @@ namespace TGC.Group.Model
 
         public void Dispose()
         {
-            return;
+            billet.Dispose();
+            weapon.Dispose();
         }
     }
 }

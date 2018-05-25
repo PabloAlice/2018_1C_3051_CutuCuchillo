@@ -52,6 +52,8 @@ namespace TGC.Group.Model
 
         public override void Update()
         {
+
+            ConceptosGlobales.GetInstance().SetElapsedTime(ElapsedTime);
             this.PreUpdate();
 
             string dialogo;

@@ -12,6 +12,7 @@ namespace TGC.Group.Model
         private static ConceptosGlobales instance;
         private string mediaDir;
         private Device dispositivoDeAudio;
+        private float elapsedTime;
 
         private ConceptosGlobales()
         {
@@ -45,6 +46,16 @@ namespace TGC.Group.Model
         public Device GetDispositivoDeAudio()
         {
             return this.dispositivoDeAudio;
+        }
+
+        public float GetElapsedTime()
+        {
+            return this.elapsedTime;
+        }
+
+        public void SetElapsedTime(float value)
+        {
+            this.elapsedTime = value;
         }
 
         public TGCMatrix GenerateTransformation(TGCVector3 escala, TGCVector3 rotacion, TGCVector3 traslado)

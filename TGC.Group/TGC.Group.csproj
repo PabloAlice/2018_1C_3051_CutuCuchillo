@@ -93,6 +93,7 @@
     <Compile Include="Model\CamaraEnTerceraPersona.cs" />
     <Compile Include="Model\Collidable.cs" />
     <Compile Include="Model\ConceptosGlobales.cs" />
+    <Compile Include="Model\Misile.cs" />
     <Compile Include="Model\ObjectManagement.cs" />
     <Compile Include="Model\Portal.cs" />
     <Compile Include="Model\Scene.cs" />
