@@ -9,7 +9,7 @@ namespace TGC.Group.Model
 {
     class Misile : Weapon
     {
-        public Misile(TGCMatrix translate) : base(translate)
+        public Misile() : base()
         {
 
             this.scalation = TGCMatrix.Scaling(0.04f, 0.04f, 0.04f);
@@ -19,14 +19,30 @@ namespace TGC.Group.Model
             InitializeMeshes();
         }
 
-        protected override void Collide(Vehiculo car)
+        public override void Dispose()
         {
+            base.Dispose();
+        }
 
+        public override MeshObb getMeshOBB()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override TGCMatrix getShotMeshPosition(Projectile p)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void setMeshOBB(MeshObb mesh)
+        {
+            throw new NotImplementedException();
         }
 
         protected override TGCMatrix GetHeight()
         {
             return TGCMatrix.Translation(0f, 2.2f, 0f);
         }
+
     }
 }

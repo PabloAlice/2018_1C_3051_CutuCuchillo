@@ -41,7 +41,8 @@ namespace TGC.Group.Model
         protected TGCMatrix trasladoInicial;
         protected CamaraEnTerceraPersona camara;
 
-        private List<Weapon> weapons = new List<Weapon>();
+        private List<IShootable> weapons = new List<IShootable>();
+        private int currentWeaponIndex = 0;
 
         public Vehiculo(CamaraEnTerceraPersona camara, TGCVector3 posicionInicial, SoundsManager soundsManager)
         {
@@ -56,6 +57,7 @@ namespace TGC.Group.Model
             this.vectorDireccion = this.vectorAdelante;
             this.estado = new Stopped(this);
             this.obb = new BoundingOrientedBox(this.mesh.BoundingBox);
+            this.weapons.Add(new DefaultWeapon());
 
         }
 
@@ -140,11 +142,7 @@ namespace TGC.Group.Model
             this.RotateOBB(rotacionReal);
         }
 
-        public void addWeapon(Weapon weapon)
-        {
-            this.weapons.Add(weapon);
-        }
-
+       
         public void SetElapsedTime(float time)
         {
             this.elapsedTime = time;
@@ -179,7 +177,28 @@ namespace TGC.Group.Model
             {
                 rueda.Render();
             }
+            foreach(IShootable w in weapons)
+            {
+                w.renderProjectiles();
+            }
         }
+
+        //-------------------------------------------------------
+        // WEAPON
+        public void addWeapon(Weapon weapon)
+        {
+            this.weapons.Add(weapon);
+        }
+
+        public void shoot()
+        {
+            weapons[currentWeaponIndex].addProjectile(new Projectile(this.GetPosicion(), this.vectorAdelante));
+        }
+
+
+
+        //-------------------------------------------------------
+
 
         public TgcBoundingOrientedBox GetTGCBoundingOrientedBox()
         {
@@ -381,6 +400,11 @@ namespace TGC.Group.Model
             if (!input.keyDown(Key.W) && !input.keyDown(Key.S))
             {
                 this.estado.SpeedUpdate();
+            }
+
+            if (input.keyDown(Key.P))
+            {
+                this.shoot();
             }
 
             this.estado.JumpUpdate();

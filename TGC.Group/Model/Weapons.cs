@@ -9,67 +9,106 @@ using TGC.Core.Collision;
 
 namespace TGC.Group.Model
 {
-    abstract class Weapon : Collidable
+    abstract class Weapon : Collidable, IShootable
     {
-        private MeshObb billet;
-        private MeshObb weapon;
-        protected TGCMatrix translation, rotation, scalation;
-        protected String billetPath, weaponPath;
-        bool isVisible;
+        // Scene object related methods and attributes
+        private static MeshObb billet;
 
-        public Weapon(TGCMatrix translate)
+        protected List<TGCVector3> positions;
+        private List<bool> isVisible;
+
+        protected TGCMatrix rotation, scalation;
+        protected String billetPath, weaponPath;
+
+
+        public Weapon()
         {
             this.rotation = TGCMatrix.RotationYawPitchRoll(0f, 0f, 0f);
-            this.translation = translate;
-            isVisible = true;
         }
 
+        public void addSceneWeapon(TGCVector3 position)
+        {
+            this.positions.Add(position);
+            this.isVisible.Add(true);
+        }
+        
         public void Render()
         {
-            if (!isVisible)
+            UpdateRotation();
+
+            for(int i = 0; i < positions.Count(); i++)
             {
-                return;
+                if (isVisible[i])
+                {
+                    MeshObb weapon = getMeshOBB();
+
+                    TGCMatrix translation = TGCMatrix.Translation(positions[i]);
+
+                    billet.Transform(TGCMatrix.Scaling(0.04f, 0.04f, 0.04f) * TGCMatrix.RotationYawPitchRoll(0f, -FastMath.PI_HALF, 0f) * rotation * translation * TGCMatrix.Translation(0f, 0.7f, 0f));
+                    weapon.Transform(scalation * rotation * translation * GetHeight());
+
+                    billet.Render();
+                    weapon.Render();
+                }
             }
-
-            Update();
-            
-            billet.Transform(TGCMatrix.Scaling(0.04f, 0.04f, 0.04f) * TGCMatrix.RotationYawPitchRoll(0f, -FastMath.PI_HALF, 0f) * rotation * translation * TGCMatrix.Translation(0f, 0.7f, 0f));
-            weapon.Transform(scalation * rotation * translation * GetHeight());
-
-            billet.Render();
-            weapon.Render();
         }
 
         protected abstract TGCMatrix GetHeight();
 
-        protected virtual void InitializeMeshes()
+        protected void InitializeMeshes()
         {
-            weapon = new MeshObb(new TgcSceneLoader().loadSceneFromFile(weaponPath).Meshes[0]);
+            setMeshOBB(new MeshObb(new TgcSceneLoader().loadSceneFromFile(weaponPath).Meshes[0]));
             billet = new MeshObb(new TgcSceneLoader().loadSceneFromFile(billetPath).Meshes[0]);
         }
 
-        private void Update()
+        private void UpdateRotation()
         {
             this.rotation = rotation * TGCMatrix.RotationYawPitchRoll(1f * ConceptosGlobales.GetInstance().GetElapsedTime(), 0f, 0f);
         }
 
         public void HandleCollisions(Vehiculo car)
         {
-            if (TgcCollisionUtils.testObbObb(car.GetTGCBoundingOrientedBox(), billet.getObb().GetBoundingOrientedBox()) && isVisible)
+            for (int i = 0; i < positions.Count(); i++)
             {
-                car.addWeapon(this);
-                this.Collide(car);
-                this.isVisible = false;
+                if (TgcCollisionUtils.testObbObb(car.GetTGCBoundingOrientedBox(), billet.getObb().GetBoundingOrientedBox()) && isVisible[i])
+                {
+                    // Agregar logica para chequear si debe agregar el elemento (si le faltan municiones, si tiene ya este tipo de arma....)
+                    car.addWeapon(this);
+                    this.isVisible[i] = false;
+                }
+            }
+        }
+        
+
+
+        // Projectile related methods and attributes
+
+        protected List<Projectile> projectiles = new List<Projectile>();
+
+        public void addProjectile(Projectile p)
+        {
+            this.projectiles.Add(p);
+        }
+
+        public void renderProjectiles()
+        {
+            foreach(Projectile p in projectiles)
+            {
+                p.updateTimeSinceShot(ConceptosGlobales.GetInstance().GetElapsedTime());
+                this.getMeshOBB().Transform(getShotMeshPosition(p));
+                this.getMeshOBB().Render();
             }
         }
 
-        
-        protected abstract void Collide(Vehiculo car);
+        public abstract MeshObb getMeshOBB();
+        public abstract void setMeshOBB(MeshObb mesh);
 
-        public void Dispose()
+        public abstract TGCMatrix getShotMeshPosition(Projectile p);
+
+        public virtual void Dispose()
         {
             billet.Dispose();
-            weapon.Dispose();
         }
+
     }
 }
