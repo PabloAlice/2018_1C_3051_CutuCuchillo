@@ -13,10 +13,12 @@ namespace TGC.Group.Model
     {
         private TgcBoundingOrientedBox obb;
         private float rotacionObb = 0f;
+        private float y;
 
         public BoundingOrientedBox(TgcBoundingAxisAlignBox AABB)
         {
-            this.ActualizarBoundingOrientedBox(AABB);
+            this.obb = TgcBoundingOrientedBox.computeFromAABB(AABB);
+            this.y = this.obb.Position.Y;
         }
 
         public void Render()
@@ -28,6 +30,13 @@ namespace TGC.Group.Model
         {
             this.obb = TgcBoundingOrientedBox.computeFromAABB(AABB);
             this.obb.rotate(new TGCVector3(0, this.rotacionObb, 0));
+            this.obb.updateValues();
+        }
+        public void ActualizarBoundingOrientedBox(TGCMatrix translation)
+        {
+            this.obb.Center = new TGCVector3(0, this.y, 0) + TGCVector3.transform(new TGCVector3(0, 0, 0), translation);
+            //this.obb.move(TGCVector3.transform(new TGCVector3(0, 0, 0), translation));
+            this.obb.setRotation(new TGCVector3(0, this.rotacionObb, 0));
             this.obb.updateValues();
         }
 

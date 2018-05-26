@@ -26,7 +26,7 @@ namespace TGC.Group.Model
         {
             foreach (TGCMatrix transformation in transformations)
             {
-               transform(transformation);
+               transform();
                base.Render();
             }
         }       

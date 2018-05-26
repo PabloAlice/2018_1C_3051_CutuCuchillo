@@ -41,7 +41,7 @@ namespace TGC.Group.Model
             objetos.Remove(objeto);
         }
 
-        public void Render()
+        public void Render(CamaraEnTerceraPersona camara)
         {
             foreach (Collidable objeto in this.objetos)
             {

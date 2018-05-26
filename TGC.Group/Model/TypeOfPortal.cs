@@ -16,6 +16,11 @@ namespace TGC.Group.Model
             this.originPortal = originPortal;
         }
 
+        public TgcBoundingAxisAlignBox GetBoundingAlignBox()
+        {
+            return this.originPortal.mesh.BoundingBox;
+        }
+
         abstract public TGCVector3 GetTargetPosition();
 
         virtual public void Dispose()
@@ -42,6 +47,11 @@ namespace TGC.Group.Model
         }
 
         abstract public void Collide(Vehiculo car);
+
+        public TGCVector3 GetPosition()
+        {
+            return this.originPortal.GetPosition();
+        }
 
         /*
         public void checkCollision(Vehiculo car)

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using TGC.Core.SceneLoader;
 using TGC.Core.Mathematica;
 using TGC.Core.Collision;
+using TGC.Core.BoundingVolumes;
 
 namespace TGC.Group.Model
 {
@@ -19,8 +20,7 @@ namespace TGC.Group.Model
 
         protected TGCMatrix rotation, scalation;
         protected String billetPath, weaponPath;
-
-
+        
         public Weapon()
         {
             this.rotation = TGCMatrix.RotationYawPitchRoll(0f, 0f, 0f);
@@ -32,6 +32,11 @@ namespace TGC.Group.Model
             this.isVisible.Add(true);
         }
         
+        public TgcBoundingAxisAlignBox GetBoundingAlignBox()
+        {
+            return billet.getMesh().BoundingBox;
+        }
+
         public void Render()
         {
             UpdateRotation();

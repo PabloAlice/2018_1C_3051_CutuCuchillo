@@ -70,7 +70,7 @@ namespace TGC.Group.Model.Vehiculos
         /// </summary>
         public void RotateX(float velocidad)
         {
-            this.rotationX = TGCMatrix.RotationX(-velocidad * 0.01f) * this.rotationX;
+            this.rotationX = TGCMatrix.RotationX(velocidad * 0.01f) * this.rotationX;
         }
 
         public void UpdateRotationY(float rotation)
