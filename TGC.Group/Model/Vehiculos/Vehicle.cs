@@ -20,9 +20,9 @@ namespace TGC.Group.Model
         public TGCVector3 vectorAdelante;
         public TGCVector3 vectorAdelanteSalto { get; set; }
         public TGCMatrix traslado, rotado, escalado;
-        protected List<Rueda> ruedas = new List<Rueda>();
-        protected Rueda delanteraIzquierda;
-        protected Rueda delanteraDerecha;
+        protected List<Wheel> ruedas = new List<Wheel>();
+        protected Wheel delanteraIzquierda;
+        protected Wheel delanteraDerecha;
         protected TGCVector3 vectorDireccion;
         private EstadoVehiculo estado;
         private float velocidadActual = 0f;
@@ -40,17 +40,17 @@ namespace TGC.Group.Model
         protected TGCVector3 escaladoInicial = new TGCVector3(0.005f, 0.005f, 0.005f);
         //se guarda el traslado inicial porque se usa como pivote
         protected TGCMatrix trasladoInicial;
-        protected CamaraEnTerceraPersona camara;
+        protected ThirdPersonCamera camara;
 
         private List<IShootable> weapons = new List<IShootable>();
         private int currentWeaponIndex = 0;
 
-        public Vehiculo(CamaraEnTerceraPersona camara, TGCVector3 posicionInicial, SoundsManager soundsManager)
+        public Vehiculo(ThirdPersonCamera camara, TGCVector3 posicionInicial, SoundsManager soundsManager)
         {
             this.camara = camara;
             this.SoundsManager = soundsManager;
             this.vectorAdelante = new TGCVector3(0, 0, 1);
-            this.CrearMesh(ConceptosGlobales.GetInstance().GetMediaDir() + "meshCreator\\meshes\\Vehiculos\\Camioneta\\Camioneta-TgcScene.xml", posicionInicial);
+            this.CrearMesh(GlobalConcepts.GetInstance().GetMediaDir() + "meshCreator\\meshes\\Vehiculos\\Camioneta\\Camioneta-TgcScene.xml", posicionInicial);
             this.velocidadActualDeSalto = this.velocidadInicialDeSalto;
             this.deltaTiempoAvance = new Timer();
             this.deltaTiempoSalto = new Timer();
@@ -63,7 +63,7 @@ namespace TGC.Group.Model
             this.camara.SetPlane(this.vectorAdelante);
         }
 
-        public CamaraEnTerceraPersona GetCamara()
+        public ThirdPersonCamera GetCamara()
         {
             return this.camara;
         }
@@ -295,7 +295,7 @@ namespace TGC.Group.Model
         }
 
 
-        public List<Rueda> GetRuedas()
+        public List<Wheel> GetRuedas()
         {
             return this.ruedas;
 

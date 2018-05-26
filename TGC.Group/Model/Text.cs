@@ -9,7 +9,7 @@ using System.Drawing;
 
 namespace TGC.Group.Model
 {
-    class Textos
+    class Text
     {
         public static TgcText2D newText(string formato, int x, int y)
         {

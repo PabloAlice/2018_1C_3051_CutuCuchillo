@@ -13,8 +13,8 @@ namespace TGC.Group.Model
         {
 
             this.scalation = TGCMatrix.Scaling(0.04f, 0.04f, 0.04f);
-            this.weaponPath = ConceptosGlobales.GetInstance().GetMediaDir() + "MeshCreator\\Meshes\\Otros\\Weapons\\Misil\\Misil-TgcScene.xml";
-            this.billetPath = ConceptosGlobales.GetInstance().GetMediaDir() + "MeshCreator\\Meshes\\Habitacion\\Billetes\\BilleteAmiguero\\BilleteAmiguero-TgcScene.xml";
+            this.weaponPath = GlobalConcepts.GetInstance().GetMediaDir() + "MeshCreator\\Meshes\\Otros\\Weapons\\Misil\\Misil-TgcScene.xml";
+            this.billetPath = GlobalConcepts.GetInstance().GetMediaDir() + "MeshCreator\\Meshes\\Habitacion\\Billetes\\BilleteAmiguero\\BilleteAmiguero-TgcScene.xml";
 
             InitializeMeshes();
         }

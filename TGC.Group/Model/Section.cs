@@ -10,12 +10,12 @@ using System.Drawing;
 
 namespace TGC.Group.Model
 {
-    class Seccion
+    class Section
     {
         private List<Collidable> objetos = new List<Collidable>();
         private TGCVector3 puntoMinimo, puntoMaximo;
 
-        public Seccion(TGCVector3 puntoMinimo, TGCVector3 puntoMaximo)
+        public Section(TGCVector3 puntoMinimo, TGCVector3 puntoMaximo)
         {
             this.puntoMinimo = puntoMinimo;
             this.puntoMaximo = puntoMaximo;
@@ -41,7 +41,7 @@ namespace TGC.Group.Model
             objetos.Remove(objeto);
         }
 
-        public void Render(CamaraEnTerceraPersona camara)
+        public void Render(ThirdPersonCamera camara)
         {
             foreach (Collidable objeto in this.objetos)
             {

@@ -9,7 +9,7 @@ using TGC.Core.Geometry;
 
 namespace TGC.Group.Model.Vehiculos
 {
-    class Rueda
+    class Wheel
     {
         //public TGCMatrix transformacion;
         public TgcMesh mesh;
@@ -22,7 +22,7 @@ namespace TGC.Group.Model.Vehiculos
         public TGCVector3 vectorLimiteIzquierdo = new TGCVector3(0, 0, 1);
         public TGCVector3 vectorLimiteDerecho = new TGCVector3(0, 0, 1);
 
-        public Rueda(TgcMesh mesh,TGCVector3 traslado)
+        public Wheel(TgcMesh mesh,TGCVector3 traslado)
         {
             this.mesh = mesh;
             mesh.AutoTransform = false;

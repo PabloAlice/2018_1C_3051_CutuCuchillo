@@ -12,7 +12,7 @@ using TGC.Core.BoundingVolumes;
 
 namespace TGC.Group.Model
 {
-    class CamaraEnTerceraPersona : TgcCamera
+    class ThirdPersonCamera : TgcCamera
     {
         private TGCVector3 position;
         private TGCPlane plano;
@@ -20,12 +20,12 @@ namespace TGC.Group.Model
         /// <summary>
         ///     Crear una nueva camara
         /// </summary>
-        public CamaraEnTerceraPersona()
+        public ThirdPersonCamera()
         {
             resetValues();
         }
 
-        public CamaraEnTerceraPersona(TGCVector3 target, float offsetHeight, float offsetForward) : this()
+        public ThirdPersonCamera(TGCVector3 target, float offsetHeight, float offsetForward) : this()
         {
             Target = target;
             OffsetHeight = offsetHeight;
@@ -54,7 +54,7 @@ namespace TGC.Group.Model
             return TgcCollisionUtils.testPlaneAABB(this.plano, bb) || this.IsInFrontOf(bb.Position);
         }
 
-        public CamaraEnTerceraPersona(TGCVector3 target, TGCVector3 targetDisplacement, float offsetHeight, float offsetForward)
+        public ThirdPersonCamera(TGCVector3 target, TGCVector3 targetDisplacement, float offsetHeight, float offsetForward)
             : this()
         {
             Target = target;

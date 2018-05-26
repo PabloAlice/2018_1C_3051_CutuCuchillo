@@ -17,11 +17,11 @@ namespace TGC.Group.Model
     {
         private TgcMesh mesh;
         private TGCMatrix traslation, rotation, escalade;
-        private CamaraEnTerceraPersona camara;
+        private ThirdPersonCamera camara;
         private float epsilon = 0.1f;
         private TgcText2D texto;
 
-        public ObjectManagement(string pathToMesh, CamaraEnTerceraPersona camara)
+        public ObjectManagement(string pathToMesh, ThirdPersonCamera camara)
         {
             this.CreateMesh(pathToMesh);
             this.camara = camara;
@@ -42,7 +42,7 @@ namespace TGC.Group.Model
         {
             string dialogo = "Posicion = ({0} | {1} | {2})";
             dialogo = string.Format(dialogo, this.GetPosition().X, this.GetPosition().Y, this.GetPosition().Z);
-            texto = Textos.newText(dialogo, 120, 300);
+            texto = Text.newText(dialogo, 120, 300);
             texto.Color = Color.Blue;
         }
 

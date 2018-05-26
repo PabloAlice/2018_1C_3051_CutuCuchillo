@@ -14,7 +14,7 @@ namespace TGC.Group.Model.Vehiculos.Estados
 
         public Forward(Vehiculo auto) : base(auto)
         {
-            this.audio = new Tgc3dSound(ConceptosGlobales.GetInstance().GetMediaDir() + "Sound\\Marcha.wav", this.auto.GetPosicion(), ConceptosGlobales.GetInstance().GetDispositivoDeAudio());
+            this.audio = new Tgc3dSound(GlobalConcepts.GetInstance().GetMediaDir() + "Sound\\Marcha.wav", this.auto.GetPosicion(), GlobalConcepts.GetInstance().GetDispositivoDeAudio());
             this.audio.MinDistance = 50f;
             // this.audio.play(true);
         }

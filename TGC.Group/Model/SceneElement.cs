@@ -57,10 +57,10 @@ namespace TGC.Group.Model
         {
             foreach (MeshObb elemento in this.elementos)
             {
-                //if (Scene.GetInstance().getCamera().IsInView(this.GetBoundingAlignBox()))
-                //{
+                if (Scene.GetInstance().getCamera().IsInView(this.GetBoundingAlignBox()))
+                {
                     elemento.Render();
-                //}
+                }
             }
         }
 
@@ -115,6 +115,10 @@ namespace TGC.Group.Model
 
         public void HandleCollisions(Vehiculo car)
         {
+            foreach(MeshObb elemento in this.elementos)
+            {
+                elemento.HandleCollisions(car);
+            }
             return;
         }
     }

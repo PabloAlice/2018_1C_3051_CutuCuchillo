@@ -8,7 +8,7 @@ using TGC.Core.Mathematica;
 
 namespace TGC.Group.Model
 {
-    class MeshObb
+    class MeshObb : Collidable
     {
         private TgcMesh mesh;
         private BoundingOrientedBox obb;
@@ -51,6 +51,11 @@ namespace TGC.Group.Model
         public BoundingOrientedBox getObb()
         {
             return this.obb;
+        }
+
+        public void HandleCollisions(Vehiculo car)
+        {
+
         }
     }
 }

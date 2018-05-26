@@ -68,7 +68,7 @@ namespace TGC.Group.Model
 
         private void UpdateRotation()
         {
-            this.rotation = rotation * TGCMatrix.RotationYawPitchRoll(1f * ConceptosGlobales.GetInstance().GetElapsedTime(), 0f, 0f);
+            this.rotation = rotation * TGCMatrix.RotationYawPitchRoll(1f * GlobalConcepts.GetInstance().GetElapsedTime(), 0f, 0f);
         }
 
         public void HandleCollisions(Vehiculo car)
@@ -99,7 +99,7 @@ namespace TGC.Group.Model
         {
             foreach(Projectile p in projectiles)
             {
-                p.updateTimeSinceShot(ConceptosGlobales.GetInstance().GetElapsedTime());
+                p.updateTimeSinceShot(GlobalConcepts.GetInstance().GetElapsedTime());
                 this.getMeshOBB().Transform(getShotMeshPosition(p));
                 this.getMeshOBB().Render();
             }

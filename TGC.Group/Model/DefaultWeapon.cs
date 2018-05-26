@@ -31,11 +31,11 @@ namespace TGC.Group.Model
 
             if (isd.X <= 0)
             {
-                rotate = rotate * (OperacionesConVectores.rotacionEntreVectores(new TGCVector3(0f, 0f, 1f), new TGCVector3(-isd.X, 0, -isd.Z))) * TGCMatrix.RotationYawPitchRoll(FastMath.PI, 0, 0);
+                rotate = rotate * (OperationsWithVectors.rotacionEntreVectores(new TGCVector3(0f, 0f, 1f), new TGCVector3(-isd.X, 0, -isd.Z))) * TGCMatrix.RotationYawPitchRoll(FastMath.PI, 0, 0);
             }
             else
             {
-                rotate = rotate * (OperacionesConVectores.rotacionEntreVectores(new TGCVector3(0f, 0f, 1f), new TGCVector3(isd.X, 0, isd.Z)));
+                rotate = rotate * (OperationsWithVectors.rotacionEntreVectores(new TGCVector3(0f, 0f, 1f), new TGCVector3(isd.X, 0, isd.Z)));
             }
 
             TGCVector3 finalPos = ip + isd * projectileSpeed * timeSinceShot;

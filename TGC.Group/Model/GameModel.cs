@@ -27,24 +27,24 @@ namespace TGC.Group.Model
             Description = Game.Default.Description;
         }
 
-        private Camioneta auto;
+        private Van auto;
         private ObjectManagement manager;
-        private CamaraEnTerceraPersona camaraInterna;
-        private CamaraEnTerceraPersona camaraManagement;
+        private ThirdPersonCamera camaraInterna;
+        private ThirdPersonCamera camaraManagement;
         private TGCVector3 camaraDesplazamiento = new TGCVector3(0,5,40);
         private TgcText2D textoVelocidadVehiculo, textoOffsetH, textoOffsetF, textoPosicionVehiculo, textoVectorAdelante;
 
 
         public override void Init()
         {
-            ConceptosGlobales.GetInstance().SetMediaDir(this.MediaDir);
-            ConceptosGlobales.GetInstance().SetDispositivoDeAudio(this.DirectSound.DsDevice);
+            GlobalConcepts.GetInstance().SetMediaDir(this.MediaDir);
+            GlobalConcepts.GetInstance().SetDispositivoDeAudio(this.DirectSound.DsDevice);
             Scene.GetInstance().Init(this.MediaDir);
-            this.camaraInterna = new CamaraEnTerceraPersona(camaraDesplazamiento, 0.8f, -33);
+            this.camaraInterna = new ThirdPersonCamera(camaraDesplazamiento, 0.8f, -33);
             //this.camaraManagement = new CamaraEnTerceraPersona(camaraDesplazamiento, 3f, -50);
             this.Camara = camaraInterna;
             //this.Camara = camaraManagement;
-            this.auto = new Camioneta(camaraInterna, new TGCVector3(0f, 0f, 0f), new SoundsManager(this.MediaDir + "CarSounds//min-vel.wav", this.MediaDir + "CarSounds//max-vel.wav", this.MediaDir + "CarSounds//accelerating.wav", this.MediaDir + "CarSounds//desaccelerating.wav", new TGCVector3(-0f, 0f, 0f)));
+            this.auto = new Van(camaraInterna, new TGCVector3(0f, 0f, 0f), new SoundsManager(this.MediaDir + "CarSounds//min-vel.wav", this.MediaDir + "CarSounds//max-vel.wav", this.MediaDir + "CarSounds//accelerating.wav", this.MediaDir + "CarSounds//desaccelerating.wav", new TGCVector3(-0f, 0f, 0f)));
             Scene.GetInstance().SetVehiculo(this.auto);
             //manager = new ObjectManagement(MediaDir + "meshCreator\\meshes\\Habitacion\\Billetes\\Billete2\\Billete2-TgcScene.xml", camaraManagement);
 
@@ -53,30 +53,30 @@ namespace TGC.Group.Model
         public override void Update()
         {
 
-            ConceptosGlobales.GetInstance().SetElapsedTime(ElapsedTime);
+            GlobalConcepts.GetInstance().SetElapsedTime(ElapsedTime);
             this.PreUpdate();
 
             string dialogo;
 
             dialogo = "Velocidad = {0}km";
             dialogo = string.Format(dialogo, auto.GetVelocidadActual());
-            textoVelocidadVehiculo = Textos.newText(dialogo, 120, 10);
+            textoVelocidadVehiculo = Text.newText(dialogo, 120, 10);
 
             dialogo = "Posicion = ({0} | {1} | {2})";
             dialogo = string.Format(dialogo, auto.GetPosicion().X, auto.GetPosicion().Y, auto.GetPosicion().Z);
-            textoPosicionVehiculo = Textos.newText(dialogo, 120, 25);
+            textoPosicionVehiculo = Text.newText(dialogo, 120, 25);
 
             dialogo = "VectorAdelante = ({0} | {1} | {2})";
             dialogo = string.Format(dialogo, auto.GetVectorAdelante().X, auto.GetVectorAdelante().Y, auto.GetVectorAdelante().Z);
-            textoVectorAdelante = Textos.newText(dialogo, 120, 40);
+            textoVectorAdelante = Text.newText(dialogo, 120, 40);
 
             dialogo = "OffsetHeight = {0}";
             dialogo = string.Format(dialogo, this.camaraInterna.OffsetHeight);
-            textoOffsetH = Textos.newText(dialogo, 120, 70);
+            textoOffsetH = Text.newText(dialogo, 120, 70);
 
             dialogo = "OffsetForward = {0}";
             dialogo = string.Format(dialogo, this.camaraInterna.OffsetForward);
-            textoOffsetF = Textos.newText(dialogo, 120, 85);
+            textoOffsetF = Text.newText(dialogo, 120, 85);
 
 
             

@@ -2,7 +2,7 @@
 
 namespace TGC.Group.Model
 {
-    class OperacionesConVectores
+    class OperationsWithVectors
     {
         public static TGCVector3 minimaAlturaEntreVectores(TGCVector3 vector1, TGCVector3 vector2)
         {
@@ -33,9 +33,9 @@ namespace TGC.Group.Model
 
         public static TGCMatrix rotacionEntreVectores(TGCVector3 v1, TGCVector3 v2)
         {
-            float rotationY = OperacionesConVectores.anguloEntreVectores(new TGCVector3(v1.X, 0, v1.Z), new TGCVector3(v2.X, 0, v2.Z));
-            float rotationX = OperacionesConVectores.anguloEntreVectores(new TGCVector3(0, v1.Y, v1.Z), new TGCVector3(0, v2.Y, v2.Z));
-            float rotationZ = OperacionesConVectores.anguloEntreVectores(new TGCVector3(v1.X, v1.Y, 0), new TGCVector3(v2.X, v2.Y, 0));
+            float rotationY = OperationsWithVectors.anguloEntreVectores(new TGCVector3(v1.X, 0, v1.Z), new TGCVector3(v2.X, 0, v2.Z));
+            float rotationX = OperationsWithVectors.anguloEntreVectores(new TGCVector3(0, v1.Y, v1.Z), new TGCVector3(0, v2.Y, v2.Z));
+            float rotationZ = OperationsWithVectors.anguloEntreVectores(new TGCVector3(v1.X, v1.Y, 0), new TGCVector3(v2.X, v2.Y, 0));
 
             return TGCMatrix.RotationYawPitchRoll(rotationY, rotationX, rotationZ);
         }

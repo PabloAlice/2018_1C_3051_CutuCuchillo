@@ -6,23 +6,23 @@ using TGC.Core.Mathematica;
 
 namespace TGC.Group.Model
 {
-    class ConceptosGlobales
+    class GlobalConcepts
     {
 
-        private static ConceptosGlobales instance;
+        private static GlobalConcepts instance;
         private string mediaDir;
         private Device dispositivoDeAudio;
         private float elapsedTime;
 
-        private ConceptosGlobales()
+        private GlobalConcepts()
         {
         }
 
-        public static ConceptosGlobales GetInstance()
+        public static GlobalConcepts GetInstance()
         {
             if (instance == null)
             {
-                instance = new ConceptosGlobales();
+                instance = new GlobalConcepts();
             }
 
             return instance;
