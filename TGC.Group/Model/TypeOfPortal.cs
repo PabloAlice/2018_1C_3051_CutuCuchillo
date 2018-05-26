@@ -38,7 +38,7 @@ namespace TGC.Group.Model
             return this.originPortal.GetBoundingBox();
         }
 
-        public void HandleCollisions(Vehiculo car)
+        public void HandleCollisions(Vehicle car)
         {
             if (TgcCollisionUtils.testObbAABB(car.GetTGCBoundingOrientedBox(), this.GetBoundingBox())){
                 this.GetBoundingBox().setRenderColor(Color.Red);
@@ -46,7 +46,7 @@ namespace TGC.Group.Model
             }
         }
 
-        abstract public void Collide(Vehiculo car);
+        abstract public void Collide(Vehicle car);
 
         public TGCVector3 GetPosition()
         {

@@ -28,7 +28,7 @@ namespace TGC.Group.Model
             this.targetPortal.Dispose();
         }
 
-        public override void Collide(Vehiculo car)
+        public override void Collide(Vehicle car)
         {
             TGCVector3 newPosition = this.targetPortal.GetPosition();
             TGCMatrix translation = TGCMatrix.Translation(0,0,0);

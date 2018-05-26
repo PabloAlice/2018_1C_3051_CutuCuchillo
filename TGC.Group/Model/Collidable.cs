@@ -10,7 +10,7 @@ namespace TGC.Group.Model
 {
     interface Collidable
     {
-        void HandleCollisions(Vehiculo car);
+        void HandleCollisions(Vehicle car);
         void Render();
         void Dispose();
         TgcBoundingAxisAlignBox GetBoundingAlignBox();

@@ -12,7 +12,7 @@ namespace TGC.Group.Model.Vehiculos.Estados
     {
         private float initialSpeed;
 
-        public Descending(Vehiculo auto, float initialSpeed) : base(auto)
+        public Descending(Vehicle auto, float initialSpeed) : base(auto)
         {
             this.initialSpeed = initialSpeed;
             this.audio = new Tgc3dSound(GlobalConcepts.GetInstance().GetMediaDir() + "Sound\\Caida.wav", this.auto.GetPosicion(), GlobalConcepts.GetInstance().GetDispositivoDeAudio());

@@ -34,7 +34,7 @@ namespace TGC.Group.Model
         
         public TgcBoundingAxisAlignBox GetBoundingAlignBox()
         {
-            return billet.getMesh().BoundingBox;
+            return billet.GetMesh().BoundingBox;
         }
 
         public void Render()
@@ -71,11 +71,11 @@ namespace TGC.Group.Model
             this.rotation = rotation * TGCMatrix.RotationYawPitchRoll(1f * GlobalConcepts.GetInstance().GetElapsedTime(), 0f, 0f);
         }
 
-        public void HandleCollisions(Vehiculo car)
+        public void HandleCollisions(Vehicle car)
         {
             for (int i = 0; i < positions.Count(); i++)
             {
-                if (TgcCollisionUtils.testObbObb(car.GetTGCBoundingOrientedBox(), billet.getObb().GetBoundingOrientedBox()) && isVisible[i])
+                if (TgcCollisionUtils.testObbObb(car.GetTGCBoundingOrientedBox(), billet.GetObb()) && isVisible[i])
                 {
                     // Agregar logica para chequear si debe agregar el elemento (si le faltan municiones, si tiene ya este tipo de arma....)
                     car.addWeapon(this);

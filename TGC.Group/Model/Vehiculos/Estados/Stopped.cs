@@ -12,7 +12,7 @@ namespace TGC.Group.Model.Vehiculos.Estados
     class Stopped : EstadoVehiculo
     {
 
-        public Stopped(Vehiculo auto) : base(auto)
+        public Stopped(Vehicle auto) : base(auto)
         {
             this.audio = new Tgc3dSound(GlobalConcepts.GetInstance().GetMediaDir() + "Sound\\Motor.wav", this.auto.GetPosicion(), GlobalConcepts.GetInstance().GetDispositivoDeAudio());
             this.audio.MinDistance = 50f;

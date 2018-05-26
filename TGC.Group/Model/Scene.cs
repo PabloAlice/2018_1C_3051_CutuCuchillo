@@ -14,7 +14,7 @@ namespace TGC.Group.Model
     class Scene
     {
         private static Scene instance;
-        private Vehiculo auto;
+        private Vehicle auto;
 
         private SceneElement scene;
         private Section cocina, banio, habitacion;
@@ -37,7 +37,7 @@ namespace TGC.Group.Model
             return instance;
         }
 
-        public void SetVehiculo(Vehiculo auto)
+        public void SetVehiculo(Vehicle auto)
         {
             this.auto = auto;
         }

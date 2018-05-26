@@ -8,7 +8,7 @@ using TGC.Core.Mathematica;
 
 namespace TGC.Group.Model.Vehiculos
 {
-    class Van : Vehiculo
+    class Van : Vehicle
     {
         public Van(ThirdPersonCamera camara, TGCVector3 posicionInicial, SoundsManager soundsManager) : base(camara, posicionInicial, soundsManager)
         {

@@ -36,7 +36,7 @@ namespace TGC.Group.Model
 
         public TgcBoundingAxisAlignBox GetBoundingAlignBox()
         {
-            return this.elementos[0].getMesh().BoundingBox;
+            return this.elementos[0].GetMesh().BoundingBox;
         }
 
         public TGCVector3 GetPosition()
@@ -86,7 +86,7 @@ namespace TGC.Group.Model
              */
             foreach (MeshObb elemento in this.elementos)
             {
-                if (TgcCollisionUtils.testAABBAABB(meshObb.getMesh().BoundingBox, elemento.getMesh().BoundingBox))
+                if (TgcCollisionUtils.testAABBAABB(meshObb.GetMesh().BoundingBox, elemento.GetMesh().BoundingBox))
                 {
                     return elemento;
                 }
@@ -113,7 +113,7 @@ namespace TGC.Group.Model
             }
         }*/
 
-        public void HandleCollisions(Vehiculo car)
+        public void HandleCollisions(Vehicle car)
         {
             foreach(MeshObb elemento in this.elementos)
             {

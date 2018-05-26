@@ -10,7 +10,7 @@ namespace TGC.Group.Model.Vehiculos.Estados
     class Backward : EstadoVehiculo
     {
 
-        public Backward(Vehiculo auto) : base(auto)
+        public Backward(Vehicle auto) : base(auto)
         {
             this.audio = new Tgc3dSound(GlobalConcepts.GetInstance().GetMediaDir() + "Sound\\Marcha.wav", this.auto.GetPosicion(), GlobalConcepts.GetInstance().GetDispositivoDeAudio());
             this.audio.MinDistance = 50f;

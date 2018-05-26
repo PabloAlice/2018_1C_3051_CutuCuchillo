@@ -10,10 +10,10 @@ namespace TGC.Group.Model.Vehiculos.Estados
 {
     abstract class EstadoVehiculo
     {
-        protected Vehiculo auto;
+        protected Vehicle auto;
         protected Tgc3dSound audio;
 
-        public EstadoVehiculo(Vehiculo auto)
+        public EstadoVehiculo(Vehicle auto)
         {
             this.auto = auto;
         }

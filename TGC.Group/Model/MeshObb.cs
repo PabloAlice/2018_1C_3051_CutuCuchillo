@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using TGC.Core.SceneLoader;
 using TGC.Core.Mathematica;
+using TGC.Core.Collision;
+using TGC.Core.BoundingVolumes;
 
 namespace TGC.Group.Model
 {
@@ -25,6 +27,11 @@ namespace TGC.Group.Model
             this.obb.ActualizarBoundingOrientedBox(this.mesh.BoundingBox);
         }
 
+        public TgcBoundingAxisAlignBox GetBoundingAlignBox()
+        {
+            return this.mesh.BoundingBox;
+        }
+
         public void Transform(TGCMatrix transformataion)
         {
             this.mesh.Transform = transformataion;
@@ -43,17 +50,25 @@ namespace TGC.Group.Model
             this.mesh.Dispose();
         }
 
-        public TgcMesh getMesh()
+        public TgcMesh GetMesh()
         {
             return this.mesh;
         }
 
-        public BoundingOrientedBox getObb()
+        public TgcBoundingOrientedBox GetObb()
         {
-            return this.obb;
+            return this.obb.GetBoundingOrientedBox();
         }
 
-        public void HandleCollisions(Vehiculo car)
+        public void HandleCollisions(Vehicle car)
+        {
+            if(TgcCollisionUtils.testObbObb(car.GetTGCBoundingOrientedBox(), this.GetObb()))
+            {
+                this.Collide(car);
+            }
+        }
+
+        private void Collide(Vehicle car)
         {
 
         }

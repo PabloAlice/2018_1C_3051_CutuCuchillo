@@ -10,7 +10,7 @@ using Microsoft.DirectX.DirectInput;
 
 namespace TGC.Group.Model
 {
-    abstract class Vehiculo
+    abstract class Vehicle
     {
 
         public TgcMesh mesh;
@@ -19,7 +19,7 @@ namespace TGC.Group.Model
         private Timer deltaTiempoSalto;
         public TGCVector3 vectorAdelante;
         public TGCVector3 vectorAdelanteSalto { get; set; }
-        public TGCMatrix traslado, rotado, escalado;
+        private TransformationMatrix matrixs;
         protected List<Wheel> ruedas = new List<Wheel>();
         protected Wheel delanteraIzquierda;
         protected Wheel delanteraDerecha;
@@ -45,8 +45,9 @@ namespace TGC.Group.Model
         private List<IShootable> weapons = new List<IShootable>();
         private int currentWeaponIndex = 0;
 
-        public Vehiculo(ThirdPersonCamera camara, TGCVector3 posicionInicial, SoundsManager soundsManager)
+        public Vehicle(ThirdPersonCamera camara, TGCVector3 posicionInicial, SoundsManager soundsManager)
         {
+            this.matrixs = new TransformationMatrix();
             this.camara = camara;
             this.SoundsManager = soundsManager;
             this.vectorAdelante = new TGCVector3(0, 0, 1);
@@ -57,7 +58,7 @@ namespace TGC.Group.Model
             this.aceleracionRetroceso = this.aceleracionAvance * 0.8f;
             this.vectorDireccion = this.vectorAdelante;
             this.estado = new Stopped(this);
-            this.mesh.BoundingBox.transform(this.GetTransformacion());
+            this.mesh.BoundingBox.transform(this.matrixs.GetTransformation());
             this.obb = new BoundingOrientedBox(this.mesh.BoundingBox);
             this.weapons.Add(new DefaultWeapon());
             this.camara.SetPlane(this.vectorAdelante);
@@ -75,7 +76,7 @@ namespace TGC.Group.Model
 
         public void SetTranslate(TGCMatrix newTranslate)
         {
-            this.traslado = newTranslate;
+            this.matrixs.SetTranslation(newTranslate);
             this.Transform();
         }
 
@@ -95,10 +96,9 @@ namespace TGC.Group.Model
             TgcScene scene = loader.loadSceneFromFile(rutaAMesh);
             this.mesh = scene.Meshes[0];
             this.mesh.AutoTransform = false;
-            this.rotado = TGCMatrix.RotationYawPitchRoll(0,0,0);
-            this.escalado = TGCMatrix.Scaling(this.escaladoInicial);
-            this.traslado = TGCMatrix.Translation(posicionInicial.X, posicionInicial.Y, posicionInicial.Z);
-            this.trasladoInicial = traslado;
+            this.matrixs.SetScalation(TGCMatrix.Scaling(escaladoInicial));
+            this.matrixs.Translate(TGCMatrix.Translation(posicionInicial));
+            this.trasladoInicial = this.matrixs.GetTranslation();
 
         }
 
@@ -275,7 +275,7 @@ namespace TGC.Group.Model
         public void Move(TGCVector3 desplazamiento)
         {
 
-            this.traslado = this.traslado * TGCMatrix.Translation(desplazamiento.X, desplazamiento.Y, desplazamiento.Z);
+            this.matrixs.Translate(TGCMatrix.Translation(desplazamiento));
             this.delanteraIzquierda.RotateX(this.GetVelocidadActual());
             this.delanteraDerecha.RotateX(this.GetVelocidadActual());
             foreach (var rueda in this.ruedas)
@@ -286,7 +286,7 @@ namespace TGC.Group.Model
 
         public TGCVector3 GetPosicion()
         {
-            return TGCVector3.transform(new TGCVector3(0, 0, 0), this.rotado * this.traslado);
+            return TGCVector3.transform(new TGCVector3(0, 0, 0), this.matrixs.GetTransformation());
         }
 
         public TGCVector3 GetVectorCostado()
@@ -303,27 +303,21 @@ namespace TGC.Group.Model
 
         virtual public void Transform()
         {
-            var transformacion = GetTransformacion();
+            var transformacion = this.matrixs.GetTransformation();
             this.mesh.Transform = transformacion;
-            this.mesh.BoundingBox.transform(this.escalado * this.traslado);
-            this.obb.ActualizarBoundingOrientedBox(this.traslado);
-            this.delanteraIzquierda.Transform(this.GetTransformacion());
-            this.delanteraDerecha.Transform(this.GetTransformacion());
+            this.obb.ActualizarBoundingOrientedBox(this.matrixs.GetTranslation());
+            this.delanteraIzquierda.Transform(transformacion);
+            this.delanteraDerecha.Transform(transformacion);
 
             foreach (var rueda in this.ruedas)
             {
-                rueda.Transform(this.GetTransformacion());
+                rueda.Transform(transformacion);
             }
-        }
-
-        public TGCMatrix GetTransformacion()
-        {
-            return this.escalado * this.rotado * this.traslado;
         }
 
         public void Rotate(float rotacion)
         {
-            this.rotado = TGCMatrix.RotationY(rotacion) * this.rotado;
+            this.matrixs.Rotate(TGCMatrix.RotationY(rotacion));
         }
         /// <summary>
         /// Rotar delanteras con A,D

@@ -49,7 +49,7 @@ namespace TGC.Group.Model
             }
         }
 
-        public void HandleCollisions(Vehiculo car)
+        public void HandleCollisions(Vehicle car)
         {
             foreach (Collidable objeto in objetos)
             {
