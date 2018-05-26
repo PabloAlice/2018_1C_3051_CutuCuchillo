@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using TGC.Core.SceneLoader;
 using TGC.Core.Mathematica;
 using TGC.Core.Collision;
+using TGC.Core.BoundingVolumes;
 
 namespace TGC.Group.Model
 {
@@ -24,6 +25,11 @@ namespace TGC.Group.Model
             isVisible = true;
         }
 
+        public TgcBoundingAxisAlignBox GetBoundingAlignBox()
+        {
+            return this.billet.getMesh().BoundingBox;
+        }
+
         public void Render()
         {
             if (!isVisible)
@@ -38,6 +44,11 @@ namespace TGC.Group.Model
 
             billet.Render();
             weapon.Render();
+        }
+
+        public TGCVector3 GetPosition()
+        {
+            return TGCVector3.transform(new TGCVector3(0,0,0), translation);
         }
 
         protected abstract TGCMatrix GetHeight();

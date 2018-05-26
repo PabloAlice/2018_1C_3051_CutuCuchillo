@@ -11,8 +11,8 @@ namespace TGC.Group.Model
 {
     class Portal
     {
-        TGCVector3 position;
-        TgcMesh mesh;
+        private TGCVector3 position;
+        public TgcMesh mesh;
 
         public Portal(TGCVector3 position, TGCMatrix transformationMatrix)
         {

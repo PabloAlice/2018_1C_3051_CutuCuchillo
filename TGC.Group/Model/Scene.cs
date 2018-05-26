@@ -335,7 +335,9 @@ namespace TGC.Group.Model
         public void Render()
         {
             this.scene.Render();
-            this.VehicleUbication().Render();
+            this.VehicleUbication().Render(this.auto.GetCamara());
+            //negrada
+            this.auto.GetCamara().SetPlane(this.auto.GetVectorAdelante());
         }
 
         public void Dispose()

@@ -41,11 +41,18 @@ namespace TGC.Group.Model
             objetos.Remove(objeto);
         }
 
-        public void Render()
+        public void Render(CamaraEnTerceraPersona camara)
         {
             foreach (Collidable objeto in this.objetos)
             {
-                objeto.Render();
+                if(camara.IsInView(objeto))
+                {
+                    objeto.Render();
+                }else
+                {
+                    Console.WriteLine("No RENDERED");
+                }
+                
             }
         }
 

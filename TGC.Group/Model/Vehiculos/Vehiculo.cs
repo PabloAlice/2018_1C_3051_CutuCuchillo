@@ -56,8 +56,15 @@ namespace TGC.Group.Model
             this.aceleracionRetroceso = this.aceleracionAvance * 0.8f;
             this.vectorDireccion = this.vectorAdelante;
             this.estado = new Stopped(this);
+            this.mesh.BoundingBox.transform(this.GetTransformacion());
             this.obb = new BoundingOrientedBox(this.mesh.BoundingBox);
+            this.camara.SetPlane(this.vectorAdelante);
 
+        }
+
+        public CamaraEnTerceraPersona GetCamara()
+        {
+            return this.camara;
         }
 
         public void ChangePosition(TGCMatrix nuevaPosicion)
@@ -281,7 +288,7 @@ namespace TGC.Group.Model
             var transformacion = GetTransformacion();
             this.mesh.Transform = transformacion;
             this.mesh.BoundingBox.transform(this.escalado * this.traslado);
-            this.obb.ActualizarBoundingOrientedBox(this.mesh.BoundingBox);
+            this.obb.ActualizarBoundingOrientedBox(this.traslado);
             this.delanteraIzquierda.Transform(this.GetTransformacion());
             this.delanteraDerecha.Transform(this.GetTransformacion());
 

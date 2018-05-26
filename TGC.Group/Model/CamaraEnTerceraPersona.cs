@@ -6,10 +6,12 @@ using System.Threading.Tasks;
 using TGC.Core.Camara;
 using TGC.Core.Mathematica;
 using TGC.Core.Geometry;
+using TGC.Core.Utils;
+using TGC.Core.Collision;
 
 namespace TGC.Group.Model
 {
-    class CamaraEnTerceraPersona:TgcCamera
+    class CamaraEnTerceraPersona : TgcCamera
     {
         private TGCVector3 position;
         private TGCPlane plano;
@@ -29,6 +31,28 @@ namespace TGC.Group.Model
             OffsetForward = offsetForward;
         }
 
+        public TGCVector3 GetNormal()
+        {
+            return new TGCVector3(this.plano.A, this.plano.B, this.plano.C);
+        }
+
+        public void SetPlane(TGCVector3 direccion)
+        {
+            this.plano = TGCPlane.FromPointNormal(this.position, direccion);
+        }
+
+        private bool IsInFrontOf(TGCVector3 position)
+        { 
+            float value = this.plano.A * position.X + this.plano.B * position.Y + this.plano.C * position.Z + this.plano.D;
+            return value > 0;
+        }
+
+        public bool IsInView(Collidable objeto)
+        {
+            TGCVector3 objectPosition = objeto.GetPosition();
+            return TgcCollisionUtils.testPlaneAABB(this.plano, objeto.GetBoundingAlignBox()) || this.IsInFrontOf(objeto.GetPosition());
+        }
+
         public CamaraEnTerceraPersona(TGCVector3 target, TGCVector3 targetDisplacement, float offsetHeight, float offsetForward)
             : this()
         {
@@ -36,11 +60,6 @@ namespace TGC.Group.Model
             TargetDisplacement = targetDisplacement;
             OffsetHeight = offsetHeight;
             OffsetForward = offsetForward;
-        }
-
-        public void CreatePlane(TGCVector3 normal)
-        {
-            this.plano = TGCPlane.FromPointNormal(this.position, normal);
         }
 
         /// <summary>
