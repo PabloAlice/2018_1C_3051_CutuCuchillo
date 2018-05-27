@@ -24,7 +24,7 @@ namespace TGC.Group.Model.Vehiculos
 
         private void SetFrequency(int freq)
         {
-            this.velSound.SoundBuffer.Frequency = freq;
+            this.velSound.SoundBuffer.Frequency = freq > this.initialFreq ? freq : this.initialFreq;
         }
 
         private int GetFrequency()
