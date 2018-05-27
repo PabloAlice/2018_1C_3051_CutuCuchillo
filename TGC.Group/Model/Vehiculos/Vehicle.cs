@@ -41,6 +41,7 @@ namespace TGC.Group.Model
         //se guarda el traslado inicial porque se usa como pivote
         protected TGCMatrix trasladoInicial;
         protected ThirdPersonCamera camara;
+        protected TGCMatrix lastTransformation;
 
         private List<IShootable> weapons = new List<IShootable>();
         private int currentWeaponIndex = 0;
@@ -284,6 +285,11 @@ namespace TGC.Group.Model
             }
         }
 
+        public void Translate(TGCMatrix displacement)
+        {
+            this.matrixs.Translate(displacement);
+        }
+
         public TGCVector3 GetPosicion()
         {
             return TGCVector3.transform(new TGCVector3(0, 0, 0), this.matrixs.GetTransformation());
@@ -334,8 +340,15 @@ namespace TGC.Group.Model
             delanteraDerecha.UpdateRotationY(rotacion);
         }
 
+        public TGCVector3 GetLastPosition()
+        {
+            return TGCVector3.transform(new TGCVector3(0,0,0), this.lastTransformation);
+        }
+
         public void Action(TgcD3dInput input)
         {
+            this.lastTransformation = this.matrixs.GetTransformation();
+
             if (input.keyDown(Key.NumPad4))
             {
                 this.camara.rotateY(-0.005f);

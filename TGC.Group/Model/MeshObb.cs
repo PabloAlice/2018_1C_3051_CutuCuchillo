@@ -68,9 +68,41 @@ namespace TGC.Group.Model
             }
         }
 
+        private TGCVector3 DetectIntersection(TgcRay ray)
+        {
+            TGCVector3 intersection = new TGCVector3();
+            TgcCollisionUtils.intersectRayObb(ray, this.GetObb(), out intersection);
+            return intersection;
+
+        }
+
+        private TgcRay GenerateRay(TGCVector3 origin, TGCVector3 direction)
+        {
+            TgcRay ray = new TgcRay();
+            ray.Origin = origin;
+            ray.Direction = direction;
+            return ray;
+        }
+
+        private TGCVector3 GetNormalPlane(TGCVector3 direccion)
+        {
+            return -direccion;
+        }
+
         private void Collide(Vehicle car)
         {
-
+            
+            TgcRay ray = this.GenerateRay(car.GetLastPosition(), car.GetVectorAdelante());
+            TGCVector3 intersectionPoint = this.DetectIntersection(ray);
+            TGCVector3 normalPlane = this.GetNormalPlane(intersectionPoint);
+            normalPlane.Normalize();
+            car.SetTranslate(TGCMatrix.Translation(intersectionPoint));
+            
+            while (TgcCollisionUtils.testObbObb(car.GetTGCBoundingOrientedBox(), this.GetObb()))
+            {
+                car.Translate(TGCMatrix.Translation(normalPlane));
+                car.Transform();
+            }
         }
     }
 }
