@@ -87,6 +87,7 @@ namespace TGC.Group.Model
         private TGCVector3 GetNormalPlane(TGCVector3 direccion)
         {
             return -direccion;
+            
         }
 
         private void Collide(Vehicle car)
@@ -100,7 +101,7 @@ namespace TGC.Group.Model
             
             while (TgcCollisionUtils.testObbObb(car.GetTGCBoundingOrientedBox(), this.GetObb()))
             {
-                car.Translate(TGCMatrix.Translation(normalPlane));
+                car.Translate(TGCMatrix.Translation(-car.GetVectorAdelante()));
                 car.Transform();
             }
         }
