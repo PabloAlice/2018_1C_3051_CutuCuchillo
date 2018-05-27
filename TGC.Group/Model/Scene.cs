@@ -348,29 +348,5 @@ namespace TGC.Group.Model
             VehicleUbication().remove(objeto);
         }
 
-        /*public Camioneta calculateCollisions(Camioneta auto)
-        {
-            //bool collide = false;
-            TgcMesh collider = null;
-            auto.mesh.BoundingBox.setRenderColor(Color.Yellow);
-            foreach (Objeto objeto in objetosEscenario)
-            {
-                if ((collider = objeto.TestColision(auto.mesh)) != null)
-                {
-                    auto.mesh.BoundingBox.setRenderColor(Color.Red);
-                    collider.BoundingBox.setRenderColor(Color.Red);
-                    auto.SetVelocidadActual(-auto.GetVelocidadActual() * 4);
-                    auto.SetEstado(new Backward(auto));
-                }
-
-                else
-                {
-                    objeto.SetColorBoundingBox(Color.Yellow);
-                }
-
-            }
-
-            return auto;
-        }*/
     }
 }

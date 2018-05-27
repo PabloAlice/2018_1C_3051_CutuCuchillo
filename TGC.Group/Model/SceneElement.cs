@@ -76,12 +76,36 @@ namespace TGC.Group.Model
             }
         }
 
+        private void Collide(TgcMesh elemento, Vehicle car)
+        {
+            TGCVector3 frontVector = car.GetVectorAdelante();
+            //TgcRay ray = this.GenerateRay(car.GetLastPosition(), frontVector);
+            //TGCVector3 intersectionPoint = this.DetectIntersection(ray);
+            //car.SetTranslate(TGCMatrix.Translation(intersectionPoint));
+            //TGCVector3 output = this.GenerateOutput(frontVector);
+            //car.SetDirection(output);
+
+            while (TgcCollisionUtils.testObbAABB(car.GetTGCBoundingOrientedBox(), elemento.BoundingBox))
+            {
+                car.Translate(TGCMatrix.Translation(-frontVector));
+                car.Transform();
+            }
+        }
+
+        private void DetectCollision(TgcMesh elemento, Vehicle car)
+        {
+            if (TgcCollisionUtils.testObbAABB(car.GetTGCBoundingOrientedBox(), elemento.BoundingBox))
+            {
+                this.Collide(elemento, car);
+            }
+        }
+
         public void HandleCollisions(Vehicle car)
         {
             foreach(TgcMesh elemento in this.elementos)
             {
-                //detectar colision con cada elemento
-                //elemento.HandleCollisions(car);
+                //faltaria terminar el foreach cuando se encontro el collisionado
+                this.DetectCollision(elemento, car);
             }
             return;
         }
