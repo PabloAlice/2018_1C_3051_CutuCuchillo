@@ -13,14 +13,15 @@ namespace TGC.Group.Model
 {
     class SceneElement : Collidable
     {
-        protected List<MeshObb> elementos = new List<MeshObb>();
+        protected List<TgcMesh> elementos = new List<TgcMesh>();
         protected TGCMatrix transformacion;
 
         public SceneElement(List<TgcMesh> elementos, TGCMatrix transformacion)
         {
             foreach (TgcMesh mesh in elementos)
             {
-                this.elementos.Add(new MeshObb(mesh));
+                mesh.AutoTransform = false;
+                this.elementos.Add(mesh);
             }
             this.transformacion = transformacion;
             this.transform();
@@ -30,13 +31,14 @@ namespace TGC.Group.Model
         {
             foreach (TgcMesh mesh in elementos)
             {
-                this.elementos.Add(new MeshObb(mesh));
+                mesh.AutoTransform = false;
+                this.elementos.Add(mesh);
             }
         }
 
         public TgcBoundingAxisAlignBox GetBoundingAlignBox()
         {
-            return this.elementos[0].GetMesh().BoundingBox;
+            return this.elementos[0].BoundingBox;
         }
 
         public TGCVector3 GetPosition()
@@ -44,40 +46,42 @@ namespace TGC.Group.Model
             return TGCVector3.transform(new TGCVector3(0,0,0), this.transformacion);
         }
 
-        public void transform()
+        public virtual void transform()
         {
-            foreach(MeshObb elemento in this.elementos)
+            foreach(TgcMesh elemento in this.elementos)
             {
-                elemento.Transform(this.transformacion);
+                elemento.Transform = this.transformacion;
+                elemento.BoundingBox.transform(this.transformacion);
             }
         }
        
 
         public virtual void Render()
         {
-            foreach (MeshObb elemento in this.elementos)
+            foreach (TgcMesh elemento in this.elementos)
             {
-                if (Scene.GetInstance().getCamera().IsInView(this.GetBoundingAlignBox()))
+                if (Scene.GetInstance().getCamera().IsInView(elemento.BoundingBox))
                 {
                     elemento.Render();
+                    elemento.BoundingBox.Render();
                 }
             }
         }
 
         public void Dispose()
         {
-            foreach (MeshObb elemento in this.elementos)
+            foreach (TgcMesh elemento in this.elementos)
             {
-                //no se por que rompe esta garcha
-                //elemento.mesh.Dispose();
+                //elemento.Dispose();
             }
         }
 
         public void HandleCollisions(Vehicle car)
         {
-            foreach(MeshObb elemento in this.elementos)
+            foreach(TgcMesh elemento in this.elementos)
             {
-                elemento.HandleCollisions(car);
+                //detectar colision con cada elemento
+                //elemento.HandleCollisions(car);
             }
             return;
         }

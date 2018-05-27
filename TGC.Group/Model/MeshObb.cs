@@ -35,7 +35,7 @@ namespace TGC.Group.Model
         public void Transform(TGCMatrix transformation)
         {
             this.mesh.Transform = transformation;
-            //this.mesh.BoundingBox.transform(transformation);
+            this.mesh.BoundingBox.transform(transformation);
             this.ActualizarBoundingOrientedBox();
         }
 

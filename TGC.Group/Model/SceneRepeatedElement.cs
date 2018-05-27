@@ -16,9 +16,14 @@ namespace TGC.Group.Model
         public SceneRepeatedElement(List<TgcMesh> meshList, List<TGCMatrix> transformations) : base(meshList)
         {
             this.transformations = transformations;
-            foreach (TgcMesh mesh in meshList)
+        }
+
+        public void transform(TGCMatrix transformation)
+        {
+            foreach(TgcMesh mesh in this.elementos)
             {
-                this.elementos.Add(new MeshObb(mesh));
+                mesh.Transform = transformation;
+                mesh.BoundingBox.transform(transformation);
             }
         }
 
@@ -26,7 +31,7 @@ namespace TGC.Group.Model
         {
             foreach (TGCMatrix transformation in transformations)
             {
-               transform();
+               transform(transformation);
                base.Render();
             }
         }       
