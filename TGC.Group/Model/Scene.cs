@@ -83,8 +83,6 @@ namespace TGC.Group.Model
         public void Init(string mediaDir)
         {
 
-
-
             List<TGCMatrix> transformaciones;
 
             this.scene = this.GiveMeAnObject("Texturas\\Habitacion\\escenaFinal-TgcScene.xml", GenerateTransformation(new TGCVector3(1, 1, 1), new TGCVector3(0, 0, 0), new TGCVector3(0, 0, 0)));

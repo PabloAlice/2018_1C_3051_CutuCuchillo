@@ -64,38 +64,6 @@ namespace TGC.Group.Model
             }
         }
 
-        /*public void RenderBoundingBox()
-        {
-            foreach (MeshObb elemento in this.elementos)
-            {
-                elemento.obb.Render();
-            }
-        }*/
-
-        public MeshObb TestColision(MeshObb meshObb)
-        {
-            /*
-             * 
-             * 
-             * 
-             * Revisar esto, ahora deberia chequearse con MeshObb
-             * 
-             * 
-             * 
-             *
-             */
-            foreach (MeshObb elemento in this.elementos)
-            {
-                if (TgcCollisionUtils.testAABBAABB(meshObb.GetMesh().BoundingBox, elemento.GetMesh().BoundingBox))
-                {
-                    return elemento;
-                }
-            }
-
-            return null;
-            
-        }
-
         public void Dispose()
         {
             foreach (MeshObb elemento in this.elementos)
@@ -104,14 +72,6 @@ namespace TGC.Group.Model
                 //elemento.mesh.Dispose();
             }
         }
-
-        /*public void SetColorBoundingBox(Color color)
-        {
-            foreach (MeshObb elemento in this.elementos)
-            {
-                elemento.obb.SetRenderColor(color);
-            }
-        }*/
 
         public void HandleCollisions(Vehicle car)
         {

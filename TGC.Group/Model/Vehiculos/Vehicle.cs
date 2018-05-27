@@ -103,6 +103,12 @@ namespace TGC.Group.Model
 
         }
 
+        public void SetDirection(TGCVector3 newDirection)
+        {
+            float angle = GlobalConcepts.GetInstance().AngleBetweenVectors(newDirection, this.vectorAdelante);
+            this.Girar(angle);
+        }
+
         public void SetVectorAdelante(TGCVector3 vector)
         {
             this.vectorAdelante = vector;

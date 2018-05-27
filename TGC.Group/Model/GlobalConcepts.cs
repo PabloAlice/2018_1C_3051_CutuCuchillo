@@ -66,5 +66,12 @@ namespace TGC.Group.Model
             TGCMatrix transformacion = matrixEscalado * matrixRotacion * matrixTraslacion;
             return transformacion;
         }
+
+        public float AngleBetweenVectors(TGCVector3 v1, TGCVector3 v2)
+        {
+            var dot = TGCVector3.Dot(v1, v2);
+            var modulusProduct = v1.Length() * v2.Length();
+            return FastMath.Acos(dot / modulusProduct);
+        }
     }
 }

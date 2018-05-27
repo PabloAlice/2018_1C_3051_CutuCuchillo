@@ -52,6 +52,7 @@ namespace TGC.Group.Model
         {
             TGCVector3 objectPosition = bb.Position;
             return TgcCollisionUtils.testPlaneAABB(this.plano, bb) || this.IsInFrontOf(bb.Position);
+            //todo fijarse que hay una forma mas facil de hacer esto con el frustum
         }
 
         public ThirdPersonCamera(TGCVector3 target, TGCVector3 targetDisplacement, float offsetHeight, float offsetForward)

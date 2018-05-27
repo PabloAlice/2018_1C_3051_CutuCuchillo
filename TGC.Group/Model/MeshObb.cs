@@ -32,10 +32,10 @@ namespace TGC.Group.Model
             return this.mesh.BoundingBox;
         }
 
-        public void Transform(TGCMatrix transformataion)
+        public void Transform(TGCMatrix transformation)
         {
-            this.mesh.Transform = transformataion;
-            this.mesh.BoundingBox.transform(transformataion);
+            this.mesh.Transform = transformation;
+            //this.mesh.BoundingBox.transform(transformation);
             this.ActualizarBoundingOrientedBox();
         }
 
@@ -84,26 +84,33 @@ namespace TGC.Group.Model
             return ray;
         }
 
-        private TGCVector3 GetNormalPlane(TGCVector3 direccion)
+        private TGCVector3 GenerateOutput(TGCVector3 vector)
         {
-            return -direccion;
-            
+            if((vector.X >= 0 && vector.Z >=0) || (vector.X < 0 && vector.Z > 0))
+            {
+                return new TGCVector3(-vector.X, vector.Y, vector.Z);
+            }
+            else
+            {
+                return new TGCVector3(vector.X, vector.Y, vector.Z);
+            }
         }
 
         private void Collide(Vehicle car)
         {
-            
-            TgcRay ray = this.GenerateRay(car.GetLastPosition(), car.GetVectorAdelante());
-            TGCVector3 intersectionPoint = this.DetectIntersection(ray);
-            TGCVector3 normalPlane = this.GetNormalPlane(intersectionPoint);
-            normalPlane.Normalize();
-            car.SetTranslate(TGCMatrix.Translation(intersectionPoint));
+            TGCVector3 frontVector = car.GetVectorAdelante();
+            //TgcRay ray = this.GenerateRay(car.GetLastPosition(), frontVector);
+            //TGCVector3 intersectionPoint = this.DetectIntersection(ray);
+            //car.SetTranslate(TGCMatrix.Translation(intersectionPoint));
+            //TGCVector3 output = this.GenerateOutput(frontVector);
+            //car.SetDirection(output);
             
             while (TgcCollisionUtils.testObbObb(car.GetTGCBoundingOrientedBox(), this.GetObb()))
             {
-                car.Translate(TGCMatrix.Translation(-car.GetVectorAdelante()));
+                car.Translate(TGCMatrix.Translation(-frontVector));
                 car.Transform();
             }
+
         }
     }
 }
