@@ -354,6 +354,7 @@ namespace TGC.Group.Model
         public void Action(TgcD3dInput input)
         {
             this.lastTransformation = this.matrixs.GetTransformation();
+            this.SoundsManager.Update(this.velocidadActual);
 
             if (input.keyDown(Key.NumPad4))
             {
@@ -384,16 +385,19 @@ namespace TGC.Group.Model
 
             if (input.keyDown(Key.W))
             {
-                this.SoundsManager.PlayAccelerating();
                 this.estado.Advance();
             }
             else
             {
-                this.SoundsManager.PlayDesaccelerating();
+                // int freq = (int)(this.constanteDeRozamiento / this.GetElapsedTime());
+                // int f2 = this.SoundsManager.desacceleratingVelSound.SoundBuffer.Frequency;
+                // this.SoundsManager.SetDesAccFrequency(f2);
             }
 
             if (input.keyDown(Key.S))
             {
+                //int freq = (int)(this.constanteFrenado / this.GetElapsedTime());
+                //this.SoundsManager.SetDesAccFrequency(freq);
                 this.estado.Back();
             }
 
