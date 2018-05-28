@@ -53,7 +53,7 @@ namespace TGC.Group.Model
         
         public override void Init()
         {
-            //Cursor.Hide();
+            Cursor.Hide();
             Device device = D3DDevice.Instance.Device;
 
             gui.Create(MediaDir);
@@ -65,8 +65,8 @@ namespace TGC.Group.Model
             int dy = 30;
             int dy2 = dy;
             int dx = 250;
-            
-            GUIItem item = gui.InsertImage("transformers\\custom_char.png", x0, y0, MediaDir);
+
+            GUIItem item; /*= gui.InsertImage("transformers\\custom_char.png", x0, y0, MediaDir);
             item.image_centrada = false;
             y0 += dy;
             
@@ -97,9 +97,11 @@ namespace TGC.Group.Model
             commander1.pos_imagen.Y = y0;
             y0 += 2 * dy;
 
-            gui.InsertItem(new static_text(gui, "WARRIOR", x0, y0, 400, 25));
+            gui.InsertItem(new static_text(gui, "velocimetrxj", x0, y0, 400, 25));
             y0 += 45;
-            item = gui.InsertImage("transformers//warrior.png", x0 + dx, y0, MediaDir);
+            */
+            item = gui.InsertImage("HUB\\Velocimetro\\VelocimetroSinFlecha.png", x0 + dx, y0, MediaDir);
+
             item.image_centrada = false;
             menu_item warrior1 = (menu_item)gui.InsertItem(new menu_item(gui, "WARRIOR 1", "transformers//warrior1.png", 103, x0, y0, MediaDir, dx, 30));
             warrior1.pos_imagen.Y = y0;
@@ -210,7 +212,7 @@ namespace TGC.Group.Model
 
             
 
-            /*
+            
             Scene.GetInstance().Render();
 
             this.textoVelocidadVehiculo.render();
@@ -221,12 +223,12 @@ namespace TGC.Group.Model
                        
             this.auto.Transform();
             this.auto.Render();
-            */
+            
             //this.manager.Transform();
             //this.manager.Render();
             
             Device d3dDevice = D3DDevice.Instance.Device;
-            d3dDevice.Clear(ClearFlags.Target | ClearFlags.ZBuffer, Color.FromArgb(35,56,68), 1.0f, 0);
+            //d3dDevice.Clear(ClearFlags.Target | ClearFlags.ZBuffer, Color.FromArgb(35,56,68), 1.0f, 0);
             gui_render(ElapsedTime);
             
             this.PostRender();
