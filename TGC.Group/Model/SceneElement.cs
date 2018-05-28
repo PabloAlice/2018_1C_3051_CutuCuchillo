@@ -76,18 +76,72 @@ namespace TGC.Group.Model
             }
         }
 
+        private TGCVector3 GenerateOutput(TGCVector3 vector)
+        {
+            if ((vector.X >= 0 && vector.Z >= 0) || (vector.X < 0 && vector.Z > 0))
+            {
+                return new TGCVector3(-vector.X, vector.Y, vector.Z);
+            }
+            else
+            {
+                return new TGCVector3(vector.X, vector.Y, vector.Z);
+            }
+        }
+
+        private TgcRay GenerateRay(TGCVector3 origin, TGCVector3 direction)
+        {
+            TgcRay ray = new TgcRay();
+            ray.Origin = origin;
+            ray.Direction = direction;
+            return ray;
+        }
+
+        private TGCVector3 DetectIntersection(TgcRay ray, TgcMesh elemento)
+        {
+            TGCVector3 intersection = new TGCVector3();
+            TgcCollisionUtils.intersectRayAABB(ray, elemento.BoundingBox, out intersection);
+            return intersection;
+
+        }
+
+        private bool IsInPlane(TGCVector3 point, TGCPlane plane)
+        {
+            float result = plane.A * point.X + plane.B * point.Y + plane.C * point.Z + plane.D;
+            float epsilon = 0.1f;
+            return (result < epsilon && result > -epsilon) ? true : false;
+        }
+
+        private TGCPlane CreatePlane(TGCVector3 punto, TgcBoundingAxisAlignBox.Face[] faces)
+        {
+            foreach (TgcBoundingAxisAlignBox.Face face in faces)
+            {
+                if(this.IsInPlane(punto, face.Plane))
+                {
+                    return face.Plane;
+                }
+            }
+            return faces[0].Plane;
+        }
+
+        private TGCVector3 normal(TGCPlane plane)
+        {
+            return new TGCVector3(plane.A, plane.B, plane.C);
+        }
+
         private void Collide(TgcMesh elemento, Vehicle car)
         {
             TGCVector3 frontVector = car.GetVectorAdelante();
-            //TgcRay ray = this.GenerateRay(car.GetLastPosition(), frontVector);
-            //TGCVector3 intersectionPoint = this.DetectIntersection(ray);
-            //car.SetTranslate(TGCMatrix.Translation(intersectionPoint));
-            //TGCVector3 output = this.GenerateOutput(frontVector);
-            //car.SetDirection(output);
+            TgcRay ray = this.GenerateRay(car.GetLastPosition(), frontVector);
+            TGCVector3 intersectionPoint = this.DetectIntersection(ray, elemento);
+            TgcBoundingAxisAlignBox.Face[] faces;
+            faces = elemento.BoundingBox.computeFaces();
+            TGCPlane plane = this.CreatePlane(intersectionPoint, faces);
+            TGCVector3 output = this.normal(plane);
+            car.SetDirection(output);
 
             while (TgcCollisionUtils.testObbAABB(car.GetTGCBoundingOrientedBox(), elemento.BoundingBox))
             {
-                car.Translate(TGCMatrix.Translation(-frontVector));
+                car.Translate(TGCMatrix.Translation(-frontVector * 0.01f));
                 car.Transform();
             }
         }
