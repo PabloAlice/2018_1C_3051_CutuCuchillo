@@ -19,6 +19,12 @@ namespace TGC.Group.Model.Vehiculos.Estados
             // this.audio.play(true);
         }
 
+        public override TGCVector3 GetCarDirection()
+        {
+            //hay que probar si esto anda o produce efectos no esperados
+            return new TGCVector3(0, 1, 0);
+        }
+
         override public void Advance()
         {
             base.Advance();

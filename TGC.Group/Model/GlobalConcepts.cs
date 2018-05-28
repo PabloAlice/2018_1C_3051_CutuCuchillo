@@ -73,5 +73,10 @@ namespace TGC.Group.Model
             var modulusProduct = v1.Length() * v2.Length();
             return FastMath.Acos(dot / modulusProduct);
         }
+
+        public TGCVector3 GetNormalPlane(TGCPlane plane)
+        {
+            return new TGCVector3(plane.A, plane.B, plane.C);
+        }
     }
 }

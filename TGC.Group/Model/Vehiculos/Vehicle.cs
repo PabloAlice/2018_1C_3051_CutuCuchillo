@@ -65,6 +65,11 @@ namespace TGC.Group.Model
             this.camara.SetPlane(this.vectorAdelante);
         }
 
+        public TGCVector3 GetDirectionOfCollision()
+        {
+            return this.estado.GetCarDirection();
+        }
+
         public ThirdPersonCamera GetCamara()
         {
             return this.camara;

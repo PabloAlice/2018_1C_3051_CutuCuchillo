@@ -88,26 +88,10 @@ namespace TGC.Group.Model
             }
         }
 
-        private TgcRay GenerateRay(TGCVector3 origin, TGCVector3 direction)
-        {
-            TgcRay ray = new TgcRay();
-            ray.Origin = origin;
-            ray.Direction = direction;
-            return ray;
-        }
-
-        private TGCVector3 DetectIntersection(TgcRay ray, TgcMesh elemento)
-        {
-            TGCVector3 intersection = new TGCVector3();
-            TgcCollisionUtils.intersectRayAABB(ray, elemento.BoundingBox, out intersection);
-            return intersection;
-
-        }
-
         private bool IsInPlane(TGCVector3 point, TGCPlane plane)
         {
             float result = plane.A * point.X + plane.B * point.Y + plane.C * point.Z + plane.D;
-            float epsilon = 0.1f;
+            float epsilon = 0f;
             return (result < epsilon && result > -epsilon) ? true : false;
         }
 
@@ -123,45 +107,49 @@ namespace TGC.Group.Model
             return faces[0].Plane;
         }
 
-        private TGCVector3 normal(TGCPlane plane)
-        {
-            return new TGCVector3(plane.A, plane.B, plane.C);
-        }
-
         private void Collide(TgcMesh elemento, Vehicle car)
         {
-            TGCVector3 frontVector = car.GetVectorAdelante();
-            TgcRay ray = this.GenerateRay(car.GetLastPosition(), frontVector);
-            TGCVector3 intersectionPoint = this.DetectIntersection(ray, elemento);
+            //direccion a la que estoy yendo antes de chocar
+            TGCVector3 directionOfCollision = car.GetDirectionOfCollision();
+            //creo un rayo en direccion al choque
+            TgcRay ray = new TgcRay();
+            ray.Origin = car.GetLastPosition();
+            ray.Direction = directionOfCollision;
+            //interseco el rayo con el aabb, para conocer un punto del plano con el que colisione
+            TGCVector3 intersectionPoint = new TGCVector3();
+            TgcCollisionUtils.intersectRayAABB(ray, elemento.BoundingBox, out intersectionPoint);
+            //obtengo las caras del bounding y me fijo cual es el plano que tiene incluido al 
+            //punto que averigue previamente
             TgcBoundingAxisAlignBox.Face[] faces;
             faces = elemento.BoundingBox.computeFaces();
             TGCPlane plane = this.CreatePlane(intersectionPoint, faces);
-            TGCVector3 output = this.normal(plane);
+            //averiguo el vector de salida
+            TGCVector3 output = GlobalConcepts.GetInstance().GetNormalPlane(plane) + directionOfCollision;
+            //giro el auto para que quede mirando hacia la direccion de salidaw
             car.SetDirection(output);
 
             while (TgcCollisionUtils.testObbAABB(car.GetTGCBoundingOrientedBox(), elemento.BoundingBox))
             {
-                car.Translate(TGCMatrix.Translation(-frontVector * 0.01f));
+                car.Translate(TGCMatrix.Translation(-directionOfCollision * 0.001f));
                 car.Transform();
             }
         }
 
-        private void DetectCollision(TgcMesh elemento, Vehicle car)
+        private bool IsColliding(TgcMesh elemento, Vehicle car)
         {
-            if (TgcCollisionUtils.testObbAABB(car.GetTGCBoundingOrientedBox(), elemento.BoundingBox))
-            {
-                this.Collide(elemento, car);
-            }
+            return TgcCollisionUtils.testObbAABB(car.GetTGCBoundingOrientedBox(), elemento.BoundingBox);
+            
         }
 
         public void HandleCollisions(Vehicle car)
         {
             foreach(TgcMesh elemento in this.elementos)
             {
-                //faltaria terminar el foreach cuando se encontro el collisionado
-                this.DetectCollision(elemento, car);
+                if (this.IsColliding(elemento, car)) {
+                    this.Collide(elemento, car);
+                    return;
+                }
             }
-            return;
         }
     }
 }

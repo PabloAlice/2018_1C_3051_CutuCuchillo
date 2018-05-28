@@ -19,6 +19,11 @@ namespace TGC.Group.Model.Vehiculos.Estados
             this.audio.MinDistance = 50f;
         }
 
+        public override TGCVector3 GetCarDirection()
+        {
+            return new TGCVector3(0,-1,0);
+        }
+
         public override void Advance()
         {
             if (auto.GetVelocidadActual() < 0)

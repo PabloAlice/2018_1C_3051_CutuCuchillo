@@ -13,6 +13,8 @@ namespace TGC.Group.Model.Vehiculos.Estados
         protected Vehicle auto;
         protected Tgc3dSound audio;
 
+        abstract public TGCVector3 GetCarDirection();
+
         public EstadoVehiculo(Vehicle auto)
         {
             this.auto = auto;

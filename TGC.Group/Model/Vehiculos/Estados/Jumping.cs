@@ -20,6 +20,11 @@ namespace TGC.Group.Model.Vehiculos.Estados
            // this.audio.play();
         }
 
+        public override TGCVector3 GetCarDirection()
+        {
+            return new TGCVector3(0, 1, 0);
+        }
+
         public override void Advance()
         {
             if(auto.GetVelocidadActual() < 0)
