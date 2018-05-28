@@ -2,6 +2,8 @@ using TGC.Core.Example;
 using TGC.Core.Mathematica;
 using TGC.Group.Model.Vehiculos;
 using TGC.Core.Text;
+using System.Drawing;
+using System.Windows.Forms;
 
 namespace TGC.Group.Model
 {
@@ -22,7 +24,6 @@ namespace TGC.Group.Model
         private TGCVector3 camaraDesplazamiento = new TGCVector3(0,5,40);
         private TgcText2D textoVelocidadVehiculo, textoOffsetH, textoOffsetF, textoPosicionVehiculo, textoVectorAdelante;
 
-
         public override void Init()
         {
             GlobalConcepts.GetInstance().SetMediaDir(this.MediaDir);
@@ -41,8 +42,8 @@ namespace TGC.Group.Model
         public override void Update()
         {
 
-            GlobalConcepts.GetInstance().SetElapsedTime(ElapsedTime);
             this.PreUpdate();
+            GlobalConcepts.GetInstance().SetElapsedTime(ElapsedTime);
 
             string dialogo;
 
