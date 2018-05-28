@@ -91,6 +91,7 @@ namespace TGC.Group.Model
         private bool IsInPlane(TGCVector3 point, TGCPlane plane)
         {
             float result = plane.A * point.X + plane.B * point.Y + plane.C * point.Z + plane.D;
+            //verificar este epsilon violento
             float epsilon = 0f;
             return (result < epsilon && result > -epsilon) ? true : false;
         }
@@ -104,6 +105,8 @@ namespace TGC.Group.Model
                     return face.Plane;
                 }
             }
+            //pasa por aca, por eso no anda bien
+            System.Console.WriteLine("pase");
             return faces[0].Plane;
         }
 
