@@ -1,7 +1,4 @@
-﻿using System.Text;
-using System.Threading.Tasks;
-using TGC.Core.Sound;
-using Microsoft.DirectX.DirectSound;
+﻿using Microsoft.DirectX.DirectSound;
 using TGC.Core.Mathematica;
 
 namespace TGC.Group.Model

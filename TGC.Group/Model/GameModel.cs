@@ -1,19 +1,7 @@
-using Microsoft.DirectX.DirectInput;
-using System.Drawing;
-using TGC.Core.Direct3D;
 using TGC.Core.Example;
-using TGC.Core.Geometry;
-using TGC.Core.Input;
 using TGC.Core.Mathematica;
-using TGC.Core.SceneLoader;
-using TGC.Core.Textures;
-using TGC.Group.Model;
 using TGC.Group.Model.Vehiculos;
-using TGC.Group.Model.Vehiculos.Estados;
 using TGC.Core.Text;
-using System.Collections.Generic;
-using TGC.Core.Collision;
-using TGC.Core.Sound;
 
 namespace TGC.Group.Model
 {
@@ -47,7 +35,7 @@ namespace TGC.Group.Model
             this.auto = new Van(camaraInterna, new TGCVector3(-60f, 0f, 0f), new SoundsManager(this.MediaDir + "Sound\\Motor.wav", new TGCVector3(-0f, 0f, 0f)));
             Scene.GetInstance().SetVehiculo(this.auto);
             //manager = new ObjectManagement(MediaDir + "meshCreator\\meshes\\Habitacion\\Billetes\\Billete2\\Billete2-TgcScene.xml", camaraManagement);
-
+            
         }
 
         public override void Update()

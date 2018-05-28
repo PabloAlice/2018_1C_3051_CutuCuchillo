@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using TGC.Core.Mathematica;
-using TGC.Core.Collision;
-using TGC.Core.BoundingVolumes;
-using System.Drawing;
 
 namespace TGC.Group.Model
 {
