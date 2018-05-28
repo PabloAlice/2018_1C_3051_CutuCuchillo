@@ -5,6 +5,7 @@ using TGC.Group.Model.Vehiculos;
 using TGC.Core.Text;
 using System.Windows.Forms;
 using Microsoft.DirectX.Direct3D;
+using System.Drawing;
 
 namespace TGC.Group.Model
 {
@@ -52,7 +53,7 @@ namespace TGC.Group.Model
         
         public override void Init()
         {
-            //Cursor.Hide();
+            Cursor.Hide();
             Device device = D3DDevice.Instance.Device;
 
             gui.Create(MediaDir);
@@ -64,8 +65,8 @@ namespace TGC.Group.Model
             int dy = 30;
             int dy2 = dy;
             int dx = 250;
-            
-            GUIItem item = gui.InsertImage("cancel.png", x0, y0, MediaDir);
+
+            GUIItem item; /*= gui.InsertImage("transformers\\custom_char.png", x0, y0, MediaDir);
             item.image_centrada = false;
             y0 += dy;
             
@@ -73,36 +74,38 @@ namespace TGC.Group.Model
             y0 += 45;
             item = gui.InsertImage("transformers\\scout.png", x0 + dx, y0, MediaDir);
             item.image_centrada = false;
-            gui.InsertItem(new menu_item(gui, "eeeeeeeeeeeee", "transformers\\scout1.png", 100, x0, y0, MediaDir, dx, dy));
+            gui.InsertItem(new menu_item(gui, "SCOUT1", "transformers\\scout1.png", 100, x0, y0, MediaDir, dx, dy));
             y0 += dy + 5;
-            gui.InsertItem(new menu_item(gui, "eeeeeeeeeeeeeeeeeeeeeee", "transformers\\scout2.png", 100, x0, y0, MediaDir, dx, dy));
+            gui.InsertItem(new menu_item(gui, "SCOUT2", "transformers\\scout2.png", 100, x0, y0, MediaDir, dx, dy));
             y0 += 2 * dy;
             
-            /*
+            
             gui.InsertItem(new static_text(gui, "HUNTER", x0, y0, 400, 25));
             y0 += 45;
-            item = gui.InsertImage("transformers//hunter.png", x0 + dx, y0, MediaDir);
+            item = gui.InsertImage("transformers\\hunter.png", x0 + dx, y0, MediaDir);
             item.image_centrada = false;
-            menu_item hunter1 = (menu_item)gui.InsertItem(new menu_item(gui, "HUNTER 1", "transformers//hunter1.png", 101, x0, y0, MediaDir, dx, dy));
+            menu_item hunter1 = (menu_item)gui.InsertItem(new menu_item(gui, "HUNTER 1", "transformers\\hunter1.png", 101, x0, y0, MediaDir, dx, dy));
             hunter1.pos_imagen.Y = y0;
 
             y0 += 2 * dy;
 
             gui.InsertItem(new static_text(gui, "COMMANDER", x0, y0, 400, 25));
             y0 += 45;
-            item = gui.InsertImage("transformers//commander.png", x0 + dx, y0, MediaDir);
+            item = gui.InsertImage("transformers\\commander.png", x0 + dx, y0, MediaDir);
             item.image_centrada = false;
-            menu_item commander1 = (menu_item)gui.InsertItem(new menu_item(gui, "COMMANDER 1", "transformers//commander1.png", 102, x0, y0, MediaDir, dx, 25));
+            menu_item commander1 = (menu_item)gui.InsertItem(new menu_item(gui, "COMMANDER 1", "transformers\\commander1.png", 102, x0, y0, MediaDir, dx, 25));
             commander1.pos_imagen.Y = y0;
             y0 += 2 * dy;
 
-            gui.InsertItem(new static_text(gui, "WARRIOR", x0, y0, 400, 25));
+            gui.InsertItem(new static_text(gui, "velocimetrxj", x0, y0, 400, 25));
             y0 += 45;
-            item = gui.InsertImage("transformers//warrior.png", x0 + dx, y0, MediaDir);
+            */
+            item = gui.InsertImage("HUB\\Velocimetro\\VelocimetroSinFlecha.png", x0 + dx, y0, MediaDir);
+
             item.image_centrada = false;
             menu_item warrior1 = (menu_item)gui.InsertItem(new menu_item(gui, "WARRIOR 1", "transformers//warrior1.png", 103, x0, y0, MediaDir, dx, 30));
             warrior1.pos_imagen.Y = y0;
-            */
+            
             dialog_sel = 0;
 
 
@@ -220,14 +223,14 @@ namespace TGC.Group.Model
                        
             this.auto.Transform();
             this.auto.Render();
-
+            
             //this.manager.Transform();
             //this.manager.Render();
-            /*
+            
             Device d3dDevice = D3DDevice.Instance.Device;
-            d3dDevice.Clear(ClearFlags.Target | ClearFlags.ZBuffer, Color.FromArgb(35, 56, 68), 1.0f, 0);
+            //d3dDevice.Clear(ClearFlags.Target | ClearFlags.ZBuffer, Color.FromArgb(35,56,68), 1.0f, 0);
             gui_render(ElapsedTime);
-            */
+            
             this.PostRender();
         }
 

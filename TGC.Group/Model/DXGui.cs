@@ -126,7 +126,7 @@ namespace TGC.Group.Model
         public bool autohide;
 
         // Colores x defecto
-        public static Color c_fondo = Color.FromArgb(255, 255, 255);        // Color de fondo
+        public static Color c_fondo = Color.FromArgb(80, 30, 155, 110);        // Color de fondo
 
         public static Color c_font = Color.FromArgb(255, 255, 255);            // Color de font item normal
         public static Color c_selected = Color.FromArgb(255, 128, 128);        // Color de font item seleccionado
@@ -1427,7 +1427,7 @@ namespace TGC.Group.Model
             filename.TrimEnd();
             // cargo la textura
             Device d3dDevice = D3DDevice.Instance.Device;
-            string fname_aux = mediaDir + "WorkshopShaders\\gui\\" + filename;
+            string fname_aux = mediaDir + "GUI\\"+ filename;
             if (!File.Exists(fname_aux))
                 // Pruebo con el nombre directo
                 fname_aux = filename;
