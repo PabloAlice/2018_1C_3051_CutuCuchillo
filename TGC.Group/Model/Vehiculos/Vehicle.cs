@@ -107,9 +107,12 @@ namespace TGC.Group.Model
 
         }
 
-        public void SetDirection(TGCVector3 newDirection)
+        public void SetDirection(TGCVector3 output, TGCVector3 normal)
         {
-            float angle = GlobalConcepts.GetInstance().AngleBetweenVectors(newDirection, this.vectorAdelante);
+            float angle = GlobalConcepts.GetInstance().AngleBetweenVectors(normal, output);
+            TGCVector3 result = TGCVector3.Cross(output, normal);
+            //por la regla de la mano derecha
+            angle = (result.Y < 0)? angle + FastMath.PI : angle;
             this.Girar(angle);
         }
 

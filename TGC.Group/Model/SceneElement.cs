@@ -83,52 +83,59 @@ namespace TGC.Group.Model
             }
         }
 
-        private bool IsInPlane(TGCVector3 point, TGCPlane plane)
+        private bool IsInFrontOf(TGCVector3 testpoint, TGCPlane plane)
         {
-            float result = plane.A * point.X + plane.B * point.Y + plane.C * point.Z + plane.D;
-            //verificar este epsilon violento
-            float epsilon = 0f;
-            return (result < epsilon && result > -epsilon) ? true : false;
+            return plane.A * testpoint.X + plane.B * testpoint.Y + plane.C * testpoint.Z + plane.D > 0;
         }
 
-        private TGCPlane CreatePlane(TGCVector3 punto, TgcBoundingAxisAlignBox.Face[] faces)
+        private TGCPlane SelectPlane(List<TGCPlane> planes, TGCVector3 testPoint)
         {
+            planes.Sort((x,y) => IsInFrontOf(testPoint, x).CompareTo(IsInFrontOf(testPoint, y)));
+            planes.Reverse();
+            return planes[0];
+        }
+
+        private TGCPlane CreatePlane(TgcRay ray, TgcBoundingAxisAlignBox.Face[] faces, TGCVector3 testPoint)
+        {
+            float instante;
+            TGCVector3 intersection;
+            List<TGCPlane> candidatesPlanes = new List<TGCPlane>();
+            int loop = 0;
             foreach (TgcBoundingAxisAlignBox.Face face in faces)
             {
-                if(this.IsInPlane(punto, face.Plane))
+                System.Console.WriteLine("Cara{0}: ({1},{2},{3})", loop, face.Plane.A, face.Plane.B, face.Plane.C);
+                if (TgcCollisionUtils.intersectRayPlane(ray, face.Plane, out instante, out intersection))
                 {
-                    return face.Plane;
+                    candidatesPlanes.Add(face.Plane);
                 }
+                loop++;
             }
-            //pasa por aca, por eso no anda bien
-            System.Console.WriteLine("pase");
-            return faces[0].Plane;
+
+            return this.SelectPlane(candidatesPlanes, testPoint);
+
         }
 
         private void Collide(TgcMesh elemento, Vehicle car)
         {
             //direccion a la que estoy yendo antes de chocar
             TGCVector3 directionOfCollision = car.GetDirectionOfCollision();
-            //creo un rayo en direccion al choque
             TgcRay ray = new TgcRay();
             ray.Origin = car.GetLastPosition();
             ray.Direction = directionOfCollision;
             //interseco el rayo con el aabb, para conocer un punto del plano con el que colisione
-            TGCVector3 intersectionPoint = new TGCVector3();
-            TgcCollisionUtils.intersectRayAABB(ray, elemento.BoundingBox, out intersectionPoint);
-            //obtengo las caras del bounding y me fijo cual es el plano que tiene incluido al 
-            //punto que averigue previamente
             TgcBoundingAxisAlignBox.Face[] faces;
             faces = elemento.BoundingBox.computeFaces();
-            TGCPlane plane = this.CreatePlane(intersectionPoint, faces);
-            //averiguo el vector de salida
-            TGCVector3 output = GlobalConcepts.GetInstance().GetNormalPlane(plane) + directionOfCollision;
-            //giro el auto para que quede mirando hacia la direccion de salidaw
-            car.SetDirection(output);
+            TGCPlane plane = this.CreatePlane(ray, faces, car.GetLastPosition());
+            TGCVector3 normal = GlobalConcepts.GetInstance().GetNormalPlane(plane);
+            TGCVector3 output = new TGCVector3(normal.X + directionOfCollision.X, normal.Y + directionOfCollision.Y, normal.Z + directionOfCollision.Z);
+            car.SetDirection(output, normal);
+            System.Console.WriteLine("Direccion de Colision: ({0},{1},{2})", directionOfCollision.X, directionOfCollision.Y, directionOfCollision.Z);
+            System.Console.WriteLine("Normal: ({0},{1},{2})", normal.X, normal.Y, normal.Z);
+            System.Console.WriteLine("OutPut: ({0},{1},{2})", output.X, output.Y, output.Z);
 
             while (TgcCollisionUtils.testObbAABB(car.GetTGCBoundingOrientedBox(), elemento.BoundingBox))
             {
-                car.Translate(TGCMatrix.Translation(-directionOfCollision * 0.001f));
+                car.Translate(TGCMatrix.Translation(-directionOfCollision * 0.1f));
                 car.Transform();
             }
         }
