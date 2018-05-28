@@ -1,7 +1,4 @@
-﻿using System.Text;
-using System.Threading.Tasks;
-using TGC.Core.Sound;
-using Microsoft.DirectX.DirectSound;
+﻿using Microsoft.DirectX.DirectSound;
 using TGC.Core.Mathematica;
 
 namespace TGC.Group.Model
@@ -72,6 +69,11 @@ namespace TGC.Group.Model
             var dot = TGCVector3.Dot(v1, v2);
             var modulusProduct = v1.Length() * v2.Length();
             return FastMath.Acos(dot / modulusProduct);
+        }
+
+        public TGCVector3 GetNormalPlane(TGCPlane plane)
+        {
+            return new TGCVector3(plane.A, plane.B, plane.C);
         }
     }
 }

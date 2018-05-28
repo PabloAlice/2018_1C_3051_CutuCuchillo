@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TGC.Core.Text;
-using TGC.Core.Mathematica;
+﻿using TGC.Core.Text;
 using System.Drawing;
 
 namespace TGC.Group.Model

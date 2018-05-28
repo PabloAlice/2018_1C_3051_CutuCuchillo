@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TGC.Group.Model.Vehiculos.Estados;
-using TGC.Core.Mathematica;
+﻿using TGC.Core.Mathematica;
 using TGC.Core.Sound;
 
 namespace TGC.Group.Model.Vehiculos.Estados
@@ -17,6 +11,11 @@ namespace TGC.Group.Model.Vehiculos.Estados
             this.audio = new Tgc3dSound(GlobalConcepts.GetInstance().GetMediaDir() + "Sound\\Marcha.wav", this.auto.GetPosicion(), GlobalConcepts.GetInstance().GetDispositivoDeAudio());
             this.audio.MinDistance = 50f;
             // this.audio.play(true);
+        }
+
+        public override TGCVector3 GetCarDirection()
+        {
+            return this.auto.GetVectorAdelante();
         }
 
         public override void Advance()

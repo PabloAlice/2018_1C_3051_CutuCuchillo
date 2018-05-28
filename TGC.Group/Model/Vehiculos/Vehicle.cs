@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using TGC.Core.Mathematica;
 using TGC.Core.SceneLoader;
 using TGC.Group.Model.Vehiculos.Estados;
@@ -63,6 +62,11 @@ namespace TGC.Group.Model
             this.obb = new BoundingOrientedBox(this.mesh.BoundingBox);
             this.weapons.Add(new DefaultWeapon());
             this.camara.SetPlane(this.vectorAdelante);
+        }
+
+        public TGCVector3 GetDirectionOfCollision()
+        {
+            return this.estado.GetCarDirection();
         }
 
         public ThirdPersonCamera GetCamara()

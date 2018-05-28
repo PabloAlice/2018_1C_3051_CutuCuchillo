@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TGC.Core.Camara;
+﻿using TGC.Core.Camara;
 using TGC.Core.Mathematica;
-using TGC.Core.Geometry;
-using TGC.Core.Utils;
 using TGC.Core.Collision;
 using TGC.Core.BoundingVolumes;
 

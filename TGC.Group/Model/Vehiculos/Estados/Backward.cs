@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TGC.Core.Sound;
+﻿using TGC.Core.Sound;
+using TGC.Core.Mathematica;
 
 namespace TGC.Group.Model.Vehiculos.Estados
 {
@@ -16,6 +12,12 @@ namespace TGC.Group.Model.Vehiculos.Estados
             this.audio.MinDistance = 50f;
            //  this.audio.play(true);
         }
+
+        public override TGCVector3 GetCarDirection()
+        {
+            return -auto.GetVectorAdelante();
+        }
+
         public override void Back()
         {
             base.Back();

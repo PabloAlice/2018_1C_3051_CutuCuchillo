@@ -5,8 +5,6 @@ using TGC.Group.Model.Vehiculos;
 using TGC.Core.Text;
 using System.Windows.Forms;
 using Microsoft.DirectX.Direct3D;
-using System.IO;
-using System.Drawing;
 
 namespace TGC.Group.Model
 {
@@ -51,7 +49,7 @@ namespace TGC.Group.Model
         private DXGui gui = new DXGui();
         public int dialog_sel = 0;
 
-
+        
         public override void Init()
         {
             //Cursor.Hide();
@@ -116,17 +114,17 @@ namespace TGC.Group.Model
             //this.camaraManagement = new CamaraEnTerceraPersona(camaraDesplazamiento, 3f, -50);
             this.Camara = camaraInterna;
             //this.Camara = camaraManagement;
-            this.auto = new Van(camaraInterna, new TGCVector3(0f, 0f, 0f), new SoundsManager(this.MediaDir + "Sound\\Motor.wav", new TGCVector3(-0f, 0f, 0f)));
+            this.auto = new Van(camaraInterna, new TGCVector3(-60f, 0f, 0f), new SoundsManager(this.MediaDir + "Sound\\Motor.wav", new TGCVector3(-0f, 0f, 0f)));
             Scene.GetInstance().SetVehiculo(this.auto);
             //manager = new ObjectManagement(MediaDir + "meshCreator\\meshes\\Habitacion\\Billetes\\Billete2\\Billete2-TgcScene.xml", camaraManagement);
-
+            
         }
 
         public override void Update()
         {
 
-            GlobalConcepts.GetInstance().SetElapsedTime(ElapsedTime);
             this.PreUpdate();
+            GlobalConcepts.GetInstance().SetElapsedTime(ElapsedTime);
 
             string dialogo;
 
