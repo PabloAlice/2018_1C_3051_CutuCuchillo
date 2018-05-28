@@ -224,42 +224,25 @@ namespace TGC.Group.Model
             font_medium.PreloadGlyphs('a', 'z');
             font_medium.PreloadGlyphs('A', 'Z');
 
-            cursores[(int)tipoCursor.targeting] = CargarTextura("cursor_default.png", mediaDir, true);
-            cursores[(int)tipoCursor.over] = CargarTextura("cursor_over.png", mediaDir, true);
-            cursores[(int)tipoCursor.gripped] = CargarTextura("cursor_gripper.png", mediaDir, true);
+            cursores[(int)tipoCursor.targeting] = DXGui.cargar_textura("cursor_default.png", mediaDir, true);
+            cursores[(int)tipoCursor.over] = DXGui.cargar_textura("cursor_over.png", mediaDir, true);
+            cursores[(int)tipoCursor.gripped] = DXGui.cargar_textura("cursor_gripper.png", mediaDir, true);
 
         }
 
-        public Texture CargarTextura(string filename, string mediaDir, bool alpha_channel = false)
+        public void CargarTextura(string imagen, string mediaDir)
         {
-            Texture textura = null;
-            filename.TrimEnd();
-            // cargo la textura
-            Device d3dDevice = D3DDevice.Instance.Device;
-            string fname_aux = mediaDir + "GUI\\" + filename;
-            if (!File.Exists(fname_aux))
-                // Pruebo con el nombre directo
-                fname_aux = filename;
-            if (!File.Exists(fname_aux))
-                return null;            // File doesnt exist
-            try
+            // Cargo la imagen en el gui
+            if ((textura = DXGui.cargar_textura(imagen, mediaDir, true)) != null)
             {
-                if (alpha_channel)
-                {
-                    textura = TextureLoader.FromFile(d3dDevice, fname_aux, -2, -2, 1, Usage.None,
-                        Format.A8B8G8R8, Pool.Managed, Filter.None, Filter.None, 0);
-                    // Mask transparente
-                    //SetAlphaChannel(textura, 255, 0, 255);
-                }
-                else
-                    textura = TextureLoader.FromFile(d3dDevice, fname_aux, -2, -2, 1, Usage.None,
-                        Format.A8B8G8R8, Pool.Managed, Filter.None, Filter.None, 0);
-                //textura = TextureLoader.FromFile(d3dDevice, fname_aux);
+                // Aprovecho para calcular el tamaño de la imagen del boton
+                SurfaceDescription desc = textura.GetLevelDescription(0);
+                image_width = desc.Width;
+                image_height = desc.Height;
             }
-            catch (System.Exception error)
-            {
-            }
-            return textura;
+
+            // x defecto la imagen seleccionada tiene el mismo nombre con el S_ al principio
+            textura_sel = DXGui.cargar_textura("S_" + imagen, mediaDir, true);
         }
 
         public void InitDialog(bool pautohide = false, bool trapezoidal = true, bool delay = false)
@@ -853,6 +836,7 @@ namespace TGC.Group.Model
         {
             disabled = !penabled;
             seleccionable = true;
+
             CargarTextura(imagen, mediaDir);
             font = gui.font_medium;
         }
