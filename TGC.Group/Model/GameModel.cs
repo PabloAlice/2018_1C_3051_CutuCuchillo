@@ -72,10 +72,10 @@ namespace TGC.Group.Model
             //flechaVelocimetro.RotationCenter = new TGCVector2(D3DDevice.Instance.Width * 0.84f + flechaVelocimetro.Bitmap.Width/2, D3DDevice.Instance.Height * 0.85f + flechaVelocimetro.Bitmap.Height/2);
             //flechaVelocimetro.Rotation = FastMath.PI + FastMath.QUARTER_PI;
 
-            barOfLife = new CustomSprite();
-            barOfLife.Bitmap = new CustomBitmap(MediaDir + "GUI\\HUB\\Velocimetro\\BarraDeVida.png", D3DDevice.Instance.Device);
-            barOfLife.Position = new TGCVector2(D3DDevice.Instance.Width * 0.84f, D3DDevice.Instance.Height * 0.85f);
-            barOfLife.Scaling = new TGCVector2(0.2f, 0.2f);
+            //barOfLife = new CustomSprite();
+            //barOfLife.Bitmap = new CustomBitmap(MediaDir + "GUI\\HUB\\Velocimetro\\BarraDeVida.png", D3DDevice.Instance.Device);
+            //barOfLife.Position = new TGCVector2(D3DDevice.Instance.Width * 0.84f, D3DDevice.Instance.Height * 0.85f);
+            //barOfLife.Scaling = new TGCVector2(0.2f, 0.2f);
 
             //item = gui.InsertImage("HUB\\Velocimetro\\VelocimetroSinFlecha.png", 50, 50, MediaDir);     
 
