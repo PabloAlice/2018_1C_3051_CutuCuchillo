@@ -44,8 +44,10 @@ namespace TGC.Group.Model
 
             arrowVelocimeter = new CustomSprite();
             arrowVelocimeter.Bitmap = new CustomBitmap(MediaDir + "GUI\\HUB\\Velocimetro\\Flecha.png", D3DDevice.Instance.Device);
-            arrowVelocimeter.Position = new TGCVector2(D3DDevice.Instance.Width * 0.84f, D3DDevice.Instance.Height * 0.85f);
+            arrowVelocimeter.Position = new TGCVector2(D3DDevice.Instance.Width * 0.915f, D3DDevice.Instance.Height * 0.85f);
             arrowVelocimeter.Scaling = new TGCVector2(0.2f, 0.2f);
+            arrowVelocimeter.RotationCenter = new TGCVector2(0, arrowVelocimeter.Bitmap.Height / 8);
+            arrowVelocimeter.Rotation = -FastMath.PI;
             //flechaVelocimetro.TransformationMatrix = TGCMatrix.Transformation2D(new TGCVector2(0,0), 0, new TGCVector2(0.2f, 0.2f), new TGCVector2(0,0), FastMath.PI + FastMath.PI_HALF, new TGCVector2(D3DDevice.Instance.Width * 0.84f, D3DDevice.Instance.Height * 0.85f));
             //flechaVelocimetro.RotationCenter = new TGCVector2(D3DDevice.Instance.Width * 0.84f + flechaVelocimetro.Bitmap.Width/2, D3DDevice.Instance.Height * 0.85f + flechaVelocimetro.Bitmap.Height/2);
             //flechaVelocimetro.Rotation = FastMath.PI + FastMath.QUARTER_PI;
@@ -116,7 +118,7 @@ namespace TGC.Group.Model
 
             
             this.auto.SetElapsedTime(ElapsedTime);
-            this.auto.Action(this.Input);
+            this.auto.Action(this.Input, this.arrowVelocimeter);
             //this.manager.Action(this.Input);
             Scene.GetInstance().HandleCollisions();
 
@@ -194,7 +196,7 @@ namespace TGC.Group.Model
             //Dibujar sprite (si hubiese mas, deberian ir todos aquí)
             drawer.DrawSprite(velocimeter);
             drawer.DrawSprite(arrowVelocimeter);
-            drawer.DrawSprite(menuBackground);
+            //drawer.DrawSprite(menuBackground);
 
             //Finalizar el dibujado de Sprites
             drawer.EndDrawSprite();

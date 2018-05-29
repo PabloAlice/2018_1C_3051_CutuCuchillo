@@ -29,6 +29,7 @@ namespace TGC.Group.Model
         protected float velocidadRotacion = 1f;
         protected float velocidadInicialDeSalto = 15f;
         protected float velocidadMaximaDeAvance = 60f;
+        protected float velocidadMaximaDeRetroceso;
         protected float aceleracionAvance = 0.3f;
         protected float aceleracionRetroceso;
         private float aceleracionGravedad = 0.5f;
@@ -62,6 +63,7 @@ namespace TGC.Group.Model
             this.obb = new BoundingOrientedBox(this.mesh.BoundingBox);
             this.weapons.Add(new DefaultWeapon());
             this.camara.SetPlane(this.vectorAdelante);
+            this.velocidadMaximaDeRetroceso = this.velocidadMaximaDeAvance * 0.7f;
         }
 
         public TGCVector3 GetDirectionOfCollision()
@@ -144,7 +146,7 @@ namespace TGC.Group.Model
 
         public float VelocidadFisicaRetroceso()
         {
-            return System.Math.Max(-this.velocidadMaximaDeAvance, this.velocidadActual + (-this.aceleracionRetroceso) * this.deltaTiempoAvance.tiempoTranscurrido());
+            return System.Math.Max(-this.velocidadMaximaDeRetroceso, this.velocidadActual + (-this.aceleracionRetroceso) * this.deltaTiempoAvance.tiempoTranscurrido());
         }
 
         public TGCVector3 GetVectorAdelante()
@@ -358,7 +360,7 @@ namespace TGC.Group.Model
             return TGCVector3.transform(new TGCVector3(0,0,0), this.lastTransformation);
         }
 
-        public void Action(TgcD3dInput input)
+        public void Action(TgcD3dInput input, CustomSprite sprite)
         {
             this.lastTransformation = this.matrixs.GetTransformation();
             this.SoundsManager.Update(this.velocidadActual);
@@ -454,6 +456,9 @@ namespace TGC.Group.Model
             }
 
             this.estado.JumpUpdate();
+            float velocidadMaxima = (this.velocidadActual < 0) ? this.velocidadMaximaDeRetroceso : this.velocidadMaximaDeAvance;
+            float maxAngle = (this.velocidadActual > 0) ? FastMath.PI + FastMath.PI / 3 : FastMath.PI_HALF;
+            sprite.Rotation = (FastMath.Abs(this.velocidadActual) * (maxAngle)) / velocidadMaxima - FastMath.PI;
             this.camara.Target = (this.GetPosicion()) + this.GetVectorAdelante() * 30;
         }
     }
