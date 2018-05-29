@@ -94,6 +94,9 @@
     </Compile>
     <Compile Include="Model\BidirectionalPortal.cs" />
     <Compile Include="Model\BoundingObjectOriented.cs" />
+    <Compile Include="Model\CustomBitmap.cs" />
+    <Compile Include="Model\CustomSprite.cs" />
+    <Compile Include="Model\Drawer2D.cs" />
     <Compile Include="Model\DXGui.cs" />
     <Compile Include="Model\GuiItem.cs" />
     <Compile Include="Model\ThirdPersonCamera.cs" />
