@@ -6,7 +6,6 @@ namespace TGC.Group.Model.Vehiculos.Estados
     abstract class EstadoVehiculo
     {
         protected Vehicle auto;
-        protected Tgc3dSound audio;
 
         abstract public TGCVector3 GetCarDirection();
 
@@ -31,9 +30,9 @@ namespace TGC.Group.Model.Vehiculos.Estados
 
         virtual public void Jump()
         {
-            auto.GetDeltaTiempoSalto().acumularTiempo(auto.GetElapsedTime());
-            auto.vectorAdelanteSalto = auto.vectorAdelante;
-            this.cambiarEstado(new Jumping(this.auto));
+            this.auto.GetDeltaTiempoSalto().acumularTiempo(auto.GetElapsedTime());
+            this.auto.vectorAdelanteSalto = auto.vectorAdelante;
+            this.auto.SetEstado(new Jumping(this.auto));
             return;
         }
 
@@ -71,22 +70,6 @@ namespace TGC.Group.Model.Vehiculos.Estados
             float rotacionReal = auto.GetVelocidadDeRotacion() * auto.GetElapsedTime();
             rotacionReal = (auto.GetVelocidadActual() < 0) ? rotacionReal : -rotacionReal;
             this.auto.Girar(rotacionReal);
-        }
-
-        protected void liberarRecursos()
-        {
-            if(audio != null)
-            {
-                this.audio.stop();
-                this.audio.dispose();
-            }
-            
-        }
-
-        protected void cambiarEstado(EstadoVehiculo nuevoEstado)
-        {
-            this.liberarRecursos();
-            this.auto.SetEstado(nuevoEstado);
         }
 
         virtual public void UpdateWheels()

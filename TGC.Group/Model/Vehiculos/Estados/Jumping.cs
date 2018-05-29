@@ -10,9 +10,7 @@ namespace TGC.Group.Model.Vehiculos.Estados
         public Jumping(Vehicle auto) : base(auto)
         {
             this.initialSpeed = auto.GetVelocidadActual();
-            this.audio = new Tgc3dSound(GlobalConcepts.GetInstance().GetMediaDir() + "Sound\\Salto.wav", this.auto.GetPosicion(), GlobalConcepts.GetInstance().GetDispositivoDeAudio());
-            this.audio.MinDistance = 50f;
-           // this.audio.play();
+            this.auto.SoundsManager.Jump();
         }
 
         public override TGCVector3 GetCarDirection()
@@ -61,7 +59,7 @@ namespace TGC.Group.Model.Vehiculos.Estados
             auto.SetVelocidadActualDeSalto(this.VelocidadFisicaDeSalto());
             if(auto.GetVelocidadActualDeSalto() < 0)
             {
-                this.cambiarEstado(new Descending(this.auto, this.initialSpeed));
+                this.auto.SetEstado(new Descending(this.auto, this.initialSpeed));
                 return;
             }
             float desplazamientoEnY = auto.GetVelocidadActualDeSalto() * auto.GetElapsedTime();

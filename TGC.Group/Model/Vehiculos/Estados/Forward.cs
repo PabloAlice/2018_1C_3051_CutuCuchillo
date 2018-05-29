@@ -8,9 +8,6 @@ namespace TGC.Group.Model.Vehiculos.Estados
 
         public Forward(Vehicle auto) : base(auto)
         {
-            this.audio = new Tgc3dSound(GlobalConcepts.GetInstance().GetMediaDir() + "Sound\\Marcha.wav", this.auto.GetPosicion(), GlobalConcepts.GetInstance().GetDispositivoDeAudio());
-            this.audio.MinDistance = 50f;
-            // this.audio.play(true);
         }
 
         public override TGCVector3 GetCarDirection()
@@ -42,7 +39,7 @@ namespace TGC.Group.Model.Vehiculos.Estados
             {
                 auto.SetVelocidadActual(0);
                 auto.GetDeltaTiempoAvance().resetear();
-                this.cambiarEstado(new Stopped(this.auto));
+                this.auto.SetEstado(new Stopped(this.auto));
 
                 return;
             }

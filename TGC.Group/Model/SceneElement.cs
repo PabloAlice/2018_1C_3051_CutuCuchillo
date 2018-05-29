@@ -117,6 +117,7 @@ namespace TGC.Group.Model
 
         private void Collide(TgcMesh elemento, Vehicle car)
         {
+            car.SoundsManager.Crash();
             //direccion a la que estoy yendo antes de chocar
             TGCVector3 directionOfCollision = car.GetDirectionOfCollision();
             TgcRay ray = new TgcRay();

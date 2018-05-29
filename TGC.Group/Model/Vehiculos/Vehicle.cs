@@ -435,7 +435,22 @@ namespace TGC.Group.Model
 
             if (input.keyDown(Key.P))
             {
+                this.SoundsManager.Shoot();
                 this.shoot();
+            }
+            else
+            {
+                this.SoundsManager.StopShoot();
+            }
+
+            if (input.keyDown(Key.E))
+            {
+                this.SoundsManager.Horn();
+            }
+
+            if (input.keyDown(Key.R))
+            {
+                this.SoundsManager.Alarm();
             }
 
             this.estado.JumpUpdate();

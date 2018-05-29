@@ -10,8 +10,6 @@ namespace TGC.Group.Model.Vehiculos.Estados
         public Descending(Vehicle auto, float initialSpeed) : base(auto)
         {
             this.initialSpeed = initialSpeed;
-            this.audio = new Tgc3dSound(GlobalConcepts.GetInstance().GetMediaDir() + "Sound\\Caida.wav", this.auto.GetPosicion(), GlobalConcepts.GetInstance().GetDispositivoDeAudio());
-            this.audio.MinDistance = 50f;
         }
 
         public override TGCVector3 GetCarDirection()
@@ -66,18 +64,18 @@ namespace TGC.Group.Model.Vehiculos.Estados
             {
                 auto.GetDeltaTiempoSalto().resetear();
                 auto.SetVelocidadActualDeSalto(auto.GetVelocidadMaximaDeSalto());
-                this.audio.play();
+                this.auto.SoundsManager.Drop();
                 if (auto.GetVelocidadActual() > 0)
                 {
-                    this.cambiarEstado(new Forward(this.auto));
+                    this.auto.SetEstado(new Forward(this.auto));
                 }
                 else if(auto.GetVelocidadActual() < 0)
                 {
-                    this.cambiarEstado(new Backward(this.auto));
+                    this.auto.SetEstado(new Backward(this.auto));
                 }
                 else
                 {
-                    this.cambiarEstado(new Stopped(this.auto));
+                    this.auto.SetEstado(new Stopped(this.auto));
                 }
             }
         }

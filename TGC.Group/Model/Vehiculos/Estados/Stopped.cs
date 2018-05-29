@@ -8,9 +8,6 @@ namespace TGC.Group.Model.Vehiculos.Estados
 
         public Stopped(Vehicle auto) : base(auto)
         {
-            this.audio = new Tgc3dSound(GlobalConcepts.GetInstance().GetMediaDir() + "Sound\\Motor.wav", this.auto.GetPosicion(), GlobalConcepts.GetInstance().GetDispositivoDeAudio());
-            this.audio.MinDistance = 50f;
-            // this.audio.play(true);
         }
 
         public override TGCVector3 GetCarDirection()
@@ -23,14 +20,14 @@ namespace TGC.Group.Model.Vehiculos.Estados
         {
             base.Advance();
             this.Move(auto.GetVectorAdelante() * auto.GetVelocidadActual() * auto.GetElapsedTime());
-            this.cambiarEstado(new Forward(this.auto));
+            this.auto.SetEstado(new Forward(this.auto));
         }
 
         override public void Back()
         {
             base.Back();
             this.Move(auto.GetVectorAdelante() * auto.GetVelocidadActual() * auto.GetElapsedTime());
-            this.cambiarEstado(new Backward(this.auto));
+            this.auto.SetEstado(new Backward(this.auto));
         }
 
         override public void Left()
