@@ -1,4 +1,5 @@
 ﻿using TGC.Core.Mathematica;
+using TGC.Core.SceneLoader;
 
 namespace TGC.Group.Model
 {
@@ -6,9 +7,10 @@ namespace TGC.Group.Model
     {
         private TGCVector3 targetPosition;
 
-        public UnidirectionalPortal(Portal originPortal, TGCVector3 targetPosition, TGCVector3 outDirection) : base(originPortal, outDirection)
+        public UnidirectionalPortal(Portal originPortal, TGCVector3 targetPosition, TGCVector3 outDirection, TgcMesh mesh) : base(originPortal, outDirection)
         {
             this.targetPosition = targetPosition;
+            this.originPortal.CreateMesh(mesh);
         }
 
         public override TGCVector3 GetTargetPosition()

@@ -1,6 +1,7 @@
 ﻿using System;
 using TGC.Core.Mathematica;
 using TGC.Core.Collision;
+using TGC.Core.SceneLoader;
 
 namespace TGC.Group.Model
 {
@@ -8,9 +9,11 @@ namespace TGC.Group.Model
     {
         private Portal targetPortal;
 
-        public BidirectionalPortal(Portal originPortal, Portal targetPortal, TGCVector3 outDirection) : base(originPortal, outDirection)
+        public BidirectionalPortal(Portal originPortal, Portal targetPortal, TGCVector3 outDirection, TgcMesh mesh) : base(originPortal, outDirection)
         {
             this.targetPortal = targetPortal;
+            this.originPortal.CreateMesh(mesh);
+            this.targetPortal.CreateMesh(mesh);
         }
 
         override public TGCVector3 GetTargetPosition()

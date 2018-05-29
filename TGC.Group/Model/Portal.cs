@@ -8,22 +8,19 @@ namespace TGC.Group.Model
     {
         private TGCVector3 position;
         public TgcMesh mesh;
+        TGCMatrix transformation;
 
         public Portal(TGCVector3 position, TGCMatrix transformationMatrix)
         {
             this.position = position;
-            this.CreateMesh(transformationMatrix);
+            this.transformation = transformationMatrix;
             
         }
 
-        public void CreateMesh(TGCMatrix transformationMatrix)
+        public void CreateMesh(TgcMesh mesh)
         {
-            TgcSceneLoader loader = new TgcSceneLoader();
-            TgcScene scene = loader.loadSceneFromFile(GlobalConcepts.GetInstance().GetMediaDir() + "meshCreator\\meshes\\Otros\\Portal\\Portal-TgcScene.xml");
-            this.mesh = scene.Meshes[0];
+            this.mesh = mesh;
             this.mesh.AutoTransform = false;
-            this.mesh.Transform = transformationMatrix;
-            this.mesh.BoundingBox.transform(transformationMatrix);
         }
 
         public TGCVector3 GetPosition()
@@ -40,17 +37,25 @@ namespace TGC.Group.Model
         public void Render()
         {
             this.Rotate(TGCMatrix.RotationZ(0.05f));
+            this.Transform();
             this.mesh.Render();
             this.mesh.BoundingBox.Render();
         }
 
+        private void Transform()
+        {
+            this.mesh.Transform = this.transformation;
+            this.mesh.BoundingBox.transform(this.transformation);
+        }
+
         public void Rotate(TGCMatrix Rotation)
         {
-            this.mesh.Transform = Rotation * this.mesh.Transform;
+            this.transformation = Rotation * this.transformation;
         }
 
         public TgcBoundingAxisAlignBox GetBoundingBox()
         {
+            this.Transform();
             return this.mesh.BoundingBox;
         }
     }
