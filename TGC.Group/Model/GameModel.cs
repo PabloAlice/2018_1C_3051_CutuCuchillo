@@ -5,6 +5,7 @@ using TGC.Group.Model.Vehiculos;
 using TGC.Core.Text;
 using Microsoft.DirectX.Direct3D;
 using System;
+using System.Drawing;
 
 namespace TGC.Group.Model
 {
@@ -24,10 +25,9 @@ namespace TGC.Group.Model
         private ThirdPersonCamera camaraManagement;
         private TGCVector3 camaraDesplazamiento = new TGCVector3(0, 5, 40);
         private TgcText2D textoVelocidadVehiculo, textoOffsetH, textoOffsetF, textoPosicionVehiculo, textoVectorAdelante;
-        private TgcText2D pressStart;
 
         private Drawer2D drawer;
-        private CustomSprite velocimeter, arrowVelocimeter, barOfLife, menuBackground;
+        private CustomSprite velocimeter, arrowVelocimeter, barOfLife, menuBackground, pressStart;
 
 
 
@@ -37,15 +37,19 @@ namespace TGC.Group.Model
             var deviceWidth = D3DDevice.Instance.Width;
 
             drawer = new Drawer2D();
-            velocimeter = new CustomSprite();
-            velocimeter.Bitmap = new CustomBitmap(MediaDir + "GUI\\HUB\\Velocimetro\\VelocimetroSinFlecha.png", D3DDevice.Instance.Device);
-            velocimeter.Position = new TGCVector2(D3DDevice.Instance.Width * 0.84f, D3DDevice.Instance.Height * 0.70f);
-            velocimeter.Scaling = new TGCVector2(0.2f, 0.2f);
+            velocimeter = new CustomSprite
+            {
+                Bitmap = new CustomBitmap(MediaDir + "GUI\\HUB\\Velocimetro\\VelocimetroSinFlecha.png", D3DDevice.Instance.Device),
+                Position = new TGCVector2(D3DDevice.Instance.Width * 0.84f, D3DDevice.Instance.Height * 0.70f),
+                Scaling = new TGCVector2(0.2f, 0.2f)
+            };
 
-            arrowVelocimeter = new CustomSprite();
-            arrowVelocimeter.Bitmap = new CustomBitmap(MediaDir + "GUI\\HUB\\Velocimetro\\Flecha.png", D3DDevice.Instance.Device);
-            arrowVelocimeter.Position = new TGCVector2(D3DDevice.Instance.Width * 0.84f, D3DDevice.Instance.Height * 0.85f);
-            arrowVelocimeter.Scaling = new TGCVector2(0.2f, 0.2f);
+            arrowVelocimeter = new CustomSprite
+            {
+                Bitmap = new CustomBitmap(MediaDir + "GUI\\HUB\\Velocimetro\\Flecha.png", D3DDevice.Instance.Device),
+                Position = new TGCVector2(D3DDevice.Instance.Width * 0.84f, D3DDevice.Instance.Height * 0.85f),
+                Scaling = new TGCVector2(0.2f, 0.2f)
+            };
             //flechaVelocimetro.TransformationMatrix = TGCMatrix.Transformation2D(new TGCVector2(0,0), 0, new TGCVector2(0.2f, 0.2f), new TGCVector2(0,0), FastMath.PI + FastMath.PI_HALF, new TGCVector2(D3DDevice.Instance.Width * 0.84f, D3DDevice.Instance.Height * 0.85f));
             //flechaVelocimetro.RotationCenter = new TGCVector2(D3DDevice.Instance.Width * 0.84f + flechaVelocimetro.Bitmap.Width/2, D3DDevice.Instance.Height * 0.85f + flechaVelocimetro.Bitmap.Height/2);
             //flechaVelocimetro.Rotation = FastMath.PI + FastMath.QUARTER_PI;
@@ -55,11 +59,13 @@ namespace TGC.Group.Model
             //barOfLife.Position = new TGCVector2(D3DDevice.Instance.Width * 0.84f, D3DDevice.Instance.Height * 0.85f);
             //barOfLife.Scaling = new TGCVector2(0.2f, 0.2f);
 
-            menuBackground = new CustomSprite();
-            menuBackground.Bitmap = new CustomBitmap(MediaDir + "GUI\\Menu\\background.jpg", D3DDevice.Instance.Device);
+            menuBackground = new CustomSprite
+            {
+                Bitmap = new CustomBitmap(MediaDir + "GUI\\Menu\\background.jpg", D3DDevice.Instance.Device),
 
-            menuBackground.Position = new TGCVector2(0f,0f);
-         
+                Position = new TGCVector2(0f, 0f)
+            };
+
             var menuBackgroundHeight = menuBackground.Bitmap.Height;
             var menuBackgroundWidth = menuBackground.Bitmap.Width;
             //Se debe poner la logica para el caso en el que el size del device sea mayor que la imagen;
@@ -67,8 +73,12 @@ namespace TGC.Group.Model
             var scaleHeight = deviceHeight / (float)menuBackgroundHeight;
             menuBackground.Scaling = new TGCVector2(scaleWidth, scaleHeight);
 
-            pressStart = new TgcText2D();
-
+            pressStart = new CustomSprite
+            {
+                Bitmap = new CustomBitmap(MediaDir + "GUI\\Menu\\press-start.png", D3DDevice.Instance.Device),
+                Position = new TGCVector2((deviceWidth / 2) - pressStart.Bitmap.Width / 2, (deviceHeight / 2) - pressStart.Bitmap.Height)
+            };
+            
 
             GlobalConcepts.GetInstance().SetMediaDir(this.MediaDir);
             GlobalConcepts.GetInstance().SetDispositivoDeAudio(this.DirectSound.DsDevice);
@@ -196,6 +206,7 @@ namespace TGC.Group.Model
             drawer.DrawSprite(arrowVelocimeter);
             drawer.DrawSprite(menuBackground);
 
+            pressStart.render();
             //Finalizar el dibujado de Sprites
             drawer.EndDrawSprite();
             this.PostRender();
