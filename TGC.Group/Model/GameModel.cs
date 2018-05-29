@@ -4,6 +4,7 @@ using TGC.Core.Mathematica;
 using TGC.Group.Model.Vehiculos;
 using TGC.Core.Text;
 using Microsoft.DirectX.Direct3D;
+using System;
 
 namespace TGC.Group.Model
 {
@@ -23,15 +24,18 @@ namespace TGC.Group.Model
         private ThirdPersonCamera camaraManagement;
         private TGCVector3 camaraDesplazamiento = new TGCVector3(0, 5, 40);
         private TgcText2D textoVelocidadVehiculo, textoOffsetH, textoOffsetF, textoPosicionVehiculo, textoVectorAdelante;
-
+        private TgcText2D pressStart;
 
         private Drawer2D drawer;
-        private CustomSprite velocimeter, arrowVelocimeter, barOfLife;
+        private CustomSprite velocimeter, arrowVelocimeter, barOfLife, menuBackground;
 
-        
+
 
         public override void Init()
         {
+            var deviceHeight = D3DDevice.Instance.Height;
+            var deviceWidth = D3DDevice.Instance.Width;
+
             drawer = new Drawer2D();
             velocimeter = new CustomSprite();
             velocimeter.Bitmap = new CustomBitmap(MediaDir + "GUI\\HUB\\Velocimetro\\VelocimetroSinFlecha.png", D3DDevice.Instance.Device);
@@ -50,6 +54,21 @@ namespace TGC.Group.Model
             //barOfLife.Bitmap = new CustomBitmap(MediaDir + "GUI\\HUB\\Velocimetro\\BarraDeVida.png", D3DDevice.Instance.Device);
             //barOfLife.Position = new TGCVector2(D3DDevice.Instance.Width * 0.84f, D3DDevice.Instance.Height * 0.85f);
             //barOfLife.Scaling = new TGCVector2(0.2f, 0.2f);
+
+            menuBackground = new CustomSprite();
+            menuBackground.Bitmap = new CustomBitmap(MediaDir + "GUI\\Menu\\background.jpg", D3DDevice.Instance.Device);
+
+            menuBackground.Position = new TGCVector2(0f,0f);
+         
+            var menuBackgroundHeight = menuBackground.Bitmap.Height;
+            var menuBackgroundWidth = menuBackground.Bitmap.Width;
+            //Se debe poner la logica para el caso en el que el size del device sea mayor que la imagen;
+            var scaleWidth = deviceWidth / (float)menuBackgroundWidth;
+            var scaleHeight = deviceHeight / (float)menuBackgroundHeight;
+            menuBackground.Scaling = new TGCVector2(scaleWidth, scaleHeight);
+
+            pressStart = new TgcText2D();
+
 
             GlobalConcepts.GetInstance().SetMediaDir(this.MediaDir);
             GlobalConcepts.GetInstance().SetDispositivoDeAudio(this.DirectSound.DsDevice);
@@ -175,6 +194,7 @@ namespace TGC.Group.Model
             //Dibujar sprite (si hubiese mas, deberian ir todos aquí)
             drawer.DrawSprite(velocimeter);
             drawer.DrawSprite(arrowVelocimeter);
+            drawer.DrawSprite(menuBackground);
 
             //Finalizar el dibujado de Sprites
             drawer.EndDrawSprite();
@@ -187,6 +207,7 @@ namespace TGC.Group.Model
             this.auto.Dispose();
             velocimeter.Dispose();
             arrowVelocimeter.Dispose();
+            menuBackground.Dispose();
         }
 
     }
