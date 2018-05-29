@@ -6,6 +6,7 @@ using TGC.Core.Text;
 using System.Windows.Forms;
 using Microsoft.DirectX.Direct3D;
 using System.Drawing;
+using System;
 
 namespace TGC.Group.Model
 {
@@ -59,9 +60,10 @@ namespace TGC.Group.Model
             sprite = new CustomSprite();
             sprite.Bitmap = new CustomBitmap(MediaDir + "GUI\\HUB\\Velocimetro\\VelocimetroSinFlecha.png", D3DDevice.Instance.Device);
             var textureSize = sprite.Bitmap.Size;
-            sprite.Position = new TGCVector2(FastMath.Max(D3DDevice.Instance.Width / 4 - textureSize.Width / 2, 0), FastMath.Max(D3DDevice.Instance.Height / 4 - textureSize.Height / 2, 0));
+            sprite.Position = new TGCVector2(D3DDevice.Instance.Width * 0.84f, D3DDevice.Instance.Height * 0.70f);
             sprite.Scaling = new TGCVector2(0.2f, 0.2f);
-
+            Console.WriteLine("width: " + D3DDevice.Instance.Width);
+            Console.WriteLine("heigth: " + D3DDevice.Instance.Height);
             //item = gui.InsertImage("HUB\\Velocimetro\\VelocimetroSinFlecha.png", 50, 50, MediaDir);     
 
             GlobalConcepts.GetInstance().SetMediaDir(this.MediaDir);
