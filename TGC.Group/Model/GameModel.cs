@@ -52,20 +52,36 @@ namespace TGC.Group.Model
         GUIItem item;
 
         private Drawer2D drawer;
-        private CustomSprite sprite;
+        private CustomSprite velocimeter, arrowVelocimeter, barOfLife;
+
+        
 
         public override void Init()
         {
             drawer = new Drawer2D();
-            sprite = new CustomSprite();
-            sprite.Bitmap = new CustomBitmap(MediaDir + "GUI\\HUB\\Velocimetro\\VelocimetroSinFlecha.png", D3DDevice.Instance.Device);
-            var textureSize = sprite.Bitmap.Size;
-            sprite.Position = new TGCVector2(D3DDevice.Instance.Width * 0.84f, D3DDevice.Instance.Height * 0.70f);
-            sprite.Scaling = new TGCVector2(0.2f, 0.2f);
+            velocimeter = new CustomSprite();
+            velocimeter.Bitmap = new CustomBitmap(MediaDir + "GUI\\HUB\\Velocimetro\\VelocimetroSinFlecha.png", D3DDevice.Instance.Device);
+            velocimeter.Position = new TGCVector2(D3DDevice.Instance.Width * 0.84f, D3DDevice.Instance.Height * 0.70f);
+            velocimeter.Scaling = new TGCVector2(0.2f, 0.2f);
+
+            arrowVelocimeter = new CustomSprite();
+            arrowVelocimeter.Bitmap = new CustomBitmap(MediaDir + "GUI\\HUB\\Velocimetro\\Flecha.png", D3DDevice.Instance.Device);
+            arrowVelocimeter.Position = new TGCVector2(D3DDevice.Instance.Width * 0.84f, D3DDevice.Instance.Height * 0.85f);
+            arrowVelocimeter.Scaling = new TGCVector2(0.2f, 0.2f);
+            //flechaVelocimetro.TransformationMatrix = TGCMatrix.Transformation2D(new TGCVector2(0,0), 0, new TGCVector2(0.2f, 0.2f), new TGCVector2(0,0), FastMath.PI + FastMath.PI_HALF, new TGCVector2(D3DDevice.Instance.Width * 0.84f, D3DDevice.Instance.Height * 0.85f));
+            //flechaVelocimetro.RotationCenter = new TGCVector2(D3DDevice.Instance.Width * 0.84f + flechaVelocimetro.Bitmap.Width/2, D3DDevice.Instance.Height * 0.85f + flechaVelocimetro.Bitmap.Height/2);
+            //flechaVelocimetro.Rotation = FastMath.PI + FastMath.QUARTER_PI;
+
+            barOfLife = new CustomSprite();
+            barOfLife.Bitmap = new CustomBitmap(MediaDir + "GUI\\HUB\\Velocimetro\\BarraDeVida.png", D3DDevice.Instance.Device);
+            barOfLife.Position = new TGCVector2(D3DDevice.Instance.Width * 0.84f, D3DDevice.Instance.Height * 0.85f);
+            barOfLife.Scaling = new TGCVector2(0.2f, 0.2f);
+
             //item = gui.InsertImage("HUB\\Velocimetro\\VelocimetroSinFlecha.png", 50, 50, MediaDir);     
 
             GlobalConcepts.GetInstance().SetMediaDir(this.MediaDir);
             GlobalConcepts.GetInstance().SetDispositivoDeAudio(this.DirectSound.DsDevice);
+            GlobalConcepts.GetInstance().SetScreen(D3DDevice.Instance.Device);
             Scene.GetInstance().Init(this.MediaDir);
             this.camaraInterna = new ThirdPersonCamera(camaraDesplazamiento, 0.8f, -33);
             //this.camaraManagement = new CamaraEnTerceraPersona(camaraDesplazamiento, 3f, -50);
@@ -74,6 +90,7 @@ namespace TGC.Group.Model
             this.auto = new Van(camaraInterna, new TGCVector3(-60f, 0f, 0f), new SoundsManager(new TGCVector3(-0f, 0f, 0f)));
             Scene.GetInstance().SetVehiculo(this.auto);
             //manager = new ObjectManagement(MediaDir + "meshCreator\\meshes\\Habitacion\\Billetes\\Billete2\\Billete2-TgcScene.xml", camaraManagement);
+
             
         }
 
@@ -190,7 +207,8 @@ namespace TGC.Group.Model
             drawer.BeginDrawSprite();
 
             //Dibujar sprite (si hubiese mas, deberian ir todos aquí)
-            drawer.DrawSprite(sprite);
+            drawer.DrawSprite(velocimeter);
+            drawer.DrawSprite(arrowVelocimeter);
 
             //Finalizar el dibujado de Sprites
             drawer.EndDrawSprite();
@@ -269,7 +287,8 @@ namespace TGC.Group.Model
             //Cursor.Show();
             Scene.GetInstance().Dispose();
             this.auto.Dispose();
-            sprite.Dispose();
+            velocimeter.Dispose();
+            arrowVelocimeter.Dispose();
         }
 
     }

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TGC.Core.Mathematica;
+using Microsoft.DirectX.Direct3D;
 
 namespace TGC.Group.Model
 {
@@ -13,6 +14,16 @@ namespace TGC.Group.Model
         public CustomSprite()
         {
             initialize();
+        }
+
+        public static CustomSprite CreateImage(string path, TGCVector2 scalation, float rotation, TGCVector2 translation)
+        {
+            CustomSprite sprite = new CustomSprite();
+            sprite.Bitmap = new CustomBitmap(GlobalConcepts.GetInstance().GetMediaDir() + "GUI\\HUB\\Velocimetro\\VelocimetroSinFlecha.png", GlobalConcepts.GetInstance().GetScreen());
+            sprite.position = translation;
+            sprite.rotation = rotation;
+            sprite.scaling = new TGCVector2(0,0);
+            return sprite;
         }
 
         #region Miembros de IDisposable

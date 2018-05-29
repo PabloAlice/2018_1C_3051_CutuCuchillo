@@ -10,6 +10,7 @@ namespace TGC.Group.Model
         private string mediaDir;
         private Device dispositivoDeAudio;
         private float elapsedTime;
+        private Microsoft.DirectX.Direct3D.Device screen;
 
         private GlobalConcepts()
         {
@@ -23,6 +24,16 @@ namespace TGC.Group.Model
             }
 
             return instance;
+        }
+
+        public void SetScreen(Microsoft.DirectX.Direct3D.Device screen)
+        {
+            this.screen = screen;
+        }
+
+        public Microsoft.DirectX.Direct3D.Device GetScreen()
+        {
+            return this.screen;
         }
 
         public void SetMediaDir(string mediaDir)
