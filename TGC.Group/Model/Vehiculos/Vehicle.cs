@@ -17,7 +17,7 @@ namespace TGC.Group.Model
         private Timer deltaTiempoAvance;
         private Timer deltaTiempoSalto;
         public TGCVector3 vectorAdelante;
-        public TGCVector3 vectorAdelanteSalto { get; set; }
+        public TGCVector3 VectorAdelanteSalto { get; set; }
         private TransformationMatrix matrixs;
         protected List<Wheel> ruedas = new List<Wheel>();
         protected Wheel delanteraIzquierda;

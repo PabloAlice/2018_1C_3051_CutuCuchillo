@@ -31,7 +31,7 @@ namespace TGC.Group.Model.Vehiculos.Estados
         virtual public void Jump()
         {
             this.auto.GetDeltaTiempoSalto().acumularTiempo(auto.GetElapsedTime());
-            this.auto.vectorAdelanteSalto = auto.vectorAdelante;
+            this.auto.VectorAdelanteSalto = auto.vectorAdelante;
             this.auto.SetEstado(new Jumping(this.auto));
             return;
         }

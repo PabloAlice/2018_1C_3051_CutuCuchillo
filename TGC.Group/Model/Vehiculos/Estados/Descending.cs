@@ -3,6 +3,7 @@ using TGC.Core.Sound;
 using System.Collections.Generic;
 using TGC.Core.Collision;
 using TGC.Core.BoundingVolumes;
+using System;
 
 namespace TGC.Group.Model.Vehiculos.Estados
 {
@@ -62,7 +63,7 @@ namespace TGC.Group.Model.Vehiculos.Estados
             float desplazamientoEnY = auto.GetVelocidadActualDeSalto() * auto.GetElapsedTime();
             desplazamientoEnY = (this.auto.GetPosicion().Y + desplazamientoEnY < 0) ? -this.auto.GetPosicion().Y : desplazamientoEnY;
             TGCVector3 nuevoDesplazamiento = new TGCVector3(0, desplazamientoEnY, 0);
-            this.Move(nuevoDesplazamiento + auto.vectorAdelanteSalto * this.initialSpeed * auto.GetElapsedTime());
+            this.Move(nuevoDesplazamiento + auto.VectorAdelanteSalto * this.initialSpeed * auto.GetElapsedTime());
             if(this.IsCollidingWithFloor())
             {
                 auto.GetDeltaTiempoSalto().resetear();
@@ -86,10 +87,13 @@ namespace TGC.Group.Model.Vehiculos.Estados
         private bool IsCollidingWithFloor()
         {
             List<Collidable> list = Scene.GetInstance().GetPosiblesCollidables();
+            System.Console.WriteLine("voy a ver si es el piso");
             foreach (Collidable element in list)
             {
+                System.Console.WriteLine("recorriendo la lista");
                 if(TgcCollisionUtils.testObbAABB(this.auto.GetTGCBoundingOrientedBox(), element.GetBoundingAlignBox()))
                 {
+                    System.Console.WriteLine("colisione con algo");
                     return this.IsReallyTheFloor(element);
                 }
             }
@@ -138,6 +142,7 @@ namespace TGC.Group.Model.Vehiculos.Estados
             TGCVector3 directionOfCollision = new TGCVector3(0, -1, 0);
             TgcRay ray = new TgcRay();
             ray.Origin = this.auto.GetLastPosition();
+            System.Console.WriteLine("POSICION: ({0};{1};{2})", ray.Origin.X, ray.Origin.Y, ray.Origin.Z);
             ray.Direction = directionOfCollision;
             TgcBoundingAxisAlignBox.Face[] faces;
             faces = element.GetBoundingAlignBox().computeFaces();
