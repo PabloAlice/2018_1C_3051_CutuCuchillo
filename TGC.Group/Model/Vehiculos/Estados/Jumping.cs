@@ -64,9 +64,7 @@ namespace TGC.Group.Model.Vehiculos.Estados
             }
             float desplazamientoEnY = auto.GetVelocidadActualDeSalto() * auto.GetElapsedTime();
             TGCVector3 nuevoDesplazamiento = new TGCVector3(0, desplazamientoEnY, 0);
-            //auto.mesh.Move(nuevoDesplazamiento);
-            //auto.mesh.Move(auto.getVectorAdelante() * this.initialSpeed * auto.getElapsedTime());
-            this.Move(nuevoDesplazamiento + auto.vectorAdelanteSalto * this.initialSpeed * auto.GetElapsedTime());
+            this.Move(nuevoDesplazamiento + auto.VectorAdelanteSalto * this.initialSpeed * auto.GetElapsedTime());
         }
 
         public override void Left()

@@ -25,11 +25,9 @@ namespace TGC.Group.Model
         private ThirdPersonCamera camaraManagement;
         private TGCVector3 camaraDesplazamiento = new TGCVector3(0, 5, 40);
         private TgcText2D textoVelocidadVehiculo, textoOffsetH, textoOffsetF, textoPosicionVehiculo, textoVectorAdelante;
-
         private Drawer2D drawer;
         private CustomSprite velocimeter, arrowVelocimeter, barOfLife, menuBackground, pressStart;
-
-
+        private bool enterMenu = true;
 
         public override void Init()
         {
@@ -37,19 +35,18 @@ namespace TGC.Group.Model
             var deviceWidth = D3DDevice.Instance.Width;
 
             drawer = new Drawer2D();
-            velocimeter = new CustomSprite
-            {
-                Bitmap = new CustomBitmap(MediaDir + "GUI\\HUB\\Velocimetro\\VelocimetroSinFlecha.png", D3DDevice.Instance.Device),
-                Position = new TGCVector2(D3DDevice.Instance.Width * 0.84f, D3DDevice.Instance.Height * 0.70f),
-                Scaling = new TGCVector2(0.2f, 0.2f)
-            };
 
-            arrowVelocimeter = new CustomSprite
-            {
-                Bitmap = new CustomBitmap(MediaDir + "GUI\\HUB\\Velocimetro\\Flecha.png", D3DDevice.Instance.Device),
-                Position = new TGCVector2(D3DDevice.Instance.Width * 0.84f, D3DDevice.Instance.Height * 0.85f),
-                Scaling = new TGCVector2(0.2f, 0.2f)
-            };
+            velocimeter = new CustomSprite();
+            velocimeter.Bitmap = new CustomBitmap(MediaDir + "GUI\\HUB\\Velocimetro\\VelocimetroSinFlecha.png", D3DDevice.Instance.Device);
+            velocimeter.Position = new TGCVector2(D3DDevice.Instance.Width * 0.84f, D3DDevice.Instance.Height * 0.70f);
+            velocimeter.Scaling = new TGCVector2(0.2f, 0.2f);
+
+            arrowVelocimeter = new CustomSprite();
+            arrowVelocimeter.Bitmap = new CustomBitmap(MediaDir + "GUI\\HUB\\Velocimetro\\Flecha.png", D3DDevice.Instance.Device);
+            arrowVelocimeter.Position = new TGCVector2(D3DDevice.Instance.Width * 0.915f, D3DDevice.Instance.Height * 0.85f);
+            arrowVelocimeter.Scaling = new TGCVector2(0.2f, 0.2f);
+            arrowVelocimeter.RotationCenter = new TGCVector2(0, arrowVelocimeter.Bitmap.Height / 8);
+            arrowVelocimeter.Rotation = -FastMath.PI;
             //flechaVelocimetro.TransformationMatrix = TGCMatrix.Transformation2D(new TGCVector2(0,0), 0, new TGCVector2(0.2f, 0.2f), new TGCVector2(0,0), FastMath.PI + FastMath.PI_HALF, new TGCVector2(D3DDevice.Instance.Width * 0.84f, D3DDevice.Instance.Height * 0.85f));
             //flechaVelocimetro.RotationCenter = new TGCVector2(D3DDevice.Instance.Width * 0.84f + flechaVelocimetro.Bitmap.Width/2, D3DDevice.Instance.Height * 0.85f + flechaVelocimetro.Bitmap.Height/2);
             //flechaVelocimetro.Rotation = FastMath.PI + FastMath.QUARTER_PI;
@@ -73,12 +70,9 @@ namespace TGC.Group.Model
             var scaleHeight = deviceHeight / (float)menuBackgroundHeight;
             menuBackground.Scaling = new TGCVector2(scaleWidth, scaleHeight);
 
-            pressStart = new CustomSprite
-            {
-                Bitmap = new CustomBitmap(MediaDir + "GUI\\Menu\\press-start.png", D3DDevice.Instance.Device),
-                Position = new TGCVector2((deviceWidth / 2) - pressStart.Bitmap.Width / 2, (deviceHeight / 2) - pressStart.Bitmap.Height)
-            };
-            
+            pressStart = new CustomSprite();
+            pressStart.Bitmap = new CustomBitmap(MediaDir + "GUI\\Menu\\press-start.png", D3DDevice.Instance.Device);
+            pressStart.Position = new TGCVector2((deviceWidth / 2f) - pressStart.Bitmap.Width / 2, deviceHeight / 8f);
 
             GlobalConcepts.GetInstance().SetMediaDir(this.MediaDir);
             GlobalConcepts.GetInstance().SetDispositivoDeAudio(this.DirectSound.DsDevice);
@@ -126,14 +120,17 @@ namespace TGC.Group.Model
 
             
             this.auto.SetElapsedTime(ElapsedTime);
-            this.auto.Action(this.Input);
+            this.auto.Action(this.Input, this.arrowVelocimeter);
             //this.manager.Action(this.Input);
             Scene.GetInstance().HandleCollisions();
 
             //Comentado para que los sonidos funcionen correctamente
             //this.auto = Escena.getInstance().calculateCollisions(this.auto);
-            
-            
+
+            if (Input.keyDown(Microsoft.DirectX.DirectInput.Key.Return))
+            {
+                enterMenu = false;
+            }
             
             
             /*
@@ -182,33 +179,38 @@ namespace TGC.Group.Model
 
             this.PreRender();
 
+            if (enterMenu)
+            {
+                drawer.BeginDrawSprite();
+                drawer.DrawSprite(menuBackground);
+                drawer.DrawSprite(pressStart);
+                drawer.EndDrawSprite();
+            }
+            else
+            {
+                Scene.GetInstance().Render();
 
+                this.textoVelocidadVehiculo.render();
+                this.textoPosicionVehiculo.render();
+                this.textoVectorAdelante.render();
+                this.textoOffsetF.render();
+                this.textoOffsetH.render();
 
-            Scene.GetInstance().Render();
+                this.auto.Transform();
+                this.auto.Render();
 
-            this.textoVelocidadVehiculo.render();
-            this.textoPosicionVehiculo.render();
-            this.textoVectorAdelante.render();
-            this.textoOffsetF.render();
-            this.textoOffsetH.render();
-                       
-            this.auto.Transform();
-            this.auto.Render();
+                //this.manager.Transform();
+                //this.manager.Render();
 
-            //this.manager.Transform();
-            //this.manager.Render();
+                //Iniciar dibujado de todos los Sprites de la escena
+                drawer.BeginDrawSprite();
 
-            //Iniciar dibujado de todos los Sprites de la escena
-            drawer.BeginDrawSprite();
-
-            //Dibujar sprite (si hubiese mas, deberian ir todos aquí)
-            drawer.DrawSprite(velocimeter);
-            drawer.DrawSprite(arrowVelocimeter);
-            drawer.DrawSprite(menuBackground);
-
-            pressStart.render();
-            //Finalizar el dibujado de Sprites
-            drawer.EndDrawSprite();
+                //Dibujar sprite (si hubiese mas, deberian ir todos aquí)
+                drawer.DrawSprite(velocimeter);
+                drawer.DrawSprite(arrowVelocimeter);
+                //Finalizar el dibujado de Sprites
+                drawer.EndDrawSprite();
+            }
             this.PostRender();
         }
 

@@ -3,6 +3,7 @@ using TGC.Core.Sound;
 using System.Collections.Generic;
 using TGC.Core.Collision;
 using TGC.Core.BoundingVolumes;
+using System;
 
 namespace TGC.Group.Model.Vehiculos.Estados
 {
@@ -62,7 +63,7 @@ namespace TGC.Group.Model.Vehiculos.Estados
             float desplazamientoEnY = auto.GetVelocidadActualDeSalto() * auto.GetElapsedTime();
             desplazamientoEnY = (this.auto.GetPosicion().Y + desplazamientoEnY < 0) ? -this.auto.GetPosicion().Y : desplazamientoEnY;
             TGCVector3 nuevoDesplazamiento = new TGCVector3(0, desplazamientoEnY, 0);
-            this.Move(nuevoDesplazamiento + auto.vectorAdelanteSalto * this.initialSpeed * auto.GetElapsedTime());
+            this.Move(nuevoDesplazamiento + auto.VectorAdelanteSalto * this.initialSpeed * auto.GetElapsedTime());
             if(this.IsCollidingWithFloor())
             {
                 auto.GetDeltaTiempoSalto().resetear();
