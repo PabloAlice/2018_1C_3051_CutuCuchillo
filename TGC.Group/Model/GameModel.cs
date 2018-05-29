@@ -62,8 +62,6 @@ namespace TGC.Group.Model
             var textureSize = sprite.Bitmap.Size;
             sprite.Position = new TGCVector2(D3DDevice.Instance.Width * 0.84f, D3DDevice.Instance.Height * 0.70f);
             sprite.Scaling = new TGCVector2(0.2f, 0.2f);
-            Console.WriteLine("width: " + D3DDevice.Instance.Width);
-            Console.WriteLine("heigth: " + D3DDevice.Instance.Height);
             //item = gui.InsertImage("HUB\\Velocimetro\\VelocimetroSinFlecha.png", 50, 50, MediaDir);     
 
             GlobalConcepts.GetInstance().SetMediaDir(this.MediaDir);
