@@ -27,7 +27,7 @@ namespace TGC.Group.Model
         private TgcText2D pressStart;
 
         private Drawer2D drawer;
-        private CustomSprite velocimeter, arrowVelocimeter, barOfLife, menuBackground;
+        private CustomSprite velocimeter, arrowVelocimeter, barOfLifeGreen, barOfLifeRed, menuBackground;
 
 
 
@@ -52,10 +52,15 @@ namespace TGC.Group.Model
             //flechaVelocimetro.RotationCenter = new TGCVector2(D3DDevice.Instance.Width * 0.84f + flechaVelocimetro.Bitmap.Width/2, D3DDevice.Instance.Height * 0.85f + flechaVelocimetro.Bitmap.Height/2);
             //flechaVelocimetro.Rotation = FastMath.PI + FastMath.QUARTER_PI;
 
-            //barOfLife = new CustomSprite();
-            //barOfLife.Bitmap = new CustomBitmap(MediaDir + "GUI\\HUB\\Velocimetro\\BarraDeVida.png", D3DDevice.Instance.Device);
-            //barOfLife.Position = new TGCVector2(D3DDevice.Instance.Width * 0.84f, D3DDevice.Instance.Height * 0.85f);
-            //barOfLife.Scaling = new TGCVector2(0.2f, 0.2f);
+            barOfLifeGreen = new CustomSprite();
+            barOfLifeGreen.Bitmap = new CustomBitmap(MediaDir + "GUI\\HUB\\BarraDeVida\\1.jpg", D3DDevice.Instance.Device);
+            barOfLifeGreen.Position = new TGCVector2(D3DDevice.Instance.Width * 0.80f, D3DDevice.Instance.Height * 0.95f);
+            barOfLifeGreen.Scaling = new TGCVector2(0.05f, 0.05f);
+
+            barOfLifeRed = new CustomSprite();
+            barOfLifeRed.Bitmap = new CustomBitmap(MediaDir + "GUI\\HUB\\BarraDeVida\\2.jpg", D3DDevice.Instance.Device);
+            barOfLifeRed.Position = new TGCVector2(D3DDevice.Instance.Width * 0.80f, D3DDevice.Instance.Height * 0.95f);
+            barOfLifeRed.Scaling = new TGCVector2(0.07f, 0.05f);
 
             menuBackground = new CustomSprite();
             menuBackground.Bitmap = new CustomBitmap(MediaDir + "GUI\\Menu\\background.jpg", D3DDevice.Instance.Device);
@@ -118,7 +123,7 @@ namespace TGC.Group.Model
 
             
             this.auto.SetElapsedTime(ElapsedTime);
-            this.auto.Action(this.Input, this.arrowVelocimeter);
+            this.auto.Action(this.Input, this.arrowVelocimeter, this.barOfLifeGreen);
             //this.manager.Action(this.Input);
             Scene.GetInstance().HandleCollisions();
 
@@ -196,7 +201,9 @@ namespace TGC.Group.Model
             //Dibujar sprite (si hubiese mas, deberian ir todos aquí)
             drawer.DrawSprite(velocimeter);
             drawer.DrawSprite(arrowVelocimeter);
-            //drawer.DrawSprite(menuBackground);
+            drawer.DrawSprite(barOfLifeRed);
+            drawer.DrawSprite(barOfLifeGreen);
+            
 
             //Finalizar el dibujado de Sprites
             drawer.EndDrawSprite();

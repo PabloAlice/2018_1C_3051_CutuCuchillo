@@ -15,6 +15,7 @@ namespace TGC.Group.Model.Vehiculos
         Tgc3dSound horn;
         Tgc3dSound alarm;
         Tgc3dSound defaultWeapon;
+        Tgc3dSound teletransport;
         private int initialFreq;
         public SoundsManager(TGCVector3 position)
         {
@@ -34,6 +35,10 @@ namespace TGC.Group.Model.Vehiculos
             bufferDescription = new BufferDescription();
             bufferDescription.ControlVolume = true;
             this.horn = new Tgc3dSound(GlobalConcepts.GetInstance().GetMediaDir() + "Sound\\Bocina3.wav", position, GlobalConcepts.GetInstance().GetDispositivoDeAudio(), bufferDescription);
+
+            bufferDescription = new BufferDescription();
+            bufferDescription.ControlVolume = true;
+            this.teletransport = new Tgc3dSound(GlobalConcepts.GetInstance().GetMediaDir() + "Sound\\Goku.wav", position, GlobalConcepts.GetInstance().GetDispositivoDeAudio(), bufferDescription);
 
             bufferDescription = new BufferDescription();
             bufferDescription.ControlVolume = true;
@@ -118,6 +123,11 @@ namespace TGC.Group.Model.Vehiculos
             var modifier = (int)velocidad;
             int freq = this.initialFreq + modifier * 1000;
             this.SetFrequency(freq);
+        }
+
+        public void Teletransport()
+        {
+            this.teletransport.play();
         }
     }
 }

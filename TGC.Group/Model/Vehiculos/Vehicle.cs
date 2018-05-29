@@ -42,6 +42,7 @@ namespace TGC.Group.Model
         protected TGCMatrix trasladoInicial;
         protected ThirdPersonCamera camara;
         protected TGCMatrix lastTransformation;
+        protected float life = 100f;
 
         private List<IShootable> weapons = new List<IShootable>();
         private int currentWeaponIndex = 0;
@@ -360,7 +361,12 @@ namespace TGC.Group.Model
             return TGCVector3.transform(new TGCVector3(0,0,0), this.lastTransformation);
         }
 
-        public void Action(TgcD3dInput input, CustomSprite sprite)
+        public void Crash()
+        {
+            this.life = (this.life - 5f < 0) ? 0 : this.life - 5f;
+        }
+
+        public void Action(TgcD3dInput input, CustomSprite velocimetro, CustomSprite bar)
         {
             this.lastTransformation = this.matrixs.GetTransformation();
             this.SoundsManager.Update(this.velocidadActual);
@@ -458,7 +464,8 @@ namespace TGC.Group.Model
             this.estado.JumpUpdate();
             float velocidadMaxima = (this.velocidadActual < 0) ? this.velocidadMaximaDeRetroceso : this.velocidadMaximaDeAvance;
             float maxAngle = (this.velocidadActual > 0) ? FastMath.PI + FastMath.PI / 3 : FastMath.PI_HALF;
-            sprite.Rotation = (FastMath.Abs(this.velocidadActual) * (maxAngle)) / velocidadMaxima - FastMath.PI;
+            velocimetro.Rotation = (FastMath.Abs(this.velocidadActual) * (maxAngle)) / velocidadMaxima - FastMath.PI;
+            bar.Scaling = new TGCVector2((this.life * 0.07f) / 100f, 0.05f);
             this.camara.Target = (this.GetPosicion()) + this.GetVectorAdelante() * 30;
         }
     }

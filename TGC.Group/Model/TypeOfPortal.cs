@@ -43,6 +43,7 @@ namespace TGC.Group.Model
             if (TgcCollisionUtils.testObbAABB(car.GetTGCBoundingOrientedBox(), this.GetBoundingBox())){
                 this.GetBoundingBox().setRenderColor(Color.Red);
                 this.Collide(car);
+                car.SoundsManager.Teletransport();
             }
         }
 
