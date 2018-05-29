@@ -14,6 +14,11 @@ namespace TGC.Group.Model
             this.puntoMaximo = puntoMaximo;
         }
 
+        public List<Collidable> GetElements()
+        {
+            return this.objetos;
+        }
+
         public TGCVector3 GetPuntoMinimo()
         {
             return this.puntoMinimo;

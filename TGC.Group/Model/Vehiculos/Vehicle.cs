@@ -66,7 +66,7 @@ namespace TGC.Group.Model
 
         public TGCVector3 GetDirectionOfCollision()
         {
-            return this.estado.GetCarDirection();
+            return (this.velocidadActual >= 0) ? this.vectorAdelante : -this.vectorAdelante;
         }
 
         public ThirdPersonCamera GetCamara()

@@ -50,6 +50,11 @@ namespace TGC.Group.Model
             
         }
 
+        public List<Collidable> GetPosiblesCollidables()
+        {
+            return this.VehicleUbication().GetElements();
+        }
+
         private Section VehicleUbication()
         {
             if (this.IsIn(this.cocina))
