@@ -6,6 +6,7 @@ using TGC.Core.Text;
 using System.Windows.Forms;
 using Microsoft.DirectX.Direct3D;
 using System.Drawing;
+using System;
 
 namespace TGC.Group.Model
 {
@@ -44,71 +45,24 @@ namespace TGC.Group.Model
         private TGCVector3 camaraDesplazamiento = new TGCVector3(0, 5, 40);
         private TgcText2D textoVelocidadVehiculo, textoOffsetH, textoOffsetF, textoPosicionVehiculo, textoVectorAdelante;
 
-        public Sprite sprite;
         public Line line;
         public Microsoft.DirectX.Direct3D.Font font, font_small, font_medium;
         private DXGui gui = new DXGui();
         public int dialog_sel = 0;
+        GUIItem item;
 
-        
+        private Drawer2D drawer;
+        private CustomSprite sprite;
+
         public override void Init()
         {
-            Cursor.Hide();
-            Device device = D3DDevice.Instance.Device;
-
-            gui.Create(MediaDir);
-            gui.InitDialog(false, false);
-            int W = D3DDevice.Instance.Width;
-            int H = D3DDevice.Instance.Height;
-            int x0 = 70;
-            int y0 = 10;
-            int dy = 30;
-            int dy2 = dy;
-            int dx = 250;
-
-            GUIItem item; /*= gui.InsertImage("transformers\\custom_char.png", x0, y0, MediaDir);
-            item.image_centrada = false;
-            y0 += dy;
-            
-            gui.InsertItem(new static_text(gui, "eee eeee", x0, y0, 400, 25));
-            y0 += 45;
-            item = gui.InsertImage("transformers\\scout.png", x0 + dx, y0, MediaDir);
-            item.image_centrada = false;
-            gui.InsertItem(new menu_item(gui, "SCOUT1", "transformers\\scout1.png", 100, x0, y0, MediaDir, dx, dy));
-            y0 += dy + 5;
-            gui.InsertItem(new menu_item(gui, "SCOUT2", "transformers\\scout2.png", 100, x0, y0, MediaDir, dx, dy));
-            y0 += 2 * dy;
-            
-            
-            gui.InsertItem(new static_text(gui, "HUNTER", x0, y0, 400, 25));
-            y0 += 45;
-            item = gui.InsertImage("transformers\\hunter.png", x0 + dx, y0, MediaDir);
-            item.image_centrada = false;
-            menu_item hunter1 = (menu_item)gui.InsertItem(new menu_item(gui, "HUNTER 1", "transformers\\hunter1.png", 101, x0, y0, MediaDir, dx, dy));
-            hunter1.pos_imagen.Y = y0;
-
-            y0 += 2 * dy;
-
-            gui.InsertItem(new static_text(gui, "COMMANDER", x0, y0, 400, 25));
-            y0 += 45;
-            item = gui.InsertImage("transformers\\commander.png", x0 + dx, y0, MediaDir);
-            item.image_centrada = false;
-            menu_item commander1 = (menu_item)gui.InsertItem(new menu_item(gui, "COMMANDER 1", "transformers\\commander1.png", 102, x0, y0, MediaDir, dx, 25));
-            commander1.pos_imagen.Y = y0;
-            y0 += 2 * dy;
-
-            gui.InsertItem(new static_text(gui, "velocimetrxj", x0, y0, 400, 25));
-            y0 += 45;
-            */
-            item = gui.InsertImage("HUB\\Velocimetro\\VelocimetroSinFlecha.png", x0 + dx, y0, MediaDir);
-
-            item.image_centrada = false;
-            menu_item warrior1 = (menu_item)gui.InsertItem(new menu_item(gui, "WARRIOR 1", "transformers//warrior1.png", 103, x0, y0, MediaDir, dx, 30));
-            warrior1.pos_imagen.Y = y0;
-            
-            dialog_sel = 0;
-
-
+            drawer = new Drawer2D();
+            sprite = new CustomSprite();
+            sprite.Bitmap = new CustomBitmap(MediaDir + "GUI\\HUB\\Velocimetro\\VelocimetroSinFlecha.png", D3DDevice.Instance.Device);
+            var textureSize = sprite.Bitmap.Size;
+            sprite.Position = new TGCVector2(D3DDevice.Instance.Width * 0.84f, D3DDevice.Instance.Height * 0.70f);
+            sprite.Scaling = new TGCVector2(0.2f, 0.2f);
+            //item = gui.InsertImage("HUB\\Velocimetro\\VelocimetroSinFlecha.png", 50, 50, MediaDir);     
 
             GlobalConcepts.GetInstance().SetMediaDir(this.MediaDir);
             GlobalConcepts.GetInstance().SetDispositivoDeAudio(this.DirectSound.DsDevice);
@@ -210,9 +164,8 @@ namespace TGC.Group.Model
 
             this.PreRender();
 
-            
 
-            
+
             Scene.GetInstance().Render();
 
             this.textoVelocidadVehiculo.render();
@@ -223,14 +176,24 @@ namespace TGC.Group.Model
                        
             this.auto.Transform();
             this.auto.Render();
-            
+
             //this.manager.Transform();
             //this.manager.Render();
-            
+
+            /*
             Device d3dDevice = D3DDevice.Instance.Device;
-            //d3dDevice.Clear(ClearFlags.Target | ClearFlags.ZBuffer, Color.FromArgb(35,56,68), 1.0f, 0);
+            d3dDevice.Clear(ClearFlags.Target | ClearFlags.ZBuffer, Color.FromArgb(35,56,68), 1.0f, 0);
             gui_render(ElapsedTime);
-            
+            */
+
+            //Iniciar dibujado de todos los Sprites de la escena (en este caso es solo uno)
+            drawer.BeginDrawSprite();
+
+            //Dibujar sprite (si hubiese mas, deberian ir todos aquí)
+            drawer.DrawSprite(sprite);
+
+            //Finalizar el dibujado de Sprites
+            drawer.EndDrawSprite();
             this.PostRender();
         }
 
@@ -302,11 +265,11 @@ namespace TGC.Group.Model
 
         public override void Dispose()
         {
-            gui.Dispose();
-            Cursor.Show();
+            //gui.Dispose();
+            //Cursor.Show();
             Scene.GetInstance().Dispose();
             this.auto.Dispose();
-           
+            sprite.Dispose();
         }
 
     }
