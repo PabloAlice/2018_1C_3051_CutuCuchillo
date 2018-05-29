@@ -19,7 +19,6 @@ namespace TGC.Group.Model
                 this.elementos.Add(mesh);
             }
             this.transformacion = transformacion;
-            this.transform();
         }
 
         public SceneElement(List<TgcMesh> elementos)
@@ -53,6 +52,7 @@ namespace TGC.Group.Model
 
         public virtual void Render()
         {
+            this.transform();
             foreach (TgcMesh elemento in this.elementos)
             {
                 if (Scene.GetInstance().getCamera().IsInView(elemento.BoundingBox))
@@ -148,8 +148,10 @@ namespace TGC.Group.Model
 
         public void HandleCollisions(Vehicle car)
         {
-            foreach(TgcMesh elemento in this.elementos)
+            this.transform();
+            foreach (TgcMesh elemento in this.elementos)
             {
+                
                 if (this.IsColliding(elemento, car)) {
                     this.Collide(elemento, car);
                     return;

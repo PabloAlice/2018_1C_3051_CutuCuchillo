@@ -111,7 +111,6 @@
     <Compile Include="Model\UnidirectionalPortal.cs" />
     <Compile Include="Model\TypeOfPortal.cs" />
     <Compile Include="Model\SceneElement.cs" />
-    <Compile Include="Model\SceneRepeatedElement.cs" />
     <Compile Include="Model\Section.cs" />
     <Compile Include="Model\Text.cs" />
     <Compile Include="Model\OperationsWithVectors.cs" />
