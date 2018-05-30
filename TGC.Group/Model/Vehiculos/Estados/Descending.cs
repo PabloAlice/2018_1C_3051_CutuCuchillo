@@ -61,7 +61,6 @@ namespace TGC.Group.Model.Vehiculos.Estados
         {
             auto.SetVelocidadActualDeSalto(this.VelocidadFisicaDeSalto());
             float desplazamientoEnY = auto.GetVelocidadActualDeSalto() * auto.GetElapsedTime();
-            desplazamientoEnY = (this.auto.GetPosicion().Y + desplazamientoEnY < 0) ? -this.auto.GetPosicion().Y : desplazamientoEnY;
             TGCVector3 nuevoDesplazamiento = new TGCVector3(0, desplazamientoEnY, 0);
             this.Move(nuevoDesplazamiento + auto.VectorAdelanteSalto * this.initialSpeed * auto.GetElapsedTime());
             if(this.IsCollidingWithFloor())
@@ -91,7 +90,7 @@ namespace TGC.Group.Model.Vehiculos.Estados
             foreach (Collidable element in list)
             {
                 System.Console.WriteLine("recorriendo la lista");
-                if(TgcCollisionUtils.testObbAABB(this.auto.GetTGCBoundingOrientedBox(), element.GetBoundingAlignBox()))
+                if(TgcCollisionUtils.testObbAABB(this.auto.GetTGCBoundingOrientedBox(), element.GetBoundingAlignBox()) || this.auto.GetPosicion().Y < 0)
                 {
                     System.Console.WriteLine("colisione con algo");
                     return this.IsReallyTheFloor(element);
@@ -157,7 +156,7 @@ namespace TGC.Group.Model.Vehiculos.Estados
             {
                 return false;
             }
-            while (TgcCollisionUtils.testObbAABB(this.auto.GetTGCBoundingOrientedBox(), element.GetBoundingAlignBox()))
+            while (TgcCollisionUtils.testObbAABB(this.auto.GetTGCBoundingOrientedBox(), element.GetBoundingAlignBox()) || this.auto.GetPosicion().Y <=0)
             {
                 this.auto.Translate(TGCMatrix.Translation(-directionOfCollision * 0.1f));
                 this.auto.Transform();
