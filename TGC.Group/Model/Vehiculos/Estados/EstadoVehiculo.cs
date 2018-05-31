@@ -1,4 +1,5 @@
-﻿using TGC.Core.Mathematica;
+﻿using System;
+using TGC.Core.Mathematica;
 using TGC.Core.Sound;
 
 namespace TGC.Group.Model.Vehiculos.Estados
@@ -46,7 +47,7 @@ namespace TGC.Group.Model.Vehiculos.Estados
             return;
         }
 
-        protected void Move(TGCVector3 desplazamiento)
+        virtual public void Move(TGCVector3 desplazamiento)
         {
             this.auto.Move(desplazamiento);
         }
@@ -76,6 +77,11 @@ namespace TGC.Group.Model.Vehiculos.Estados
         {
             var rotacionReal = this.auto.GetVelocidadDeRotacion() * this.auto.GetElapsedTime();
             this.auto.UpdateFrontWheels(rotacionReal);
+        }
+
+        virtual public void FrozenTimeUpdate()
+        {
+            return;
         }
     }
 }
