@@ -21,6 +21,19 @@ namespace TGC.Group.Model
             this.transformacion = transformacion;
         }
 
+        public TgcMesh GetCollidable(Vehicle car)
+        {
+            foreach (TgcMesh elemento in this.elementos)
+            {
+                if(TgcCollisionUtils.testObbAABB(car.GetTGCBoundingOrientedBox(), elemento.BoundingBox))
+                {
+                    return elemento;
+                }
+            }
+
+            return elementos[0];
+        }
+
         public SceneElement(List<TgcMesh> elementos)
         {
             foreach (TgcMesh mesh in elementos)

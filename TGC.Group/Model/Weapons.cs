@@ -24,6 +24,11 @@ namespace TGC.Group.Model
             this.rotation = TGCMatrix.RotationYawPitchRoll(0f, 0f, 0f);
         }
 
+        public TgcMesh GetCollidable(Vehicle car)
+        {
+            return billet.GetMesh();
+        }
+
         public void addSceneWeapon(TGCVector3 position)
         {
             this.positions.Add(position);

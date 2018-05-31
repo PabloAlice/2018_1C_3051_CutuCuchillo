@@ -1,6 +1,7 @@
 ﻿using TGC.Core.Mathematica;
 using TGC.Core.BoundingVolumes;
 using TGC.Core.Collision;
+using TGC.Core.SceneLoader;
 using System.Drawing;
 
 namespace TGC.Group.Model
@@ -14,6 +15,11 @@ namespace TGC.Group.Model
         {
             this.outDirection = outDirection;
             this.originPortal = originPortal;
+        }
+
+        public TgcMesh GetCollidable(Vehicle car)
+        {
+            return originPortal.mesh;
         }
 
         public TgcBoundingAxisAlignBox GetBoundingAlignBox()

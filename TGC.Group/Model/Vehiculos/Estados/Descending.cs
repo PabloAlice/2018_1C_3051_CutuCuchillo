@@ -3,6 +3,7 @@ using TGC.Core.Sound;
 using System.Collections.Generic;
 using TGC.Core.Collision;
 using TGC.Core.BoundingVolumes;
+using TGC.Core.SceneLoader;
 using System;
 
 namespace TGC.Group.Model.Vehiculos.Estados
@@ -90,10 +91,10 @@ namespace TGC.Group.Model.Vehiculos.Estados
             foreach (Collidable element in list)
             {
                 System.Console.WriteLine("recorriendo la lista");
-                if(TgcCollisionUtils.testObbAABB(this.auto.GetTGCBoundingOrientedBox(), element.GetBoundingAlignBox()) || this.auto.GetPosicion().Y < 0)
+                if(TgcCollisionUtils.testObbAABB(this.auto.GetTGCBoundingOrientedBox(), element.GetCollidable(this.auto).BoundingBox) || this.auto.GetPosicion().Y < 0)
                 {
-                    System.Console.WriteLine("colisione con algo");
-                    return this.IsReallyTheFloor(element);
+                    TgcMesh realMesh = element.GetCollidable(this.auto);
+                    return this.IsReallyTheFloor(realMesh);
                 }
             }
             return false;
@@ -136,7 +137,7 @@ namespace TGC.Group.Model.Vehiculos.Estados
 
         }
 
-        private bool IsReallyTheFloor(Collidable element)
+        private bool IsReallyTheFloor(TgcMesh element)
         {
             TGCVector3 directionOfCollision = new TGCVector3(0, -1, 0);
             TgcRay ray = new TgcRay();
@@ -144,7 +145,7 @@ namespace TGC.Group.Model.Vehiculos.Estados
             System.Console.WriteLine("POSICION: ({0};{1};{2})", ray.Origin.X, ray.Origin.Y, ray.Origin.Z);
             ray.Direction = directionOfCollision;
             TgcBoundingAxisAlignBox.Face[] faces;
-            faces = element.GetBoundingAlignBox().computeFaces();
+            faces = element.BoundingBox.computeFaces();
             TGCPlane plane = this.CreatePlane(ray, faces, this.auto.GetLastPosition());
             TGCVector3 normal = GlobalConcepts.GetInstance().GetNormalPlane(plane);
             System.Console.WriteLine("//////////////////////////////////////////////////////");
@@ -156,7 +157,7 @@ namespace TGC.Group.Model.Vehiculos.Estados
             {
                 return false;
             }
-            while (TgcCollisionUtils.testObbAABB(this.auto.GetTGCBoundingOrientedBox(), element.GetBoundingAlignBox()) || this.auto.GetPosicion().Y <=0)
+            while (TgcCollisionUtils.testObbAABB(this.auto.GetTGCBoundingOrientedBox(), element.BoundingBox) || this.auto.GetPosicion().Y <=0)
             {
                 this.auto.Translate(TGCMatrix.Translation(-directionOfCollision * 0.1f));
                 this.auto.Transform();

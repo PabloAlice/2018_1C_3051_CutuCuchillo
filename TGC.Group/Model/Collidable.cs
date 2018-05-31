@@ -1,4 +1,5 @@
 ﻿using TGC.Core.BoundingVolumes;
+using TGC.Core.SceneLoader;
 
 namespace TGC.Group.Model
 {
@@ -8,5 +9,6 @@ namespace TGC.Group.Model
         void Render();
         void Dispose();
         TgcBoundingAxisAlignBox GetBoundingAlignBox();
+        TgcMesh GetCollidable(Vehicle car);
     }
 }

@@ -17,6 +17,11 @@ namespace TGC.Group.Model
             this.obb = new BoundingOrientedBox(this.mesh.BoundingBox);
         }
 
+        public TgcMesh GetCollidable(Vehicle car)
+        {
+            return this.mesh;
+        }
+
         public void ActualizarBoundingOrientedBox()
         {
             this.obb.ActualizarBoundingOrientedBox(this.mesh.BoundingBox);
