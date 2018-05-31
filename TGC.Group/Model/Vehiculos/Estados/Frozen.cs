@@ -8,7 +8,7 @@ namespace TGC.Group.Model.Vehiculos.Estados
 
         public Frozen(Vehicle auto) : base(auto)
         {
-
+            timer = new Timer();
         }
 
         public override TGCVector3 GetCarDirection()

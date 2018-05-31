@@ -461,6 +461,11 @@ namespace TGC.Group.Model
                 this.SoundsManager.Alarm();
             }
 
+            if (input.keyDown(Key.C))
+            {
+                estado = new Frozen(this);
+            }
+
             this.estado.JumpUpdate();
             this.estado.FrozenTimeUpdate();
             float velocidadMaxima = (this.velocidadActual < 0) ? this.velocidadMaximaDeRetroceso : this.velocidadMaximaDeAvance;
