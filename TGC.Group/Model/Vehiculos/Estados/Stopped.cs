@@ -8,6 +8,7 @@ namespace TGC.Group.Model.Vehiculos.Estados
 
         public Stopped(Vehicle auto) : base(auto)
         {
+            auto.GetDeltaTiempoAvance().resetear();
         }
 
         public override TGCVector3 GetCarDirection()

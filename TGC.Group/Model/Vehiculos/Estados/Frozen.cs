@@ -1,4 +1,5 @@
-﻿using TGC.Core.Mathematica;
+﻿using System;
+using TGC.Core.Mathematica;
 
 namespace TGC.Group.Model.Vehiculos.Estados
 {
@@ -9,6 +10,7 @@ namespace TGC.Group.Model.Vehiculos.Estados
         public Frozen(Vehicle auto) : base(auto)
         {
             timer = new Timer();
+            this.auto.GetDeltaTiempoAvance().resetear();
         }
 
         public override TGCVector3 GetCarDirection()
@@ -54,7 +56,10 @@ namespace TGC.Group.Model.Vehiculos.Estados
         public override void FrozenTimeUpdate()
         {
             timer.acumularTiempo(this.auto.GetElapsedTime());
-            if(timer.tiempoTranscurrido() > 10f)
+            auto.GetDeltaTiempoAvance().acumularTiempo(auto.GetElapsedTime());
+            auto.SetVelocidadActual(Math.Max(0f,auto.GetVelocidadActual() - auto.GetDeltaTiempoAvance().tiempoTranscurrido()));
+            auto.Move(auto.GetVectorAdelante() * auto.GetVelocidadActual() * auto.GetElapsedTime());
+            if (timer.tiempoTranscurrido() > 10f)
             {
                 this.auto.SetEstado(new Stopped(this.auto));
             }
