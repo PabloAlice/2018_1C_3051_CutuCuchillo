@@ -21,6 +21,7 @@ namespace TGC.Group.Model
         public override void Collide(Vehicle car)
         {
             car.ChangePosition(TGCMatrix.Translation(this.targetPosition.X, this.targetPosition.Y, this.targetPosition.Z));
+            base.Collide(car);
         }
 
         /*
