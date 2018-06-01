@@ -38,15 +38,7 @@ namespace TGC.Group.Model
                 car.ChangePosition(TGCMatrix.Translation(newPosition) * translation);
             }
 
-            var dot = TGCVector3.Dot(car.vectorAdelante, this.outDirection);
-            var modulusProduct = car.vectorAdelante.Length() * this.outDirection.Length();
-            var acos = (float)Math.Acos(dot / modulusProduct);
-            var yCross = TGCVector3.Cross(car.vectorAdelante, this.outDirection).Y;
-            car.Girar((yCross > 0) ? acos : -acos);
-            if (car.GetVelocidadActual() < 0)
-            {
-                car.Girar(FastMath.PI);
-            }
+            base.Collide(car);
         }
     }
 }

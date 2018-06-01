@@ -3,6 +3,7 @@ using TGC.Core.BoundingVolumes;
 using TGC.Core.Collision;
 using TGC.Core.SceneLoader;
 using System.Drawing;
+using System;
 
 namespace TGC.Group.Model
 {
@@ -53,7 +54,18 @@ namespace TGC.Group.Model
             }
         }
 
-        abstract public void Collide(Vehicle car);
+        virtual public void Collide(Vehicle car)
+        {
+            var dot = TGCVector3.Dot(car.vectorAdelante, this.outDirection);
+            var modulusProduct = car.vectorAdelante.Length() * this.outDirection.Length();
+            var acos = (float)Math.Acos(dot / modulusProduct);
+            var yCross = TGCVector3.Cross(car.vectorAdelante, this.outDirection).Y;
+            car.Girar((yCross > 0) ? acos : -acos);
+            if (car.GetVelocidadActual() < 0)
+            {
+                car.Girar(FastMath.PI);
+            }
+        }
 
         public TGCVector3 GetPosition()
         {
