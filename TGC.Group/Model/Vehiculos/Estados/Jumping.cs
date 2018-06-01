@@ -59,9 +59,11 @@ namespace TGC.Group.Model.Vehiculos.Estados
             auto.SetVelocidadActualDeSalto(this.VelocidadFisicaDeSalto());
             float desplazamientoEnY = auto.GetVelocidadActualDeSalto() * auto.GetElapsedTime();
             TGCVector3 nuevoDesplazamiento = new TGCVector3(0, desplazamientoEnY, 0);
+            TGCVector3 cuenta = nuevoDesplazamiento + auto.VectorAdelanteSalto * this.initialSpeed * auto.GetElapsedTime();
             this.Move(nuevoDesplazamiento + auto.VectorAdelanteSalto * this.initialSpeed * auto.GetElapsedTime());
             if(this.IsCollidingWithFloor())
             {
+                this.Move(-cuenta);
                 auto.GetDeltaTiempoSalto().resetear();
                 auto.SetVelocidadActualDeSalto(auto.GetVelocidadMaximaDeSalto());
                 this.auto.SoundsManager.Drop();

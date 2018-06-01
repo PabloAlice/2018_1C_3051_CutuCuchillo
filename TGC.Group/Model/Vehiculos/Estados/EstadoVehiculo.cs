@@ -26,7 +26,7 @@ namespace TGC.Group.Model.Vehiculos.Estados
 
         virtual public void JumpUpdate()
         {
-            float desplazamientoEnY = -0.15f;
+            float desplazamientoEnY = -1f;
             System.Console.WriteLine("Posicion en Y: {0}", this.auto.GetPosicion().Y);
             TGCVector3 nuevoDesplazamiento = new TGCVector3(0, desplazamientoEnY, 0);
             System.Console.WriteLine("Lo voy a mover: {0}", desplazamientoEnY);
@@ -40,6 +40,7 @@ namespace TGC.Group.Model.Vehiculos.Estados
                 this.auto.SetVelocidadActualDeSalto(0);
                 this.auto.SetEstado(new Jumping(this.auto));
             }
+            this.Move(-nuevoDesplazamiento);
             /*{
                 auto.GetDeltaTiempoSalto().resetear();
                 auto.SetVelocidadActualDeSalto(auto.GetVelocidadMaximaDeSalto());
@@ -129,11 +130,6 @@ namespace TGC.Group.Model.Vehiculos.Estados
             if (normal == new TGCVector3(0, 1, 0))
             {
                 return false;
-            }
-            while (TgcCollisionUtils.testObbAABB(this.auto.GetTGCBoundingOrientedBox(), element.BoundingBox) || this.auto.GetPosicion().Y <= 0)
-            {
-                this.auto.Translate(TGCMatrix.Translation(-directionOfCollision * 0.1f));
-                this.auto.Transform();
             }
             return true;
         }
