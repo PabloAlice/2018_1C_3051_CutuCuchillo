@@ -57,14 +57,27 @@ namespace TGC.Group.Model.Vehiculos.Estados
         public override void JumpUpdate()
         {
             auto.SetVelocidadActualDeSalto(this.VelocidadFisicaDeSalto());
-            if(auto.GetVelocidadActualDeSalto() < 0)
-            {
-                this.auto.SetEstado(new Descending(this.auto, this.initialSpeed));
-                return;
-            }
             float desplazamientoEnY = auto.GetVelocidadActualDeSalto() * auto.GetElapsedTime();
             TGCVector3 nuevoDesplazamiento = new TGCVector3(0, desplazamientoEnY, 0);
             this.Move(nuevoDesplazamiento + auto.VectorAdelanteSalto * this.initialSpeed * auto.GetElapsedTime());
+            if(this.IsCollidingWithFloor())
+            {
+                auto.GetDeltaTiempoSalto().resetear();
+                auto.SetVelocidadActualDeSalto(auto.GetVelocidadMaximaDeSalto());
+                this.auto.SoundsManager.Drop();
+                if (auto.GetVelocidadActual() > 0)
+                {
+                    this.auto.SetEstado(new Forward(this.auto));
+                }
+                else if (auto.GetVelocidadActual() < 0)
+                {
+                    this.auto.SetEstado(new Backward(this.auto));
+                }
+                else
+                {
+                    this.auto.SetEstado(new Stopped(this.auto));
+                }
+            }
         }
 
         public override void Left()
