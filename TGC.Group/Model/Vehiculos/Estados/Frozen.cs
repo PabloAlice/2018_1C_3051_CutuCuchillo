@@ -6,11 +6,21 @@ namespace TGC.Group.Model.Vehiculos.Estados
     class Frozen : EstadoVehiculo
     {
         Timer timer;
+        Func<float, float, float, float> disminucionVelocidad;
 
         public Frozen(Vehicle auto) : base(auto)
         {
             timer = new Timer();
-            this.auto.GetDeltaTiempoAvance().resetear();
+            if (auto.GetVelocidadActual() > 0f)
+            {
+                disminucionVelocidad = ((x, y, z) => Math.Max(x, y-z));
+            }
+            else
+            {
+                disminucionVelocidad = ((x, y, z) => Math.Min(x, y+z));
+            }
+
+                this.auto.GetDeltaTiempoAvance().resetear();
         }
 
         public override TGCVector3 GetCarDirection()
@@ -29,6 +39,11 @@ namespace TGC.Group.Model.Vehiculos.Estados
         }
 
         public override void Jump()
+        {
+            return;
+        }
+
+        public override void JumpUpdate()
         {
             return;
         }
@@ -57,7 +72,7 @@ namespace TGC.Group.Model.Vehiculos.Estados
         {
             timer.acumularTiempo(this.auto.GetElapsedTime());
             auto.GetDeltaTiempoAvance().acumularTiempo(auto.GetElapsedTime());
-            auto.SetVelocidadActual(Math.Max(0f,auto.GetVelocidadActual() - auto.GetDeltaTiempoAvance().tiempoTranscurrido()));
+            auto.SetVelocidadActual(disminucionVelocidad(0f,auto.GetVelocidadActual(),auto.GetDeltaTiempoAvance().tiempoTranscurrido()));
             auto.Move(auto.GetVectorAdelante() * auto.GetVelocidadActual() * auto.GetElapsedTime());
             if (timer.tiempoTranscurrido() > 10f)
             {
