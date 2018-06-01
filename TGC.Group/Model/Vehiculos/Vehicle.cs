@@ -170,6 +170,7 @@ namespace TGC.Group.Model
         public void SetElapsedTime(float time)
         {
             this.elapsedTime = time;
+            System.Console.WriteLine(this.GetEstado().ToString());
             if(this.deltaTiempoAvance.tiempoTranscurrido() != 0)
             {
                 this.deltaTiempoAvance.acumularTiempo(this.elapsedTime);
