@@ -45,7 +45,7 @@ namespace TGC.Group.Model
         protected float life = 100f;
 
         private IShootable defaultWeapon;
-        private Queue<IShootable> specialWeapons;
+        private Queue<IShootable> specialWeapons = new Queue<IShootable>();
         private int ammo = 0;
 
         public Vehicle(ThirdPersonCamera camara, TGCVector3 posicionInicial, SoundsManager soundsManager)
@@ -218,13 +218,13 @@ namespace TGC.Group.Model
         public void shoot()
         {
             Projectile p = new Projectile(GetPosicion(), GetVectorAdelante());
-            if (specialWeapons.Peek().HasRemainingProjectiles())
+            if (specialWeapons.Count > 0 && specialWeapons.Peek().HasRemainingProjectiles())
             {
-                defaultWeapon.addProjectile(p);
+                specialWeapons.Peek().addProjectile(p);
             }
             else
             {
-                specialWeapons.Peek().addProjectile(p);
+                defaultWeapon.addProjectile(p);
             }
         }
 
@@ -250,7 +250,11 @@ namespace TGC.Group.Model
 
         private void updateProjectilesShot()
         {
-
+            if(specialWeapons.Count > 0)
+            {
+                specialWeapons.Peek().updateProjectiles();
+            }
+            defaultWeapon.updateProjectiles();
         }
 
         //-------------------------------------------------------

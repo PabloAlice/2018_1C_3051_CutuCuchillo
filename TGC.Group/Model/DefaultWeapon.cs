@@ -13,7 +13,17 @@ namespace TGC.Group.Model
             projectile = new MeshObb(Core.Geometry.TGCBox.fromSize(new TGCVector3(0.01f, 0.5f, 0.01f)).ToMesh("projectile"));
         }
 
-        public override TGCMatrix getShotMeshPosition(Projectile p)
+        public override TGCVector3 getShotMeshPosition(Projectile p)
+        {
+            TGCVector3 ip = p.getInitialPosition();
+            TGCVector3 isd = p.getInitialSpeedDirection();
+            float timeSinceShot = p.getTimeSinceShot();
+
+            float projectileSpeed = 100f;
+            return ip + isd * projectileSpeed * timeSinceShot;
+        }
+
+        public override TGCMatrix getShotMeshTransformation(Projectile p)
         {
             TGCVector3 ip = p.getInitialPosition();
             TGCVector3 isd = p.getInitialSpeedDirection();

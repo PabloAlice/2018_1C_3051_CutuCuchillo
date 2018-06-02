@@ -6,8 +6,9 @@ namespace TGC.Group.Model
     {
         bool HasRemainingProjectiles();
 
-        TGCMatrix getShotMeshPosition(Projectile p);
-
+        TGCMatrix getShotMeshTransformation(Projectile p);
+        TGCVector3 getShotMeshPosition(Projectile p);
+        void updateProjectiles();
         void addProjectile(Projectile p);
 
         void renderProjectiles();

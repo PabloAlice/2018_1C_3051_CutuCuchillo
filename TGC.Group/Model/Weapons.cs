@@ -93,7 +93,6 @@ namespace TGC.Group.Model
         // Projectile related methods and attributes
 
         protected List<Projectile> projectiles = new List<Projectile>();
-        protected TgcBoundingOrientedBox projBB = new TgcBoundingOrientedBox();
 
         public void addProjectile(Projectile p)
         {
@@ -102,14 +101,19 @@ namespace TGC.Group.Model
 
         public void updateProjectiles()
         {
+            List<Projectile> toRemove = new List<Projectile>();
             foreach(Projectile p in projectiles)
             {
                 foreach(Collidable c in Scene.GetInstance().GetPosiblesCollidables())
                 {
-                    projBB.tra
+                    this.getMeshOBB().Transform(getShotMeshTransformation(p));
+                    if (TgcCollisionUtils.testAABBAABB(this.getMeshOBB().GetBoundingAlignBox(), c.GetBoundingAlignBox()))
+                    {
+                        toRemove.Add(p);
+                    }
                 }
-
             }
+            projectiles.RemoveAll(p => toRemove.Contains(p));
         }
 
         public void renderProjectiles()
@@ -117,7 +121,7 @@ namespace TGC.Group.Model
             foreach(Projectile p in projectiles)
             {
                 p.updateTimeSinceShot(GlobalConcepts.GetInstance().GetElapsedTime());
-                this.getMeshOBB().Transform(getShotMeshPosition(p));
+                this.getMeshOBB().Transform(getShotMeshTransformation(p));
                 this.getMeshOBB().Render();
             }
         }
@@ -134,7 +138,8 @@ namespace TGC.Group.Model
             return false;
         }
 
-        public abstract TGCMatrix getShotMeshPosition(Projectile p);
+        public abstract TGCMatrix getShotMeshTransformation(Projectile p);
+        public abstract TGCVector3 getShotMeshPosition(Projectile p);
 
         public virtual void Dispose()
         {
