@@ -79,7 +79,6 @@ namespace TGC.Group.Model
         public void Init(string mediaDir)
         {
 
-            List<TGCMatrix> transformaciones;
             GlobalConcepts GlobalConcepts = GlobalConcepts.GetInstance();
             TgcMesh plane;
             List<TgcMesh> list;
@@ -367,6 +366,8 @@ namespace TGC.Group.Model
             this.banio.AddElements(new SceneElement(list, GlobalConcepts.GenerateTransformation(new TGCVector3(0.1f, 0.1f, 0.1f), new TGCVector3(0, 0, 0), new TGCVector3(-108f, 11f, 294f))));
 
             //habitacion
+
+
 
             list = new List<TgcMesh>();
             list = this.GiveMeAMesh("MeshCreator\\Meshes\\Habitacion\\Cama\\Cama-TgcScene.xml");

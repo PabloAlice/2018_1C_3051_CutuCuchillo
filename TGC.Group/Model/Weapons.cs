@@ -13,8 +13,8 @@ namespace TGC.Group.Model
         // Scene object related methods and attributes
         private static MeshObb billet;
 
-        protected List<TGCVector3> positions;
-        private List<bool> isVisible;
+        protected TGCVector3 position;
+        protected bool inScene;
 
         protected TGCMatrix rotation, scalation;
         protected String billetPath, weaponPath;
@@ -29,13 +29,7 @@ namespace TGC.Group.Model
             //return billet.GetMesh();
             return null;
         }
-
-        public void addSceneWeapon(TGCVector3 position)
-        {
-            this.positions.Add(position);
-            this.isVisible.Add(true);
-        }
-        
+      
         public TgcBoundingAxisAlignBox GetBoundingAlignBox()
         {
             return billet.GetMesh().BoundingBox;
@@ -43,22 +37,18 @@ namespace TGC.Group.Model
 
         public void Render()
         {
-            UpdateRotation();
-
-            for(int i = 0; i < positions.Count(); i++)
+            if (inScene)
             {
-                if (isVisible[i])
-                {
-                    MeshObb weapon = getMeshOBB();
+                UpdateRotation();
 
-                    TGCMatrix translation = TGCMatrix.Translation(positions[i]);
+                TGCMatrix translation = TGCMatrix.Translation(position);
+                billet.Transform(TGCMatrix.Scaling(0.04f, 0.04f, 0.04f) * TGCMatrix.RotationYawPitchRoll(0f, -FastMath.PI_HALF, 0f) * rotation * translation * TGCMatrix.Translation(0f, 0.7f, 0f));
 
-                    billet.Transform(TGCMatrix.Scaling(0.04f, 0.04f, 0.04f) * TGCMatrix.RotationYawPitchRoll(0f, -FastMath.PI_HALF, 0f) * rotation * translation * TGCMatrix.Translation(0f, 0.7f, 0f));
-                    weapon.Transform(scalation * rotation * translation * GetHeight());
+                MeshObb weapon = getMeshOBB();
+                weapon.Transform(scalation * rotation * translation * GetHeight());
 
-                    billet.Render();
-                    weapon.Render();
-                }
+                billet.Render();
+                weapon.Render();
             }
         }
 
@@ -77,17 +67,28 @@ namespace TGC.Group.Model
 
         public void HandleCollisions(Vehicle car)
         {
-            for (int i = 0; i < positions.Count(); i++)
+            if (TgcCollisionUtils.testObbObb(car.GetTGCBoundingOrientedBox(), billet.GetObb()) && inScene)
             {
-                if (TgcCollisionUtils.testObbObb(car.GetTGCBoundingOrientedBox(), billet.GetObb()) && isVisible[i])
-                {
-                    // Agregar logica para chequear si debe agregar el elemento (si le faltan municiones, si tiene ya este tipo de arma....)
-                    car.addWeapon(this);
-                    this.isVisible[i] = false;
-                }
+                // Agregar logica para chequear si debe agregar el elemento (si le faltan municiones, si tiene ya este tipo de arma....)
+                car.setWeapon(this);
+                this.inScene = false;
             }
         }
+
+        public void enableInScene()
+        {
+            this.inScene = true;
+        }
         
+        public void setPosition(TGCVector3 position)
+        {
+            // Osea que si le das una posicion, lo va a poner en la escena, sino (como el caso de la DefaultWeapon) no lo pone un carajo
+            this.position = position;
+            this.inScene = true;
+        }
+
+
+
 
 
         // Projectile related methods and attributes
@@ -99,12 +100,23 @@ namespace TGC.Group.Model
             this.projectiles.Add(p);
         }
 
+        private bool colisionan(Projectile p, Collidable c)
+        {
+            this.getMeshOBB().Transform(getShotMeshTransformation(p));
+            return TgcCollisionUtils.testAABBAABB(this.getMeshOBB().GetBoundingAlignBox(), c.GetBoundingAlignBox());
+        }
+
+        public void updateProjectiles()
+        {
+            projectiles.RemoveAll(p => p.getTimeSinceShot() > 1 || Scene.GetInstance().GetPosiblesCollidables().Exists(c => colisionan(p, c)));
+        }
+
         public void renderProjectiles()
         {
             foreach(Projectile p in projectiles)
             {
                 p.updateTimeSinceShot(GlobalConcepts.GetInstance().GetElapsedTime());
-                this.getMeshOBB().Transform(getShotMeshPosition(p));
+                this.getMeshOBB().Transform(getShotMeshTransformation(p));
                 this.getMeshOBB().Render();
             }
         }
@@ -112,11 +124,21 @@ namespace TGC.Group.Model
         public abstract MeshObb getMeshOBB();
         public abstract void setMeshOBB(MeshObb mesh);
 
-        public abstract TGCMatrix getShotMeshPosition(Projectile p);
+        public bool HasRemainingProjectiles()
+        {
+            if(projectiles.Count() > 0)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public abstract TGCMatrix getShotMeshTransformation(Projectile p);
 
         public virtual void Dispose()
         {
             billet.Dispose();
+            this.getMeshOBB().Dispose();
         }
 
     }

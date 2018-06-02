@@ -4,9 +4,10 @@ namespace TGC.Group.Model
 {
     interface IShootable
     {
+        bool HasRemainingProjectiles();
 
-        TGCMatrix getShotMeshPosition(Projectile p);
-
+        TGCMatrix getShotMeshTransformation(Projectile p);
+        void updateProjectiles();
         void addProjectile(Projectile p);
 
         void renderProjectiles();

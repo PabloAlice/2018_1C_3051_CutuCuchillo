@@ -25,7 +25,7 @@ namespace TGC.Group.Model
             throw new NotImplementedException();
         }
 
-        public override TGCMatrix getShotMeshPosition(Projectile p)
+        public override TGCMatrix getShotMeshTransformation(Projectile p)
         {
             throw new NotImplementedException();
         }
