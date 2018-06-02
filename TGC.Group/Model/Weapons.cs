@@ -99,21 +99,15 @@ namespace TGC.Group.Model
             this.projectiles.Add(p);
         }
 
+        private bool colisionan(Projectile p, Collidable c)
+        {
+            this.getMeshOBB().Transform(getShotMeshTransformation(p));
+            return TgcCollisionUtils.testAABBAABB(this.getMeshOBB().GetBoundingAlignBox(), c.GetBoundingAlignBox());
+        }
+
         public void updateProjectiles()
         {
-            List<Projectile> toRemove = new List<Projectile>();
-            foreach(Projectile p in projectiles)
-            {
-                foreach(Collidable c in Scene.GetInstance().GetPosiblesCollidables())
-                {
-                    this.getMeshOBB().Transform(getShotMeshTransformation(p));
-                    if (TgcCollisionUtils.testAABBAABB(this.getMeshOBB().GetBoundingAlignBox(), c.GetBoundingAlignBox()))
-                    {
-                        toRemove.Add(p);
-                    }
-                }
-            }
-            projectiles.RemoveAll(p => toRemove.Contains(p));
+            projectiles.RemoveAll(p => p.getTimeSinceShot() > 1 || Scene.GetInstance().GetPosiblesCollidables().Exists(c => colisionan(p, c)));
         }
 
         public void renderProjectiles()
@@ -139,11 +133,11 @@ namespace TGC.Group.Model
         }
 
         public abstract TGCMatrix getShotMeshTransformation(Projectile p);
-        public abstract TGCVector3 getShotMeshPosition(Projectile p);
 
         public virtual void Dispose()
         {
             billet.Dispose();
+            this.getMeshOBB().Dispose();
         }
 
     }
