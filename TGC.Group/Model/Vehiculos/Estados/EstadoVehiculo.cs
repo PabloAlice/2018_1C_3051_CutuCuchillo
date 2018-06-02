@@ -80,14 +80,9 @@ namespace TGC.Group.Model.Vehiculos.Estados
             return null;
         }
 
-        private bool IsInFrontOf(TGCVector3 testpoint, TGCPlane plane)
-        {
-            return plane.A * testpoint.X + plane.B * testpoint.Y + plane.C * testpoint.Z + plane.D > 0;
-        }
-
         private TGCPlane SelectPlane(List<TGCPlane> planes, TGCVector3 testPoint)
         {
-            planes.Sort((x, y) => IsInFrontOf(testPoint, x).CompareTo(IsInFrontOf(testPoint, y)));
+            planes.Sort((x, y) => (int)TgcCollisionUtils.distPointPlane(testPoint, y) - (int)TgcCollisionUtils.distPointPlane(testPoint, x));
             return planes[0];
         }
 
