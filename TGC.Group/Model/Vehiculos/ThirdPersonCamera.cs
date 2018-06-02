@@ -2,6 +2,8 @@
 using TGC.Core.Mathematica;
 using TGC.Core.Collision;
 using TGC.Core.BoundingVolumes;
+using TGC.Core.Input;
+using Microsoft.DirectX.DirectInput;
 
 namespace TGC.Group.Model
 {
@@ -23,6 +25,36 @@ namespace TGC.Group.Model
             Target = target;
             OffsetHeight = offsetHeight;
             OffsetForward = offsetForward;
+        }
+
+        public void Update(TgcD3dInput input)
+        {
+            if (input.keyDown(Key.NumPad4))
+            {
+                this.rotateY(-0.005f);
+            }
+            if (input.keyDown(Key.NumPad6))
+            {
+                this.rotateY(0.005f);
+            }
+
+            if (input.keyDown(Key.RightArrow))
+            {
+                this.OffsetHeight += 0.05f;
+            }
+            if (input.keyDown(Key.LeftArrow))
+            {
+                this.OffsetHeight -= 0.05f;
+            }
+
+            if (input.keyDown(Key.UpArrow))
+            {
+                this.OffsetForward += 0.05f;
+            }
+            if (input.keyDown(Key.DownArrow))
+            {
+                this.OffsetForward -= 0.05f;
+            }
         }
 
         public TGCVector3 GetNormal()

@@ -97,7 +97,7 @@
     <Compile Include="Model\CustomBitmap.cs" />
     <Compile Include="Model\CustomSprite.cs" />
     <Compile Include="Model\Drawer2D.cs" />
-    <Compile Include="Model\ThirdPersonCamera.cs" />
+    <Compile Include="Model\Vehiculos\ThirdPersonCamera.cs" />
     <Compile Include="Model\Collidable.cs" />
     <Compile Include="Model\GlobalConcepts.cs" />
     <Compile Include="Model\DefaultWeapon.cs" />
@@ -117,14 +117,7 @@
     <Compile Include="Model\OperationsWithVectors.cs" />
     <Compile Include="Model\GameModel.cs" />
     <Compile Include="Model\Timer.cs" />
-    <Compile Include="Model\Vehiculos\Estados\Frozen.cs" />
-    <Compile Include="Model\Vehiculos\SoundsManagerLegacy.cs" />
     <Compile Include="Model\Vehiculos\Wheel.cs" />
-    <Compile Include="Model\Vehiculos\Estados\Forward.cs" />
-    <Compile Include="Model\Vehiculos\Estados\Backward.cs" />
-    <Compile Include="Model\Vehiculos\Estados\Jumping.cs" />
-    <Compile Include="Model\Vehiculos\Estados\Stopped.cs" />
-    <Compile Include="Model\Vehiculos\Estados\EstadoVehiculo.cs" />
     <Compile Include="Model\Vehiculos\Van.cs" />
     <Compile Include="Model\Vehiculos\SoundsManager.cs" />
     <Compile Include="Model\Vehiculos\Vehicle.cs" />

@@ -61,7 +61,7 @@ namespace TGC.Group.Model
             var acos = (float)Math.Acos(dot / modulusProduct);
             var yCross = TGCVector3.Cross(car.vectorAdelante, this.outDirection).Y;
             car.Girar((yCross > 0) ? acos : -acos);
-            if (car.GetVelocidadActual() < 0)
+            if (car.GetXZVelocity() < 0)
             {
                 car.Girar(FastMath.PI);
             }

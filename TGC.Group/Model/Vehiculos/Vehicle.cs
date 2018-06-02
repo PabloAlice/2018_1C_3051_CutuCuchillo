@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using TGC.Core.Mathematica;
 using TGC.Core.SceneLoader;
-using TGC.Group.Model.Vehiculos.Estados;
 using TGC.Group.Model.Vehiculos;
 using TGC.Core.BoundingVolumes;
 using TGC.Core.Input;
 using Microsoft.DirectX.DirectInput;
+using System;
 
 namespace TGC.Group.Model
 {
@@ -13,9 +13,9 @@ namespace TGC.Group.Model
     {
 
         public TgcMesh mesh;
-        private BoundingOrientedBox obb;
-        private Timer deltaTiempoAvance;
-        private Timer deltaTiempoSalto;
+        private BoundingOrientedBox obb { get; set; }
+        private Timer deltaTiempoAvance { get; set; }
+        private Timer deltaTiempoSalto { get; set; }
         public TGCVector3 vectorAdelante;
         public TGCVector3 VectorAdelanteSalto { get; set; }
         private TransformationMatrix matrixs;
@@ -23,19 +23,17 @@ namespace TGC.Group.Model
         protected Wheel delanteraIzquierda;
         protected Wheel delanteraDerecha;
         protected TGCVector3 vectorDireccion;
-        private EstadoVehiculo estado;
-        private float velocidadActual = 0f;
-        private float velocidadActualDeSalto;
+        private TGCVector3 Velocity;
+        private TGCVector3 FinalForce { get; set; }
         protected float velocidadRotacion = 1f;
-        protected float velocidadInicialDeSalto = 15f;
         protected float velocidadMaximaDeAvance = 60f;
         protected float velocidadMaximaDeRetroceso;
-        protected float aceleracionAvance = 0.3f;
-        protected float aceleracionRetroceso;
-        private float aceleracionGravedad = 0.5f;
-        private float elapsedTime = 0f;
-        protected float constanteDeRozamiento = 0.2f;
-        protected float constanteFrenado = 1f;
+        private float elapsedTime { get; set; } = 0f;
+        protected float constanteDeRozamiento { get; set; } = 0.2f;
+        private TGCVector3 GravityForce = new TGCVector3(0, -10f, 0);
+        private float EngineForce = 50f;
+        private float BrakeForce = 100f;
+        private float Mass = 10f;
         public SoundsManager SoundsManager { get; set; }
         protected TGCVector3 escaladoInicial = new TGCVector3(0.005f, 0.005f, 0.005f);
         //se guarda el traslado inicial porque se usa como pivote
@@ -54,12 +52,11 @@ namespace TGC.Group.Model
             this.SoundsManager = soundsManager;
             this.vectorAdelante = new TGCVector3(0, 0, 1);
             this.CrearMesh(GlobalConcepts.GetInstance().GetMediaDir() + "meshCreator\\meshes\\Vehiculos\\Camioneta\\Camioneta-TgcScene.xml", posicionInicial);
-            this.velocidadActualDeSalto = this.velocidadInicialDeSalto;
+            this.Velocity = new TGCVector3(0, 0, 0);
+            this.FinalForce = new TGCVector3(0, 0, 0);
             this.deltaTiempoAvance = new Timer();
             this.deltaTiempoSalto = new Timer();
-            this.aceleracionRetroceso = this.aceleracionAvance * 0.8f;
             this.vectorDireccion = this.vectorAdelante;
-            this.estado = new Stopped(this);
             this.mesh.BoundingBox.transform(this.matrixs.GetTransformation());
             this.obb = new BoundingOrientedBox(this.mesh.BoundingBox);
             this.weapons.Add(new DefaultWeapon());
@@ -69,7 +66,7 @@ namespace TGC.Group.Model
 
         public TGCVector3 GetDirectionOfCollision()
         {
-            return (this.velocidadActual >= 0) ? this.vectorAdelante : -this.vectorAdelante;
+            return this.Velocity;
         }
 
         public ThirdPersonCamera GetCamara()
@@ -86,11 +83,6 @@ namespace TGC.Group.Model
         {
             this.matrixs.SetTranslation(newTranslate);
             this.Transform();
-        }
-
-        public EstadoVehiculo GetEstado()
-        {
-            return estado;
         }
 
         public void RotateOBB(float rotacion)
@@ -137,17 +129,24 @@ namespace TGC.Group.Model
         //sirve para imprimirlo por pantalla
         public float GetVelocidadActualDeSalto()
         {
-            return this.velocidadActualDeSalto;
+            return this.Velocity.Y;
         }
 
-        public float VelocidadFisica()
+        private TGCVector3 GetAcceleration()
         {
-            return System.Math.Min(this.velocidadMaximaDeAvance, this.velocidadActual + this.aceleracionAvance * this.deltaTiempoAvance.tiempoTranscurrido());
+            return this.FinalForce * (1 / this.Mass);
         }
 
-        public float VelocidadFisicaRetroceso()
+        public TGCVector3 ApplyForce(TGCVector3 force)
         {
-            return System.Math.Max(-this.velocidadMaximaDeRetroceso, this.velocidadActual + (-this.aceleracionRetroceso) * this.deltaTiempoAvance.tiempoTranscurrido());
+            this.FinalForce = FinalForce + force;
+            return this.FinalForce;
+        }
+
+        public void UpdateVelocity()
+        {
+            this.Velocity = this.Velocity + this.GetAcceleration() * this.elapsedTime;
+            Console.WriteLine(this.GetAcceleration());
         }
 
         public TGCVector3 GetVectorAdelante()
@@ -157,20 +156,23 @@ namespace TGC.Group.Model
 
         public void Girar(float rotacionReal)
         {
-            var rotacionRueda = (rotacionReal > 0) ? 1f * this.GetElapsedTime() : -1f * this.GetElapsedTime();
+            var rotacionRueda = (rotacionReal > 0) ? 1f * this.elapsedTime : -1f * this.elapsedTime;
             TGCMatrix matrizDeRotacion = TGCMatrix.RotationY(rotacionReal);
             this.Rotate(rotacionReal);
             this.vectorAdelante.TransformCoordinate(matrizDeRotacion);
-            this.RotarDelanteras((this.GetVelocidadActual() > 0) ? rotacionRueda : -rotacionRueda);
+            this.RotarDelanteras((this.GetXZVelocity() > 0) ? rotacionRueda : -rotacionRueda);
             this.camara.rotateY(rotacionReal);
             this.RotateOBB(rotacionReal);
         }
 
+        public float GetXZVelocity()
+        {
+            return new TGCVector2(this.Velocity.X, this.Velocity.Z).Length();
+        }
        
         public void SetElapsedTime(float time)
         {
             this.elapsedTime = time;
-            System.Console.WriteLine(this.GetEstado().ToString());
             if(this.deltaTiempoAvance.tiempoTranscurrido() != 0)
             {
                 this.deltaTiempoAvance.acumularTiempo(this.elapsedTime);
@@ -179,23 +181,12 @@ namespace TGC.Group.Model
             {
                 this.deltaTiempoSalto.acumularTiempo(this.elapsedTime);
             }
-
-        }
-
-        public float GetVelocidadActual()
-        {
-            return this.velocidadActual;
-        }
-
-        private void RenderBoundingOrientedBox()
-        {
-            this.obb.Render();
         }
 
         public void Render()
         {
             this.mesh.Render();
-            this.RenderBoundingOrientedBox();
+            this.obb.Render();
             delanteraIzquierda.Render();
             delanteraDerecha.Render();
             foreach (var rueda in this.ruedas)
@@ -240,65 +231,15 @@ namespace TGC.Group.Model
             this.mesh.Dispose();
         }
 
-        public Timer GetDeltaTiempoAvance()
-        {
-            return this.deltaTiempoAvance;
-        }
-
-        public float GetElapsedTime()
-        {
-            return this.elapsedTime;
-        }
-
-        public void SetVelocidadActual(float nuevaVelocidad)
-        {
-            this.velocidadActual = nuevaVelocidad;
-        }
-
-        public void SetEstado(EstadoVehiculo estado)
-        {
-            this.estado = estado;
-        }
-
-        public void SetVelocidadActualDeSalto(float velocidad)
-        {
-            this.velocidadActualDeSalto = velocidad;
-        }
-
-        public float GetAceleracionGravedad()
-        {
-            return this.aceleracionGravedad;
-        }
-
-        public Timer GetDeltaTiempoSalto()
-        {
-            return this.deltaTiempoSalto;
-        }
-
-        public float GetVelocidadMaximaDeSalto()
-        {
-            return this.velocidadInicialDeSalto;
-        }
-
-        public float GetConstanteRozamiento()
-        {
-            return this.constanteDeRozamiento;
-        }
-
-        public float GetConstanteFrenado()
-        {
-            return this.constanteFrenado;
-        }
-
         public void Move(TGCVector3 desplazamiento)
         {
 
             this.matrixs.Translate(TGCMatrix.Translation(desplazamiento));
-            this.delanteraIzquierda.RotateX(this.GetVelocidadActual());
-            this.delanteraDerecha.RotateX(this.GetVelocidadActual());
+            this.delanteraIzquierda.RotateX(this.GetXZVelocity());
+            this.delanteraDerecha.RotateX(this.GetXZVelocity());
             foreach (var rueda in this.ruedas)
             {
-                rueda.RotateX(this.GetVelocidadActual());
+                rueda.RotateX(this.GetXZVelocity());
             }
         }
 
@@ -367,41 +308,21 @@ namespace TGC.Group.Model
             this.life = (this.life - 5f < 0) ? 0 : this.life - 5f;
         }
 
+        private void ApplyFrictionForce(float constant = 0.2f)
+        {
+            if (this.GetXZVelocity() < 0.01) return;
+            this.ApplyForce(this.Velocity * (1/ this.Velocity.Length()) * (-constant) * this.Mass * this.GravityForce.Length());
+        }
+
         public void Action(TgcD3dInput input, CustomSprite velocimetro, CustomSprite bar)
         {
             this.lastTransformation = this.matrixs.GetTransformation();
-            this.SoundsManager.Update(this.velocidadActual);
+            this.SoundsManager.Update(this.GetXZVelocity());
 
-            if (input.keyDown(Key.NumPad4))
-            {
-                this.camara.rotateY(-0.005f);
-            }
-            if (input.keyDown(Key.NumPad6))
-            {
-                this.camara.rotateY(0.005f);
-            }
-
-            if (input.keyDown(Key.RightArrow))
-            {
-                this.camara.OffsetHeight += 0.05f;
-            }
-            if (input.keyDown(Key.LeftArrow))
-            {
-                this.camara.OffsetHeight -= 0.05f;
-            }
-
-            if (input.keyDown(Key.UpArrow))
-            {
-                this.camara.OffsetForward += 0.05f;
-            }
-            if (input.keyDown(Key.DownArrow))
-            {
-                this.camara.OffsetForward -= 0.05f;
-            }
-
+            this.camara.Update(input);
             if (input.keyDown(Key.W))
             {
-                this.estado.Advance();
+                this.ApplyForce(this.vectorAdelante * this.EngineForce);
             }
             else
             {
@@ -414,32 +335,33 @@ namespace TGC.Group.Model
             {
                 //int freq = (int)(this.constanteFrenado / this.GetElapsedTime());
                 //this.SoundsManager.SetDesAccFrequency(freq);
-                this.estado.Back();
+                this.ApplyForce(-this.vectorAdelante * this.EngineForce);
             }
+            if (this.GetXZVelocity() != 0) {
+                if (input.keyDown(Key.D))
+                {
+                    float rotacionReal = this.GetVelocidadDeRotacion() * this.elapsedTime;
+                    rotacionReal = (TGCVector3.Dot(this.Velocity, this.vectorAdelante) > 0) ? rotacionReal : -rotacionReal;
+                    this.Girar(rotacionReal);
 
-            if (input.keyDown(Key.D))
-            {
-                this.estado.Right();
-
-            }
-            else if (input.keyDown(Key.A))
-            {
-                this.estado.Left();
+                }
+                else if (input.keyDown(Key.A))
+                {
+                    float rotacionReal = this.GetVelocidadDeRotacion() * this.elapsedTime;
+                    rotacionReal = (TGCVector3.Dot(this.Velocity, this.vectorAdelante) < 0) ? rotacionReal : -rotacionReal;
+                    this.Girar(rotacionReal);
+                }
             }
 
             if (!input.keyDown(Key.A) && !input.keyDown(Key.D))
             {
-                this.estado.UpdateWheels();
+                var rotacionReal = this.GetVelocidadDeRotacion() * this.elapsedTime;
+                this.UpdateFrontWheels(rotacionReal);
             }
 
             if (input.keyDown(Key.Space))
             {
-                this.estado.Jump();
-            }
-
-            if (!input.keyDown(Key.W) && !input.keyDown(Key.S))
-            {
-                this.estado.SpeedUpdate();
+                this.ApplyForce(new TGCVector3(0, 100f, 0));
             }
 
             if (input.keyDown(Key.P))
@@ -461,17 +383,10 @@ namespace TGC.Group.Model
             {
                 this.SoundsManager.Alarm();
             }
-
-            if (input.keyDown(Key.C))
-            {
-                estado = new Frozen(this);
-            }
-
-            this.estado.JumpUpdate();
-            this.estado.FrozenTimeUpdate();
-            float velocidadMaxima = (this.velocidadActual < 0) ? this.velocidadMaximaDeRetroceso : this.velocidadMaximaDeAvance;
-            float maxAngle = (this.velocidadActual > 0) ? FastMath.PI + FastMath.PI / 3 : FastMath.PI_HALF;
-            velocimetro.Rotation = (FastMath.Abs(this.velocidadActual) * (maxAngle)) / velocidadMaxima - FastMath.PI;
+            this.UpdateVelocity();
+            float velocidadMaxima = (this.GetXZVelocity() < 0) ? this.velocidadMaximaDeRetroceso : this.velocidadMaximaDeAvance;
+            float maxAngle = (this.GetXZVelocity() > 0) ? FastMath.PI + FastMath.PI / 3 : FastMath.PI_HALF;
+            velocimetro.Rotation = (FastMath.Abs(this.GetXZVelocity()) * (maxAngle)) / velocidadMaxima - FastMath.PI;
             bar.Scaling = new TGCVector2((this.life * 0.07f) / 100f, 0.05f);
             this.camara.Target = (this.GetPosicion()) + this.GetVectorAdelante() * 30;
         }

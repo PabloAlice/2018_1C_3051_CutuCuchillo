@@ -103,7 +103,7 @@ namespace TGC.Group.Model
             string dialogo;
 
             dialogo = "Velocidad = {0}km";
-            dialogo = string.Format(dialogo, auto.GetVelocidadActual());
+            dialogo = string.Format(dialogo, auto.GetXZVelocity());
             textoVelocidadVehiculo = Text.newText(dialogo, 120, 10);
 
             dialogo = "Posicion = ({0} | {1} | {2})";
