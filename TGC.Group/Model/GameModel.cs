@@ -27,7 +27,7 @@ namespace TGC.Group.Model
         private TgcText2D textoVelocidadVehiculo, textoOffsetH, textoOffsetF, textoPosicionVehiculo, textoVectorAdelante;
         private Drawer2D drawer;
         private CustomSprite velocimeter, arrowVelocimeter, barOfLifeGreen, barOfLifeRed, menuBackground, pressStart;
-        private bool enterMenu = true;
+        private bool enterMenu = false;
 
         public override void Init()
         {

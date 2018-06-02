@@ -61,23 +61,27 @@ namespace TGC.Group.Model.Vehiculos.Estados
             TGCVector3 nuevoDesplazamiento = new TGCVector3(0, desplazamientoEnY, 0);
             TGCVector3 cuenta = nuevoDesplazamiento + auto.VectorAdelanteSalto * this.initialSpeed * auto.GetElapsedTime();
             this.Move(nuevoDesplazamiento + auto.VectorAdelanteSalto * this.initialSpeed * auto.GetElapsedTime());
-            if(this.IsCollidingWithFloor())
+            var posiblePiso = this.GetCollidingFloor();
+            if((posiblePiso!=null))
             {
-                this.Move(-cuenta);
-                auto.GetDeltaTiempoSalto().resetear();
-                auto.SetVelocidadActualDeSalto(auto.GetVelocidadMaximaDeSalto());
-                this.auto.SoundsManager.Drop();
-                if (auto.GetVelocidadActual() > 0)
+                if (IsReallyTheFloor(posiblePiso))
                 {
-                    this.auto.SetEstado(new Forward(this.auto));
-                }
-                else if (auto.GetVelocidadActual() < 0)
-                {
-                    this.auto.SetEstado(new Backward(this.auto));
-                }
-                else
-                {
-                    this.auto.SetEstado(new Stopped(this.auto));
+                    this.Move(-cuenta);
+                    auto.GetDeltaTiempoSalto().resetear();
+                    auto.SetVelocidadActualDeSalto(auto.GetVelocidadMaximaDeSalto());
+                    this.auto.SoundsManager.Drop();
+                    if (auto.GetVelocidadActual() > 0)
+                    {
+                        this.auto.SetEstado(new Forward(this.auto));
+                    }
+                    else if (auto.GetVelocidadActual() < 0)
+                    {
+                        this.auto.SetEstado(new Backward(this.auto));
+                    }
+                    else
+                    {
+                        this.auto.SetEstado(new Stopped(this.auto));
+                    }
                 }
             }
         }

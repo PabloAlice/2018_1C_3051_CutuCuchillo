@@ -26,7 +26,8 @@ namespace TGC.Group.Model
 
         public TgcMesh GetCollidable(Vehicle car)
         {
-            return billet.GetMesh();
+            //return billet.GetMesh();
+            return null;
         }
 
         public void addSceneWeapon(TGCVector3 position)

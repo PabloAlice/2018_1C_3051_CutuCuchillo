@@ -6,6 +6,7 @@ using TGC.Group.Model.Vehiculos;
 using TGC.Core.BoundingVolumes;
 using TGC.Core.Input;
 using Microsoft.DirectX.DirectInput;
+using TGC.Core.Geometry;
 
 namespace TGC.Group.Model
 {
@@ -43,6 +44,7 @@ namespace TGC.Group.Model
         protected ThirdPersonCamera camara;
         protected TGCMatrix lastTransformation;
         protected float life = 100f;
+        public List<TgcArrow> arrows = new List<TgcArrow>();
 
         private List<IShootable> weapons = new List<IShootable>();
         private int currentWeaponIndex = 0;
@@ -206,6 +208,7 @@ namespace TGC.Group.Model
             {
                 w.renderProjectiles();
             }
+            arrows.ForEach(x => x.Render());
         }
 
         //-------------------------------------------------------
@@ -300,6 +303,7 @@ namespace TGC.Group.Model
             {
                 rueda.RotateX(this.GetVelocidadActual());
             }
+            Transform();
         }
 
         public void Translate(TGCMatrix displacement)

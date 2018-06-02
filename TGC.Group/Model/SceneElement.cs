@@ -31,7 +31,7 @@ namespace TGC.Group.Model
                 }
             }
 
-            return elementos[0];
+            return null;
         }
 
         public SceneElement(List<TgcMesh> elementos)

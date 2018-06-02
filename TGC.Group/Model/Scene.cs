@@ -85,8 +85,9 @@ namespace TGC.Group.Model
             List<TgcMesh> list;
             SceneElement aux;
 
-            TgcScene escena = new TgcSceneLoader().loadSceneFromFile(GlobalConcepts.GetInstance().GetMediaDir() + "Texturas\\Habitacion\\escenaFinal-TgcScene.xml");
+            TgcScene escena = new TgcSceneLoader().loadSceneFromFile(GlobalConcepts.GetInstance().GetMediaDir() + "Texturas\\Habitacion\\eee-TgcScene.xml");
             //piso habitacion
+            
             plane = escena.Meshes[0];
             list = new List<TgcMesh>();
             list.Add(plane);
@@ -228,12 +229,12 @@ namespace TGC.Group.Model
             list = new List<TgcMesh>();
             list.Add(plane);
             this.cocina.AddElements(new SceneElement(list, TGCMatrix.Scaling(new TGCVector3(1, 1, 1)) * TGCMatrix.RotationYawPitchRoll(0, 0, 0) * TGCMatrix.Translation(new TGCVector3(0, 0, 0))));
-
+            
             plane = escena.Meshes[26];
             list = new List<TgcMesh>();
             list.Add(plane);
-            this.cocina.AddElements(new SceneElement(list, TGCMatrix.Scaling(new TGCVector3(1, 1, 1)) * TGCMatrix.RotationYawPitchRoll(0, 0, 0) * TGCMatrix.Translation(new TGCVector3(0, 0, 0))));
-
+            this.habitacion.AddElements(new SceneElement(list, TGCMatrix.Scaling(new TGCVector3(1, 1, 1)) * TGCMatrix.RotationYawPitchRoll(0, 0, 0) * TGCMatrix.Translation(new TGCVector3(0, 0, 0))));
+            
             //cocina
             list = new List<TgcMesh>();
             list = this.GiveMeAMesh("MeshCreator\\Meshes\\Cocina\\DispenserAgua\\DispenserAgua-TgcScene.xml");
@@ -535,7 +536,7 @@ namespace TGC.Group.Model
             portal = new Portal(new TGCVector3(-35f, 0, -173f), transformation);
             targetPosition = new TGCVector3(34, 32, -159);
             this.habitacion.AddElements(new UnidirectionalPortal(portal, targetPosition, new TGCVector3(-1, 0, 0), unidirectional));
-
+            
         }
 
         private List<TgcMesh> GiveMeAMesh(string ruta)

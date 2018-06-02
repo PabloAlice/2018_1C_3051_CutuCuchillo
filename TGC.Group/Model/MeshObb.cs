@@ -19,7 +19,8 @@ namespace TGC.Group.Model
 
         public TgcMesh GetCollidable(Vehicle car)
         {
-            return this.mesh;
+            //return this.mesh;
+            return null;
         }
 
         public void ActualizarBoundingOrientedBox()
@@ -78,9 +79,11 @@ namespace TGC.Group.Model
 
         private TgcRay GenerateRay(TGCVector3 origin, TGCVector3 direction)
         {
-            TgcRay ray = new TgcRay();
-            ray.Origin = origin;
-            ray.Direction = direction;
+            TgcRay ray = new TgcRay
+            {
+                Origin = origin,
+                Direction = direction
+            };
             return ray;
         }
 

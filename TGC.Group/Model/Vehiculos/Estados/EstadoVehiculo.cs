@@ -5,6 +5,7 @@ using TGC.Core.Collision;
 using TGC.Core.SceneLoader;
 using System.Collections.Generic;
 using TGC.Core.BoundingVolumes;
+using TGC.Core.Geometry;
 
 namespace TGC.Group.Model.Vehiculos.Estados
 {
@@ -27,20 +28,24 @@ namespace TGC.Group.Model.Vehiculos.Estados
         virtual public void JumpUpdate()
         {
             float desplazamientoEnY = -1f;
-            System.Console.WriteLine("Posicion en Y: {0}", this.auto.GetPosicion().Y);
             TGCVector3 nuevoDesplazamiento = new TGCVector3(0, desplazamientoEnY, 0);
-            System.Console.WriteLine("Lo voy a mover: {0}", desplazamientoEnY);
             this.Move(nuevoDesplazamiento);
-            System.Console.WriteLine("Posicion en Y despues de mover: {0}", this.auto.GetPosicion().Y);
-            if (!this.IsCollidingWithFloor())
+            var posiblePiso = this.GetCollidingFloor();
+            if (posiblePiso == null)
             {
-                System.Console.WriteLine("No colisione");
                 this.auto.GetDeltaTiempoSalto().resetear();
                 this.auto.GetDeltaTiempoSalto().acumularTiempo(this.auto.GetElapsedTime());
                 this.auto.SetVelocidadActualDeSalto(0);
                 this.auto.SetEstado(new Jumping(this.auto));
             }
-            this.Move(-nuevoDesplazamiento);
+            else
+            {
+                if (IsReallyTheFloor(posiblePiso))
+                {
+                    this.Move(-nuevoDesplazamiento);
+                }
+            }
+
             /*{
                 auto.GetDeltaTiempoSalto().resetear();
                 auto.SetVelocidadActualDeSalto(auto.GetVelocidadMaximaDeSalto());
@@ -60,18 +65,19 @@ namespace TGC.Group.Model.Vehiculos.Estados
             }*/
         }
 
-        protected bool IsCollidingWithFloor()
+        protected TgcMesh GetCollidingFloor()
         {
             List<Collidable> list = Scene.GetInstance().GetPosiblesCollidables();
             foreach (Collidable element in list)
             {
-                if (TgcCollisionUtils.testObbAABB(this.auto.GetTGCBoundingOrientedBox(), element.GetCollidable(this.auto).BoundingBox) || this.auto.GetPosicion().Y < 0)
+                var meshito = element.GetCollidable(this.auto);
+                if(meshito != null)
                 {
-                    TgcMesh realMesh = element.GetCollidable(this.auto);
-                    return this.IsReallyTheFloor(realMesh);
+                    return meshito;
                 }
+
             }
-            return false;
+            return null;
         }
 
         private bool IsInFrontOf(TGCVector3 testpoint, TGCPlane plane)
@@ -82,15 +88,6 @@ namespace TGC.Group.Model.Vehiculos.Estados
         private TGCPlane SelectPlane(List<TGCPlane> planes, TGCVector3 testPoint)
         {
             planes.Sort((x, y) => IsInFrontOf(testPoint, x).CompareTo(IsInFrontOf(testPoint, y)));
-            planes.Reverse();
-            foreach (TGCPlane plane in planes)
-            {
-                System.Console.WriteLine(")))))))))))))))))))))))))))))))))))))))))))))))))");
-                System.Console.WriteLine(")))))))))))))))))))))))))))))))))))))))))))))))))");
-                System.Console.WriteLine("Plano: ({0},{1},{2})", plane.A, plane.B, plane.C);
-                System.Console.WriteLine(")))))))))))))))))))))))))))))))))))))))))))))))))");
-                System.Console.WriteLine(")))))))))))))))))))))))))))))))))))))))))))))))))");
-            }
             return planes[0];
         }
 
@@ -111,23 +108,20 @@ namespace TGC.Group.Model.Vehiculos.Estados
 
         }
 
-        private bool IsReallyTheFloor(TgcMesh element)
+        protected bool IsReallyTheFloor(TgcMesh element)
         {
-            TGCVector3 directionOfCollision = new TGCVector3(0, -1, 0);
+            TGCVector3 directionOfCollision = new TGCVector3(0, -1f, 0);
             TgcRay ray = new TgcRay();
-            ray.Origin = this.auto.GetLastPosition();
-            System.Console.WriteLine("POSICION: ({0};{1};{2})", ray.Origin.X, ray.Origin.Y, ray.Origin.Z);
+            TgcArrow arrow = TgcArrow.fromDirection(this.auto.GetLastPosition(), directionOfCollision);
+            this.auto.arrows.Add(arrow);
+            ray.Origin = this.auto.GetLastPosition() + new TGCVector3(0,10f,0);
             ray.Direction = directionOfCollision;
+            Console.WriteLine(ray.Direction);
             TgcBoundingAxisAlignBox.Face[] faces;
             faces = element.BoundingBox.computeFaces();
             TGCPlane plane = this.CreatePlane(ray, faces, this.auto.GetLastPosition());
             TGCVector3 normal = GlobalConcepts.GetInstance().GetNormalPlane(plane);
-            System.Console.WriteLine("//////////////////////////////////////////////////////");
-            System.Console.WriteLine("//////////////////////////////////////////////////////");
-            System.Console.WriteLine("Normal: ({0},{1},{2})", normal.X, normal.Y, normal.Z);
-            System.Console.WriteLine("//////////////////////////////////////////////////////");
-            System.Console.WriteLine("//////////////////////////////////////////////////////");
-            if (normal == new TGCVector3(0, 1, 0))
+            if (normal != new TGCVector3(0, 1, 0))
             {
                 return false;
             }

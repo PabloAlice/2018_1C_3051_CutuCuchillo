@@ -20,7 +20,8 @@ namespace TGC.Group.Model
 
         public TgcMesh GetCollidable(Vehicle car)
         {
-            return originPortal.mesh;
+            //return originPortal.mesh;
+            return null;
         }
 
         public TgcBoundingAxisAlignBox GetBoundingAlignBox()
