@@ -60,8 +60,8 @@ namespace TGC.Group.Model.Vehiculos.Estados
             float desplazamientoEnY = auto.GetVelocidadActualDeSalto() * auto.GetElapsedTime();
             TGCVector3 nuevoDesplazamiento = new TGCVector3(0, desplazamientoEnY, 0);
             TGCVector3 cuenta = nuevoDesplazamiento + auto.VectorAdelanteSalto * this.initialSpeed * auto.GetElapsedTime();
-            this.Move(nuevoDesplazamiento + auto.VectorAdelanteSalto * this.initialSpeed * auto.GetElapsedTime());
-            var posiblePiso = this.GetCollidingFloor();
+            this.Move(cuenta);
+            var posiblePiso = this.GetColliding();
             if((posiblePiso!=null))
             {
                 if (IsReallyTheFloor(posiblePiso))

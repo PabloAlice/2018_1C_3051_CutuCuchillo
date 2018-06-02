@@ -27,10 +27,10 @@ namespace TGC.Group.Model.Vehiculos.Estados
 
         virtual public void JumpUpdate()
         {
-            float desplazamientoEnY = -1f;
+            float desplazamientoEnY = -0.3f;
             TGCVector3 nuevoDesplazamiento = new TGCVector3(0, desplazamientoEnY, 0);
             this.Move(nuevoDesplazamiento);
-            var posiblePiso = this.GetCollidingFloor();
+            var posiblePiso = this.GetColliding();
             if (posiblePiso == null)
             {
                 this.auto.GetDeltaTiempoSalto().resetear();
@@ -65,7 +65,7 @@ namespace TGC.Group.Model.Vehiculos.Estados
             }*/
         }
 
-        protected TgcMesh GetCollidingFloor()
+        protected TgcMesh GetColliding()
         {
             List<Collidable> list = Scene.GetInstance().GetPosiblesCollidables();
             foreach (Collidable element in list)
@@ -109,13 +109,13 @@ namespace TGC.Group.Model.Vehiculos.Estados
             TgcRay ray = new TgcRay();
             TgcArrow arrow = TgcArrow.fromDirection(this.auto.GetLastPosition(), directionOfCollision);
             this.auto.arrows.Add(arrow);
-            ray.Origin = this.auto.GetLastPosition() + new TGCVector3(0,10f,0);
+            ray.Origin = this.auto.GetLastPosition();
             ray.Direction = directionOfCollision;
             Console.WriteLine(ray.Direction);
             TgcBoundingAxisAlignBox.Face[] faces;
             faces = element.BoundingBox.computeFaces();
             TGCPlane plane = this.CreatePlane(ray, faces, this.auto.GetLastPosition());
-            TGCVector3 normal = GlobalConcepts.GetInstance().GetNormalPlane(plane);
+            TGCVector3 normal = new TGCVector3(0, 1, 0);
             if (normal != new TGCVector3(0, 1, 0))
             {
                 return false;
