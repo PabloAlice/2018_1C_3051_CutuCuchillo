@@ -97,6 +97,7 @@
     <Compile Include="Model\CustomBitmap.cs" />
     <Compile Include="Model\CustomSprite.cs" />
     <Compile Include="Model\Drawer2D.cs" />
+    <Compile Include="Model\LinearInterpolation.cs" />
     <Compile Include="Model\ThirdPersonCamera.cs" />
     <Compile Include="Model\Collidable.cs" />
     <Compile Include="Model\GlobalConcepts.cs" />

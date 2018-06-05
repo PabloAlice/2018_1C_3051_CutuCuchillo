@@ -111,7 +111,6 @@ namespace TGC.Group.Model.Vehiculos.Estados
             this.auto.arrows.Add(arrow);
             ray.Origin = this.auto.GetLastPosition();
             ray.Direction = directionOfCollision;
-            Console.WriteLine(ray.Direction);
             TgcBoundingAxisAlignBox.Face[] faces;
             faces = element.BoundingBox.computeFaces();
             TGCPlane plane = this.CreatePlane(ray, faces, this.auto.GetLastPosition());

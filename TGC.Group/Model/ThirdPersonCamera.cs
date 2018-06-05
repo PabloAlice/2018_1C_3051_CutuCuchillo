@@ -2,6 +2,7 @@
 using TGC.Core.Mathematica;
 using TGC.Core.Collision;
 using TGC.Core.BoundingVolumes;
+using TGC.Core.Interpolation;
 
 namespace TGC.Group.Model
 {
@@ -9,6 +10,7 @@ namespace TGC.Group.Model
     {
         private TGCVector3 position;
         private TGCPlane plano;
+        public LinearInterpolation interpolador;
 
         /// <summary>
         ///     Crear una nueva camara
@@ -23,6 +25,13 @@ namespace TGC.Group.Model
             Target = target;
             OffsetHeight = offsetHeight;
             OffsetForward = offsetForward;
+            interpolador = new LinearInterpolation();
+        }
+
+        public void UpdateInterpolation(float elapsedTime)
+        {
+                float rotate = this.interpolador.Update(elapsedTime);
+                this.rotateY(rotate);
         }
 
         public TGCVector3 GetNormal()

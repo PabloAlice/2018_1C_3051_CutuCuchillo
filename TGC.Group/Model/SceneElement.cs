@@ -116,7 +116,6 @@ namespace TGC.Group.Model
             int loop = 0;
             foreach (TgcBoundingAxisAlignBox.Face face in faces)
             {
-                System.Console.WriteLine("Cara{0}: ({1},{2},{3})", loop, face.Plane.A, face.Plane.B, face.Plane.C);
                 if (TgcCollisionUtils.intersectRayPlane(ray, face.Plane, out instante, out intersection))
                 {
                     candidatesPlanes.Add(face.Plane);
@@ -144,9 +143,6 @@ namespace TGC.Group.Model
             TGCVector3 normal = GlobalConcepts.GetInstance().GetNormalPlane(plane);
             TGCVector3 output = new TGCVector3(normal.X + directionOfCollision.X, normal.Y + directionOfCollision.Y, normal.Z + directionOfCollision.Z);
             car.SetDirection(output, normal);
-            System.Console.WriteLine("Direccion de Colision: ({0},{1},{2})", directionOfCollision.X, directionOfCollision.Y, directionOfCollision.Z);
-            System.Console.WriteLine("Normal: ({0},{1},{2})", normal.X, normal.Y, normal.Z);
-            System.Console.WriteLine("OutPut: ({0},{1},{2})", output.X, output.Y, output.Z);
 
             while (TgcCollisionUtils.testObbAABB(car.GetTGCBoundingOrientedBox(), elemento.BoundingBox))
             {

@@ -165,6 +165,7 @@ namespace TGC.Group.Model
             this.Rotate(rotacionReal);
             this.vectorAdelante.TransformCoordinate(matrizDeRotacion);
             this.RotarDelanteras((this.GetVelocidadActual() > 0) ? rotacionRueda : -rotacionRueda);
+            //this.camara.interpolador.Acumulate(rotacionReal);
             this.camara.rotateY(rotacionReal);
             this.RotateOBB(rotacionReal);
         }
@@ -173,7 +174,6 @@ namespace TGC.Group.Model
         public void SetElapsedTime(float time)
         {
             this.elapsedTime = time;
-            System.Console.WriteLine(this.GetEstado().ToString());
             if(this.deltaTiempoAvance.tiempoTranscurrido() != 0)
             {
                 this.deltaTiempoAvance.acumularTiempo(this.elapsedTime);
@@ -506,11 +506,13 @@ namespace TGC.Group.Model
 
             this.estado.JumpUpdate();
             this.estado.FrozenTimeUpdate();
+            this.camara.Target = (this.GetPosicion()) + this.GetVectorAdelante() * 30;
+            //this.camara.UpdateInterpolation(this.elapsedTime);
             float velocidadMaxima = (this.velocidadActual < 0) ? this.velocidadMaximaDeRetroceso : this.velocidadMaximaDeAvance;
             float maxAngle = (this.velocidadActual > 0) ? FastMath.PI + FastMath.PI / 3 : FastMath.PI_HALF;
             velocimetro.Rotation = (FastMath.Abs(this.velocidadActual) * (maxAngle)) / velocidadMaxima - FastMath.PI;
             bar.Scaling = new TGCVector2((this.life * 0.07f) / 100f, 0.05f);
-            this.camara.Target = (this.GetPosicion()) + this.GetVectorAdelante() * 30;
+            
         }
     }
 }
