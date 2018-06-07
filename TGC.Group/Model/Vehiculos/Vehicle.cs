@@ -44,11 +44,7 @@ namespace TGC.Group.Model
         protected ThirdPersonCamera camara;
         protected TGCMatrix lastTransformation;
         protected float life = 100f;
-        public List<TgcArrow> arrows = new List<TgcArrow>();
-
-        private IShootable defaultWeapon;
-        private Queue<IShootable> specialWeapons = new Queue<IShootable>();
-        private int ammo = 0;
+        protected List<Weapon> weapons = new List<Weapon>();
 
         public Vehicle(ThirdPersonCamera camara, TGCVector3 posicionInicial, SoundsManager soundsManager)
         {
@@ -65,7 +61,6 @@ namespace TGC.Group.Model
             this.estado = new Stopped(this);
             this.mesh.BoundingBox.transform(this.matrixs.GetTransformation());
             this.obb = new BoundingOrientedBox(this.mesh.BoundingBox);
-            this.defaultWeapon = new DefaultWeapon();
             this.camara.SetPlane(this.vectorAdelante);
             this.velocidadMaximaDeRetroceso = this.velocidadMaximaDeAvance * 0.7f;
         }
@@ -83,6 +78,11 @@ namespace TGC.Group.Model
         public void ChangePosition(TGCMatrix nuevaPosicion)
         {
             this.SetTranslate(nuevaPosicion);
+        }
+
+        public void AddWeapon(Weapon weapon)
+        {
+            this.weapons.Add(weapon);
         }
 
         public void SetTranslate(TGCMatrix newTranslate)
@@ -205,59 +205,7 @@ namespace TGC.Group.Model
             {
                 rueda.Render();
             }
-            renderProjectiles();
         }
-
-        //-------------------------------------------------------
-        // WEAPON
-        public void setWeapon(Weapon weapon)
-        {
-            this.specialWeapons.Enqueue(weapon);
-        }
-
-        public void shoot()
-        {
-            Projectile p = new Projectile(GetPosicion(), GetVectorAdelante());
-            if (specialWeapons.Count > 0 && specialWeapons.Peek().HasRemainingProjectiles())
-            {
-                specialWeapons.Peek().addProjectile(p);
-            }
-            else
-            {
-                defaultWeapon.addProjectile(p);
-            }
-        }
-
-        private void renderProjectiles()
-        {
-            if (specialWeapons.Count > 0)
-            {
-                if (specialWeapons.Peek().HasRemainingProjectiles())
-                {
-                    specialWeapons.Peek().renderProjectiles();
-                }
-                else
-                {
-                    specialWeapons.Dequeue();
-                }
-            }
-
-            if (defaultWeapon.HasRemainingProjectiles())
-            {
-                defaultWeapon.renderProjectiles();
-            }
-        }
-
-        private void updateProjectilesShot()
-        {
-            if(specialWeapons.Count > 0)
-            {
-                specialWeapons.Peek().updateProjectiles();
-            }
-            defaultWeapon.updateProjectiles();
-        }
-
-        //-------------------------------------------------------
 
 
         public TgcBoundingOrientedBox GetTGCBoundingOrientedBox()
@@ -405,7 +353,6 @@ namespace TGC.Group.Model
 
         public void Action(TgcD3dInput input, CustomSprite velocimetro, CustomSprite bar)
         {
-            updateProjectilesShot();
             this.lastTransformation = this.matrixs.GetTransformation();
             this.SoundsManager.Update(this.velocidadActual);
 
@@ -482,7 +429,6 @@ namespace TGC.Group.Model
             if (input.keyDown(Key.P))
             {
                 this.SoundsManager.Shoot();
-                this.shoot();
             }
             else
             {

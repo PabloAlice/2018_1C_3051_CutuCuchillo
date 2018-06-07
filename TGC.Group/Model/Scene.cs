@@ -84,6 +84,8 @@ namespace TGC.Group.Model
             List<TgcMesh> list;
             SceneElement aux;
 
+            this.habitacion.AddElements(new Bomb(TGCMatrix.Translation(new TGCVector3(0,0.25f,0)), TGCMatrix.Scaling(0.02f,0.02f,0.02f), this.GimeMeASingleMesh("MeshCreator\\Meshes\\Otros\\Weapons\\Bomba\\Bomba-TgcScene.xml")));
+
             TgcScene escena = new TgcSceneLoader().loadSceneFromFile(GlobalConcepts.GetInstance().GetMediaDir() + "Texturas\\Habitacion\\escenaMesheada-TgcScene.xml");
 
             //pared izquierda pieza
@@ -511,8 +513,8 @@ namespace TGC.Group.Model
 
             //portales
             TgcMesh bidirectional, unidirectional;
-            bidirectional = this.GiveMeAMesh2("MeshCreator\\Meshes\\Otros\\Portal\\Bidirectional\\Portal-TgcScene.xml");
-            unidirectional = this.GiveMeAMesh2("MeshCreator\\Meshes\\Otros\\Portal\\Unidirectional\\Portal-TgcScene.xml");
+            bidirectional = this.GimeMeASingleMesh("MeshCreator\\Meshes\\Otros\\Portal\\Bidirectional\\Portal-TgcScene.xml");
+            unidirectional = this.GimeMeASingleMesh("MeshCreator\\Meshes\\Otros\\Portal\\Unidirectional\\Portal-TgcScene.xml");
             TGCVector3 scale = new TGCVector3(0.2f, 0.2f, 0.2f);
             TGCMatrix transformation, transformation2;
             Portal portal, portal2;
@@ -587,7 +589,7 @@ namespace TGC.Group.Model
             return tgcScene.Meshes;
 
         }
-        private TgcMesh GiveMeAMesh2(string ruta)
+        private TgcMesh GimeMeASingleMesh(string ruta)
         {
             TgcScene tgcScene = new TgcSceneLoader().loadSceneFromFile(GlobalConcepts.GetInstance().GetMediaDir() + ruta);
             return tgcScene.Meshes[0];

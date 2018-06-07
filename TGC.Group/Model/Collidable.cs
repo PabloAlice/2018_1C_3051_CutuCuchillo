@@ -8,7 +8,6 @@ namespace TGC.Group.Model
         void HandleCollisions(Vehicle car);
         void Render();
         void Dispose();
-        TgcBoundingAxisAlignBox GetBoundingAlignBox();
         TgcMesh GetCollidable(Vehicle car);
     }
 }

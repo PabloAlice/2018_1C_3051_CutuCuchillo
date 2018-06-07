@@ -107,8 +107,6 @@ namespace TGC.Group.Model.Vehiculos.Estados
         {
             TGCVector3 directionOfCollision = new TGCVector3(0, -1f, 0);
             TgcRay ray = new TgcRay();
-            TgcArrow arrow = TgcArrow.fromDirection(this.auto.GetLastPosition(), directionOfCollision);
-            this.auto.arrows.Add(arrow);
             ray.Origin = this.auto.GetLastPosition();
             ray.Direction = directionOfCollision;
             TgcBoundingAxisAlignBox.Face[] faces;
