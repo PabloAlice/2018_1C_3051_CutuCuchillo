@@ -1,4 +1,5 @@
-﻿using Microsoft.DirectX.DirectSound;
+﻿using System;
+using Microsoft.DirectX.DirectSound;
 using TGC.Core.Mathematica;
 
 namespace TGC.Group.Model
@@ -8,6 +9,7 @@ namespace TGC.Group.Model
 
         private static GlobalConcepts instance;
         private string mediaDir;
+        private string shaderDir;
         private Device dispositivoDeAudio;
         private float elapsedTime;
         private Microsoft.DirectX.Direct3D.Device screen;
@@ -85,6 +87,16 @@ namespace TGC.Group.Model
         public TGCVector3 GetNormalPlane(TGCPlane plane)
         {
             return new TGCVector3(plane.A, plane.B, plane.C);
+        }
+
+        public void SetShaderDir(string shadersDir)
+        {
+            this.shaderDir = shadersDir;
+        }
+
+        public string GetShadersDir()
+        {
+            return this.shaderDir;
         }
     }
 }

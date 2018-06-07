@@ -7,6 +7,10 @@ using TGC.Core.BoundingVolumes;
 using TGC.Core.Input;
 using Microsoft.DirectX.DirectInput;
 using TGC.Core.Geometry;
+using TGC.Core.Shaders;
+using TGC.Core.Direct3D;
+using Microsoft.DirectX.Direct3D;
+using System.Drawing;
 
 namespace TGC.Group.Model
 {
@@ -50,6 +54,10 @@ namespace TGC.Group.Model
         private Queue<IShootable> specialWeapons = new Queue<IShootable>();
         private int ammo = 0;
 
+        public Microsoft.DirectX.Direct3D.Effect effect = TgcShaders.loadEffect(GlobalConcepts.GetInstance().GetShadersDir() + "FrozenMeshShader.fx");
+        //Timer shaderTime = new Timer();
+        //FloatModifier shaderColorModifier = new FloatModifier(0.84f, 0.74f, 0.94f);
+
         public Vehicle(ThirdPersonCamera camara, TGCVector3 posicionInicial, SoundsManager soundsManager)
         {
             this.matrixs = new TransformationMatrix();
@@ -68,6 +76,9 @@ namespace TGC.Group.Model
             this.defaultWeapon = new DefaultWeapon();
             this.camara.SetPlane(this.vectorAdelante);
             this.velocidadMaximaDeRetroceso = this.velocidadMaximaDeAvance * 0.7f;
+
+            this.mesh.Effect = effect;
+            mesh.Technique = "Unfreeze";
         }
 
         public TGCVector3 GetDirectionOfCollision()
@@ -197,6 +208,10 @@ namespace TGC.Group.Model
 
         public void Render()
         {
+            //shaderTime.acumularTiempo(GetElapsedTime());
+            //shaderColorModifier.Modify(0.01f);
+            //effect.SetValue("time", shaderTime.tiempoTranscurrido());
+            //effect.SetValue("bluecolor", shaderColorModifier.Modifier);
             this.mesh.Render();
             this.RenderBoundingOrientedBox();
             delanteraIzquierda.Render();
@@ -273,6 +288,10 @@ namespace TGC.Group.Model
         public void Dispose()
         {
             this.mesh.Dispose();
+            if (effect != null)
+            {
+                this.effect.Dispose();
+            }
         }
 
         public Timer GetDeltaTiempoAvance()
@@ -513,6 +532,16 @@ namespace TGC.Group.Model
             velocimetro.Rotation = (FastMath.Abs(this.velocidadActual) * (maxAngle)) / velocidadMaxima - FastMath.PI;
             bar.Scaling = new TGCVector2((this.life * 0.07f) / 100f, 0.05f);
             
+        }
+
+        public void Congelar()
+        {
+            this.mesh.Technique = "Freeze";
+        }
+
+        public void Descongelar()
+        {
+            this.mesh.Technique = "Unfreeze";
         }
     }
 }

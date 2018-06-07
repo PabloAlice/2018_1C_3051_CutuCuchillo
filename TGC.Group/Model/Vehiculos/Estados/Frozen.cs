@@ -1,5 +1,6 @@
 ﻿using System;
 using TGC.Core.Mathematica;
+using TGC.Core.Shaders;
 
 namespace TGC.Group.Model.Vehiculos.Estados
 {
@@ -20,7 +21,9 @@ namespace TGC.Group.Model.Vehiculos.Estados
                 disminucionVelocidad = ((x, y, z) => Math.Min(x, y+z));
             }
 
-                this.auto.GetDeltaTiempoAvance().resetear();
+            this.auto.Congelar();
+            this.auto.GetDeltaTiempoAvance().resetear();
+
         }
 
         public override TGCVector3 GetCarDirection()
@@ -76,6 +79,7 @@ namespace TGC.Group.Model.Vehiculos.Estados
             auto.Move(auto.GetVectorAdelante() * auto.GetVelocidadActual() * auto.GetElapsedTime());
             if (timer.tiempoTranscurrido() > 10f)
             {
+                this.auto.Descongelar();
                 this.auto.SetEstado(new Stopped(this.auto));
             }
         }

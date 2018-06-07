@@ -6,6 +6,7 @@ using TGC.Core.Text;
 using Microsoft.DirectX.Direct3D;
 using System;
 using System.Drawing;
+using TGC.Core.Textures;
 
 namespace TGC.Group.Model
 {
@@ -80,6 +81,7 @@ namespace TGC.Group.Model
             pressStart.Position = new TGCVector2((deviceWidth / 2f) - pressStart.Bitmap.Width / 2, deviceHeight / 8f);
 
             GlobalConcepts.GetInstance().SetMediaDir(this.MediaDir);
+            GlobalConcepts.GetInstance().SetShaderDir(this.ShadersDir);
             GlobalConcepts.GetInstance().SetDispositivoDeAudio(this.DirectSound.DsDevice);
             GlobalConcepts.GetInstance().SetScreen(D3DDevice.Instance.Device);
             Scene.GetInstance().Init(this.MediaDir);
@@ -137,53 +139,18 @@ namespace TGC.Group.Model
                 enterMenu = false;
             }
             
-            
-            /*
-            if (collide)
-            {
-                    var movementRay = lastPosition - TGCMatrix.Translation(auto.getPosicion());
-                    var rs = TGCVector3.Empty;
-                    if (((auto.mesh.BoundingBox.PMax.X > collider.BoundingBox.PMax.X && movementRay.X > 0) ||
-                        (auto.mesh.BoundingBox.PMin.X < collider.BoundingBox.PMin.X && movementRay.X < 0)) &&
-                        ((auto.mesh.BoundingBox.PMax.Z > collider.BoundingBox.PMax.Z && movementRay.Z > 0) ||
-                        (auto.mesh.BoundingBox.PMin.Z < collider.BoundingBox.PMin.Z && movementRay.Z < 0)))
-                    {
-                        if (auto.mesh.Position.X > collider.BoundingBox.PMin.X && auto.mesh.Position.X < collider.BoundingBox.PMax.X)
-                        {
-                            rs = new TGCVector3(movementRay.X, movementRay.Y, 0);
-                        }
-                        if (auto.mesh.Position.Z > collider.BoundingBox.PMin.Z && auto.mesh.Position.Z < collider.BoundingBox.PMax.Z)
-                        {
-                            rs = new TGCVector3(0, movementRay.Y, movementRay.Z);
-                        }
-
-                    }
-                    else
-                    {
-                        if ((auto.mesh.BoundingBox.PMax.X > collider.BoundingBox.PMax.X && movementRay.X > 0) ||
-                            (auto.mesh.BoundingBox.PMin.X < collider.BoundingBox.PMin.X && movementRay.X < 0))
-                        {
-                            rs = new TGCVector3(0, movementRay.Y, movementRay.Z);
-                        }
-                        if ((auto.mesh.BoundingBox.PMax.Z > collider.BoundingBox.PMax.Z && movementRay.Z > 0) ||
-                            (auto.mesh.BoundingBox.PMin.Z < collider.BoundingBox.PMin.Z && movementRay.Z < 0))
-                        {
-                            rs = new TGCVector3(movementRay.X, movementRay.Y, 0);
-                        }
-                    }
-                    auto.mesh.Position = lastPos - rs;
-            }*/
-
             this.PostUpdate();
         }
 
-        
+
 
         public override void Render()
         {
-
-            this.PreRender();
-
+            
+            TexturesManager.Instance.clearAll();
+            D3DDevice.Instance.Device.BeginScene();
+            D3DDevice.Instance.Device.Clear(ClearFlags.Target | ClearFlags.ZBuffer, Color.Black, 1.0f, 0);
+        
             if (enterMenu)
             {
                 drawer.BeginDrawSprite();
@@ -193,6 +160,7 @@ namespace TGC.Group.Model
             }
             else
             {
+
                 Scene.GetInstance().Render();
 
                 this.textoVelocidadVehiculo.render();
@@ -207,17 +175,21 @@ namespace TGC.Group.Model
                 //this.manager.Transform();
                 //this.manager.Render();
 
-            drawer.BeginDrawSprite();
+                drawer.BeginDrawSprite();
 
-            drawer.DrawSprite(velocimeter);
-            drawer.DrawSprite(arrowVelocimeter);
-            drawer.DrawSprite(barOfLifeRed);
-            drawer.DrawSprite(barOfLifeGreen);
-            
+                drawer.DrawSprite(velocimeter);
+                drawer.DrawSprite(arrowVelocimeter);
+                drawer.DrawSprite(barOfLifeRed);
+                drawer.DrawSprite(barOfLifeGreen);
+
                 //Finalizar el dibujado de Sprites
                 drawer.EndDrawSprite();
+                
             }
-            this.PostRender();
+
+
+            D3DDevice.Instance.Device.EndScene();
+            D3DDevice.Instance.Device.Present();
         }
 
         public override void Dispose()
