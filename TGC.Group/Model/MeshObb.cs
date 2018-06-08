@@ -44,22 +44,5 @@ namespace TGC.Group.Model
         {
             return this.obb.GetBoundingOrientedBox();
         }
-
-        private void Collide(Vehicle car)
-        {
-            TGCVector3 frontVector = car.GetVectorAdelante();
-            //TgcRay ray = this.GenerateRay(car.GetLastPosition(), frontVector);
-            //TGCVector3 intersectionPoint = this.DetectIntersection(ray);
-            //car.SetTranslate(TGCMatrix.Translation(intersectionPoint));
-            //TGCVector3 output = this.GenerateOutput(frontVector);
-            //car.SetDirection(output);
-            
-            while (TgcCollisionUtils.testObbObb(car.GetTGCBoundingOrientedBox(), this.GetObb()))
-            {
-                car.Translate(TGCMatrix.Translation(-frontVector));
-                car.Transform();
-            }
-
-        }
     }
 }
