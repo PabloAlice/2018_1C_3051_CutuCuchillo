@@ -32,7 +32,12 @@ namespace TGC.Group.Model
 
         public override void Move()
         {
-            this.weapon.matrix.Translate(TGCMatrix.Translation(this.direction * 0.1f));
+            this.weapon.matrix.Translate(TGCMatrix.Translation(this.direction * 50f * GlobalConcepts.GetInstance().GetElapsedTime()));
+        }
+
+        public void MoveBackward()
+        {
+            this.weapon.matrix.Translate(TGCMatrix.Translation(this.direction * -50f * GlobalConcepts.GetInstance().GetElapsedTime()));
         }
 
         public override void Update()
@@ -55,24 +60,47 @@ namespace TGC.Group.Model
 
         private void CheckCollision()
         {
-            if (this.IsColliding())
+            Collidable collided;
+            if (this.IsColliding(out collided))
             {
                 this.car.Remove(this.weapon);
-                this.weapon.weaponState = new InExhibition(this.weapon);
+                this.weapon.Collide(collided);
             }
         }
 
-        private bool IsColliding()
+        private bool IsColliding(out Collidable collided)
         {
             List<Collidable> elements = Scene.GetInstance().GetPosiblesCollidables(this.weapon);
             foreach (Collidable element in elements)
             {
-                if (element.IsColliding(this.weapon))
+                if (element.IsColliding(this.weapon, out collided))
                 {
+                    this.Detach(collided);
                     return true;
                 }
             }
+            collided = null;
             return false;
+        }
+
+        private void Detach(Collidable collided)
+        {
+            Collidable c;
+            while(collided.IsColliding(this.weapon, out c))
+            {
+                this.MoveBackward();
+                this.weapon.Transform();
+            }
+        }
+
+        override public TGCVector3 GetDirection()
+        {
+            return this.direction;
+        }
+
+        override public void SetDirection(TGCVector3 vector)
+        {
+            this.direction = vector;
         }
 
     }

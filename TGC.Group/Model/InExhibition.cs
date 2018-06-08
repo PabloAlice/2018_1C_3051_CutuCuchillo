@@ -9,6 +9,7 @@ namespace TGC.Group.Model
         {
             this.weapon.matrix = this.weapon.initialTransformation;
             this.weapon.Transform();
+
         }
 
         override public void Move()
@@ -30,6 +31,16 @@ namespace TGC.Group.Model
         public override void Shoot(Vehicle car)
         {
             return;
+        }
+
+        override public TGCVector3 GetDirection()
+        {
+            throw new System.Exception("Nunca le puedo pedir la direction al estado exhibido");
+        }
+
+        override public void SetDirection(TGCVector3 vector)
+        {
+            throw new System.Exception("Este estado no tiene direction");
         }
 
     }

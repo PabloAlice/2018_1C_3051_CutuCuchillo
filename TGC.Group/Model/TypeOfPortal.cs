@@ -24,9 +24,15 @@ namespace TGC.Group.Model
             return null;
         }
 
-        public bool IsColliding(Weapon weapon)
+        public bool IsColliding(Weapon weapon, out Collidable element)
         {
-            return TgcCollisionUtils.testSphereAABB(weapon.sphere, this.GetBoundingAlignBox());
+            if(TgcCollisionUtils.testSphereAABB(weapon.sphere, this.GetBoundingAlignBox()))
+            {
+                element = this;
+                return true;
+            }
+            element = null;
+            return false;
         }
 
         public TgcBoundingAxisAlignBox GetBoundingAlignBox()

@@ -16,7 +16,7 @@ namespace TGC.Group.Model
         public Weapon(TransformationMatrix matrix, TgcMesh mesh)
         {
             this.initialTransformation = matrix;
-            this.matrix = this.initialTransformation;
+            this.matrix = matrix;
             this.mesh = mesh;
             this.mesh.AutoTransform = false;
             TGCMatrix m = this.matrix.GetTransformation();
@@ -30,8 +30,9 @@ namespace TGC.Group.Model
 
         abstract public TGCVector3 GetShootRotation();
 
-        public bool IsColliding(Weapon weapon)
+        public bool IsColliding(Weapon weapon, out Collidable element)
         {
+            element = null;
             return false;
         }
 
@@ -80,6 +81,7 @@ namespace TGC.Group.Model
 
         abstract public void Move();
 
-        //abstract public void Shoot();
+        abstract public void Collide(Collidable collided);
+
     }
 }

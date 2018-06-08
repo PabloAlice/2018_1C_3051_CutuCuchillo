@@ -24,9 +24,16 @@ namespace TGC.Group.Model
             return new TGCVector3(0,0,0);
         }
 
-        public bool IsColliding(Weapon weapon)
+        public bool IsColliding(Weapon weapon, out Collidable element)
         {
-            return TgcCollisionUtils.testSphereOBB(weapon.sphere, this.obb.GetBoundingOrientedBox());
+            
+            if(TgcCollisionUtils.testSphereOBB(weapon.sphere, this.obb.GetBoundingOrientedBox()))
+            {
+                element = this;
+                return true;
+            }
+            element = null;
+            return false;
         }
 
         public TgcMesh GetCollidable(Vehicle car)

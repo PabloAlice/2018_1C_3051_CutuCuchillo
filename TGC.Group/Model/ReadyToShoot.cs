@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TGC.Core.Collision;
+﻿using TGC.Core.Mathematica;
 using TGC.Core.SceneLoader;
 
 namespace TGC.Group.Model
@@ -39,6 +34,16 @@ namespace TGC.Group.Model
         override public TgcMesh GetCollidable(Vehicle car)
         {
             return null;
+        }
+
+        override public TGCVector3 GetDirection()
+        {
+            throw new System.Exception("Nunca le puedo pedir la direction al estado exhibido");
+        }
+
+        override public void SetDirection(TGCVector3 vector)
+        {
+            throw new System.Exception("Este estado no tiene direction");
         }
     }
 }

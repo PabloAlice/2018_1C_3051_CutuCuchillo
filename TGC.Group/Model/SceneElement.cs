@@ -21,15 +21,17 @@ namespace TGC.Group.Model
             this.transformacion = transformacion;
         }
 
-        public bool IsColliding(Weapon weapon)
+        public bool IsColliding(Weapon weapon, out Collidable elementOut)
         {
             foreach (TgcMesh element in this.elements)
             {
                 if(TgcCollisionUtils.testSphereAABB(weapon.sphere, element.BoundingBox))
                 {
+                    elementOut = this;
                     return true;
                 }
             }
+            elementOut = null;
             return false;
         }
 

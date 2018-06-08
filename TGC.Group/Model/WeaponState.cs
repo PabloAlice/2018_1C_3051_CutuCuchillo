@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using TGC.Core.Mathematica;
 using TGC.Core.Collision;
 using TGC.Core.SceneLoader;
 
@@ -35,7 +31,6 @@ namespace TGC.Group.Model
             {
                 car.AddWeapon(this.weapon);
                 this.weapon.weaponState = new ReadyToShoot(this.weapon);
-                //Scene.GetInstance().remove(this);
             }
         }
 
@@ -53,6 +48,10 @@ namespace TGC.Group.Model
         abstract public void Update();
 
         abstract public void Shoot(Vehicle car);
+
+        abstract public TGCVector3 GetDirection();
+
+        abstract public void SetDirection(TGCVector3 vector);
 
     }
 }

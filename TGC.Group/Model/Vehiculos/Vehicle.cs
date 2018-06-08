@@ -377,7 +377,7 @@ namespace TGC.Group.Model
 
         private void Shoot()
         {
-            Weapon weapon = (this.NumberOfWeapons() >= 0) ? this.weapons[0] : null;
+            Weapon weapon = (this.NumberOfWeapons() > 0) ? this.weapons[0] : null;
             if (weapon != null)
             {
                 weapon.Shoot(this);
