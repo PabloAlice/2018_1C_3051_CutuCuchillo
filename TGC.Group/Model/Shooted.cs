@@ -6,18 +6,17 @@ namespace TGC.Group.Model
 {
     class Shooted : WeaponState
     {
-        private TGCVector3 direction;
+        
         private Vehicle car;
 
         public Shooted(Weapon weapon, Vehicle car) : base(weapon)
         {
-            this.direction = car.GetVectorAdelante();
             this.car = car;
-            //hay que ponerle el nuevo rotado y trasladado del arma 
+            this.weapon.direction = car.GetVectorAdelante();
             this.weapon.matrix.SetTranslation(TGCMatrix.Translation(car.GetPosition()));
             this.weapon.matrix.Translate(TGCMatrix.Translation(new TGCVector3(0,0.35f,0)));
             TGCVector3 rotation = this.weapon.GetShootRotation();
-            this.weapon.matrix.SetRotation(TGCMatrix.RotationYawPitchRoll(rotation.X, rotation.Y, rotation.Z));
+            this.weapon.matrix.SetRotation(TGCMatrix.RotationYawPitchRoll(rotation.Y, rotation.X, rotation.Z));
             this.MoveAwayFromTheCar(car);
         }
 
@@ -32,12 +31,12 @@ namespace TGC.Group.Model
 
         public override void Move()
         {
-            this.weapon.matrix.Translate(TGCMatrix.Translation(this.direction * 50f * GlobalConcepts.GetInstance().GetElapsedTime()));
+            this.weapon.matrix.Translate(TGCMatrix.Translation(this.weapon.direction * 50f * GlobalConcepts.GetInstance().GetElapsedTime()));
         }
 
         public void MoveBackward()
         {
-            this.weapon.matrix.Translate(TGCMatrix.Translation(this.direction * -50f * GlobalConcepts.GetInstance().GetElapsedTime()));
+            this.weapon.matrix.Translate(TGCMatrix.Translation(this.weapon.direction * -50f * GlobalConcepts.GetInstance().GetElapsedTime()));
         }
 
         public override void Update()
@@ -91,16 +90,6 @@ namespace TGC.Group.Model
                 this.MoveBackward();
                 this.weapon.Transform();
             }
-        }
-
-        override public TGCVector3 GetDirection()
-        {
-            return this.direction;
-        }
-
-        override public void SetDirection(TGCVector3 vector)
-        {
-            this.direction = vector;
         }
 
     }

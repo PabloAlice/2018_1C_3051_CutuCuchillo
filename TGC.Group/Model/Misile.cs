@@ -1,7 +1,7 @@
 ﻿using TGC.Core.SceneLoader;
 using TGC.Core.Mathematica;
 
-namespace TGC.Group.Model.Vehiculos
+namespace TGC.Group.Model
 {
     class Misile : Weapon
     {
@@ -11,7 +11,7 @@ namespace TGC.Group.Model.Vehiculos
 
         public override void Collide(Collidable collided)
         {
-            //TODO por ahora
+            this.weaponState = new InExhibition(this);
             return;
         }
 
@@ -22,7 +22,9 @@ namespace TGC.Group.Model.Vehiculos
 
         public override TGCVector3 GetShootRotation()
         {
-            return new TGCVector3(0, 0, 0);
+            float angle = GlobalConcepts.GetInstance().AngleBetweenVectors(new TGCVector3(0,0,1), this.direction);
+            return new TGCVector3(FastMath.PI_HALF, angle, 0);
         }
     }
 }
+

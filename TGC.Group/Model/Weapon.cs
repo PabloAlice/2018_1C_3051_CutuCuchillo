@@ -10,6 +10,7 @@ namespace TGC.Group.Model
         public TgcMesh mesh;
         public TgcBoundingSphere sphere;
         public WeaponState weaponState;
+        public TGCVector3 direction;
         public TransformationMatrix initialTransformation = new TransformationMatrix();
         public TransformationMatrix matrix = new TransformationMatrix();
 
@@ -23,7 +24,7 @@ namespace TGC.Group.Model
             this.mesh.Transform = m;
             this.mesh.BoundingBox.transform(m);
             this.sphere = TgcBoundingSphere.computeFromPoints(this.mesh.BoundingBox.computeCorners()).toClass();
-            this.sphere.setValues(this.sphere.Center, this.sphere.Radius * 0.4f);
+            this.sphere.setValues(this.sphere.Center, 0.3f);
             this.weaponState = new InExhibition(this);
             
         }

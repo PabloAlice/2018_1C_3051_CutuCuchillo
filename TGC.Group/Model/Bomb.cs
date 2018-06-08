@@ -37,9 +37,8 @@ namespace TGC.Group.Model
 
         private void Bounce(Collidable element)
         {
-            TGCVector3 vector = this.weaponState.GetDirection();
-            TGCVector3 output = new TGCVector3(-vector.X, vector.Y, -vector.Z);
-            this.weaponState.SetDirection(output);
+            TGCVector3 vector = this.direction;
+            this.direction = new TGCVector3(-vector.X, vector.Y, -vector.Z);
         }
     }
 }

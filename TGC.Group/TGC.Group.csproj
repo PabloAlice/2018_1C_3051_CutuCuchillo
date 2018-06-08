@@ -101,6 +101,7 @@
     <Compile Include="Model\FloatModifier.cs" />
     <Compile Include="Model\InExhibition.cs" />
     <Compile Include="Model\LinearInterpolation.cs" />
+    <Compile Include="Model\Misile.cs" />
     <Compile Include="Model\ReadyToShoot.cs" />
     <Compile Include="Model\Shooted.cs" />
     <Compile Include="Model\ThirdPersonCamera.cs" />
@@ -120,7 +121,6 @@
     <Compile Include="Model\GameModel.cs" />
     <Compile Include="Model\Timer.cs" />
     <Compile Include="Model\Vehiculos\Estados\Frozen.cs" />
-    <Compile Include="Model\Vehiculos\Misile.cs" />
     <Compile Include="Model\Vehiculos\SoundsManagerLegacy.cs" />
     <Compile Include="Model\Vehiculos\Wheel.cs" />
     <Compile Include="Model\Vehiculos\Estados\Forward.cs" />

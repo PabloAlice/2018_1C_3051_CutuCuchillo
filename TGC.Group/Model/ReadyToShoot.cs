@@ -35,15 +35,5 @@ namespace TGC.Group.Model
         {
             return null;
         }
-
-        override public TGCVector3 GetDirection()
-        {
-            throw new System.Exception("Nunca le puedo pedir la direction al estado exhibido");
-        }
-
-        override public void SetDirection(TGCVector3 vector)
-        {
-            throw new System.Exception("Este estado no tiene direction");
-        }
     }
 }

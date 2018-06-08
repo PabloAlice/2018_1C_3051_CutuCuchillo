@@ -49,9 +49,5 @@ namespace TGC.Group.Model
 
         abstract public void Shoot(Vehicle car);
 
-        abstract public TGCVector3 GetDirection();
-
-        abstract public void SetDirection(TGCVector3 vector);
-
     }
 }
