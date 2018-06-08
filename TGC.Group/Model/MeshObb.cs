@@ -17,7 +17,6 @@ namespace TGC.Group.Model
             this.obb = new BoundingOrientedBox(this.mesh.BoundingBox);
         }
 
-
         public TGCVector3 GetPosition()
         {
             //TODO esta asi por que no tengo la matrix de transformacion
@@ -36,6 +35,14 @@ namespace TGC.Group.Model
             return false;
         }
 
+        public void HandleCollisions(Vehicle car)
+        {
+            if (TgcCollisionUtils.testObbObb(car.GetTGCBoundingOrientedBox(), this.GetObb()))
+            {
+                this.Collide(car);
+            }
+        }
+
         public TgcMesh GetCollidable(Vehicle car)
         {
             //return this.mesh;
@@ -45,11 +52,6 @@ namespace TGC.Group.Model
         public void ActualizarBoundingOrientedBox()
         {
             this.obb.ActualizarBoundingOrientedBox(this.mesh.BoundingBox);
-        }
-
-        public TgcBoundingAxisAlignBox GetBoundingAlignBox()
-        {
-            return this.mesh.BoundingBox;
         }
 
         public void Transform(TGCMatrix transformation)
@@ -70,52 +72,9 @@ namespace TGC.Group.Model
             this.mesh.Dispose();
         }
 
-        public TgcMesh GetMesh()
-        {
-            return this.mesh;
-        }
-
         public TgcBoundingOrientedBox GetObb()
         {
             return this.obb.GetBoundingOrientedBox();
-        }
-
-        public void HandleCollisions(Vehicle car)
-        {
-            if(TgcCollisionUtils.testObbObb(car.GetTGCBoundingOrientedBox(), this.GetObb()))
-            {
-                this.Collide(car);
-            }
-        }
-
-        private TGCVector3 DetectIntersection(TgcRay ray)
-        {
-            TGCVector3 intersection = new TGCVector3();
-            TgcCollisionUtils.intersectRayObb(ray, this.GetObb(), out intersection);
-            return intersection;
-
-        }
-
-        private TgcRay GenerateRay(TGCVector3 origin, TGCVector3 direction)
-        {
-            TgcRay ray = new TgcRay
-            {
-                Origin = origin,
-                Direction = direction
-            };
-            return ray;
-        }
-
-        private TGCVector3 GenerateOutput(TGCVector3 vector)
-        {
-            if((vector.X >= 0 && vector.Z >=0) || (vector.X < 0 && vector.Z > 0))
-            {
-                return new TGCVector3(-vector.X, vector.Y, vector.Z);
-            }
-            else
-            {
-                return new TGCVector3(vector.X, vector.Y, vector.Z);
-            }
         }
 
         private void Collide(Vehicle car)
