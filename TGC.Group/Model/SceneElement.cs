@@ -8,7 +8,7 @@ namespace TGC.Group.Model
 {
     class SceneElement : Collidable
     {
-        protected List<TgcMesh> elementos = new List<TgcMesh>();
+        protected List<TgcMesh> elements = new List<TgcMesh>();
         protected TGCMatrix transformacion;
 
         public SceneElement(List<TgcMesh> elementos, TGCMatrix transformacion)
@@ -16,14 +16,26 @@ namespace TGC.Group.Model
             foreach (TgcMesh mesh in elementos)
             {
                 mesh.AutoTransform = false;
-                this.elementos.Add(mesh);
+                this.elements.Add(mesh);
             }
             this.transformacion = transformacion;
         }
 
+        public bool IsColliding(Weapon weapon)
+        {
+            foreach (TgcMesh element in this.elements)
+            {
+                if(TgcCollisionUtils.testSphereAABB(weapon.sphere, element.BoundingBox))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         public TgcMesh GetCollidable(Vehicle car)
         {
-            foreach (TgcMesh elemento in this.elementos)
+            foreach (TgcMesh elemento in this.elements)
             {
                 if(TgcCollisionUtils.testObbAABB(car.GetTGCBoundingOrientedBox(), elemento.BoundingBox))
                 {
@@ -39,13 +51,13 @@ namespace TGC.Group.Model
             foreach (TgcMesh mesh in elementos)
             {
                 mesh.AutoTransform = false;
-                this.elementos.Add(mesh);
+                this.elements.Add(mesh);
             }
         }
 
         public TgcBoundingAxisAlignBox GetBoundingAlignBox()
         {
-            return this.elementos[0].BoundingBox;
+            return this.elements[0].BoundingBox;
         }
 
         public TGCVector3 GetPosition()
@@ -55,7 +67,7 @@ namespace TGC.Group.Model
 
         public virtual void transform()
         {
-            foreach(TgcMesh elemento in this.elementos)
+            foreach(TgcMesh elemento in this.elements)
             {
                 elemento.Transform = this.transformacion;
                 elemento.BoundingBox.transform(this.transformacion);
@@ -66,7 +78,7 @@ namespace TGC.Group.Model
         public virtual void Render()
         {
             this.transform();
-            foreach (TgcMesh elemento in this.elementos)
+            foreach (TgcMesh elemento in this.elements)
             {
                 if (Scene.GetInstance().getCamera().IsInView(elemento.BoundingBox))
                 {
@@ -78,7 +90,7 @@ namespace TGC.Group.Model
 
         public void Dispose()
         {
-            foreach (TgcMesh elemento in this.elementos)
+            foreach (TgcMesh elemento in this.elements)
             {
                 //elemento.Dispose();
             }
@@ -160,7 +172,7 @@ namespace TGC.Group.Model
         public void HandleCollisions(Vehicle car)
         {
             this.transform();
-            foreach (TgcMesh elemento in this.elementos)
+            foreach (TgcMesh elemento in this.elements)
             {
                 
                 if (this.IsColliding(elemento, car)) {

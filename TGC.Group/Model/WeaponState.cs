@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TGC.Core.Collision;
+using TGC.Core.SceneLoader;
 
 namespace TGC.Group.Model
 {
@@ -15,7 +17,7 @@ namespace TGC.Group.Model
             this.weapon = weapon;
         }
 
-        public void Render()
+        virtual public void Render()
         {
             this.weapon.Transform();
             this.weapon.mesh.Render();
@@ -27,8 +29,29 @@ namespace TGC.Group.Model
             this.weapon.mesh.Dispose();
         }
 
+        public void HandleCollision(Vehicle car)
+        {
+            if (TgcCollisionUtils.testSphereOBB(this.weapon.sphere, car.GetTGCBoundingOrientedBox()))
+            {
+                car.AddWeapon(this.weapon);
+                this.weapon.weaponState = new ReadyToShoot(this.weapon);
+                //Scene.GetInstance().remove(this);
+            }
+        }
+
+        virtual public TgcMesh GetCollidable(Vehicle car)
+        {
+            if (TgcCollisionUtils.testSphereOBB(this.weapon.sphere, car.GetTGCBoundingOrientedBox()))
+            {
+                return this.weapon.mesh;
+            }
+            return null;
+        }
+
         abstract public void Move();
 
         abstract public void Update();
+
+        abstract public void Shoot(Vehicle car);
     }
 }

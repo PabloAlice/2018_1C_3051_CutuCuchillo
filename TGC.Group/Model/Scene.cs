@@ -43,10 +43,9 @@ namespace TGC.Group.Model
             return interes.X > pmin.X && interes.X < pmax.X && interes.Z > pmin.Z && interes.Z < pmax.Z;
         }
 
-        private bool IsIn(Section seccion)
+        private bool IsIn(Section seccion, TGCVector3 position)
         {
-            TGCVector3 posicion = this.auto.GetPosicion();
-            return IsBetween(posicion, seccion.GetPuntoMinimo(), seccion.GetPuntoMaximo());
+            return IsBetween(position, seccion.GetPuntoMinimo(), seccion.GetPuntoMaximo());
             
         }
 
@@ -55,13 +54,37 @@ namespace TGC.Group.Model
             return this.VehicleUbication().GetElements();
         }
 
+        public List<Collidable> GetPosiblesCollidables(Weapon weapon)
+        {
+            return this.VehicleUbication().GetElements();
+        }
+
         private Section VehicleUbication()
         {
-            if (this.IsIn(this.cocina))
+            //TODO guarda con esto cuando haya varios coches en el juego
+            TGCVector3 position = this.auto.GetPosicion();
+            if (this.IsIn(this.cocina, position))
             {
                 return this.cocina;
             }
-            else if (this.IsIn(this.habitacion))
+            else if (this.IsIn(this.habitacion, position))
+            {
+                return this.habitacion;
+            }
+            else
+            {
+                return this.banio;
+            }
+        }
+
+        private Section WeaponUbication(Weapon weapon)
+        {
+            TGCVector3 position = weapon.GetPosition();
+            if (this.IsIn(this.cocina, position))
+            {
+                return this.cocina;
+            }
+            else if (this.IsIn(this.habitacion, position))
             {
                 return this.habitacion;
             }
@@ -615,7 +638,7 @@ namespace TGC.Group.Model
             this.banio.Dispose();
 
         }
-        public void remove(Collidable objeto)
+        public void Remove(Collidable objeto)
         {
             VehicleUbication().remove(objeto);
         }

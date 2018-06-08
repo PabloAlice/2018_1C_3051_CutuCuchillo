@@ -7,6 +7,7 @@ namespace TGC.Group.Model
 
         public InExhibition(Weapon weapon):base(weapon)
         {
+            this.weapon.matrix = this.weapon.initialTransformation;
         }
 
         override public void Move()
@@ -14,10 +15,21 @@ namespace TGC.Group.Model
             return;
         }
 
+        public override void Render()
+        {
+            this.Update();
+            base.Render();
+        }
+
         override public void Update()
         {
-            this.weapon.matrix.Rotate(TGCMatrix.RotationYawPitchRoll(0.5f, 0.3f, 0));
+            this.weapon.matrix.Rotate(TGCMatrix.RotationYawPitchRoll(0.005f, 0.003f, 0));
         }
-        
+
+        public override void Shoot(Vehicle car)
+        {
+            return;
+        }
+
     }
 }

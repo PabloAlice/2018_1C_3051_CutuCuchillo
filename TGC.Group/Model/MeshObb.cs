@@ -17,6 +17,11 @@ namespace TGC.Group.Model
             this.obb = new BoundingOrientedBox(this.mesh.BoundingBox);
         }
 
+        public bool IsColliding(Weapon weapon)
+        {
+            return TgcCollisionUtils.testSphereOBB(weapon.sphere, this.obb.GetBoundingOrientedBox());
+        }
+
         public TgcMesh GetCollidable(Vehicle car)
         {
             //return this.mesh;
