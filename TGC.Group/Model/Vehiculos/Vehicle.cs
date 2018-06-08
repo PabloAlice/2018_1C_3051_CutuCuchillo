@@ -370,6 +370,15 @@ namespace TGC.Group.Model
             this.life = (this.life - 5f < 0) ? 0 : this.life - 5f;
         }
 
+        private void Shoot()
+        {
+            Weapon weapon = this.weapons[0];
+            if (weapon != null)
+            {
+                //weapon.Shoot();
+            }
+        }
+
         public void Action(TgcD3dInput input, CustomSprite velocimetro, CustomSprite bar)
         {
             this.lastTransformation = this.matrixs.GetTransformation();
@@ -448,6 +457,7 @@ namespace TGC.Group.Model
             if (input.keyDown(Key.P))
             {
                 this.SoundsManager.Shoot();
+                this.Shoot();
             }
             else
             {

@@ -6,30 +6,46 @@ namespace TGC.Group.Model
 {
     abstract class Weapon
     {
-        protected TgcMesh mesh;
-        protected TgcBoundingSphere sphere;
-        protected TransformationMatrix matrix = new TransformationMatrix();
+        public TgcMesh mesh;
+        public TgcBoundingSphere sphere;
+        public WeaponState weaponState;
+        public TransformationMatrix initialTransformation = new TransformationMatrix();
+        public TransformationMatrix matrix = new TransformationMatrix();
 
-        public Weapon(TGCMatrix InitialPosition, TGCMatrix Scaling, TgcMesh mesh)
+        public Weapon(TransformationMatrix matrix, TgcMesh mesh)
         {
-            this.matrix.Translate(InitialPosition);
-            this.matrix.Scale(Scaling);
-            this.matrix.Rotate(TGCMatrix.RotationYawPitchRoll(0, 0, 0));
+            this.initialTransformation = matrix;
+            this.matrix = this.initialTransformation;
             this.mesh = mesh;
             this.mesh.AutoTransform = false;
             TGCMatrix m = this.matrix.GetTransformation();
             this.mesh.Transform = m;
             this.mesh.BoundingBox.transform(m);
             this.sphere = TgcBoundingSphere.computeFromPoints(this.mesh.BoundingBox.computeCorners()).toClass();
+            this.weaponState = new InExhibition(this);
+            
         }
 
-        protected void Transform()
+        public void Transform()
         {
             TGCMatrix m = this.matrix.GetTransformation();
             this.mesh.Transform = m;
             this.sphere.setCenter(TGCVector3.transform(new TGCVector3(0,0,0), m));
 
         }
+
+        public void Render()
+        {
+            this.weaponState.Render();
+        }
+
+        public void Dispose()
+        {
+            this.weaponState.Dispose();
+        }
+
         abstract public void Move();
+
+        //abstract public void Shoot();
     }
 }

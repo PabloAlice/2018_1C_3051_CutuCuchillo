@@ -7,7 +7,7 @@ namespace TGC.Group.Model
     class Bomb : Weapon, Collidable
     {
 
-        public Bomb(TGCMatrix initialPosition, TGCMatrix scaling, TgcMesh mesh) : base(initialPosition, scaling, mesh)
+        public Bomb(TransformationMatrix matrix, TgcMesh mesh) : base(matrix, mesh)
         {
         }
 
@@ -16,17 +16,9 @@ namespace TGC.Group.Model
             if(TgcCollisionUtils.testSphereOBB(this.sphere, car.GetTGCBoundingOrientedBox()))
             {
                 car.AddWeapon(this);
+                this.weaponState = new InExhibition(this);
                 //Scene.GetInstance().remove(this);
             }
-        }
-        public void Render()
-        {
-            this.mesh.Render();
-            this.sphere.Render();
-        }
-        public void Dispose()
-        {
-            this.sphere.Render();
         }
 
         public TgcMesh GetCollidable(Vehicle car)

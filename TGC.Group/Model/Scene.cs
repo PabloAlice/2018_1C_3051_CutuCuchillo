@@ -83,8 +83,12 @@ namespace TGC.Group.Model
             TgcMesh plane;
             List<TgcMesh> list;
             SceneElement aux;
+            TransformationMatrix initMatrix = new TransformationMatrix();
 
-            this.habitacion.AddElements(new Bomb(TGCMatrix.Translation(new TGCVector3(0,0.25f,0)), TGCMatrix.Scaling(0.02f,0.02f,0.02f), this.GimeMeASingleMesh("MeshCreator\\Meshes\\Otros\\Weapons\\Bomba\\Bomba-TgcScene.xml")));
+            initMatrix.Scale(TGCMatrix.Scaling(0.02f, 0.02f, 0.02f));
+            initMatrix.Rotate(TGCMatrix.RotationYawPitchRoll(0,0,0));
+            initMatrix.Translate(TGCMatrix.Translation(new TGCVector3(0, 0.25f, 0)));
+            this.habitacion.AddElements(new Bomb(initMatrix, this.GimeMeASingleMesh("MeshCreator\\Meshes\\Otros\\Weapons\\Bomba\\Bomba-TgcScene.xml")));
 
             TgcScene escena = new TgcSceneLoader().loadSceneFromFile(GlobalConcepts.GetInstance().GetMediaDir() + "Texturas\\Habitacion\\escenaMesheada-TgcScene.xml");
 
