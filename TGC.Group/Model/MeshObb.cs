@@ -17,6 +17,13 @@ namespace TGC.Group.Model
             this.obb = new BoundingOrientedBox(this.mesh.BoundingBox);
         }
 
+
+        public TGCVector3 GetPosition()
+        {
+            //TODO esta asi por que no tengo la matrix de transformacion
+            return new TGCVector3(0,0,0);
+        }
+
         public bool IsColliding(Weapon weapon)
         {
             return TgcCollisionUtils.testSphereOBB(weapon.sphere, this.obb.GetBoundingOrientedBox());

@@ -109,7 +109,7 @@ namespace TGC.Group.Model
             textoVelocidadVehiculo = Text.newText(dialogo, 120, 10);
 
             dialogo = "Posicion = ({0} | {1} | {2})";
-            dialogo = string.Format(dialogo, auto.GetPosicion().X, auto.GetPosicion().Y, auto.GetPosicion().Z);
+            dialogo = string.Format(dialogo, auto.GetPosition().X, auto.GetPosition().Y, auto.GetPosition().Z);
             textoPosicionVehiculo = Text.newText(dialogo, 120, 25);
 
             dialogo = "VectorAdelante = ({0} | {1} | {2})";

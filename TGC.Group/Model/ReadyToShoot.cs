@@ -28,6 +28,7 @@ namespace TGC.Group.Model
         public override void Shoot(Vehicle car)
         {
             this.weapon.weaponState = new Shooted(this.weapon, car);
+            car.Remove(this.weapon);
         }
 
         public override void Render()

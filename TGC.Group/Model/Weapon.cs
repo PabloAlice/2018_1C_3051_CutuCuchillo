@@ -23,6 +23,7 @@ namespace TGC.Group.Model
             this.mesh.Transform = m;
             this.mesh.BoundingBox.transform(m);
             this.sphere = TgcBoundingSphere.computeFromPoints(this.mesh.BoundingBox.computeCorners()).toClass();
+            this.sphere.setValues(this.sphere.Center, this.sphere.Radius * 0.4f);
             this.weaponState = new InExhibition(this);
             
         }
@@ -32,6 +33,11 @@ namespace TGC.Group.Model
         public bool IsColliding(Weapon weapon)
         {
             return false;
+        }
+
+        public void Update()
+        {
+            this.weaponState.Update();
         }
 
         public TGCVector3 GetPosition()

@@ -8,6 +8,7 @@ namespace TGC.Group.Model
         public InExhibition(Weapon weapon):base(weapon)
         {
             this.weapon.matrix = this.weapon.initialTransformation;
+            this.weapon.Transform();
         }
 
         override public void Move()

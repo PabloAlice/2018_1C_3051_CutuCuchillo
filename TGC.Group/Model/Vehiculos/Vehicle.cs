@@ -310,7 +310,7 @@ namespace TGC.Group.Model
             this.matrixs.Translate(displacement);
         }
 
-        public TGCVector3 GetPosicion()
+        public TGCVector3 GetPosition()
         {
             return TGCVector3.transform(new TGCVector3(0, 0, 0), this.matrixs.GetTransformation());
         }
@@ -370,9 +370,14 @@ namespace TGC.Group.Model
             this.life = (this.life - 5f < 0) ? 0 : this.life - 5f;
         }
 
+        private int NumberOfWeapons()
+        {
+            return this.weapons.Count;
+        }
+
         private void Shoot()
         {
-            Weapon weapon = this.weapons[0];
+            Weapon weapon = (this.NumberOfWeapons() >= 0) ? this.weapons[0] : null;
             if (weapon != null)
             {
                 weapon.Shoot(this);
@@ -481,13 +486,18 @@ namespace TGC.Group.Model
 
             this.estado.JumpUpdate();
             this.estado.FrozenTimeUpdate();
-            this.camara.Target = (this.GetPosicion()) + this.GetVectorAdelante() * 30;
+            this.camara.Target = (this.GetPosition()) + this.GetVectorAdelante() * 30;
             //this.camara.UpdateInterpolation(this.elapsedTime);
             float velocidadMaxima = (this.velocidadActual < 0) ? this.velocidadMaximaDeRetroceso : this.velocidadMaximaDeAvance;
             float maxAngle = (this.velocidadActual > 0) ? FastMath.PI + FastMath.PI / 3 : FastMath.PI_HALF;
             velocimetro.Rotation = (FastMath.Abs(this.velocidadActual) * (maxAngle)) / velocidadMaxima - FastMath.PI;
             bar.Scaling = new TGCVector2((this.life * 0.07f) / 100f, 0.05f);
             
+        }
+
+        public void Remove(Weapon weapon)
+        {
+            this.weapons.Remove(weapon);
         }
 
         public void Congelar()

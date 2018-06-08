@@ -29,7 +29,7 @@ namespace TGC.Group.Model
             return this.puntoMaximo;
         }
 
-        public void AddElements(Collidable objeto)
+        public void AddElement(Collidable objeto)
         {
             this.objetos.Add(objeto);
         }

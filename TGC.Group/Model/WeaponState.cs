@@ -53,5 +53,6 @@ namespace TGC.Group.Model
         abstract public void Update();
 
         abstract public void Shoot(Vehicle car);
+
     }
 }
