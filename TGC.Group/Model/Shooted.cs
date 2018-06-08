@@ -6,12 +6,13 @@ namespace TGC.Group.Model
 {
     class Shooted : WeaponState
     {
-        
+        private float velocity;
         private Vehicle car;
 
         public Shooted(Weapon weapon, Vehicle car) : base(weapon)
         {
             this.car = car;
+            this.velocity = car.GetMaximunForwardVelocity() * 1.2f;
             this.weapon.direction = car.GetVectorAdelante();
             this.weapon.matrix.SetTranslation(TGCMatrix.Translation(car.GetPosition()));
             this.weapon.matrix.Translate(TGCMatrix.Translation(new TGCVector3(0,0.35f,0)));
@@ -31,12 +32,12 @@ namespace TGC.Group.Model
 
         public override void Move()
         {
-            this.weapon.matrix.Translate(TGCMatrix.Translation(this.weapon.direction * 50f * GlobalConcepts.GetInstance().GetElapsedTime()));
+            this.weapon.matrix.Translate(TGCMatrix.Translation(this.weapon.direction * this.velocity * GlobalConcepts.GetInstance().GetElapsedTime()));
         }
 
         public void MoveBackward()
         {
-            this.weapon.matrix.Translate(TGCMatrix.Translation(this.weapon.direction * -50f * GlobalConcepts.GetInstance().GetElapsedTime()));
+            this.weapon.matrix.Translate(TGCMatrix.Translation(this.weapon.direction * -this.velocity * GlobalConcepts.GetInstance().GetElapsedTime()));
         }
 
         public override void Update()

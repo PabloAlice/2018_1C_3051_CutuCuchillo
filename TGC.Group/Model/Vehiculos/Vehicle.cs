@@ -120,7 +120,8 @@ namespace TGC.Group.Model
 
         public TgcMesh GetCollidable(Vehicle car)
         {
-            //return this.mesh;
+            //TODO ahora devuelve null por que no podes chocar con vos mismo
+            //pero cuando hayan mas autos, esto debe chequear la colision
             return null;
         }
 
@@ -180,6 +181,11 @@ namespace TGC.Group.Model
         public float GetVelocidadActualDeSalto()
         {
             return this.velocidadActualDeSalto;
+        }
+
+        public float GetMaximunForwardVelocity()
+        {
+            return this.velocidadMaximaDeAvance;
         }
 
         public float VelocidadFisica()
