@@ -11,10 +11,11 @@ using TGC.Core.Shaders;
 using TGC.Core.Direct3D;
 using Microsoft.DirectX.Direct3D;
 using System.Drawing;
+using TGC.Core.Collision;
 
 namespace TGC.Group.Model
 {
-    abstract class Vehicle
+    abstract class Vehicle : Collidable
     {
 
         public TgcMesh mesh;
@@ -94,6 +95,33 @@ namespace TGC.Group.Model
         public void AddWeapon(Weapon weapon)
         {
             this.weapons.Add(weapon);
+        }
+
+        public bool IsColliding(Weapon weapon, out Collidable element)
+        {
+
+            if (TgcCollisionUtils.testSphereOBB(weapon.sphere, this.obb.GetBoundingOrientedBox()))
+            {
+                element = this;
+                return true;
+            }
+            element = null;
+            return false;
+        }
+
+        public void HandleCollisions(Vehicle car)
+        {
+            /*if (TgcCollisionUtils.testObbObb(car.GetTGCBoundingOrientedBox(), this.GetObb()))
+            {
+                this.Collide(car);
+            }*/
+            return;
+        }
+
+        public TgcMesh GetCollidable(Vehicle car)
+        {
+            //return this.mesh;
+            return null;
         }
 
         public void SetTranslate(TGCMatrix newTranslate)
