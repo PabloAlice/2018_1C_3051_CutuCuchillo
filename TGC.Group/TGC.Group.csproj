@@ -93,6 +93,7 @@
       <DependentUpon>Game.settings</DependentUpon>
     </Compile>
     <Compile Include="Model\BidirectionalPortal.cs" />
+    <Compile Include="Model\BolaHielo.cs" />
     <Compile Include="Model\Bomb.cs" />
     <Compile Include="Model\BoundingObjectOriented.cs" />
     <Compile Include="Model\CustomBitmap.cs" />

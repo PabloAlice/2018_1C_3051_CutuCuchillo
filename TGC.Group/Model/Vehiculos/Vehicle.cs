@@ -216,9 +216,9 @@ namespace TGC.Group.Model
         }
 
        
-        public void SetElapsedTime(float time)
+        public void SetElapsedTime()
         {
-            this.elapsedTime = time;
+            this.elapsedTime = GlobalConcepts.GetInstance().GetElapsedTime();
             if(this.deltaTiempoAvance.tiempoTranscurrido() != 0)
             {
                 this.deltaTiempoAvance.acumularTiempo(this.elapsedTime);
@@ -418,8 +418,9 @@ namespace TGC.Group.Model
             }
         }
 
-        public void Action(TgcD3dInput input, CustomSprite velocimetro, CustomSprite bar)
+        virtual public void Action(TgcD3dInput input, CustomSprite velocimetro, CustomSprite bar)
         {
+            this.SetElapsedTime();
             this.lastTransformation = this.matrixs.GetTransformation();
             this.SoundsManager.Update(this.velocidadActual);
 

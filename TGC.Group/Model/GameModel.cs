@@ -21,9 +21,7 @@ namespace TGC.Group.Model
         }
 
         private Van auto;
-        private ObjectManagement manager;
         private ThirdPersonCamera camaraInterna;
-        private ThirdPersonCamera camaraManagement;
         private TGCVector3 camaraDesplazamiento = new TGCVector3(0, 5, 40);
         private TgcText2D textoVelocidadVehiculo, textoOffsetH, textoOffsetF, textoPosicionVehiculo, textoVectorAdelante;
         private Drawer2D drawer;
@@ -48,9 +46,6 @@ namespace TGC.Group.Model
             arrowVelocimeter.Scaling = new TGCVector2(0.2f, 0.2f);
             arrowVelocimeter.RotationCenter = new TGCVector2(0, arrowVelocimeter.Bitmap.Height / 8);
             arrowVelocimeter.Rotation = -FastMath.PI;
-            //flechaVelocimetro.TransformationMatrix = TGCMatrix.Transformation2D(new TGCVector2(0,0), 0, new TGCVector2(0.2f, 0.2f), new TGCVector2(0,0), FastMath.PI + FastMath.PI_HALF, new TGCVector2(D3DDevice.Instance.Width * 0.84f, D3DDevice.Instance.Height * 0.85f));
-            //flechaVelocimetro.RotationCenter = new TGCVector2(D3DDevice.Instance.Width * 0.84f + flechaVelocimetro.Bitmap.Width/2, D3DDevice.Instance.Height * 0.85f + flechaVelocimetro.Bitmap.Height/2);
-            //flechaVelocimetro.Rotation = FastMath.PI + FastMath.QUARTER_PI;
 
             barOfLifeGreen = new CustomSprite();
             barOfLifeGreen.Bitmap = new CustomBitmap(MediaDir + "GUI\\HUB\\BarraDeVida\\1.jpg", D3DDevice.Instance.Device);
@@ -124,9 +119,6 @@ namespace TGC.Group.Model
             dialogo = string.Format(dialogo, this.camaraInterna.OffsetForward);
             textoOffsetF = Text.newText(dialogo, 120, 85);
 
-
-            
-            this.auto.SetElapsedTime(ElapsedTime);
             this.auto.Action(this.Input, this.arrowVelocimeter, this.barOfLifeGreen);
             //this.manager.Action(this.Input);
             Scene.GetInstance().HandleCollisions();

@@ -128,18 +128,28 @@ namespace TGC.Group.Model
             List<TgcMesh> list;
             SceneElement aux;
             TransformationMatrix initMatrix;
+            TgcMesh weapon;
 
+            weapon = this.GimeMeASingleMesh("MeshCreator\\Meshes\\Otros\\Weapons\\Bomba\\Bomba-TgcScene.xml");
             initMatrix = new TransformationMatrix();
             initMatrix.SetScalation(TGCMatrix.Scaling(0.02f, 0.02f, 0.02f));
             initMatrix.SetRotation(TGCMatrix.RotationYawPitchRoll(0,0,0));
             initMatrix.SetTranslation(TGCMatrix.Translation(new TGCVector3(0, 0.35f, 0)));
-            this.habitacion.AddElement(new Bomb(initMatrix, this.GimeMeASingleMesh("MeshCreator\\Meshes\\Otros\\Weapons\\Bomba\\Bomba-TgcScene.xml")));
+            this.habitacion.AddElement(new Bomb(initMatrix, weapon));
 
+            weapon = this.GimeMeASingleMesh("MeshCreator\\Meshes\\Otros\\Weapons\\Misil\\Misil-TgcScene.xml");
             initMatrix = new TransformationMatrix();
             initMatrix.SetScalation(TGCMatrix.Scaling(0.02f, 0.02f, 0.02f));
             initMatrix.SetRotation(TGCMatrix.RotationYawPitchRoll(0, 0, 0));
             initMatrix.SetTranslation(TGCMatrix.Translation(new TGCVector3(-120f, 0.35f, 0)));
-            this.habitacion.AddElement(new Misile(initMatrix, this.GimeMeASingleMesh("MeshCreator\\Meshes\\Otros\\Weapons\\Misil\\Misil-TgcScene.xml")));
+            this.habitacion.AddElement(new Misile(initMatrix, weapon));
+
+            weapon = this.GimeMeASingleMesh("MeshCreator\\Meshes\\Otros\\Weapons\\BolaHielo\\BolaHielo-TgcScene.xml");
+            initMatrix = new TransformationMatrix();
+            initMatrix.SetScalation(TGCMatrix.Scaling(0.02f, 0.02f, 0.02f));
+            initMatrix.SetRotation(TGCMatrix.RotationYawPitchRoll(0, 0, 0));
+            initMatrix.SetTranslation(TGCMatrix.Translation(new TGCVector3(-120f, 0.35f, -30)));
+            this.habitacion.AddElement(new Misile(initMatrix, weapon));
 
             TgcScene escena = new TgcSceneLoader().loadSceneFromFile(GlobalConcepts.GetInstance().GetMediaDir() + "Texturas\\Habitacion\\escenaMesheada-TgcScene.xml");
 
