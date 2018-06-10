@@ -15,12 +15,12 @@ namespace TGC.Group.Model
     abstract class Vehicle : Collidable
     {
         public TgcMesh mesh;
-        private BoundingOrientedBox obb;
+        protected BoundingOrientedBox obb;
         private Timer deltaTiempoAvance;
         private Timer deltaTiempoSalto;
         public TGCVector3 vectorAdelante;
         public TGCVector3 VectorAdelanteSalto { get; set; }
-        private TransformationMatrix matrixs;
+        protected TransformationMatrix matrixs;
         protected List<Wheel> ruedas = new List<Wheel>();
         protected Wheel delanteraIzquierda;
         protected Wheel delanteraDerecha;
@@ -57,20 +57,16 @@ namespace TGC.Group.Model
             this.camara = camara;
             this.SoundsManager = soundsManager;
             this.vectorAdelante = new TGCVector3(0, 0, 1);
-            this.CrearMesh(GlobalConcepts.GetInstance().GetMediaDir() + "meshCreator\\meshes\\Vehiculos\\Camioneta\\Camioneta-TgcScene.xml", posicionInicial);
             this.velocidadActualDeSalto = this.velocidadInicialDeSalto;
             this.deltaTiempoAvance = new Timer();
             this.deltaTiempoSalto = new Timer();
             this.aceleracionRetroceso = this.aceleracionAvance * 0.8f;
             this.vectorDireccion = this.vectorAdelante;
             this.estado = new Stopped(this);
-            this.mesh.BoundingBox.transform(this.matrixs.GetTransformation());
-            this.obb = new BoundingOrientedBox(this.mesh.BoundingBox);
             this.camara.SetPlane(this.vectorAdelante);
             this.velocidadMaximaDeRetroceso = this.velocidadMaximaDeAvance * 0.7f;
             this.CreateSmoke();
-            
-            
+
         }
 
         private void CreateSmoke()
@@ -149,7 +145,7 @@ namespace TGC.Group.Model
             this.obb.Rotate(rotacion);
         }
 
-        private void CrearMesh(string rutaAMesh, TGCVector3 posicionInicial)
+        protected void CrearMesh(string rutaAMesh, TGCVector3 posicionInicial)
         {
             TgcSceneLoader loader = new TgcSceneLoader();
             TgcScene scene = loader.loadSceneFromFile(rutaAMesh);
@@ -158,6 +154,8 @@ namespace TGC.Group.Model
             this.matrixs.SetScalation(TGCMatrix.Scaling(escaladoInicial));
             this.matrixs.Translate(TGCMatrix.Translation(posicionInicial));
             this.trasladoInicial = this.matrixs.GetTranslation();
+            this.mesh.BoundingBox.transform(this.matrixs.GetTransformation());
+            this.obb = new BoundingOrientedBox(this.mesh.BoundingBox);
             this.mesh.Effect =  TgcShaders.loadEffect(GlobalConcepts.GetInstance().GetShadersDir() + "FrozenMeshShader.fx");
             mesh.Technique = "Unfreeze";
 
