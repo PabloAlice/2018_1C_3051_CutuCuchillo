@@ -20,6 +20,11 @@ namespace TGC.Group.Model
             resetValues();
         }
 
+        public void Update(Vehicle car)
+        {
+            Scene.GetInstance().camera.Target = (car.GetPosition()) + car.GetVectorAdelante() * 30;
+        }
+
         public ThirdPersonCamera(TGCVector3 target, float offsetHeight, float offsetForward) : this()
         {
             Target = target;

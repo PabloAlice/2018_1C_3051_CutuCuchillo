@@ -42,7 +42,6 @@ namespace TGC.Group.Model
         protected TGCVector3 escaladoInicial = new TGCVector3(0.005f, 0.005f, 0.005f);
         //se guarda el traslado inicial porque se usa como pivote
         protected TGCMatrix trasladoInicial;
-        protected ThirdPersonCamera camara;
         protected TGCMatrix lastTransformation;
         protected float life = 100f;
         protected ParticleEmitter smoke;
@@ -51,10 +50,9 @@ namespace TGC.Group.Model
         //Timer shaderTime = new Timer();
         //FloatModifier shaderColorModifier = new FloatModifier(0.84f, 0.74f, 0.94f);
 
-        public Vehicle(ThirdPersonCamera camara, TGCVector3 posicionInicial, SoundsManager soundsManager)
+        public Vehicle(TGCVector3 posicionInicial, SoundsManager soundsManager)
         {
             this.matrixs = new TransformationMatrix();
-            this.camara = camara;
             this.SoundsManager = soundsManager;
             this.vectorAdelante = new TGCVector3(0, 0, 1);
             this.velocidadActualDeSalto = this.velocidadInicialDeSalto;
@@ -63,7 +61,6 @@ namespace TGC.Group.Model
             this.aceleracionRetroceso = this.aceleracionAvance * 0.8f;
             this.vectorDireccion = this.vectorAdelante;
             this.estado = new Stopped(this);
-            this.camara.SetPlane(this.vectorAdelante);
             this.velocidadMaximaDeRetroceso = this.velocidadMaximaDeAvance * 0.7f;
             this.CreateSmoke();
 
@@ -84,11 +81,6 @@ namespace TGC.Group.Model
         public TGCVector3 GetDirectionOfCollision()
         {
             return (this.velocidadActual >= 0) ? this.vectorAdelante : -this.vectorAdelante;
-        }
-
-        public ThirdPersonCamera GetCamara()
-        {
-            return this.camara;
         }
 
         public void ChangePosition(TGCMatrix nuevaPosicion)
@@ -219,7 +211,7 @@ namespace TGC.Group.Model
             this.vectorAdelante.TransformCoordinate(matrizDeRotacion);
             this.RotarDelanteras((this.GetVelocidadActual() > 0) ? rotacionRueda : -rotacionRueda);
             //this.camara.interpolador.Acumulate(rotacionReal);
-            this.camara.rotateY(rotacionReal);
+            Scene.GetInstance().camera.rotateY(rotacionReal);
             this.RotateOBB(rotacionReal);
         }
 
@@ -428,29 +420,29 @@ namespace TGC.Group.Model
 
             if (input.keyDown(Key.NumPad4))
             {
-                this.camara.rotateY(-0.005f);
+                Scene.GetInstance().camera.rotateY(-0.005f);
             }
             if (input.keyDown(Key.NumPad6))
             {
-                this.camara.rotateY(0.005f);
+                Scene.GetInstance().camera.rotateY(0.005f);
             }
 
             if (input.keyDown(Key.RightArrow))
             {
-                this.camara.OffsetHeight += 0.05f;
+                Scene.GetInstance().camera.OffsetHeight += 0.05f;
             }
             if (input.keyDown(Key.LeftArrow))
             {
-                this.camara.OffsetHeight -= 0.05f;
+                Scene.GetInstance().camera.OffsetHeight -= 0.05f;
             }
 
             if (input.keyDown(Key.UpArrow))
             {
-                this.camara.OffsetForward += 0.05f;
+                Scene.GetInstance().camera.OffsetForward += 0.05f;
             }
             if (input.keyDown(Key.DownArrow))
             {
-                this.camara.OffsetForward -= 0.05f;
+                Scene.GetInstance().camera.OffsetForward -= 0.05f;
             }
 
             if (input.keyDown(Key.W))
@@ -535,7 +527,6 @@ namespace TGC.Group.Model
             this.SoundsManager.Update(this.velocidadActual);
             this.estado.JumpUpdate();
             this.estado.FrozenTimeUpdate();
-            this.camara.Target = (this.GetPosition()) + this.GetVectorAdelante() * 30;
             //this.camara.UpdateInterpolation(this.elapsedTime);
         }
 

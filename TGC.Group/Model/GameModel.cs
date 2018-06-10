@@ -79,13 +79,15 @@ namespace TGC.Group.Model
             pressStart.Bitmap = new CustomBitmap(MediaDir + "GUI\\Menu\\press-start.png", D3DDevice.Instance.Device);
             pressStart.Position = new TGCVector2((deviceWidth / 2f) - pressStart.Bitmap.Width / 2, deviceHeight / 8f);
 
-            Scene.GetInstance().Init(this.MediaDir);
+            Scene.GetInstance().Init();
             this.camaraInterna = new ThirdPersonCamera(camaraDesplazamiento, 0.8f, -33);
             //this.camaraManagement = new CamaraEnTerceraPersona(camaraDesplazamiento, 3f, -50);
             this.Camara = camaraInterna;
-            //this.Camara = camaraManagement;
-            this.auto = new Van(camaraInterna, new TGCVector3(-60f, 0f, 0f), new SoundsManager(new TGCVector3(-0f, 0f, 0f)));
+            this.auto = new Van(new TGCVector3(-60f, 0f, 0f), new SoundsManager(new TGCVector3(-0f, 0f, 0f)));
             Scene.GetInstance().SetVehiculo(this.auto);
+            Scene.GetInstance().SetCamera(camaraInterna);
+            //this.Camara = camaraManagement;
+            
             //manager = new ObjectManagement(MediaDir + "meshCreator\\meshes\\Habitacion\\Billetes\\Billete2\\Billete2-TgcScene.xml", camaraManagement);
 
             
@@ -120,6 +122,7 @@ namespace TGC.Group.Model
             textoOffsetF = Text.newText(dialogo, 120, 85);
 
             this.auto.Action(this.Input, this.arrowVelocimeter, this.barOfLifeGreen);
+            Scene.GetInstance().camera.Update(auto);
             //this.manager.Action(this.Input);
             Scene.GetInstance().HandleCollisions();
 

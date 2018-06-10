@@ -49,7 +49,7 @@ namespace TGC.Group.Model
             objetos.Remove(objeto);
         }
 
-        public void Render(ThirdPersonCamera camara)
+        public void Render()
         {
             this.lightMesh.Render();
             foreach (Collidable objeto in this.objetos)

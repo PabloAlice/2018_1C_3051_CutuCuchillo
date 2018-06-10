@@ -5,7 +5,7 @@ namespace TGC.Group.Model.Vehiculos
 {
     class Van : Vehicle
     {
-        public Van(ThirdPersonCamera camara, TGCVector3 posicionInicial, SoundsManager soundsManager) : base(camara, posicionInicial, soundsManager)
+        public Van(TGCVector3 posicionInicial, SoundsManager soundsManager) : base(posicionInicial, soundsManager)
         {
             this.CrearMesh(GlobalConcepts.GetInstance().GetMediaDir() + "meshCreator\\meshes\\Vehiculos\\Camioneta\\Camioneta-TgcScene.xml", posicionInicial);
             this.CreateWheels();

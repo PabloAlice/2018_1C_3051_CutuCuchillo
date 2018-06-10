@@ -9,6 +9,7 @@ namespace TGC.Group.Model
         private static Scene instance;
         private Vehicle auto;
         private Section cocina, banio, habitacion;
+        public ThirdPersonCamera camera;
 
         private Scene()
         {
@@ -115,12 +116,13 @@ namespace TGC.Group.Model
             }
         }
 
-        public ThirdPersonCamera getCamera()
+        public void SetCamera(ThirdPersonCamera camera)
         {
-            return this.auto.GetCamara();
+            this.camera = camera;
+            this.camera.SetPlane(this.auto.GetVectorAdelante());
         }
 
-        public void Init(string mediaDir)
+        public void Init()
         {
 
             GlobalConcepts GlobalConcepts = GlobalConcepts.GetInstance();
@@ -664,9 +666,10 @@ namespace TGC.Group.Model
 
         public void Render()
         {
-            this.VehicleUbication().Render(this.auto.GetCamara());
+            
+            this.VehicleUbication().Render();
             //negrada
-            this.auto.GetCamara().SetPlane(this.auto.GetVectorAdelante());
+            this.camera.SetPlane(this.auto.GetVectorAdelante());
         }
 
         public void Dispose()

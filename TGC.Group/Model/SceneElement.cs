@@ -82,7 +82,7 @@ namespace TGC.Group.Model
             this.transform();
             foreach (TgcMesh elemento in this.elements)
             {
-                if (Scene.GetInstance().getCamera().IsInView(elemento.BoundingBox))
+                if (Scene.GetInstance().camera.IsInView(elemento.BoundingBox))
                 {
                     Lighting.LightManager.Instance.DoLightMe(elemento);
                     elemento.Render();
