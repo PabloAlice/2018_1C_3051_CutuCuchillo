@@ -84,6 +84,7 @@ namespace TGC.Group.Model
             {
                 if (Scene.GetInstance().getCamera().IsInView(elemento.BoundingBox))
                 {
+                    Lighting.LightManager.Instance.DoLightMe(elemento);
                     elemento.Render();
                     elemento.BoundingBox.Render();
                 }

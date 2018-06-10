@@ -92,6 +92,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Game.settings</DependentUpon>
     </Compile>
+    <Compile Include="Lighting\Light.cs" />
     <Compile Include="Model\BidirectionalPortal.cs" />
     <Compile Include="Model\BolaHielo.cs" />
     <Compile Include="Model\Bomb.cs" />
@@ -134,6 +135,7 @@
     <Compile Include="Model\Vehiculos\Vehicle.cs" />
     <Compile Include="Model\Weapon.cs" />
     <Compile Include="Model\WeaponState.cs" />
+    <Compile Include="Lighting\LightManager.cs" />
     <Compile Include="MyAbrstactions\Tgc3dSound.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -211,6 +213,7 @@
     <Content Include="Media\CarSounds\max-vel.wav" />
     <Content Include="Media\CarSounds\min-vel.wav" />
     <Content Include="Media\LogoTGC-TgcScene.xml" />
+    <Content Include="Shaders\MultiDiffuseLights.fx" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

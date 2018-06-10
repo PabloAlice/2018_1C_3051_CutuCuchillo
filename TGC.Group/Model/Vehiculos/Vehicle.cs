@@ -246,6 +246,7 @@ namespace TGC.Group.Model
             //shaderColorModifier.Modify(0.01f);
             //effect.SetValue("time", shaderTime.tiempoTranscurrido());
             //effect.SetValue("bluecolor", shaderColorModifier.Modifier);
+            Lighting.LightManager.Instance.DoLightMe(this.mesh);
             this.mesh.Render();
             this.RenderBoundingOrientedBox();
             delanteraIzquierda.Render();

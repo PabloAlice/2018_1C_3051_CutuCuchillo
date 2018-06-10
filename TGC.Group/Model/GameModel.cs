@@ -33,6 +33,10 @@ namespace TGC.Group.Model
             var deviceHeight = D3DDevice.Instance.Height;
             var deviceWidth = D3DDevice.Instance.Width;
 
+            GlobalConcepts.GetInstance().SetMediaDir(this.MediaDir);
+            GlobalConcepts.GetInstance().SetShaderDir(this.ShadersDir);
+            GlobalConcepts.GetInstance().SetDispositivoDeAudio(this.DirectSound.DsDevice);
+            GlobalConcepts.GetInstance().SetScreen(D3DDevice.Instance.Device);
             drawer = new Drawer2D();
 
             velocimeter = new CustomSprite();
@@ -75,10 +79,6 @@ namespace TGC.Group.Model
             pressStart.Bitmap = new CustomBitmap(MediaDir + "GUI\\Menu\\press-start.png", D3DDevice.Instance.Device);
             pressStart.Position = new TGCVector2((deviceWidth / 2f) - pressStart.Bitmap.Width / 2, deviceHeight / 8f);
 
-            GlobalConcepts.GetInstance().SetMediaDir(this.MediaDir);
-            GlobalConcepts.GetInstance().SetShaderDir(this.ShadersDir);
-            GlobalConcepts.GetInstance().SetDispositivoDeAudio(this.DirectSound.DsDevice);
-            GlobalConcepts.GetInstance().SetScreen(D3DDevice.Instance.Device);
             Scene.GetInstance().Init(this.MediaDir);
             this.camaraInterna = new ThirdPersonCamera(camaraDesplazamiento, 0.8f, -33);
             //this.camaraManagement = new CamaraEnTerceraPersona(camaraDesplazamiento, 3f, -50);
