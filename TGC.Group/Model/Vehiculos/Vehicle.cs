@@ -8,6 +8,7 @@ using TGC.Core.Input;
 using Microsoft.DirectX.DirectInput;
 using TGC.Core.Shaders;
 using TGC.Core.Collision;
+using TGC.Core.Particle;
 
 namespace TGC.Group.Model
 {
@@ -44,9 +45,9 @@ namespace TGC.Group.Model
         protected ThirdPersonCamera camara;
         protected TGCMatrix lastTransformation;
         protected float life = 100f;
+        protected ParticleEmitter smoke;
         protected List<Weapon> weapons = new List<Weapon>();
 
-        public Microsoft.DirectX.Direct3D.Effect effect = TgcShaders.loadEffect(GlobalConcepts.GetInstance().GetShadersDir() + "FrozenMeshShader.fx");
         //Timer shaderTime = new Timer();
         //FloatModifier shaderColorModifier = new FloatModifier(0.84f, 0.74f, 0.94f);
 
@@ -67,9 +68,21 @@ namespace TGC.Group.Model
             this.obb = new BoundingOrientedBox(this.mesh.BoundingBox);
             this.camara.SetPlane(this.vectorAdelante);
             this.velocidadMaximaDeRetroceso = this.velocidadMaximaDeAvance * 0.7f;
+            this.CreateSmoke();
+            
+            
+        }
 
-            this.mesh.Effect = effect;
-            mesh.Technique = "Unfreeze";
+        private void CreateSmoke()
+        {
+            this.smoke = new ParticleEmitter(GlobalConcepts.GetInstance().GetMediaDir() + "Texturas\\Humo\\humo.png", 10);
+            this.smoke.Position = this.GetPosition();
+            this.smoke.MinSizeParticle = 0.1f;
+            this.smoke.MaxSizeParticle = 0.3f;
+            this.smoke.ParticleTimeToLive = 0.5f;
+            this.smoke.CreationFrecuency = 0.01f;
+            this.smoke.Dispersion = 20;
+            this.smoke.Speed = new TGCVector3(1,1,1);
         }
 
         public TGCVector3 GetDirectionOfCollision()
@@ -145,6 +158,8 @@ namespace TGC.Group.Model
             this.matrixs.SetScalation(TGCMatrix.Scaling(escaladoInicial));
             this.matrixs.Translate(TGCMatrix.Translation(posicionInicial));
             this.trasladoInicial = this.matrixs.GetTranslation();
+            this.mesh.Effect =  TgcShaders.loadEffect(GlobalConcepts.GetInstance().GetShadersDir() + "FrozenMeshShader.fx");
+            mesh.Technique = "Unfreeze";
 
         }
 
@@ -237,10 +252,6 @@ namespace TGC.Group.Model
 
         public void Render()
         {
-            //shaderTime.acumularTiempo(GetElapsedTime());
-            //shaderColorModifier.Modify(0.01f);
-            //effect.SetValue("time", shaderTime.tiempoTranscurrido());
-            //effect.SetValue("bluecolor", shaderColorModifier.Modifier);
             Lighting.LightManager.Instance.DoLightMe(this.mesh);
             this.mesh.Render();
             this.RenderBoundingOrientedBox();
@@ -250,6 +261,7 @@ namespace TGC.Group.Model
             {
                 rueda.Render();
             }
+            this.smoke.render(this.elapsedTime);
         }
 
 
@@ -266,10 +278,7 @@ namespace TGC.Group.Model
         public void Dispose()
         {
             this.mesh.Dispose();
-            if (effect != null)
-            {
-                this.effect.Dispose();
-            }
+            this.mesh.Effect.Dispose();
         }
 
         public Timer GetDeltaTiempoAvance()
@@ -418,7 +427,6 @@ namespace TGC.Group.Model
         {
             this.SetElapsedTime();
             this.lastTransformation = this.matrixs.GetTransformation();
-            this.SoundsManager.Update(this.velocidadActual);
 
             if (input.keyDown(Key.NumPad4))
             {
@@ -515,15 +523,38 @@ namespace TGC.Group.Model
                 estado = new Frozen(this);
             }
 
-            this.estado.JumpUpdate();
-            this.estado.FrozenTimeUpdate();
-            this.camara.Target = (this.GetPosition()) + this.GetVectorAdelante() * 30;
-            //this.camara.UpdateInterpolation(this.elapsedTime);
+            this.UpdateValues();
             float velocidadMaxima = (this.velocidadActual < 0) ? this.velocidadMaximaDeRetroceso : this.velocidadMaximaDeAvance;
             float maxAngle = (this.velocidadActual > 0) ? FastMath.PI + FastMath.PI / 3 : FastMath.PI_HALF;
             velocimetro.Rotation = (FastMath.Abs(this.velocidadActual) * (maxAngle)) / velocidadMaxima - FastMath.PI;
             bar.Scaling = new TGCVector2((this.life * 0.07f) / 100f, 0.05f);
             
+        }
+        
+        private void UpdateValues()
+        {
+            this.UpdateSmoke();
+            this.SoundsManager.Update(this.velocidadActual);
+            this.estado.JumpUpdate();
+            this.estado.FrozenTimeUpdate();
+            this.camara.Target = (this.GetPosition()) + this.GetVectorAdelante() * 30;
+            //this.camara.UpdateInterpolation(this.elapsedTime);
+        }
+
+        private void UpdateSmoke()
+        {
+            if (this.life >= 50)
+            {
+                this.smoke.Playing = false;
+            }
+            else if (this.life < 50 && this.life >= 20) {
+                this.smoke.Playing = true;
+            }
+            else
+            {
+                this.smoke.changeTexture(GlobalConcepts.GetInstance().GetMediaDir() + "Texturas\\Humo\\fuego.png");
+            }
+            this.smoke.Position = this.GetPosition();
         }
 
         public void Remove(Weapon weapon)

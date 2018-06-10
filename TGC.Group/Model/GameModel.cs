@@ -138,8 +138,10 @@ namespace TGC.Group.Model
 
         public override void Render()
         {
-            
+            D3DDevice.Instance.ParticlesEnabled = true;
+            D3DDevice.Instance.EnableParticles();
             TexturesManager.Instance.clearAll();
+            
             D3DDevice.Instance.Device.BeginScene();
             D3DDevice.Instance.Device.Clear(ClearFlags.Target | ClearFlags.ZBuffer, Color.Black, 1.0f, 0);
         
