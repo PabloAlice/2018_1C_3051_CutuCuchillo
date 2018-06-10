@@ -6,11 +6,7 @@ using TGC.Group.Model.Vehiculos;
 using TGC.Core.BoundingVolumes;
 using TGC.Core.Input;
 using Microsoft.DirectX.DirectInput;
-using TGC.Core.Geometry;
 using TGC.Core.Shaders;
-using TGC.Core.Direct3D;
-using Microsoft.DirectX.Direct3D;
-using System.Drawing;
 using TGC.Core.Collision;
 
 namespace TGC.Group.Model
