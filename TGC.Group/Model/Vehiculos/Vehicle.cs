@@ -13,7 +13,6 @@ namespace TGC.Group.Model
 {
     abstract class Vehicle : Collidable
     {
-
         public TgcMesh mesh;
         private BoundingOrientedBox obb;
         private Timer deltaTiempoAvance;
