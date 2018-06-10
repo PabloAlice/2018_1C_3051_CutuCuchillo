@@ -20,7 +20,7 @@ namespace TGC.Group.Model
             Description = Game.Default.Description;
         }
 
-        private Van auto;
+        private Van auto, AI;
         private ThirdPersonCamera camaraInterna;
         private TGCVector3 camaraDesplazamiento = new TGCVector3(0, 5, 40);
         private TgcText2D textoVelocidadVehiculo, textoOffsetH, textoOffsetF, textoPosicionVehiculo, textoVectorAdelante;
@@ -178,8 +178,7 @@ namespace TGC.Group.Model
                 drawer.EndDrawSprite();
                 
             }
-
-
+            this.RenderFPS();
             D3DDevice.Instance.Device.EndScene();
             D3DDevice.Instance.Device.Present();
         }

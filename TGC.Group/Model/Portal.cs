@@ -1,6 +1,7 @@
 ﻿using TGC.Core.BoundingVolumes;
 using TGC.Core.Mathematica;
 using TGC.Core.SceneLoader;
+using TGC.Core.Shaders;
 
 namespace TGC.Group.Model
 {
@@ -9,6 +10,7 @@ namespace TGC.Group.Model
         private TGCVector3 position;
         public TgcMesh mesh;
         TGCMatrix transformation;
+        float time = 0;
 
         public Portal(TGCVector3 position, TGCMatrix transformationMatrix)
         {
@@ -21,6 +23,8 @@ namespace TGC.Group.Model
         {
             this.mesh = mesh;
             this.mesh.AutoTransform = false;
+            this.mesh.Effect = TgcShaders.loadEffect(GlobalConcepts.GetInstance().GetShadersDir() + "Portal.fx");
+            this.mesh.Technique = "Portal";
         }
 
         public TGCVector3 GetPosition()
@@ -36,7 +40,10 @@ namespace TGC.Group.Model
 
         public void Render()
         {
-            this.Rotate(TGCMatrix.RotationZ(0.05f));
+            time += 0.05f;
+            System.Console.WriteLine(time);
+            mesh.Effect.SetValue("time", time);
+            //this.Rotate(TGCMatrix.RotationZ(0.05f));
             this.Transform();
             this.mesh.Render();
             this.mesh.BoundingBox.Render();
