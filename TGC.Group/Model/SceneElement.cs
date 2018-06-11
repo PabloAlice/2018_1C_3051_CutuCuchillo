@@ -162,7 +162,8 @@ namespace TGC.Group.Model
 
             while (TgcCollisionUtils.testObbAABB(car.GetTGCBoundingOrientedBox(), elemento.BoundingBox))
             {
-                car.Translate(TGCMatrix.Translation(-directionOfCollision * 0.1f));
+                //ACA SE ROMPE LA COLISION CON LA AI;
+                car.Translate(TGCMatrix.Translation(-directionOfCollision * 100f));
                 car.Transform();
             }
         }

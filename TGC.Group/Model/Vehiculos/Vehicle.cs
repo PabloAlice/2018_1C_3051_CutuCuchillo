@@ -256,7 +256,7 @@ namespace TGC.Group.Model
             this.obb.Render();
         }
 
-        public void Render()
+        virtual public void Render()
         {
             //shaderTime.acumularTiempo(GetElapsedTime());
             //shaderColorModifier.Modify(0.01f);
@@ -544,7 +544,7 @@ namespace TGC.Group.Model
             }
         }
         
-        private void UpdateValues()
+        virtual protected void UpdateValues()
         {
             this.UpdateSmoke();
             this.SoundsManager.Update(this.velocidadActual);

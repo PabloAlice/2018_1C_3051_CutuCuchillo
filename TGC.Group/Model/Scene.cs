@@ -7,7 +7,7 @@ namespace TGC.Group.Model
     class Scene
     {
         private static Scene instance;
-        private Vehicle auto;
+        public Vehicle auto, AI;
         private Section cocina, banio, habitacion;
         public ThirdPersonCamera camera;
 
@@ -37,6 +37,7 @@ namespace TGC.Group.Model
         public void HandleCollisions()
         {
             this.VehicleUbication().HandleCollisions(this.auto);
+            this.VehicleUbication().HandleCollisions(this.AI);
         }
 
         private bool IsBetween(TGCVector3 interes, TGCVector3 pmin, TGCVector3 pmax)

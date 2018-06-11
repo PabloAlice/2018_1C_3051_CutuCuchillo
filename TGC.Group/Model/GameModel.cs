@@ -23,7 +23,7 @@ namespace TGC.Group.Model
         private ArtificialIntelligence AI;
         private ThirdPersonCamera camaraInterna;
         private TGCVector3 camaraDesplazamiento = new TGCVector3(0, 5, 40);
-        private TgcText2D textoVelocidadVehiculo, textoOffsetH, textoOffsetF, textoPosicionVehiculo, textoVectorAdelante;
+        private TgcText2D textoVelocidadVehiculo, textoOffsetH, textoOffsetF, textoPosicionVehiculo, textoVectorAdelante, AIPosition;
         private Drawer2D drawer;
         private CustomSprite velocimeter, arrowVelocimeter, barOfLifeGreen, barOfLifeRed, menuBackground, pressStart;
         private bool enterMenu = false;
@@ -83,9 +83,10 @@ namespace TGC.Group.Model
             this.camaraInterna = new ThirdPersonCamera(camaraDesplazamiento, 0.8f, -33);
             //this.camaraManagement = new CamaraEnTerceraPersona(camaraDesplazamiento, 3f, -50);
             this.Camara = camaraInterna;
-            this.auto = new Van(new TGCVector3(-60f, 0f, 0f), new SoundsManager(new TGCVector3(0f, 0f, 0f)));
-            this.AI = new ArtificialIntelligence(new TGCVector3(-30f, 0f, 0f), new SoundsManager(new TGCVector3(0f, 0f, 0f)));
+            this.auto = new Van(new TGCVector3(-70f, 0f, 0f), new SoundsManager(new TGCVector3(0f, 0f, 0f)));
             Scene.GetInstance().SetVehiculo(this.auto);
+            this.AI = new ArtificialIntelligence(new TGCVector3(50f, 0f, 0f), new SoundsManager(new TGCVector3(0f, 0f, 0f)));
+            Scene.GetInstance().AI = this.AI;
             Scene.GetInstance().SetCamera(camaraInterna);
             //this.Camara = camaraManagement;
             
@@ -121,6 +122,10 @@ namespace TGC.Group.Model
             dialogo = "OffsetForward = {0}";
             dialogo = string.Format(dialogo, this.camaraInterna.OffsetForward);
             textoOffsetF = Text.newText(dialogo, 120, 85);
+
+            dialogo = "AI Position = ({0} | {1} | {2}";
+            dialogo = string.Format(dialogo, AI.GetPosition().X, AI.GetPosition().Y, AI.GetPosition().Z);
+            AIPosition = Text.newText(dialogo, 120, 95);
 
             this.auto.Action(this.Input);
             this.AI.Action(this.Input);
@@ -174,6 +179,7 @@ namespace TGC.Group.Model
                 this.textoVectorAdelante.render();
                 this.textoOffsetF.render();
                 this.textoOffsetH.render();
+                this.AIPosition.render();
 
                 this.auto.Transform();
                 this.auto.Render();
