@@ -160,6 +160,7 @@ namespace TGC.Group.Model
             //por la regla de la mano derecha
             angle = (result.Y < 0)? angle + FastMath.PI : angle;
             this.Girar(angle);
+            Scene.GetInstance().camera.rotateY(angle);
         }
 
         public void SetVectorAdelante(TGCVector3 vector)

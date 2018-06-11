@@ -668,8 +668,7 @@ namespace TGC.Group.Model
         {
             
             this.VehicleUbication().Render();
-            //negrada
-            this.camera.SetPlane(this.auto.GetVectorAdelante());
+            
         }
 
         public void Dispose()
