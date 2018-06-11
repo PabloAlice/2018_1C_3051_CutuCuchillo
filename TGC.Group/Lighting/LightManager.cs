@@ -60,6 +60,15 @@ namespace TGC.Group.Lighting
             this.pointLightAttenuations.Add(light.attenuation);
         }
 
+        public void ResetLights()
+        {
+            this.lights = new List<Light>();
+            this.lightColors = new List<ColorValue>();
+            this.pointLightPositions = new List<Vector4>();
+            this.pointLightIntensities = new List<float>();
+            this.pointLightAttenuations = new List<float>();
+        }
+
         public static LightManager GetInstance()
         {
             if (instance == null)

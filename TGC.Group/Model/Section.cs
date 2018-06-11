@@ -48,6 +48,7 @@ namespace TGC.Group.Model
 
         public void Render()
         {
+            Lighting.LightManager.GetInstance().ResetLights();
             Lighting.LightManager.GetInstance().SuscribeLight(this.light);
             foreach (Collidable objeto in this.objetos)
             {
