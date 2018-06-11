@@ -1,6 +1,7 @@
 ﻿using TGC.Core.Input;
 using TGC.Core.Mathematica;
 using TGC.Core.SceneLoader;
+using Microsoft.DirectX.DirectInput;
 
 namespace TGC.Group.Model.Vehiculos
 {
@@ -26,9 +27,9 @@ namespace TGC.Group.Model.Vehiculos
             ruedas.Add(new Wheel(ruedaTraseraDerecha, new TGCVector3(-34f, 18f, -61f)));
         }
 
-        public override void Action(TgcD3dInput input)
+        protected override void ManageEntry(TgcD3dInput input)
         {
-            
+            return;
         }
     }
 }

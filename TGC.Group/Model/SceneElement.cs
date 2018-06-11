@@ -157,7 +157,8 @@ namespace TGC.Group.Model
             TGCPlane plane = this.CreatePlane(ray, faces, car.GetLastPosition());
             TGCVector3 normal = GlobalConcepts.GetInstance().GetNormalPlane(plane);
             TGCVector3 output = new TGCVector3(normal.X + directionOfCollision.X, normal.Y + directionOfCollision.Y, normal.Z + directionOfCollision.Z);
-            car.SetDirection(output, normal);
+            float angle = car.SetDirection(output, normal);
+            Scene.GetInstance().camera.rotateY(angle);
 
             while (TgcCollisionUtils.testObbAABB(car.GetTGCBoundingOrientedBox(), elemento.BoundingBox))
             {

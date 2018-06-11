@@ -25,7 +25,7 @@ namespace TGC.Group.Model
         protected Wheel delanteraIzquierda;
         protected Wheel delanteraDerecha;
         protected TGCVector3 vectorDireccion;
-        private EstadoVehiculo estado;
+        protected EstadoVehiculo estado;
         private float velocidadActual = 0f;
         private float velocidadActualDeSalto;
         protected float velocidadRotacion = 1f;
@@ -168,14 +168,15 @@ namespace TGC.Group.Model
 
         }
 
-        public void SetDirection(TGCVector3 output, TGCVector3 normal)
+        public float SetDirection(TGCVector3 output, TGCVector3 normal)
         {
             float angle = GlobalConcepts.GetInstance().AngleBetweenVectors(normal, output);
             TGCVector3 result = TGCVector3.Cross(output, normal);
             //por la regla de la mano derecha
             angle = (result.Y < 0)? angle + FastMath.PI : angle;
             this.Girar(angle);
-            Scene.GetInstance().camera.rotateY(angle);
+            return angle;
+            
         }
 
         public void SetVectorAdelante(TGCVector3 vector)
@@ -432,7 +433,7 @@ namespace TGC.Group.Model
             }
         }
 
-        virtual public void Action(TgcD3dInput input)
+        public void Action(TgcD3dInput input)
         {
             this.SetElapsedTime();
             this.lastTransformation = this.matrixs.GetTransformation();
@@ -441,7 +442,7 @@ namespace TGC.Group.Model
             
         }
 
-        private void ManageEntry(TgcD3dInput input)
+        virtual protected void ManageEntry(TgcD3dInput input)
         {
             if (input.keyDown(Key.NumPad4))
             {

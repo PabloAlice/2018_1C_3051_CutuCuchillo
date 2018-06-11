@@ -20,7 +20,8 @@ namespace TGC.Group.Model
             Description = Game.Default.Description;
         }
 
-        private Van auto, AI;
+        private Van auto;
+        private ArtificialIntelligence AI;
         private ThirdPersonCamera camaraInterna;
         private TGCVector3 camaraDesplazamiento = new TGCVector3(0, 5, 40);
         private TgcText2D textoVelocidadVehiculo, textoOffsetH, textoOffsetF, textoPosicionVehiculo, textoVectorAdelante;
@@ -83,7 +84,8 @@ namespace TGC.Group.Model
             this.camaraInterna = new ThirdPersonCamera(camaraDesplazamiento, 0.8f, -33);
             //this.camaraManagement = new CamaraEnTerceraPersona(camaraDesplazamiento, 3f, -50);
             this.Camara = camaraInterna;
-            this.auto = new Van(new TGCVector3(-60f, 0f, 0f), new SoundsManager(new TGCVector3(-0f, 0f, 0f)));
+            this.auto = new Van(new TGCVector3(-60f, 0f, 0f), new SoundsManager(new TGCVector3(0f, 0f, 0f)));
+            this.AI = new ArtificialIntelligence(new TGCVector3(-30f, 0f, 0f), new SoundsManager(new TGCVector3(0f, 0f, 0f)));
             Scene.GetInstance().SetVehiculo(this.auto);
             Scene.GetInstance().SetCamera(camaraInterna);
             //this.Camara = camaraManagement;
@@ -122,6 +124,7 @@ namespace TGC.Group.Model
             textoOffsetF = Text.newText(dialogo, 120, 85);
 
             this.auto.Action(this.Input);
+            this.AI.Action(this.Input);
             Scene.GetInstance().camera.Update(auto);
             //this.manager.Action(this.Input);
             Scene.GetInstance().HandleCollisions();
@@ -175,6 +178,9 @@ namespace TGC.Group.Model
 
                 this.auto.Transform();
                 this.auto.Render();
+
+                this.AI.Transform();
+                this.AI.Render();
 
                 //this.manager.Transform();
                 //this.manager.Render();
