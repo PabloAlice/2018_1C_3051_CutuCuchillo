@@ -4,7 +4,6 @@ using TGC.Core.Mathematica;
 using TGC.Group.Model.Vehiculos;
 using TGC.Core.Text;
 using Microsoft.DirectX.Direct3D;
-using System;
 using System.Drawing;
 using TGC.Core.Textures;
 

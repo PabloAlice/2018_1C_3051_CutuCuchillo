@@ -34,16 +34,13 @@ namespace TGC.Group.Model
 
         private float CheckIfEnd(float realVelocity)
         {
-            System.Console.WriteLine("hey");
             if (realVelocity > 0 && this.toRotate < 0)
             {
-                System.Console.WriteLine("me pase +");
                 realVelocity -= FastMath.Abs(realVelocity - this.toRotate);
                 this.toRotate = 0;
             }
             else if(realVelocity < 0 && this.toRotate > 0)
             {
-                System.Console.WriteLine("me pase -");
                 realVelocity -= FastMath.Abs(realVelocity - this.toRotate);
                 this.toRotate = 0;
             }

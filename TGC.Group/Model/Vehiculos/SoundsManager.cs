@@ -1,7 +1,8 @@
 ﻿using Microsoft.DirectX.DirectSound;
-using System;
+using System.Collections.Generic;
 using TGC.Core.Mathematica;
 using TGC.Group.MyAbstractions;
+using System;
 
 namespace TGC.Group.Model.Vehiculos
 {
@@ -16,6 +17,7 @@ namespace TGC.Group.Model.Vehiculos
         Tgc3dSound alarm;
         Tgc3dSound defaultWeapon;
         Tgc3dSound teletransport;
+        List<Sound> sounds = new List<Sound>();
         private int initialFreq;
         public SoundsManager(TGCVector3 position)
         {
@@ -63,6 +65,22 @@ namespace TGC.Group.Model.Vehiculos
 
             this.backgroundMusic.SoundBuffer.Volume = -2000;
             this.backgroundMusic.play(true);
+        }
+
+        public void AddSound(TGCVector3 position, string sound, string apodo)
+        {
+            if(this.sounds.Exists(s => sound.Equals(apodo)))
+            {
+                throw new Exception("Ya existe un sonido con ese nombre");
+            }
+            BufferDescription bufferDescription = new BufferDescription();
+            bufferDescription.ControlVolume = true;
+            Tgc3dSound newSound = new Tgc3dSound(GlobalConcepts.GetInstance().GetMediaDir() + sound, position, GlobalConcepts.GetInstance().GetDispositivoDeAudio(), bufferDescription);
+        }
+
+        public Tgc3dSound GetSound(string name)
+        {
+            return this.sounds.Find(sound => sound.Equals(name)).sound;
         }
 
         public void Crash()
@@ -128,6 +146,23 @@ namespace TGC.Group.Model.Vehiculos
         public void Teletransport()
         {
             this.teletransport.play();
+        }
+
+        public class Sound
+        {
+            public Tgc3dSound sound;
+            public string name;
+
+            public Sound(Tgc3dSound sound, string name)
+            {
+                this.sound = sound;
+                this.name = name;
+            }
+
+            public bool Equals(string name)
+            {
+                return this.name == name;
+            }
         }
     }
 }

@@ -41,7 +41,6 @@ namespace TGC.Group.Model
         public void Render()
         {
             time += 0.05f;
-            System.Console.WriteLine(time);
             mesh.Effect.SetValue("time", time);
             //this.Rotate(TGCMatrix.RotationZ(0.05f));
             this.Transform();
