@@ -214,7 +214,6 @@
     <Content Include="Media\CarSounds\max-vel.wav" />
     <Content Include="Media\CarSounds\min-vel.wav" />
     <Content Include="Media\LogoTGC-TgcScene.xml" />
-    <Content Include="Shaders\MultiDiffuseLights.fx" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -17,11 +17,8 @@ namespace TGC.Group.Model
         {
             this.puntoMinimo = puntoMinimo;
             this.puntoMaximo = puntoMaximo;
-            var pos = new TGCVector3((puntoMaximo.X + puntoMinimo.X) / 2, puntoMaximo.Y/4, (puntoMaximo.Z + puntoMinimo.Z) / 2);
-            this.lightMesh = TGCBox.fromSize(new TGCVector3(10,10,10), Color.Red);
-            this.lightMesh.Position = pos; 
-            this.light = new Lighting.Light(new ColorValue(255, 255, 255), pos, 38, 0.15f);
-            Lighting.LightManager.Instance.SuscribeLight(this.light);
+            var pos = new TGCVector3((puntoMaximo.X + puntoMinimo.X) / 2, puntoMaximo.Y, (puntoMaximo.Z + puntoMinimo.Z) / 2);
+            this.light = new Lighting.Light(new ColorValue(255, 255, 255),  pos, 40, 0.15f);
         }
 
         public List<Collidable> GetElements()
@@ -51,7 +48,8 @@ namespace TGC.Group.Model
 
         public void Render()
         {
-            this.lightMesh.Render();
+            Lighting.LightManager.GetInstance().ResetLights();
+            Lighting.LightManager.GetInstance().SuscribeLight(this.light);
             foreach (Collidable objeto in this.objetos)
             {
                 objeto.Render();

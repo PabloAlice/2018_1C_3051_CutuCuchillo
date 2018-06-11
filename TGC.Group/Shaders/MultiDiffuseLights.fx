@@ -40,13 +40,13 @@ sampler2D lightMap = sampler_state
 float3 materialEmissiveColor; //Color RGB
 float3 materialDiffuseColor; //Color RGB
 
-static const uint MaxLights = 128;
+static const uint MaxLights = 4;
 uint numLights;
 //Variables de las 4 luces
-float3 lightColor[MaxLights]; //Color RGB de las 4 luces
-float4 lightPosition[MaxLights]; //Posicion de las 4 luces
-float lightIntensity[MaxLights]; //Intensidad de las 4 luces
-float lightAttenuation[MaxLights]; //Factor de atenuacion de las 4 luces
+float3 lightColor[4]; //Color RGB de las 4 luces
+float4 lightPosition[4]; //Posicion de las 4 luces
+float lightIntensity[4]; //Intensidad de las 4 luces
+float lightAttenuation[4]; //Factor de atenuacion de las 4 luces
 
 /**************************************************************************************/
 /* MultiDiffuseLightsTechnique */
