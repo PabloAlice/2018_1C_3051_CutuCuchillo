@@ -72,10 +72,13 @@ namespace TGC.Group.Model
             var modulusProduct = car.vectorAdelante.Length() * this.outDirection.Length();
             var acos = (float)Math.Acos(dot / modulusProduct);
             var yCross = TGCVector3.Cross(car.vectorAdelante, this.outDirection).Y;
-            car.Girar((yCross > 0) ? acos : -acos);
+            var giro = (yCross > 0) ? acos : -acos;
+            car.Girar(giro);
+            Scene.GetInstance().camera.rotateY(giro);
             if (car.GetVelocidadActual() < 0)
             {
                 car.Girar(FastMath.PI);
+                Scene.GetInstance().camera.rotateY(FastMath.PI);
             }
         }
 

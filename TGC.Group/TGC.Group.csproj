@@ -122,6 +122,7 @@
     <Compile Include="Model\OperationsWithVectors.cs" />
     <Compile Include="Model\GameModel.cs" />
     <Compile Include="Model\Timer.cs" />
+    <Compile Include="Model\Vehiculos\ArtificialIntelligence.cs" />
     <Compile Include="Model\Vehiculos\Estados\Frozen.cs" />
     <Compile Include="Model\Vehiculos\SoundsManagerLegacy.cs" />
     <Compile Include="Model\Vehiculos\Wheel.cs" />
