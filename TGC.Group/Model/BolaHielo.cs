@@ -7,6 +7,12 @@ namespace TGC.Group.Model
     {
         public BolaHielo(TransformationMatrix matrix, TgcMesh mesh) : base(matrix, mesh)
         {
+            this.soundManager.AddSound(this.GetPosition(), 10f, 0, "BolaHielo.wav", "BolaHielo");
+        }
+
+        public override void Shoot()
+        {
+            this.soundManager.GetSound("BolaHielo").play();
         }
 
         public override void Collide(Collidable collided)
