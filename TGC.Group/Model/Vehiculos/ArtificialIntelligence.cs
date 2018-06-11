@@ -26,7 +26,7 @@ namespace TGC.Group.Model.Vehiculos
             ruedas.Add(new Wheel(ruedaTraseraDerecha, new TGCVector3(-34f, 18f, -61f)));
         }
 
-        public override void Action(TgcD3dInput input, CustomSprite velocimetro, CustomSprite bar)
+        public override void Action(TgcD3dInput input)
         {
             
         }

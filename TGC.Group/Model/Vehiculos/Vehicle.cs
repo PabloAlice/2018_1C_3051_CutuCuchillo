@@ -83,6 +83,21 @@ namespace TGC.Group.Model
             return (this.velocidadActual >= 0) ? this.vectorAdelante : -this.vectorAdelante;
         }
 
+        public float GetMaxForwardVelocity()
+        {
+            return this.velocidadMaximaDeAvance;
+        }
+
+        public float GetLife()
+        {
+            return this.life;
+        }
+
+        public float GetMaxBackwardVelocity()
+        {
+            return this.velocidadMaximaDeRetroceso;
+        }
+
         public void ChangePosition(TGCMatrix nuevaPosicion)
         {
             this.SetTranslate(nuevaPosicion);
@@ -413,11 +428,17 @@ namespace TGC.Group.Model
             }
         }
 
-        virtual public void Action(TgcD3dInput input, CustomSprite velocimetro, CustomSprite bar)
+        virtual public void Action(TgcD3dInput input)
         {
             this.SetElapsedTime();
             this.lastTransformation = this.matrixs.GetTransformation();
+            this.UpdateValues();
+            this.ManageEntry(input);
+            
+        }
 
+        private void ManageEntry(TgcD3dInput input)
+        {
             if (input.keyDown(Key.NumPad4))
             {
                 Scene.GetInstance().camera.rotateY(-0.005f);
@@ -516,13 +537,6 @@ namespace TGC.Group.Model
             {
                 estado = new Frozen(this);
             }
-
-            this.UpdateValues();
-            float velocidadMaxima = (this.velocidadActual < 0) ? this.velocidadMaximaDeRetroceso : this.velocidadMaximaDeAvance;
-            float maxAngle = (this.velocidadActual > 0) ? FastMath.PI + FastMath.PI / 3 : FastMath.PI_HALF;
-            velocimetro.Rotation = (FastMath.Abs(this.velocidadActual) * (maxAngle)) / velocidadMaxima - FastMath.PI;
-            bar.Scaling = new TGCVector2((this.life * 0.07f) / 100f, 0.05f);
-            
         }
         
         private void UpdateValues()

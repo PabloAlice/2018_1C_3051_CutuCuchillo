@@ -121,10 +121,11 @@ namespace TGC.Group.Model
             dialogo = string.Format(dialogo, this.camaraInterna.OffsetForward);
             textoOffsetF = Text.newText(dialogo, 120, 85);
 
-            this.auto.Action(this.Input, this.arrowVelocimeter, this.barOfLifeGreen);
+            this.auto.Action(this.Input);
             Scene.GetInstance().camera.Update(auto);
             //this.manager.Action(this.Input);
             Scene.GetInstance().HandleCollisions();
+            this.UpdateHub();
 
             //Comentado para que los sonidos funcionen correctamente
             //this.auto = Escena.getInstance().calculateCollisions(this.auto);
@@ -137,7 +138,13 @@ namespace TGC.Group.Model
             this.PostUpdate();
         }
 
-
+        private void UpdateHub()
+        {
+            float velocidadMaxima = (this.auto.GetVelocidadActual() < 0) ? this.auto.GetMaxBackwardVelocity() : this.auto.GetMaxForwardVelocity();
+            float maxAngle = (this.auto.GetVelocidadActual() > 0) ? FastMath.PI + FastMath.PI / 3 : FastMath.PI_HALF;
+            this.arrowVelocimeter.Rotation = (FastMath.Abs(this.auto.GetVelocidadActual()) * (maxAngle)) / velocidadMaxima - FastMath.PI;
+            this.barOfLifeGreen.Scaling = new TGCVector2((this.auto.GetLife() * 0.07f) / 100f, 0.05f);
+        }
 
         public override void Render()
         {
