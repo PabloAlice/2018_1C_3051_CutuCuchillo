@@ -2,6 +2,7 @@
 using TGC.Core.BoundingVolumes;
 using TGC.Core.Collision;
 using TGC.Core.SceneLoader;
+using TGC.Group.Model.Vehiculos;
 using System.Drawing;
 using System;
 
@@ -11,11 +12,14 @@ namespace TGC.Group.Model
     {
         protected Portal originPortal;
         protected TGCVector3 outDirection;
+        protected SoundsManager soundManager;
 
         public TypeOfPortal(Portal originPortal, TGCVector3 outDirection)
         {
             this.outDirection = outDirection;
             this.originPortal = originPortal;
+            this.soundManager = new SoundsManager();
+            this.soundManager.AddSound(this.GetPosition(), 10f, 0, "Goku.wav", "Goku");
         }
 
         public TgcMesh GetCollidable(Vehicle car)
@@ -62,7 +66,7 @@ namespace TGC.Group.Model
             if (TgcCollisionUtils.testObbAABB(car.GetTGCBoundingOrientedBox(), this.GetBoundingBox())){
                 this.GetBoundingBox().setRenderColor(Color.Red);
                 this.Collide(car);
-                car.SoundsManager.Teletransport();
+                this.soundManager.GetSound("Goku").play();
             }
         }
 

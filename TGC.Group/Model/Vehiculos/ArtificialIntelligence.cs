@@ -11,7 +11,7 @@ namespace TGC.Group.Model.Vehiculos
         {
             this.CrearMesh(GlobalConcepts.GetInstance().GetMediaDir() + "meshCreator\\meshes\\Vehiculos\\Camioneta\\Camioneta-TgcScene.xml", posicionInicial);
             this.CreateWheels();
-
+            this.CreateSounds(soundsManager);
         }
 
         private void CreateWheels()
@@ -25,6 +25,15 @@ namespace TGC.Group.Model.Vehiculos
             delanteraDerecha = new Wheel(ruedaDerecha, new TGCVector3(-35f, 15f, 63f));
             ruedas.Add(new Wheel(ruedaTraseraIzquierda, new TGCVector3(38f, 18f, -61f)));
             ruedas.Add(new Wheel(ruedaTraseraDerecha, new TGCVector3(-34f, 18f, -61f)));
+        }
+
+        protected override void CreateSounds(SoundsManager soundsManager)
+        {
+            TGCVector3 position = this.GetPosition();
+            soundsManager.AddSound(position, 2f, -1500, "Motor.wav", "Motor");
+            soundsManager.AddSound(position, 10f, 0, "Salto.wav", "Salto");
+            soundsManager.GetSound("Motor").play(true);
+            return;
         }
 
         protected override void ManageEntry(TgcD3dInput input)

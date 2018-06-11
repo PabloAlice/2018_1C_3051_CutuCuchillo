@@ -38,38 +38,17 @@ VS_OUTPUT vs_main(VS_INPUT Input)
 {
     VS_OUTPUT Output;
 
-    float4x4 rotation;
-    float3x1 origin;
-    origin[0][0] = 0;
-    origin[1][0] = 0;
-    origin[2][0] = 0;
-    float suma = distance(Input.Position.xyz, origin);
+    /*
+    float Y = Input.Position.y;
+    float X = Input.Position.x;
+    float1x1 origin = (0);
+    float suma = time + distance(Input.Position.y, origin);
+    Input.Position.y = Y * cos(suma) - X * sin(suma);
+    Input.Position.x = X * cos(suma) + Y * sin(suma);
+    */
+    Output.Position = mul(Input.Position, matWorldViewProj);
 
-    rotation[0][0] = cos(time + suma);
-    rotation[0][1] = sin(time + suma);
-    rotation[0][2] = 0;
-    rotation[0][3] = 0;
-
-    rotation[1][0] = -sin(time + suma);
-    rotation[1][1] = cos(time + suma);
-    rotation[1][2] = 0;
-    rotation[1][3] = 0;
-
-    rotation[2][0] = 0;
-    rotation[2][1] = 0;
-    rotation[2][2] = 1;
-    rotation[2][3] = 0;
-
-    rotation[3][0] = 0;
-    rotation[3][1] = 0;
-    rotation[3][2] = 0;
-    rotation[3][3] = 1;
-
-    float4 rotationMat = mul(Input.Position, rotation);
-
-    Output.Position = mul(rotationMat, matWorldViewProj);
-
-    Output.Texcoord = Input.Texcoord;
+    Output.Texcoord = Input.Texcoord + time;
 
     Output.Color = Input.Color;
 
