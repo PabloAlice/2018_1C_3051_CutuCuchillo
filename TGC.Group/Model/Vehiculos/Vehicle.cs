@@ -242,7 +242,11 @@ namespace TGC.Group.Model
 
         public void Render()
         {
-            Lighting.LightManager.Instance.DoLightMe(this.mesh);
+            //shaderTime.acumularTiempo(GetElapsedTime());
+            //shaderColorModifier.Modify(0.01f);
+            //effect.SetValue("time", shaderTime.tiempoTranscurrido());
+            //effect.SetValue("bluecolor", shaderColorModifier.Modifier);
+            Lighting.LightManager.GetInstance().DoLightMe(this.mesh);
             this.mesh.Render();
             this.RenderBoundingOrientedBox();
             delanteraIzquierda.Render();

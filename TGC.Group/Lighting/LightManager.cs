@@ -16,32 +16,36 @@ namespace TGC.Group.Lighting
 {
     class LightManager
     {
-        public static LightManager Instance { get; } = new LightManager();
         private Effect effect;
-        private Light[] lights = new Light[] { };
-        private ColorValue[] lightColors = new ColorValue[] { };
-        private Vector4[] pointLightPositions = new Vector4[] { };
-        private float[] pointLightIntensities = new float[] { };
-        private float[] pointLightAttenuations = new float[] { };
+        private List<Light> lights;
+        private List<ColorValue> lightColors;
+        private List<Vector4> pointLightPositions;
+        private List<float> pointLightIntensities;
+        private List<float> pointLightAttenuations;
         private ColorValue EmissiveModifier = new ColorValue(0,0,0);
         private ColorValue DiffuseModifier = new ColorValue(255,255,255);
-            
-        public LightManager() { }
+        private static LightManager instance;
+
+        public LightManager() {
+            this.lights = new List<Light>();
+            this.lightColors = new List<ColorValue> ();
+            this.pointLightPositions = new List<Vector4>();
+            this.pointLightIntensities = new List<float>();
+            this.pointLightAttenuations = new List<float>();
+            this.effect = TgcShaders.loadEffect(GlobalConcepts.GetInstance().GetShadersDir() + "TgcMeshPointLightShader.fx");
+        }
 
         public void DoLightMe(TgcMesh mesh)
         {
-            if (this.lights.Length == 0) return;
-            this.effect = TgcShaders.loadEffect(GlobalConcepts.GetInstance().GetShadersDir() + "MultiDiffuseLights.fx");
-            string currentTechnique;
-            currentTechnique = "MultiDiffuseLightsTechnique";
+            if (this.lights.Count == 0) return;
+            string currentTechnique = "DIFFUSE_MAP";
             mesh.Effect = this.effect;
             mesh.Technique = currentTechnique;
 
-            mesh.Effect.SetValue("numLights", lightColors.Length);
-            mesh.Effect.SetValue("lightColor", lightColors);
-            mesh.Effect.SetValue("lightPosition", pointLightPositions);
-            mesh.Effect.SetValue("lightIntensity", pointLightIntensities);
-            mesh.Effect.SetValue("lightAttenuation", pointLightAttenuations);
+            mesh.Effect.SetValue("lightColor", lightColors.First());
+            mesh.Effect.SetValue("lightPosition", pointLightPositions.First());
+            mesh.Effect.SetValue("lightIntensity", pointLightIntensities.First());
+            mesh.Effect.SetValue("lightAttenuation", pointLightAttenuations.First());
             mesh.Effect.SetValue("materialEmissiveColor", EmissiveModifier);
             mesh.Effect.SetValue("materialDiffuseColor", DiffuseModifier);
         }
@@ -49,10 +53,20 @@ namespace TGC.Group.Lighting
         public void SuscribeLight(Light light)
         {
             if (this.lights.Contains(light)) return;
-            this.lights.Append(light);
-            this.pointLightPositions.Append(TGCVector3.Vector3ToVector4(light.position));
-            this.pointLightIntensities.Append(light.intensity);
-            this.pointLightAttenuations.Append(light.attenuation);
+            this.lights.Add(light);
+            this.pointLightPositions.Add(TGCVector3.Vector3ToVector4(light.position));
+            this.lightColors.Add(light.lightColor);
+            this.pointLightIntensities.Add(light.intensity);
+            this.pointLightAttenuations.Add(light.attenuation);
+        }
+
+        public static LightManager GetInstance()
+        {
+            if (instance == null)
+            {
+                instance = new LightManager();
+            }
+            return instance;
         }
 
         public void Dispose()
