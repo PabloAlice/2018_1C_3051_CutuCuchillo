@@ -86,20 +86,22 @@ namespace TGC.Group.Model.Vehiculos.Estados
             }
         }
 
-        public override void Left()
+        public override float Left()
         {
             this.auto.RotarDelanteras(-this.auto.GetVelocidadDeRotacion() * this.auto.GetElapsedTime());
             float rotacionReal = auto.GetVelocidadDeRotacion() * auto.GetElapsedTime();
             rotacionReal = (auto.GetVelocidadActual() < 0) ? rotacionReal : -rotacionReal;
             this.auto.Girar(rotacionReal);
+            return rotacionReal;
         }
 
-        public override void Right()
+        public override float Right()
         {
             this.auto.RotarDelanteras(this.auto.GetVelocidadDeRotacion() * this.auto.GetElapsedTime());
             float rotacionReal = auto.GetVelocidadDeRotacion() * auto.GetElapsedTime();
             rotacionReal = (auto.GetVelocidadActual() > 0) ? rotacionReal : -rotacionReal;
             this.auto.Girar(rotacionReal);
+            return rotacionReal;
         }
 
         public override void UpdateWheels()

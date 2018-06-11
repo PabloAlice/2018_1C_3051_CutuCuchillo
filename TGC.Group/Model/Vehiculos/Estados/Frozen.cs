@@ -56,14 +56,14 @@ namespace TGC.Group.Model.Vehiculos.Estados
             return;
         }
 
-        public override void Right()
+        public override float Right()
         {
-            return;
+            return 0;
         }
 
-        public override void Left()
+        public override float Left()
         {
-            return;
+            return 0;
         }
 
         public override void UpdateWheels()

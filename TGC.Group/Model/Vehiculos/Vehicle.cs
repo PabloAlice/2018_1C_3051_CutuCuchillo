@@ -211,7 +211,6 @@ namespace TGC.Group.Model
             this.vectorAdelante.TransformCoordinate(matrizDeRotacion);
             this.RotarDelanteras((this.GetVelocidadActual() > 0) ? rotacionRueda : -rotacionRueda);
             //this.camara.interpolador.Acumulate(rotacionReal);
-            Scene.GetInstance().camera.rotateY(rotacionReal);
             this.RotateOBB(rotacionReal);
         }
 
@@ -463,14 +462,18 @@ namespace TGC.Group.Model
                 this.estado.Back();
             }
 
+            float rotation;
+
             if (input.keyDown(Key.D))
             {
-                this.estado.Right();
+                rotation = this.estado.Right();
+                Scene.GetInstance().camera.rotateY(rotation);
 
             }
             else if (input.keyDown(Key.A))
             {
-                this.estado.Left();
+                rotation = this.estado.Left();
+                Scene.GetInstance().camera.rotateY(rotation);
             }
 
             if (!input.keyDown(Key.A) && !input.keyDown(Key.D))

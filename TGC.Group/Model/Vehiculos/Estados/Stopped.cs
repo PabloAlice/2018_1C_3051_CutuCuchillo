@@ -31,16 +31,18 @@ namespace TGC.Group.Model.Vehiculos.Estados
             this.auto.SetEstado(new Backward(this.auto));
         }
 
-        override public void Left()
+        override public float Left()
         {
             float rotacionReal = -1f * auto.GetElapsedTime();
             auto.RotarDelanteras(rotacionReal);
+            return 0;
         }
 
-        override public void Right()
+        override public float Right()
         {
             float rotacionReal = 1f * auto.GetElapsedTime();
             auto.RotarDelanteras(rotacionReal);
+            return 0;
         }
 
         public override void UpdateWheels()
