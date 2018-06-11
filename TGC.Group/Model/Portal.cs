@@ -1,7 +1,9 @@
-﻿using TGC.Core.BoundingVolumes;
+﻿using System;
+using TGC.Core.BoundingVolumes;
 using TGC.Core.Mathematica;
 using TGC.Core.SceneLoader;
 using TGC.Core.Shaders;
+using TGC.Group.Model.Vehiculos;
 
 namespace TGC.Group.Model
 {
@@ -10,12 +12,14 @@ namespace TGC.Group.Model
         private TGCVector3 position;
         public TgcMesh mesh;
         TGCMatrix transformation;
+        SoundsManager soundManager;
         float time = 0;
 
         public Portal(TGCVector3 position, TGCMatrix transformationMatrix)
         {
             this.position = position;
             this.transformation = transformationMatrix;
+
             
         }
 
@@ -40,7 +44,7 @@ namespace TGC.Group.Model
 
         public void Render()
         {
-            time += 0.05f;
+            time = (float)new Random().NextDouble();
             mesh.Effect.SetValue("time", time);
             //this.Rotate(TGCMatrix.RotationZ(0.05f));
             this.Transform();

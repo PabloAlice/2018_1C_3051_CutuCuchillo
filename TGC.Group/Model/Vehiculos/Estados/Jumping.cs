@@ -10,7 +10,7 @@ namespace TGC.Group.Model.Vehiculos.Estados
         public Jumping(Vehicle auto) : base(auto)
         {
             this.initialSpeed = auto.GetVelocidadActual();
-            this.auto.SoundsManager.Jump();
+            this.auto.SoundsManager.GetSound("Salto").play();
         }
 
         public override TGCVector3 GetCarDirection()
@@ -69,7 +69,7 @@ namespace TGC.Group.Model.Vehiculos.Estados
                     this.Move(-cuenta);
                     auto.GetDeltaTiempoSalto().resetear();
                     auto.SetVelocidadActualDeSalto(auto.GetVelocidadMaximaDeSalto());
-                    this.auto.SoundsManager.Drop();
+                    this.auto.SoundsManager.GetSound("Caida").play();
                     if (auto.GetVelocidadActual() > 0)
                     {
                         this.auto.SetEstado(new Forward(this.auto));

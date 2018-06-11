@@ -2,6 +2,7 @@
 using TGC.Core.Mathematica;
 using TGC.Core.Collision;
 using TGC.Core.SceneLoader;
+using TGC.Group.Model.Vehiculos;
 
 namespace TGC.Group.Model
 {

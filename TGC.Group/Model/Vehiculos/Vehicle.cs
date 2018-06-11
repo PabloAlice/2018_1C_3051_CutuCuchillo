@@ -70,10 +70,10 @@ namespace TGC.Group.Model
         {
             this.smoke = new ParticleEmitter(GlobalConcepts.GetInstance().GetMediaDir() + "Texturas\\Humo\\humo.png", 10);
             this.smoke.Position = this.GetPosition();
-            this.smoke.MinSizeParticle = 0.1f;
-            this.smoke.MaxSizeParticle = 0.3f;
+            this.smoke.MinSizeParticle = 0.3f;
+            this.smoke.MaxSizeParticle = 0.5f;
             this.smoke.ParticleTimeToLive = 0.5f;
-            this.smoke.CreationFrecuency = 0.01f;
+            this.smoke.CreationFrecuency = 0.001f;
             this.smoke.Dispersion = 20;
             this.smoke.Speed = new TGCVector3(1,1,1);
         }
@@ -92,6 +92,8 @@ namespace TGC.Group.Model
         {
             return this.life;
         }
+
+        abstract protected void CreateSounds(SoundsManager soundsManager);
 
         public float GetMaxBackwardVelocity()
         {
@@ -520,22 +522,17 @@ namespace TGC.Group.Model
 
             if (input.keyDown(Key.P))
             {
-                this.SoundsManager.Shoot();
                 this.Shoot();
-            }
-            else
-            {
-                this.SoundsManager.StopShoot();
             }
 
             if (input.keyDown(Key.E))
             {
-                this.SoundsManager.Horn();
+                this.SoundsManager.GetSound("Bocina").play();
             }
 
             if (input.keyDown(Key.R))
             {
-                this.SoundsManager.Alarm();
+                this.SoundsManager.GetSound("Alarma").play();
             }
 
             if (input.keyDown(Key.C))
@@ -546,11 +543,17 @@ namespace TGC.Group.Model
         
         virtual protected void UpdateValues()
         {
+            this.UpdateSounds();
             this.UpdateSmoke();
-            this.SoundsManager.Update(this.velocidadActual);
+            //this.SoundsManager.Update(this.velocidadActual);
             this.estado.JumpUpdate();
             this.estado.FrozenTimeUpdate();
             //this.camara.UpdateInterpolation(this.elapsedTime);
+        }
+
+        private void UpdateSounds()
+        {
+            this.SoundsManager.UpdatePositions(this.GetPosition());
         }
 
         private void UpdateSmoke()

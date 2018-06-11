@@ -144,7 +144,7 @@ namespace TGC.Group.Model
 
         private void Collide(TgcMesh elemento, Vehicle car)
         {
-            car.SoundsManager.Crash();
+            car.SoundsManager.GetSound("Choque").play();
             car.Crash();
             //direccion a la que estoy yendo antes de chocar
             TGCVector3 directionOfCollision = car.GetDirectionOfCollision();
@@ -163,7 +163,7 @@ namespace TGC.Group.Model
             while (TgcCollisionUtils.testObbAABB(car.GetTGCBoundingOrientedBox(), elemento.BoundingBox))
             {
                 //ACA SE ROMPE LA COLISION CON LA AI;
-                car.Translate(TGCMatrix.Translation(-directionOfCollision * 100f));
+                car.Translate(TGCMatrix.Translation(-directionOfCollision * 0.1f));
                 car.Transform();
             }
         }

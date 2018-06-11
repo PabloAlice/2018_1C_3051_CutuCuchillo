@@ -6,6 +6,7 @@ using TGC.Core.Text;
 using Microsoft.DirectX.Direct3D;
 using System.Drawing;
 using TGC.Core.Textures;
+using TGC.Core.SceneLoader;
 
 namespace TGC.Group.Model
 {
@@ -25,8 +26,10 @@ namespace TGC.Group.Model
         private TGCVector3 camaraDesplazamiento = new TGCVector3(0, 5, 40);
         private TgcText2D textoVelocidadVehiculo, textoOffsetH, textoOffsetF, textoPosicionVehiculo, textoVectorAdelante, AIPosition;
         private Drawer2D drawer;
+        private TgcMesh piloto;
         private CustomSprite velocimeter, arrowVelocimeter, barOfLifeGreen, barOfLifeRed, menuBackground, pressStart;
         private bool enterMenu = false;
+        private SoundsManager backgroundMusic;
 
         public override void Init()
         {
@@ -83,11 +86,15 @@ namespace TGC.Group.Model
             this.camaraInterna = new ThirdPersonCamera(camaraDesplazamiento, 0.8f, -33);
             //this.camaraManagement = new CamaraEnTerceraPersona(camaraDesplazamiento, 3f, -50);
             this.Camara = camaraInterna;
-            this.auto = new Van(new TGCVector3(-70f, 0f, 0f), new SoundsManager(new TGCVector3(0f, 0f, 0f)));
+            this.auto = new Van(new TGCVector3(-60f, 0f, 0f), new SoundsManager());
+            piloto = this.auto.mesh.clone("clon");
+            this.DirectSound.ListenerTracking = piloto;
             Scene.GetInstance().SetVehiculo(this.auto);
-            this.AI = new ArtificialIntelligence(new TGCVector3(50f, 0f, 0f), new SoundsManager(new TGCVector3(0f, 0f, 0f)));
+            this.AI = new ArtificialIntelligence(new TGCVector3(50f, 0f, 0f), new SoundsManager());
             Scene.GetInstance().AI = this.AI;
             Scene.GetInstance().SetCamera(camaraInterna);
+            this.auto.SoundsManager.AddSound(this.auto.GetPosition(), 50f, -2500, "YouCouldBeMine.wav", "YouCouldBeMine");
+            this.auto.SoundsManager.GetSound("YouCouldBeMine").play(true);
             //this.Camara = camaraManagement;
             
             //manager = new ObjectManagement(MediaDir + "meshCreator\\meshes\\Habitacion\\Billetes\\Billete2\\Billete2-TgcScene.xml", camaraManagement);
@@ -129,6 +136,7 @@ namespace TGC.Group.Model
 
             this.auto.Action(this.Input);
             this.AI.Action(this.Input);
+            this.piloto.Position = this.auto.GetPosition();
             Scene.GetInstance().camera.Update(auto);
             //this.manager.Action(this.Input);
             Scene.GetInstance().HandleCollisions();
