@@ -45,24 +45,6 @@ namespace TGC.Group.Model.Vehiculos.Estados
                     this.Move(-nuevoDesplazamiento);
                 }
             }
-
-            /*{
-                auto.GetDeltaTiempoSalto().resetear();
-                auto.SetVelocidadActualDeSalto(auto.GetVelocidadMaximaDeSalto());
-                this.auto.SoundsManager.Drop();
-                if (auto.GetVelocidadActual() > 0)
-                {
-                    this.auto.SetEstado(new Forward(this.auto));
-                }
-                else if (auto.GetVelocidadActual() < 0)
-                {
-                    this.auto.SetEstado(new Backward(this.auto));
-                }
-                else
-                {
-                    this.auto.SetEstado(new Stopped(this.auto));
-                }
-            }*/
         }
 
         protected TgcMesh GetColliding()

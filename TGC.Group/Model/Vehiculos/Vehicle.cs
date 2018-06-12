@@ -44,7 +44,7 @@ namespace TGC.Group.Model
         protected TGCMatrix trasladoInicial;
         protected TGCMatrix lastTransformation;
         protected float life = 100f;
-        protected ParticleEmitter smoke;
+        protected ParticleEmitter smoke, spark;
         protected List<Weapon> weapons = new List<Weapon>();
 
         //Timer shaderTime = new Timer();
@@ -63,6 +63,7 @@ namespace TGC.Group.Model
             this.estado = new Stopped(this);
             this.velocidadMaximaDeRetroceso = this.velocidadMaximaDeAvance * 0.7f;
             this.CreateSmoke();
+            this.CreateSpark();
 
         }
 
@@ -83,6 +84,19 @@ namespace TGC.Group.Model
             this.smoke.CreationFrecuency = 0.001f;
             this.smoke.Dispersion = 20;
             this.smoke.Speed = new TGCVector3(1,1,1);
+        }
+
+        private void CreateSpark()
+        {
+            this.spark = new ParticleEmitter(GlobalConcepts.GetInstance().GetMediaDir() + "Texturas\\Chispas\\Chispas.png", 10);
+            this.spark.Position = this.GetPosition();
+            this.spark.MinSizeParticle = 1f;
+            this.spark.MaxSizeParticle = 2f;
+            this.spark.ParticleTimeToLive = 0.5f;
+            this.spark.CreationFrecuency = 0.1f;
+            this.spark.Dispersion = 30;
+            this.spark.Playing = false;
+            this.spark.Speed = new TGCVector3(1, 1, 1);
         }
 
         public TGCVector3 GetDirectionOfCollision()
@@ -281,6 +295,7 @@ namespace TGC.Group.Model
                 rueda.Render();
             }
             this.smoke.render(this.elapsedTime);
+            this.spark.render(this.elapsedTime);
         }
 
 
@@ -427,6 +442,13 @@ namespace TGC.Group.Model
         {
             this.life = (this.life - 5f < 0) ? 0 : this.life - 5f;
             this.SoundsManager.GetSound("Choque").play();
+            this.UpdateSpark();
+        }
+
+        private void UpdateSpark()
+        {
+            this.spark.Playing = true;
+            this.spark.Position = this.GetPosition();
         }
 
         private int NumberOfWeapons()
