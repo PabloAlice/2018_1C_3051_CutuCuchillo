@@ -540,20 +540,15 @@ namespace TGC.Group.Model
                 estado = new Frozen(this);
             }
         }
-        
+
         virtual protected void UpdateValues()
         {
-            this.UpdateSounds();
+            this.SoundsManager.UpdatePositions(this.GetPosition());
             this.UpdateSmoke();
-            //this.SoundsManager.Update(this.velocidadActual);
+            this.SoundsManager.Update(this.velocidadActual);
             this.estado.JumpUpdate();
             this.estado.FrozenTimeUpdate();
             //this.camara.UpdateInterpolation(this.elapsedTime);
-        }
-
-        private void UpdateSounds()
-        {
-            this.SoundsManager.UpdatePositions(this.GetPosition());
         }
 
         private void UpdateSmoke()

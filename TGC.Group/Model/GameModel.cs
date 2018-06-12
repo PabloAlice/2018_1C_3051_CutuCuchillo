@@ -93,7 +93,7 @@ namespace TGC.Group.Model
             this.AI = new ArtificialIntelligence(new TGCVector3(50f, 0f, 0f), new SoundsManager());
             Scene.GetInstance().AI = this.AI;
             Scene.GetInstance().SetCamera(camaraInterna);
-            this.auto.SoundsManager.AddSound(this.auto.GetPosition(), 50f, -2500, "BackgroundMusic\\YouCouldBeMine.wav", "YouCouldBeMine");
+            this.auto.SoundsManager.AddSound(this.auto.GetPosition(), 50f, -2500, "BackgroundMusic\\YouCouldBeMine.wav", "YouCouldBeMine", false);
             this.auto.SoundsManager.GetSound("YouCouldBeMine").play(true);
             //this.Camara = camaraManagement;
             

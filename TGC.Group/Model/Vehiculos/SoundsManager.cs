@@ -10,19 +10,12 @@ namespace TGC.Group.Model.Vehiculos
     {
         List<Sound> sounds = new List<Sound>();
         private int initialFreq;
+        private Tgc3dSound soundWithFrecuency;
         public SoundsManager()
         {
-
-            //this.initialFreq = this.velSound.SoundBuffer.Frequency;
-            //el sonido va de 0 (maximo volumen) a -10000 (total silencio)
-            //this.velSound.SoundBuffer.Volume = -1000;
-            //this.velSound.play(true);
-
-            //this.backgroundMusic.SoundBuffer.Volume = -2000;
-            //this.backgroundMusic.play(true);
         }
 
-        public void AddSound(TGCVector3 position, float minDistance, int volume, string sound, string apodo)
+        public void AddSound(TGCVector3 position, float minDistance, int volume, string sound, string apodo, bool isSoundWithFrecuency)
         {
             if(this.sounds.Exists(s => sound.Equals(apodo)))
             {
@@ -30,9 +23,18 @@ namespace TGC.Group.Model.Vehiculos
             }
             BufferDescription bufferDescription = new BufferDescription();
             bufferDescription.ControlVolume = true;
+            if (isSoundWithFrecuency)
+            {
+                bufferDescription.ControlFrequency = true;
+            }
             Tgc3dSound newSound = new Tgc3dSound(GlobalConcepts.GetInstance().GetMediaDir() + "Sound\\" + sound, position, GlobalConcepts.GetInstance().GetDispositivoDeAudio(), bufferDescription);
             newSound.SoundBuffer.Volume = volume;
             newSound.MinDistance = minDistance;
+            if (isSoundWithFrecuency)
+            {
+                this.initialFreq = newSound.SoundBuffer.Frequency;
+                this.soundWithFrecuency = newSound;
+            }
             this.sounds.Add(new Sound(newSound, apodo));
         }
 
@@ -51,15 +53,14 @@ namespace TGC.Group.Model.Vehiculos
             this.sounds.RemoveAll(s => s.Equals(name));
         }
 
-        /*
         private void SetFrequency(int freq)
         {
-            this.velSound.SoundBuffer.Frequency = freq > this.initialFreq ? freq : this.initialFreq;
+            this.soundWithFrecuency.SoundBuffer.Frequency = freq > this.initialFreq ? freq : this.initialFreq;
         }
 
         private int GetFrequency()
         {
-            return this.velSound.SoundBuffer.Frequency;
+            return this.soundWithFrecuency.SoundBuffer.Frequency;
         }
         
         public void Update (float velocidad)
@@ -68,7 +69,6 @@ namespace TGC.Group.Model.Vehiculos
             int freq = this.initialFreq + modifier * 1000;
             this.SetFrequency(freq);
         }
-        */
 
         public class Sound
         {
