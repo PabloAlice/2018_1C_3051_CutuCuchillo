@@ -22,20 +22,26 @@ namespace TGC.Group.Model.Vehiculos.AIStates
             return;
         }
 
-        virtual public bool TestRayAABB(TGC.Core.Collision.TgcRay ray, TGC.Core.BoundingVolumes.TgcBoundingAxisAlignBox aabb)
+        virtual public int GetCuadrante(TGCVector3 testPoint)
         {
-            var planes = aabb.computeFaces();
-            float fout;
-            TGCVector3 collisionPoint = new TGCVector3();
-            foreach(var plane in planes)
+            var global = GlobalConcepts.GetInstance();
+            if(global.IsInFrontOf(testPoint, AI.planoCostado) && global.IsInFrontOf(testPoint, AI.directionPlane))
             {
-                
-                if(TgcCollisionUtils.intersectRayPlane(ray, plane.Plane, out fout, out collisionPoint))
-                {
-                    return true;
-                }
+                return 0;
             }
-            return false;
+            if(global.IsInFrontOf(testPoint, AI.planoCostado) && !global.IsInFrontOf(testPoint, AI.directionPlane))
+            {
+                return 1;
+            }
+            if(!global.IsInFrontOf(testPoint, AI.planoCostado) && !global.IsInFrontOf(testPoint, AI.directionPlane))
+            {
+                return 2;
+            }
+            if(!global.IsInFrontOf(testPoint, AI.planoCostado) && global.IsInFrontOf(testPoint, AI.directionPlane))
+            {
+                return 3;
+            }
+            return 0;
         }
 
         abstract public void Run();

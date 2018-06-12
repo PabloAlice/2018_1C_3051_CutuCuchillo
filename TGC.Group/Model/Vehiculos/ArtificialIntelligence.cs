@@ -83,7 +83,7 @@ namespace TGC.Group.Model.Vehiculos
         override protected void UpdateValues()
         {
             base.UpdateValues();
-            directionPlane = TGCPlane.FromPointNormal(GetPosition(), GetVectorCostado());
+            directionPlane = TGCPlane.FromPointNormal(GetPosition(), -GetVectorCostadoIzquierda());
             planoCostado = TGCPlane.FromPointNormal(GetPosition(), GetVectorAdelante());
             radarSphere.setValues(this.GetPosition(), radarSphere.Radius);
         }
