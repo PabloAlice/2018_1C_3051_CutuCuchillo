@@ -2,7 +2,6 @@
 using TGC.Core.Mathematica;
 using TGC.Core.SceneLoader;
 using TGC.Core.Collision;
-using Microsoft.DirectX.DirectInput;
 using TGC.Core.BoundingVolumes;
 using TGC.Group.Model.Vehiculos.AIStates;
 
@@ -50,27 +49,9 @@ namespace TGC.Group.Model.Vehiculos
 
         protected override void ManageEntry(TgcD3dInput input)
         {
-            Vehicle playerCar = Scene.GetInstance().auto;
-            if (input.keyDown(Key.I))
-            {
-                this.estado.Advance();
-            }
+            this.DeterminateState();
 
-            if (input.keyDown(Key.K))
-            {
-                this.estado.Back();
-            }
-
-            if (input.keyDown(Key.J))
-            {
-                this.estado.Left();
-            }
-
-            if (input.keyDown(Key.L))
-            {
-                this.estado.Right();
-            }
-
+                
             /*
             if (input.keyDown(Key.L))
             {
@@ -82,6 +63,19 @@ namespace TGC.Group.Model.Vehiculos
                 this.estado.SpeedUpdate();
             }*/
             return;
+        }
+
+        private void DeterminateState()
+        {
+            Vehicle car = Scene.GetInstance().auto;
+            if (TgcCollisionUtils.testSphereOBB(this.radarSphere, car.GetTGCBoundingOrientedBox()))
+            {
+                this.aiState = new FollowingCar(this);
+            }
+            else
+            {
+                this.aiState = new SearchOfWeapons(this);
+            }
         }
 
         override public void Render()

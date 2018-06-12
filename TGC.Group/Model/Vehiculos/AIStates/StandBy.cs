@@ -16,5 +16,10 @@ namespace TGC.Group.Model.Vehiculos.AIStates
         {
             this.AI.aiState = new FollowingCar(this.AI);
         }
+
+        override public void Run()
+        {
+            return;
+        }
     }
 }

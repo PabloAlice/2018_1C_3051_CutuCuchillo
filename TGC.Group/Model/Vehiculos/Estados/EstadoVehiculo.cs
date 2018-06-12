@@ -67,7 +67,7 @@ namespace TGC.Group.Model.Vehiculos.Estados
 
         protected TgcMesh GetColliding()
         {
-            List<Collidable> list = Scene.GetInstance().GetPosiblesCollidables();
+            List<Collidable> list = Scene.GetInstance().GetPosiblesCollidables(this.auto);
             foreach (Collidable element in list)
             {
                 var meshito = element.GetCollidable(this.auto);

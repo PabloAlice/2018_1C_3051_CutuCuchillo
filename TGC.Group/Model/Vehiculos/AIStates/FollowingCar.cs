@@ -17,5 +17,10 @@ namespace TGC.Group.Model.Vehiculos.AIStates
             this.AI.GetEstado().Advance();
         }
 
+        override public void Run()
+        {
+            return;
+        }
+
     }
 }

@@ -37,8 +37,8 @@ namespace TGC.Group.Model
 
         public void HandleCollisions()
         {
-            this.VehicleUbication().HandleCollisions(this.auto);
-            this.VehicleUbication().HandleCollisions(this.AI);
+            this.VehicleUbication(this.auto).HandleCollisions(this.auto);
+            this.VehicleUbication(this.AI).HandleCollisions(this.AI);
         }
 
         private bool IsBetween(TGCVector3 interes, TGCVector3 pmin, TGCVector3 pmax)
@@ -50,6 +50,11 @@ namespace TGC.Group.Model
         {
             return IsBetween(position, seccion.GetPuntoMinimo(), seccion.GetPuntoMaximo());
             
+        }
+
+        public List<Weapon> GetWeapons()
+        {
+            return null;
         }
 
         public void AddToSection(Collidable element)
@@ -73,20 +78,19 @@ namespace TGC.Group.Model
             }
         }
 
-        public List<Collidable> GetPosiblesCollidables()
+        public List<Collidable> GetPosiblesCollidables(Vehicle car)
         {
-            return this.VehicleUbication().GetElements();
+            return this.VehicleUbication(car).GetElements();
         }
 
         public List<Collidable> GetPosiblesCollidables(Weapon weapon)
         {
-            return this.VehicleUbication().GetElements();
+            return this.WeaponUbication(weapon).GetElements();
         }
 
-        private Section VehicleUbication()
+        private Section VehicleUbication(Vehicle car)
         {
-            //TODO guarda con esto cuando haya varios coches en el juego
-            TGCVector3 position = this.auto.GetPosition();
+            TGCVector3 position = car.GetPosition();
             if (this.IsIn(this.cocina, position))
             {
                 return this.cocina;
@@ -668,9 +672,7 @@ namespace TGC.Group.Model
 
         public void Render()
         {
-            
-            this.VehicleUbication().Render();
-            
+            this.VehicleUbication(this.auto).Render();
         }
 
         public void Dispose()
@@ -679,10 +681,6 @@ namespace TGC.Group.Model
             this.cocina.Dispose();
             this.banio.Dispose();
 
-        }
-        public void Remove(Collidable objeto)
-        {
-            VehicleUbication().remove(objeto);
         }
 
     }

@@ -154,7 +154,7 @@ namespace TGC.Group.Model
             faces = elemento.BoundingBox.computeFaces();
             TGCPlane plane = this.CreatePlane(ray, faces, car.GetLastPosition());
             TGCVector3 normal = GlobalConcepts.GetInstance().GetNormalPlane(plane);
-            TGCVector3 output = new TGCVector3(normal.X + directionOfCollision.X, normal.Y + directionOfCollision.Y, normal.Z + directionOfCollision.Z);
+            TGCVector3 output = normal + directionOfCollision * 2;
             float angle = car.SetDirection(output, normal);
             car.Crash(angle);
 
