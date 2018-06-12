@@ -82,12 +82,9 @@ namespace TGC.Group.Model
             this.transform();
             foreach (TgcMesh elemento in this.elements)
             {
-                if (Scene.GetInstance().camera.IsInView(elemento.BoundingBox))
-                {
-                    Lighting.LightManager.GetInstance().DoLightMe(elemento);
-                    elemento.Render();
-                    elemento.BoundingBox.Render();
-                }
+                Lighting.LightManager.GetInstance().DoLightMe(elemento);
+                elemento.Render();
+                elemento.BoundingBox.Render();
             }
         }
 
@@ -109,6 +106,26 @@ namespace TGC.Group.Model
             {
                 return new TGCVector3(vector.X, vector.Y, vector.Z);
             }
+        }
+
+        public TGCVector3 GetPosition(TgcMesh element)
+        {
+            return (element.BoundingBox.PMax + element.BoundingBox.PMin) * 0.5f;
+        }
+
+
+        public bool IsInView()
+        {
+            this.transform();
+            TGCPlane plane = Scene.GetInstance().camera.GetPlane();
+            foreach (TgcMesh element in this.elements)
+            {
+                if(TgcCollisionUtils.testPlaneAABB(plane, element.BoundingBox) || GlobalConcepts.GetInstance().IsInFrontOf(this.GetPosition(element), plane))
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         private bool IsInFrontOf(TGCVector3 testpoint, TGCPlane plane)

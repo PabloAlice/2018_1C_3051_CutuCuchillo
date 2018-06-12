@@ -66,6 +66,13 @@ namespace TGC.Group.Model
 
         }
 
+        public bool IsInView()
+        {
+            //por ahora lo unico que tiene obb son los vehiculos
+            //y se renderizan por su cuenta
+            return true;
+        }
+
         private void CreateSmoke()
         {
             this.smoke = new ParticleEmitter(GlobalConcepts.GetInstance().GetMediaDir() + "Texturas\\Humo\\humo.png", 10);

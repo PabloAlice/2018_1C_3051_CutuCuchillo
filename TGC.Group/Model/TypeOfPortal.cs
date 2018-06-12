@@ -22,6 +22,12 @@ namespace TGC.Group.Model
             this.soundManager.AddSound(this.GetPosition(), 10f, 0, "Portal\\Goku.wav", "Goku", false);
         }
 
+        public bool IsInView()
+        {
+            TGCPlane plane = Scene.GetInstance().camera.GetPlane();
+            return GlobalConcepts.GetInstance().IsInFrontOf(this.GetPosition(), plane) || TgcCollisionUtils.testPlaneAABB(plane, this.originPortal.GetBoundingBox());
+        }
+
         public TgcMesh GetCollidable(Vehicle car)
         {
             //return originPortal.mesh;

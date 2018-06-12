@@ -13,6 +13,7 @@ namespace TGC.Group.Model
         private TGCVector3 puntoMinimo, puntoMaximo;
         private Lighting.Light light;
         private TGCBox lightMesh;
+
         public Section(TGCVector3 puntoMinimo, TGCVector3 puntoMaximo)
         {
             this.puntoMinimo = puntoMinimo;
@@ -52,7 +53,10 @@ namespace TGC.Group.Model
             Lighting.LightManager.GetInstance().SuscribeLight(this.light);
             foreach (Collidable objeto in this.objetos)
             {
-                objeto.Render();
+                if (objeto.IsInView())
+                {
+                    objeto.Render();
+                }
             }
         }
 

@@ -2,6 +2,7 @@
 using TGC.Core.Mathematica;
 using TGC.Core.BoundingVolumes;
 using TGC.Group.Model.Vehiculos;
+using TGC.Core.Collision;
 
 namespace TGC.Group.Model
 {
@@ -29,6 +30,12 @@ namespace TGC.Group.Model
             this.weaponState = new InExhibition(this);
             this.soundManager = new SoundsManager();
             
+        }
+
+        public bool IsInView()
+        {
+            TGCPlane plane = Scene.GetInstance().camera.GetPlane();
+            return TgcCollisionUtils.testSpherePlane(this.sphere, plane) || GlobalConcepts.GetInstance().IsInFrontOf(this.GetPosition(), plane);
         }
 
         abstract public TGCVector3 GetShootRotation();
