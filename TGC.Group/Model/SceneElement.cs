@@ -144,8 +144,6 @@ namespace TGC.Group.Model
 
         private void Collide(TgcMesh elemento, Vehicle car)
         {
-            car.SoundsManager.GetSound("Choque").play();
-            car.Crash();
             //direccion a la que estoy yendo antes de chocar
             TGCVector3 directionOfCollision = car.GetDirectionOfCollision();
             TgcRay ray = new TgcRay();
@@ -158,7 +156,7 @@ namespace TGC.Group.Model
             TGCVector3 normal = GlobalConcepts.GetInstance().GetNormalPlane(plane);
             TGCVector3 output = new TGCVector3(normal.X + directionOfCollision.X, normal.Y + directionOfCollision.Y, normal.Z + directionOfCollision.Z);
             float angle = car.SetDirection(output, normal);
-            Scene.GetInstance().camera.rotateY(angle);
+            car.Crash(angle);
 
             while (TgcCollisionUtils.testObbAABB(car.GetTGCBoundingOrientedBox(), elemento.BoundingBox))
             {

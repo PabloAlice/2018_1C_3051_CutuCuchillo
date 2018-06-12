@@ -38,5 +38,11 @@ namespace TGC.Group.Model.Vehiculos
             soundsManager.GetSound("Motor").play(true);
 
         }
+
+        public override void Crash(float angle)
+        {
+            base.Crash(angle);
+            Scene.GetInstance().camera.rotateY(angle);
+        }
     }
 }

@@ -416,9 +416,10 @@ namespace TGC.Group.Model
             return TGCVector3.transform(new TGCVector3(0,0,0), this.lastTransformation);
         }
 
-        public void Crash()
+        virtual public void Crash(float angle)
         {
             this.life = (this.life - 5f < 0) ? 0 : this.life - 5f;
+            this.SoundsManager.GetSound("Choque").play();
         }
 
         private int NumberOfWeapons()

@@ -1,6 +1,7 @@
 ﻿using TGC.Core.Input;
 using TGC.Core.Mathematica;
 using TGC.Core.SceneLoader;
+using TGC.Core.Collision;
 using Microsoft.DirectX.DirectInput;
 using TGC.Core.BoundingVolumes;
 using TGC.Group.Model.Vehiculos.AIStates;
@@ -18,7 +19,6 @@ namespace TGC.Group.Model.Vehiculos
             this.CreateWheels();
             radarSphere.setValues(this.GetPosition(), 75f);
             this.aiState = new StandBy(this);
-
             this.CreateSounds(soundsManager);
         }
 
@@ -50,11 +50,27 @@ namespace TGC.Group.Model.Vehiculos
 
         protected override void ManageEntry(TgcD3dInput input)
         {
-            var playerCar = Scene.GetInstance().auto;
-            if (TGC.Core.Collision.TgcCollisionUtils.testSphereOBB(this.radarSphere, playerCar.GetTGCBoundingOrientedBox()))
+            Vehicle playerCar = Scene.GetInstance().auto;
+            if (input.keyDown(Key.I))
             {
-                //this.estado.Jump();
+                this.estado.Advance();
             }
+
+            if (input.keyDown(Key.K))
+            {
+                this.estado.Back();
+            }
+
+            if (input.keyDown(Key.J))
+            {
+                this.estado.Left();
+            }
+
+            if (input.keyDown(Key.L))
+            {
+                this.estado.Right();
+            }
+
             /*
             if (input.keyDown(Key.L))
             {
