@@ -13,11 +13,14 @@ namespace TGC.Group.Model.Vehiculos.AIStates
         {
             Vehicle enemy = Scene.GetInstance().auto;
             var AIFrontVector = this.AI.GetVectorAdelante();
-            var AIRay = new TgcRay();
-            AIRay.Origin = AI.GetPosition();
-            AIRay.Direction = AIFrontVector;
+            var AIRay = new TgcRay
+            {
+                Origin = AI.GetPosition(),
+                Direction = AIFrontVector
+            };
+            
             var collisionPoint = new TGCVector3();
-            if (TgcCollisionUtils.intersectRayObb(AIRay, enemy.GetTGCBoundingOrientedBox(), out collisionPoint))
+            if (TgcCollisionUtils.intersectRayAABB(AIRay, enemy.mesh.BoundingBox, out collisionPoint))
             {
                 System.Console.WriteLine("colisione el rayo con el obb del enemigo");
                 this.AI.GetEstado().Advance();

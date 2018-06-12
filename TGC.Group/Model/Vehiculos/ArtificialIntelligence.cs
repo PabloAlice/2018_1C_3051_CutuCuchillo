@@ -4,6 +4,7 @@ using TGC.Core.SceneLoader;
 using TGC.Core.Collision;
 using TGC.Core.BoundingVolumes;
 using TGC.Group.Model.Vehiculos.AIStates;
+using TGC.Core.Geometry;
 
 namespace TGC.Group.Model.Vehiculos
 {
@@ -52,6 +53,7 @@ namespace TGC.Group.Model.Vehiculos
         {
             this.DeterminateState();
             this.aiState.Run();
+            
             return;
         }
 

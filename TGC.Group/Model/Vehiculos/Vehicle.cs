@@ -392,6 +392,7 @@ namespace TGC.Group.Model
             this.obb.ActualizarBoundingOrientedBox(this.matrixs.GetTranslation());
             this.delanteraIzquierda.Transform(transformacion);
             this.delanteraDerecha.Transform(transformacion);
+            this.mesh.BoundingBox.transform(transformacion);
 
             foreach (var rueda in this.ruedas)
             {
