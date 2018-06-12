@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace TGC.Group.Model.Vehiculos.AIStates
 {
-    class SearchOfWeapons : AIState
+    class SearchWeapons : AIState
     {
-        public SearchOfWeapons(ArtificialIntelligence AI) : base(AI)
+        public SearchWeapons(ArtificialIntelligence AI) : base(AI)
         {
 
         }

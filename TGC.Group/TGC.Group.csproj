@@ -124,8 +124,7 @@
     <Compile Include="Model\Timer.cs" />
     <Compile Include="Model\Vehiculos\AIStates\AIState.cs" />
     <Compile Include="Model\Vehiculos\AIStates\FollowingCar.cs" />
-    <Compile Include="Model\Vehiculos\AIStates\SearchOfWeapons.cs" />
-    <Compile Include="Model\Vehiculos\AIStates\StandBy.cs" />
+    <Compile Include="Model\Vehiculos\AIStates\SearchWeapons.cs" />
     <Compile Include="Model\Vehiculos\ArtificialIntelligence.cs" />
     <Compile Include="Model\Vehiculos\Estados\Frozen.cs" />
     <Compile Include="Model\Vehiculos\SoundsManagerLegacy.cs" />

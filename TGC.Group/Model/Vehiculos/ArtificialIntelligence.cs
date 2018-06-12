@@ -17,8 +17,9 @@ namespace TGC.Group.Model.Vehiculos
             this.CrearMesh(GlobalConcepts.GetInstance().GetMediaDir() + "meshCreator\\meshes\\Vehiculos\\Camioneta\\Camioneta-TgcScene.xml", posicionInicial);
             this.CreateWheels();
             radarSphere.setValues(this.GetPosition(), 75f);
-            this.aiState = new StandBy(this);
+            this.aiState = new FollowingCar(this);
             this.CreateSounds(soundsManager);
+            this.velocidadMaximaDeAvance = 20f;
         }
 
         private void CreateWheels()
@@ -50,7 +51,8 @@ namespace TGC.Group.Model.Vehiculos
         protected override void ManageEntry(TgcD3dInput input)
         {
             this.DeterminateState();
-
+            Vehicle car = Scene.GetInstance().auto;
+            this.aiState.EnemySpotted(car);
                 
             /*
             if (input.keyDown(Key.L))
@@ -74,7 +76,7 @@ namespace TGC.Group.Model.Vehiculos
             }
             else
             {
-                this.aiState = new SearchOfWeapons(this);
+                this.aiState = new SearchWeapons(this);
             }
         }
 
