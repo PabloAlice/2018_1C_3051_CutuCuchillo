@@ -5,6 +5,7 @@ using TGC.Core.Collision;
 using TGC.Core.BoundingVolumes;
 using TGC.Group.Model.Vehiculos.AIStates;
 using TGC.Core.Geometry;
+using System.Drawing;
 
 namespace TGC.Group.Model.Vehiculos
 {
@@ -12,12 +13,15 @@ namespace TGC.Group.Model.Vehiculos
     {
         TgcBoundingSphere radarSphere = new TgcBoundingSphere();
         public AIState aiState;
+        public TGCPlane directionPlane;
+        public TGCPlane planoCostado;
 
         public ArtificialIntelligence(TGCVector3 posicionInicial, SoundsManager soundsManager) : base(posicionInicial, soundsManager)
         {
             this.CrearMesh(GlobalConcepts.GetInstance().GetMediaDir() + "meshCreator\\meshes\\Vehiculos\\Camioneta\\Camioneta-TgcScene.xml", posicionInicial);
             this.CreateWheels();
             radarSphere.setValues(this.GetPosition(), 75f);
+            radarSphere.setRenderColor(Color.DarkViolet);
             this.aiState = new FollowingCar(this);
             this.CreateSounds(soundsManager);
             this.velocidadMaximaDeAvance = 20f;
@@ -79,6 +83,8 @@ namespace TGC.Group.Model.Vehiculos
         override protected void UpdateValues()
         {
             base.UpdateValues();
+            directionPlane = TGCPlane.FromPointNormal(GetPosition(), GetVectorCostado());
+            planoCostado = TGCPlane.FromPointNormal(GetPosition(), GetVectorAdelante());
             radarSphere.setValues(this.GetPosition(), radarSphere.Radius);
         }
         

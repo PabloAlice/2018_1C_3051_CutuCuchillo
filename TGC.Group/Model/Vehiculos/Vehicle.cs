@@ -288,6 +288,7 @@ namespace TGC.Group.Model
             Lighting.LightManager.GetInstance().DoLightMe(this.mesh);
             this.mesh.Render();
             this.RenderBoundingOrientedBox();
+            this.mesh.BoundingBox.Render();
             delanteraIzquierda.Render();
             delanteraDerecha.Render();
             foreach (var rueda in this.ruedas)
