@@ -14,7 +14,6 @@ namespace TGC.Group.Model.Vehiculos.AIStates
             Vehicle enemy = Scene.GetInstance().auto;
             if (TgcCollisionUtils.testPlaneAABB(AI.directionPlane, enemy.mesh.BoundingBox) && GlobalConcepts.GetInstance().IsInFrontOf(enemy.GetPosition(), AI.planoCostado))
             {
-                System.Console.WriteLine("colisione el rayo con el obb del enemigo");
                 this.AI.GetEstado().Advance();
             }
             else
