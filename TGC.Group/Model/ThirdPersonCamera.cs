@@ -26,6 +26,11 @@ namespace TGC.Group.Model
             this.SetPlane(car.GetVectorAdelante());
         }
 
+        public TGCPlane GetPlane()
+        {
+            return this.plano;
+        }
+
         public ThirdPersonCamera(TGCVector3 target, float offsetHeight, float offsetForward) : this()
         {
             Target = target;

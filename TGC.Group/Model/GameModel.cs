@@ -7,6 +7,7 @@ using Microsoft.DirectX.Direct3D;
 using System.Drawing;
 using TGC.Core.Textures;
 using TGC.Core.SceneLoader;
+using TGC.Core.Geometry;
 
 namespace TGC.Group.Model
 {
@@ -30,6 +31,7 @@ namespace TGC.Group.Model
         private CustomSprite velocimeter, arrowVelocimeter, barOfLifeGreen, barOfLifeRed, menuBackground, pressStart;
         private bool enterMenu = false;
         private SoundsManager backgroundMusic;
+        private TgcArrow arrow;
 
         public override void Init()
         {
@@ -141,6 +143,7 @@ namespace TGC.Group.Model
             //this.manager.Action(this.Input);
             Scene.GetInstance().HandleCollisions();
             this.UpdateHub();
+            this.arrow = TgcArrow.fromDirection(this.auto.GetPosition(), Scene.GetInstance().camera.GetNormal());
 
             //Comentado para que los sonidos funcionen correctamente
             //this.auto = Escena.getInstance().calculateCollisions(this.auto);
@@ -181,7 +184,7 @@ namespace TGC.Group.Model
             {
 
                 Scene.GetInstance().Render();
-
+                this.arrow.Render();
                 this.textoVelocidadVehiculo.render();
                 this.textoPosicionVehiculo.render();
                 this.textoVectorAdelante.render();

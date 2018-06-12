@@ -98,5 +98,11 @@ namespace TGC.Group.Model
         {
             return this.shaderDir;
         }
+
+        public bool IsInFrontOf(TGCVector3 testpoint, TGCPlane plane)
+        {
+            return plane.A * testpoint.X + plane.B * testpoint.Y + plane.C * testpoint.Z + plane.D > 0;
+        }
+
     }
 }
