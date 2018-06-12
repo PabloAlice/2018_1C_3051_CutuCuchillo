@@ -29,12 +29,12 @@ namespace TGC.Group.Model.Vehiculos
         override protected void CreateSounds(SoundsManager soundsManager)
         {
             TGCVector3 position = this.GetPosition();
-            soundsManager.AddSound(position, 50f, -2500,"Motor.wav", "Motor");
-            soundsManager.AddSound(position, 50f, 0, "Salto.wav", "Salto");
-            soundsManager.AddSound(position, 50f, 0, "Bocina3.wav", "Bocina");
-            soundsManager.AddSound(position, 50f, 0, "Alarma.wav", "Alarma");
-            soundsManager.AddSound(position, 50f, 0, "Caida.wav", "Caida");
-            soundsManager.AddSound(position, 50f, 0, "Choque2.wav", "Choque");
+            soundsManager.AddSound(position, 50f, -2500,"Van\\Motor.wav", "Motor");
+            soundsManager.AddSound(position, 50f, 0, "Van\\Salto.wav", "Salto");
+            soundsManager.AddSound(position, 50f, 0, "Van\\Bocina3.wav", "Bocina");
+            soundsManager.AddSound(position, 50f, 0, "Van\\Alarma.wav", "Alarma");
+            soundsManager.AddSound(position, 50f, 0, "Van\\Caida.wav", "Caida");
+            soundsManager.AddSound(position, 50f, 0, "Van\\Choque2.wav", "Choque");
             soundsManager.GetSound("Motor").play(true);
 
         }

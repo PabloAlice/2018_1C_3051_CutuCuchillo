@@ -11,7 +11,7 @@ namespace TGC.Group.Model
 
         public Bomb(TransformationMatrix matrix, TgcMesh mesh) : base(matrix, mesh)
         {
-            this.soundManager.AddSound(this.GetPosition(), 10f, 0, "Bomba.wav", "Bomba");
+            this.soundManager.AddSound(this.GetPosition(), 10f, 0, "Weapons\\Bomba.wav", "Bomba");
         }
 
         public override void Shoot()

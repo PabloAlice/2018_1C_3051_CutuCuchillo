@@ -38,8 +38,12 @@ namespace TGC.Group.Model.Vehiculos
         protected override void CreateSounds(SoundsManager soundsManager)
         {
             TGCVector3 position = this.GetPosition();
-            soundsManager.AddSound(position, 2f, -1500, "Motor.wav", "Motor");
-            soundsManager.AddSound(position, 10f, 0, "Salto.wav", "Salto");
+            soundsManager.AddSound(position, 2f, -1500, "AI\\Motor.wav", "Motor");
+            soundsManager.AddSound(position, 2f, 0, "AI\\Salto.wav", "Salto");
+            soundsManager.AddSound(position, 7f, 0, "AI\\Bocina3.wav", "Bocina");
+            soundsManager.AddSound(position, 5f, 0, "AI\\Alarma.wav", "Alarma");
+            soundsManager.AddSound(position, 2f, 0, "AI\\Caida.wav", "Caida");
+            soundsManager.AddSound(position, 4f, 0, "AI\\Choque2.wav", "Choque");
             soundsManager.GetSound("Motor").play(true);
             return;
         }
@@ -73,7 +77,7 @@ namespace TGC.Group.Model.Vehiculos
         override protected void UpdateValues()
         {
             base.UpdateValues();
-
+            radarSphere.setValues(this.GetPosition(), radarSphere.Radius);
         }
         
     }

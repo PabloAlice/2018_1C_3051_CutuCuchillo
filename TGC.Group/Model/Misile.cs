@@ -7,7 +7,7 @@ namespace TGC.Group.Model
     {
         public Misile(TransformationMatrix matrix, TgcMesh mesh) : base(matrix, mesh)
         {
-            this.soundManager.AddSound(this.GetPosition(), 10f, 0, "Misil.wav", "Misil");
+            this.soundManager.AddSound(this.GetPosition(), 10f, 0, "Weapons\\Misil.wav", "Misil");
         }
 
         public override void Shoot()

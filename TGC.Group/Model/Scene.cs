@@ -153,7 +153,7 @@ namespace TGC.Group.Model
             initMatrix.SetScalation(TGCMatrix.Scaling(0.02f, 0.02f, 0.02f));
             initMatrix.SetRotation(TGCMatrix.RotationYawPitchRoll(0, 0, 0));
             initMatrix.SetTranslation(TGCMatrix.Translation(new TGCVector3(-120f, 0.35f, -30)));
-            this.habitacion.AddElement(new Misile(initMatrix, weapon));
+            this.habitacion.AddElement(new BolaHielo(initMatrix, weapon));
 
             TgcScene escena = new TgcSceneLoader().loadSceneFromFile(GlobalConcepts.GetInstance().GetMediaDir() + "Texturas\\Habitacion\\escenaMesheada-TgcScene.xml");
 

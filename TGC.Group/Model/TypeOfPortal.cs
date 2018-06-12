@@ -19,7 +19,7 @@ namespace TGC.Group.Model
             this.outDirection = outDirection;
             this.originPortal = originPortal;
             this.soundManager = new SoundsManager();
-            this.soundManager.AddSound(this.GetPosition(), 10f, 0, "Goku.wav", "Goku");
+            this.soundManager.AddSound(this.GetPosition(), 10f, 0, "Portal\\Goku.wav", "Goku");
         }
 
         public TgcMesh GetCollidable(Vehicle car)
