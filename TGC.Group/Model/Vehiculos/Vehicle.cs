@@ -453,10 +453,6 @@ namespace TGC.Group.Model
             this.spark.Position = this.GetPosition();
         }
 
-        private int NumberOfWeapons()
-        {
-            return this.weapons.Count;
-        }
 
         private void Shoot()
         {
@@ -602,6 +598,11 @@ namespace TGC.Group.Model
         public void Remove(Weapon weapon)
         {
             this.weapons.Remove(weapon);
+        }
+
+        public int NumberOfWeapons()
+        {
+            return this.weapons.Count;
         }
 
         public void Congelar()
