@@ -46,6 +46,7 @@ namespace TGC.Group.Model
         protected float life = 100f;
         protected ParticleEmitter smoke, spark;
         protected List<Weapon> weapons = new List<Weapon>();
+        protected float timeShoot = 0f;
 
         //Timer shaderTime = new Timer();
         //FloatModifier shaderColorModifier = new FloatModifier(0.84f, 0.74f, 0.94f);
@@ -456,9 +457,10 @@ namespace TGC.Group.Model
         private void Shoot()
         {
             Weapon weapon = (this.NumberOfWeapons() > 0) ? this.weapons[0] : null;
-            if (weapon != null)
+            if (weapon != null && this.timeShoot == 0f)
             {
                 weapon.Shoot(this);
+                this.timeShoot = 0.5f;
             }
         }
 
@@ -572,10 +574,21 @@ namespace TGC.Group.Model
         {
             this.SoundsManager.UpdatePositions(this.GetPosition());
             this.UpdateSmoke();
+            this.UpdateShootTime();
             this.SoundsManager.Update(this.velocidadActual);
             this.estado.JumpUpdate();
             this.estado.FrozenTimeUpdate();
             //this.camara.UpdateInterpolation(this.elapsedTime);
+        }
+
+        private void UpdateShootTime()
+        {
+            if(this.timeShoot > 0)
+            {
+                this.timeShoot -= this.elapsedTime;
+                this.timeShoot = FastMath.Max(0f, this.timeShoot);
+
+            }
         }
 
         private void UpdateSmoke()
