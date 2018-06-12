@@ -51,19 +51,7 @@ namespace TGC.Group.Model.Vehiculos
         protected override void ManageEntry(TgcD3dInput input)
         {
             this.DeterminateState();
-            Vehicle car = Scene.GetInstance().auto;
-            this.aiState.EnemySpotted(car);
-                
-            /*
-            if (input.keyDown(Key.L))
-            {
-                this.estado.Advance();
-            }
-
-            if (!input.keyDown(Key.L) && !input.keyDown(Key.S))
-            {
-                this.estado.SpeedUpdate();
-            }*/
+            this.aiState.Run();
             return;
         }
 

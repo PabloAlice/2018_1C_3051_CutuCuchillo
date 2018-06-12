@@ -15,7 +15,7 @@ namespace TGC.Group.Model.Vehiculos.AIStates
             this.AI = AI;
         }
 
-        virtual public void EnemySpotted(Vehicle enemyCar)
+        virtual public void EnemySpotted()
         {
             return;
         }
