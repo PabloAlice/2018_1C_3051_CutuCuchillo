@@ -30,6 +30,11 @@ namespace TGC.Group.Model
             }
         }
 
+        public override void HandleCollision(Vehicle car)
+        {
+            return;
+        }
+
         public override void Move()
         {
             this.weapon.matrix.Translate(TGCMatrix.Translation(this.weapon.direction * this.velocity * GlobalConcepts.GetInstance().GetElapsedTime()));
@@ -63,7 +68,9 @@ namespace TGC.Group.Model
             Collidable collided;
             if (this.IsColliding(out collided))
             {
+                System.Console.WriteLine("Cantidad de Armas Antes {0}", this.car.NumberOfWeapons());
                 this.car.Remove(this.weapon);
+                System.Console.WriteLine("Cantidad de Armas Despues {0}", this.car.NumberOfWeapons());
                 this.weapon.Collide(collided);
             }
         }

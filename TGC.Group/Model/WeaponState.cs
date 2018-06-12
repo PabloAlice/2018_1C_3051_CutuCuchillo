@@ -25,14 +25,7 @@ namespace TGC.Group.Model
             this.weapon.mesh.Dispose();
         }
 
-        public void HandleCollision(Vehicle car)
-        {
-            if (TgcCollisionUtils.testSphereOBB(this.weapon.sphere, car.GetTGCBoundingOrientedBox()))
-            {
-                car.AddWeapon(this.weapon);
-                this.weapon.weaponState = new ReadyToShoot(this.weapon);
-            }
-        }
+        abstract public void HandleCollision(Vehicle car);
 
         virtual public TgcMesh GetCollidable(Vehicle car)
         {

@@ -36,5 +36,10 @@ namespace TGC.Group.Model
         {
             return null;
         }
+
+        override public void HandleCollision(Vehicle car)
+        {
+            return;
+        }
     }
 }
