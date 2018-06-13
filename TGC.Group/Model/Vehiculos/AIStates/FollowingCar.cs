@@ -12,14 +12,27 @@ namespace TGC.Group.Model.Vehiculos.AIStates
         override public void EnemySpotted()
         {
             Vehicle enemy = Scene.GetInstance().auto;
-            if (TgcCollisionUtils.testPlaneAABB(AI.directionPlane, enemy.mesh.BoundingBox) && GlobalConcepts.GetInstance().IsInFrontOf(enemy.GetPosition(), AI.planoCostado))
+            var cuadrante = GetCuadrante(enemy.GetPosition());
+            var movState = AI.GetEstado();
+            switch(cuadrante)
             {
-                this.AI.GetEstado().Advance();
-            }
-            else
-            {
-                this.AI.GetEstado().Advance();
-                this.AI.GetEstado().Left();
+                case 0:
+                    movState.Advance();
+                    movState.Right();
+                    break;
+                case 1:
+                    movState.Advance();
+                    movState.Left();
+                    break;
+                case 2:
+                    movState.Back();
+                    movState.Right();
+                    break;
+                case 3:
+                    movState.Back();
+                    movState.Left();
+                    break;
+                default: break;
             }
         }
 

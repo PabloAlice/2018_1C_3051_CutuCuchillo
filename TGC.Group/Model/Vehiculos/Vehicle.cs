@@ -390,7 +390,7 @@ namespace TGC.Group.Model
             return TGCVector3.transform(new TGCVector3(0, 0, 0), this.matrixs.GetTransformation());
         }
 
-        public TGCVector3 GetVectorCostado()
+        public TGCVector3 GetVectorCostadoIzquierda()
         {
             return TGCVector3.Cross(this.vectorAdelante, new TGCVector3(0, 1, 0));
         }
