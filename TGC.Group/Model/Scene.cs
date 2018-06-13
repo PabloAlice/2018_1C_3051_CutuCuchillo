@@ -665,6 +665,7 @@ namespace TGC.Group.Model
         private TgcMesh GimeMeASingleMesh(string ruta)
         {
             TgcScene tgcScene = new TgcSceneLoader().loadSceneFromFile(GlobalConcepts.GetInstance().GetMediaDir() + ruta);
+            //tgcScene.Meshes[0].D3dMesh.ComputeNormals();
             return tgcScene.Meshes[0];
 
         }

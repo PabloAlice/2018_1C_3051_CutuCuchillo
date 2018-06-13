@@ -9,8 +9,8 @@ texture texDiffuseMap;
 sampler2D diffuseMap = sampler_state
 {
     Texture = (texDiffuseMap);
-    ADDRESSU = WRAP;
-    ADDRESSV = WRAP;
+    ADDRESSU = MIRROR;
+    ADDRESSV = MIRROR;
     MINFILTER = LINEAR;
     MAGFILTER = LINEAR;
     MIPFILTER = LINEAR;
@@ -48,7 +48,7 @@ VS_OUTPUT vs_main(VS_INPUT Input)
     */
     Output.Position = mul(Input.Position, matWorldViewProj);
 
-    Output.Texcoord = Input.Texcoord + time;
+    Output.Texcoord = Input.Texcoord;
 
     Output.Color = Input.Color;
 
@@ -57,7 +57,18 @@ VS_OUTPUT vs_main(VS_INPUT Input)
 
 float4 ps_main(float2 Texcoord : TEXCOORD0, float4 Color : COLOR0) : COLOR0
 {
-    return tex2D(diffuseMap, Texcoord);
+
+    float u = Texcoord.x;
+    float v = Texcoord.y;
+    float r = distance(Texcoord, float2(0.5, 0.5));
+    //float2 r = float2(distance(u, 0.5), distance(v, 0.5));
+    float u2 = 0.5 + r * cos(time* 0.1);
+    float v2 = 0.5 + r * sin(time * 0.1);
+    /*
+    float u2 = u * pow(v, time) * cos(time);
+    float v2 = u * pow(v, time) * sin(time);
+*/
+    return tex2D(diffuseMap, float2(u2, v2));
 }
 
 technique Portal

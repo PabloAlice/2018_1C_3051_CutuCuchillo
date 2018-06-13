@@ -89,6 +89,7 @@ namespace TGC.Group.Model
             //this.camaraManagement = new CamaraEnTerceraPersona(camaraDesplazamiento, 3f, -50);
             this.Camara = camaraInterna;
             this.auto = new Van(new TGCVector3(-60f, 0f, 0f), new SoundsManager());
+            this.auto.mesh.D3dMesh.ComputeNormals();
             piloto = this.auto.mesh.clone("clon");
             this.DirectSound.ListenerTracking = piloto;
             Scene.GetInstance().SetVehiculo(this.auto);
@@ -172,7 +173,7 @@ namespace TGC.Group.Model
             
             D3DDevice.Instance.Device.BeginScene();
             D3DDevice.Instance.Device.Clear(ClearFlags.Target | ClearFlags.ZBuffer, Color.Black, 1.0f, 0);
-        
+            //D3DDevice.Instance.Device.RenderState.FillMode = FillMode.WireFrame;
             if (enterMenu)
             {
                 drawer.BeginDrawSprite();
