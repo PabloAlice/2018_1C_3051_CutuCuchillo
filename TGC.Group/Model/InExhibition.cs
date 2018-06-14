@@ -8,7 +8,7 @@ namespace TGC.Group.Model
 
         public InExhibition(Weapon weapon):base(weapon)
         {
-            this.weapon.matrix = this.weapon.initialTransformation;
+            this.weapon.matrix = this.weapon.ReturnSame(this.weapon.initialTransformation);
             this.weapon.Transform();
 
         }
@@ -18,7 +18,6 @@ namespace TGC.Group.Model
             if (TgcCollisionUtils.testSphereOBB(this.weapon.sphere, car.GetTGCBoundingOrientedBox()))
             {
                 car.AddWeapon(this.weapon);
-                System.Console.WriteLine("Meti un arma");
                 this.weapon.weaponState = new ReadyToShoot(this.weapon);
             }
         }
@@ -36,7 +35,13 @@ namespace TGC.Group.Model
 
         override public void Update()
         {
+            System.Console.WriteLine("Antes de modificar");
+            System.Console.WriteLine(this.weapon.initialTransformation.GetTransformation());
+            System.Console.WriteLine(this.weapon.matrix.GetTransformation());
             this.weapon.matrix.Rotate(TGCMatrix.RotationYawPitchRoll(0.005f, 0.003f, 0));
+            System.Console.WriteLine("Despues de modificar");
+            System.Console.WriteLine(this.weapon.initialTransformation.GetTransformation());
+            System.Console.WriteLine(this.weapon.matrix.GetTransformation());
         }
 
         public override void Shoot(Vehicle car)

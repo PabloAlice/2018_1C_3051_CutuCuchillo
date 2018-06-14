@@ -32,6 +32,15 @@ namespace TGC.Group.Model
             
         }
 
+        public TransformationMatrix ReturnSame(TransformationMatrix m)
+        {
+            TransformationMatrix theReturn = new TransformationMatrix();
+            theReturn.SetTranslation(m.GetTranslation() * TGCMatrix.Translation(new TGCVector3(0,0,0)));
+            theReturn.SetScalation(m.GetScalation() * TGCMatrix.Scaling(new TGCVector3(1,1,1)));
+            theReturn.SetRotation(m.GetRotation() * TGCMatrix.RotationYawPitchRoll(0, 0, 0));
+            return theReturn;
+        }
+
         public bool IsInView()
         {
             TGCPlane plane = Scene.GetInstance().camera.GetPlane();
