@@ -3,6 +3,7 @@ using TGC.Core.Mathematica;
 using TGC.Core.BoundingVolumes;
 using TGC.Group.Model.Vehiculos;
 using TGC.Core.Collision;
+using TGC.Core.Particle;
 
 namespace TGC.Group.Model
 {
@@ -15,6 +16,7 @@ namespace TGC.Group.Model
         public TransformationMatrix initialTransformation = new TransformationMatrix();
         public TransformationMatrix matrix = new TransformationMatrix();
         public SoundsManager soundManager;
+        public ParticleEmitter particle;
 
         public Weapon(TransformationMatrix matrix, TgcMesh mesh)
         {
@@ -29,8 +31,11 @@ namespace TGC.Group.Model
             this.sphere.setValues(this.sphere.Center, 0.3f);
             this.weaponState = new InExhibition(this);
             this.soundManager = new SoundsManager();
+            this.CreateParticle();
             
         }
+
+        abstract protected void CreateParticle();
 
         public TransformationMatrix ReturnSame(TransformationMatrix m)
         {
@@ -94,6 +99,8 @@ namespace TGC.Group.Model
         public void Render()
         {
             this.weaponState.Render();
+            this.particle.render(GlobalConcepts.GetInstance().GetElapsedTime());
+            System.Console.WriteLine(GlobalConcepts.GetInstance().GetElapsedTime());
         }
 
         public void Dispose()

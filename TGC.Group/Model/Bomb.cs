@@ -1,7 +1,7 @@
 ﻿using TGC.Core.Collision;
 using TGC.Core.Mathematica;
 using TGC.Core.SceneLoader;
-using TGC.Core.BoundingVolumes;
+using TGC.Core.Particle;
 
 namespace TGC.Group.Model
 {
@@ -12,11 +12,25 @@ namespace TGC.Group.Model
         public Bomb(TransformationMatrix matrix, TgcMesh mesh) : base(matrix, mesh)
         {
             this.soundManager.AddSound(this.GetPosition(), 10f, 0, "Weapons\\Bomba.wav", "Bomba", false);
+            this.soundManager.AddSound(this.GetPosition(), 10f, 0, "Explosion\\Bomba.wav", "Explosion", false);
+        }
+
+        override protected void CreateParticle()
+        {
+            this.particle = new ParticleEmitter(GlobalConcepts.GetInstance().GetMediaDir() + "Texturas\\Chispas\\Chispas.png", 10);
+            this.particle.Position = this.GetPosition();
+            this.particle.MinSizeParticle = 1f;
+            this.particle.MaxSizeParticle = 2f;
+            this.particle.ParticleTimeToLive = 0.5f;
+            this.particle.CreationFrecuency = 0.1f;
+            this.particle.Dispersion = 30;
+            this.particle.Playing = false;
+            this.particle.Speed = new TGCVector3(1, 1, 1);
         }
 
         public override void Shoot()
         {
-            this.soundManager.GetSound("Bomba").play();
+            this.soundManager.GetSound("Bomba").play(true);
         }
 
         override public void Move()
@@ -39,6 +53,7 @@ namespace TGC.Group.Model
                 return;
             }
             this.Bounce(element);
+            this.soundManager.GetSound("Bomba").stop();
         }
 
         private void Bounce(Collidable element)

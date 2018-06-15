@@ -1,4 +1,5 @@
 ﻿using TGC.Core.Mathematica;
+using TGC.Core.Particle;
 using TGC.Core.SceneLoader;
 
 namespace TGC.Group.Model
@@ -8,11 +9,25 @@ namespace TGC.Group.Model
         public BolaHielo(TransformationMatrix matrix, TgcMesh mesh) : base(matrix, mesh)
         {
             this.soundManager.AddSound(this.GetPosition(), 10f, 0, "Weapons\\BolaHielo.wav", "BolaHielo", false);
+            this.soundManager.AddSound(this.GetPosition(), 10f, 0, "Explosion\\BolaHielo.wav", "Explosion", false);
         }
 
         public override void Shoot()
         {
             this.soundManager.GetSound("BolaHielo").play();
+        }
+
+        override protected void CreateParticle()
+        {
+            this.particle = new ParticleEmitter(GlobalConcepts.GetInstance().GetMediaDir() + "Texturas\\Chispas\\Chispas.png", 10);
+            this.particle.Position = this.GetPosition();
+            this.particle.MinSizeParticle = 1f;
+            this.particle.MaxSizeParticle = 2f;
+            this.particle.ParticleTimeToLive = 0.5f;
+            this.particle.CreationFrecuency = 0.1f;
+            this.particle.Dispersion = 30;
+            this.particle.Playing = false;
+            this.particle.Speed = new TGCVector3(1, 1, 1);
         }
 
         public override void Collide(Collidable collided)

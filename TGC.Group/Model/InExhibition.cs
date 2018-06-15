@@ -35,13 +35,7 @@ namespace TGC.Group.Model
 
         override public void Update()
         {
-            System.Console.WriteLine("Antes de modificar");
-            System.Console.WriteLine(this.weapon.initialTransformation.GetTransformation());
-            System.Console.WriteLine(this.weapon.matrix.GetTransformation());
             this.weapon.matrix.Rotate(TGCMatrix.RotationYawPitchRoll(0.005f, 0.003f, 0));
-            System.Console.WriteLine("Despues de modificar");
-            System.Console.WriteLine(this.weapon.initialTransformation.GetTransformation());
-            System.Console.WriteLine(this.weapon.matrix.GetTransformation());
         }
 
         public override void Shoot(Vehicle car)
