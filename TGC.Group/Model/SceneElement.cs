@@ -21,6 +21,33 @@ namespace TGC.Group.Model
             this.transformacion = transformacion;
         }
 
+        public bool IsInto(TGCVector3 minPoint, TGCVector3 maxPoint)
+        {
+            this.transform();
+            foreach (TgcMesh element in this.elements)
+            {
+                if (this.AnyIsInside(element.BoundingBox.computeCorners(), minPoint, maxPoint))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        private bool AnyIsInside(TGCVector3[] points, TGCVector3 minPoint, TGCVector3 maxPoint)
+        {
+            foreach (TGCVector3 point in points)
+            {
+                if (GlobalConcepts.GetInstance().IsBetweenXZ(point, minPoint, maxPoint))
+                {
+                    return true;
+                }
+
+            }
+            return false;
+        }
+
         public bool IsColliding(Weapon weapon, out Collidable elementOut)
         {
             foreach (TgcMesh element in this.elements)

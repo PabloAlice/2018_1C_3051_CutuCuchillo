@@ -75,6 +75,11 @@ namespace TGC.Group.Model
             return true;
         }
 
+        public bool IsInto(TGCVector3 minPoint, TGCVector3 maxPoint)
+        {
+            return GlobalConcepts.GetInstance().IsBetweenXZ(this.GetPosition(), minPoint, maxPoint);
+        }
+
         private void CreateSmoke()
         {
             this.smoke = new ParticleEmitter(GlobalConcepts.GetInstance().GetMediaDir() + "Texturas\\Humo\\humo.png", 10);

@@ -22,6 +22,11 @@ namespace TGC.Group.Model
             this.soundManager.AddSound(this.GetPosition(), 10f, 0, "Portal\\Goku.wav", "Goku", false);
         }
 
+        public bool IsInto(TGCVector3 minPoint, TGCVector3 maxPoint)
+        {
+            return GlobalConcepts.GetInstance().IsBetweenXZ(this.GetPosition(), minPoint, maxPoint);
+        }
+
         public bool IsInView()
         {
             TGCPlane plane = Scene.GetInstance().camera.GetPlane();

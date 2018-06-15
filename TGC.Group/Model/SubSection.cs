@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using TGC.Core.Mathematica;
 using TGC.Core.Geometry;
+using System.Drawing;
 
 namespace TGC.Group.Model
 {
@@ -9,7 +10,7 @@ namespace TGC.Group.Model
     {
         private TGCVector3 minPoint;
         private TGCVector3 maxPoint;
-        List<Collidable> elements = new List<Collidable>();
+        private List<Collidable> elements = new List<Collidable>();
 
         public SubSection(TGCVector3 puntoMinimo, TGCVector3 puntoMaximo)
         {
@@ -27,7 +28,15 @@ namespace TGC.Group.Model
             return this.maxPoint;
         }
 
-        public void AddElements(Collidable element)
+        public void AddElement(Collidable element)
+        {
+            if (element.IsInto(this.minPoint, this.maxPoint))
+            {
+                this.elements.Add(element);
+            }
+        }
+
+        public void AddElement(Collidable element, bool verdad)
         {
             this.elements.Add(element);
         }
@@ -52,7 +61,10 @@ namespace TGC.Group.Model
         {
             foreach (Collidable element in this.elements)
             {
-                element.Render();
+                if (element.IsInView())
+                {
+                    element.Render();                    
+                }
             }
         }
 

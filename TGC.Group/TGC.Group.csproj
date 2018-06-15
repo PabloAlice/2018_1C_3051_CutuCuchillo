@@ -106,6 +106,7 @@
     <Compile Include="Model\Misile.cs" />
     <Compile Include="Model\ReadyToShoot.cs" />
     <Compile Include="Model\Shooted.cs" />
+    <Compile Include="Model\SubSection.cs" />
     <Compile Include="Model\ThirdPersonCamera.cs" />
     <Compile Include="Model\Collidable.cs" />
     <Compile Include="Model\GlobalConcepts.cs" />

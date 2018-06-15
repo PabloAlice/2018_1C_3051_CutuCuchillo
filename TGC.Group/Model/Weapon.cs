@@ -35,6 +35,11 @@ namespace TGC.Group.Model
             
         }
 
+        public bool IsInto(TGCVector3 minPoint, TGCVector3 maxPoint)
+        {
+            return GlobalConcepts.GetInstance().IsBetweenXZ(this.GetPosition(), minPoint, maxPoint);
+        }
+
         abstract protected void CreateParticle();
 
         public TransformationMatrix ReturnSame(TransformationMatrix m)
@@ -100,7 +105,6 @@ namespace TGC.Group.Model
         {
             this.weaponState.Render();
             this.particle.render(GlobalConcepts.GetInstance().GetElapsedTime());
-            System.Console.WriteLine(GlobalConcepts.GetInstance().GetElapsedTime());
         }
 
         public void Dispose()
