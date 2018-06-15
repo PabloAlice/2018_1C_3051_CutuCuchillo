@@ -42,10 +42,11 @@ namespace TGC.Group.Model
             return GlobalConcepts.GetInstance().IsBetweenXZ(position, minPoint, maxPoint);
         }
 
-        public bool Contains(Collidable element)
+        /*public bool Contains(Collidable element)
         {
-            return GlobalConcepts.GetInstance().IsBetweenXZ(element.GetPosition(), minPoint, maxPoint);
+            //return element.IsInto(minPoint, maxPoint);
         }
+        */
 
         public void Render()
         {
