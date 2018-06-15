@@ -39,12 +39,12 @@ namespace TGC.Group.Model
 
         public bool Contains(TGCVector3 position)
         {
-            return GlobalConcepts.GetInstance().IsBetween(position, minPoint, maxPoint);
+            return GlobalConcepts.GetInstance().IsBetweenXZ(position, minPoint, maxPoint);
         }
 
         public bool Contains(Collidable element)
         {
-            return element.IsInto(minPoint, maxPoint);
+            return GlobalConcepts.GetInstance().IsBetweenXZ(element.GetPosition(), minPoint, maxPoint);
         }
 
         public void Render()

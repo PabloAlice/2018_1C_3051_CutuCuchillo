@@ -28,6 +28,11 @@ namespace TGC.Group.Model
             return instance;
         }
 
+        public bool IsBetweenXZ(TGCVector3 position, TGCVector3 minPoint, TGCVector3 maxPoint)
+        {
+            return position.X >= minPoint.X && position.X <= maxPoint.X && position.Z >= minPoint.Z && position.Z <= maxPoint.Z;
+        }
+
         public void SetScreen(Microsoft.DirectX.Direct3D.Device screen)
         {
             this.screen = screen;
