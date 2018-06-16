@@ -1,5 +1,4 @@
-﻿using TGC.Core.Collision;
-using TGC.Core.Mathematica;
+﻿using TGC.Group.Model.Vehiculos.Estados;
 
 namespace TGC.Group.Model.Vehiculos.AIStates
 {
@@ -12,32 +11,14 @@ namespace TGC.Group.Model.Vehiculos.AIStates
         override public void EnemySpotted()
         {
             Vehicle enemy = Scene.GetInstance().auto;
-            var cuadrante = GetCuadrante(enemy.GetPosition());
-            var movState = AI.GetEstado();
-            switch(cuadrante)
-            {
-                case 0:
-                    movState.Advance();
-                    movState.Right();
-                    break;
-                case 1:
-                    movState.Advance();
-                    movState.Left();
-                    break;
-                case 2:
-                    movState.Back();
-                    movState.Right();
-                    break;
-                case 3:
-                    movState.Back();
-                    movState.Left();
-                    break;
-                default: break;
-            }
+            Quadrant quadrant = GetCuadrante(enemy.GetPosition());
+            quadrant.Execute();
+
         }
 
         override public void Run()
         {
+            base.Run();
             this.EnemySpotted();
             return;
         }

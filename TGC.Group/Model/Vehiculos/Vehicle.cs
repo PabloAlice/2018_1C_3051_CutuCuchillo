@@ -449,6 +449,8 @@ namespace TGC.Group.Model
         virtual public void Crash(float angle)
         {
             this.life = (this.life - 5f < 0) ? 0 : this.life - 5f;
+            this.deltaTiempoAvance.resetear();
+            this.velocidadActual *= 0.5f;
             this.SoundsManager.GetSound("Choque").play();
             this.UpdateSpark();
         }

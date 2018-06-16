@@ -53,9 +53,9 @@ namespace TGC.Group.Model
             
         }
 
-        public List<Weapon> GetWeapons()
+        public List<Collidable> GetWeapons(Vehicle car)
         {
-            return null;
+            return this.VehicleUbication(car).GetWeapons();
         }
 
         public void AddToSection(Collidable element)

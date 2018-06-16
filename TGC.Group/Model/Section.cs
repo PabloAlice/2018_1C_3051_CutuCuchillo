@@ -25,6 +25,18 @@ namespace TGC.Group.Model
             this.GenerateSubSections();
         }
 
+        public List<Collidable> GetWeapons()
+        {
+            List<Collidable> weapons = new List<Collidable>();
+            List<Collidable> weaponsSubsection = new List<Collidable>();
+            foreach (SubSection subSection in this.subSections)
+            {
+                weaponsSubsection = subSection.GetWeapons();
+                weapons.AddRange(weaponsSubsection);
+            }
+            return weapons;
+        }
+
         private void GenerateSubSections()
         {
             float width = (puntoMaximo.X - puntoMinimo.X) / this.numberOfPartitions;

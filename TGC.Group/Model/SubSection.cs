@@ -28,6 +28,11 @@ namespace TGC.Group.Model
             return this.maxPoint;
         }
 
+        public List<Collidable> GetWeapons()
+        {
+            return this.elements.FindAll(e => e is Weapon);
+        }
+
         public void AddElement(Collidable element)
         {
             if (element.IsInto(this.minPoint, this.maxPoint))

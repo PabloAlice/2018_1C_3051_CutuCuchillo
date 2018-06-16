@@ -15,6 +15,7 @@ namespace TGC.Group.Model.Vehiculos
         public AIState aiState;
         public TGCPlane directionPlane;
         public TGCPlane planoCostado;
+        public float time = 0;
 
         public ArtificialIntelligence(TGCVector3 posicionInicial, SoundsManager soundsManager) : base(posicionInicial, soundsManager)
         {
@@ -22,7 +23,7 @@ namespace TGC.Group.Model.Vehiculos
             this.CreateWheels();
             radarSphere.setValues(this.GetPosition(), 75f);
             radarSphere.setRenderColor(Color.DarkViolet);
-            this.aiState = new FollowingCar(this);
+            this.aiState = new Stopped(this);
             this.CreateSounds(soundsManager);
             this.velocidadMaximaDeAvance = 20f;
         }
@@ -55,23 +56,23 @@ namespace TGC.Group.Model.Vehiculos
 
         protected override void ManageEntry(TgcD3dInput input)
         {
-            this.DeterminateState();
             this.aiState.Run();
-            
             return;
         }
 
-        private void DeterminateState()
+        public bool DoIHaveEnoughWeapons()
         {
-            Vehicle car = Scene.GetInstance().auto;
-            if (TgcCollisionUtils.testSphereOBB(this.radarSphere, car.GetTGCBoundingOrientedBox()))
-            {
-                this.aiState = new FollowingCar(this);
-            }
-            else
-            {
-                this.aiState = new SearchWeapons(this);
-            }
+            return this.weapons.Count > 2;
+        }
+
+        public bool IsEnemyInRadar(Vehicle car)
+        {
+            return TgcCollisionUtils.testSphereOBB(this.radarSphere, car.GetTGCBoundingOrientedBox());
+        }
+
+        public void ChangeState(AIState state)
+        {
+            this.aiState = state;
         }
 
         override public void Render()

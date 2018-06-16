@@ -33,6 +33,12 @@ namespace TGC.Group.Model
             return position.X >= minPoint.X && position.X <= maxPoint.X && position.Z >= minPoint.Z && position.Z <= maxPoint.Z;
         }
 
+        public float DistanceBetweenTwoPoints(TGCVector3 p1, TGCVector3 p2)
+        {
+            TGCVector3 vector = p2 - p1;
+            return vector.Length();
+        }
+
         public void SetScreen(Microsoft.DirectX.Direct3D.Device screen)
         {
             this.screen = screen;

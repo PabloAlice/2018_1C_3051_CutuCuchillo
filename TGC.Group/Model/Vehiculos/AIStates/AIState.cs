@@ -22,28 +22,48 @@ namespace TGC.Group.Model.Vehiculos.AIStates
             return;
         }
 
-        virtual public int GetCuadrante(TGCVector3 testPoint)
+        virtual public Quadrant GetCuadrante(TGCVector3 testPoint)
         {
-            var global = GlobalConcepts.GetInstance();
+            GlobalConcepts global = GlobalConcepts.GetInstance();
             if(global.IsInFrontOf(testPoint, AI.planoCostado) && global.IsInFrontOf(testPoint, AI.directionPlane))
             {
-                return 0;
+                return new QuadrantTopRight(this.AI.GetEstado());
             }
             if(global.IsInFrontOf(testPoint, AI.planoCostado) && !global.IsInFrontOf(testPoint, AI.directionPlane))
             {
-                return 1;
+                return new QuadrantTopLeft(this.AI.GetEstado());
             }
             if(!global.IsInFrontOf(testPoint, AI.planoCostado) && !global.IsInFrontOf(testPoint, AI.directionPlane))
             {
-                return 2;
+                return new QuadrantBottomLeft(this.AI.GetEstado());
             }
             if(!global.IsInFrontOf(testPoint, AI.planoCostado) && global.IsInFrontOf(testPoint, AI.directionPlane))
             {
-                return 3;
+                return new QuadrantBottomRight(this.AI.GetEstado());
             }
-            return 0;
+            throw new Exception("No se encuentra en ningun cuadrante");
         }
 
-        abstract public void Run();
+        virtual protected void DeterminateState()
+        {
+            Vehicle car = Scene.GetInstance().auto;
+            if (this.AI.IsEnemyInRadar(car))
+            {
+                this.AI.ChangeState(new FollowingCar(this.AI));
+            }
+            else if (!this.AI.DoIHaveEnoughWeapons())
+            {
+                this.AI.ChangeState(new SearchWeapons(this.AI));
+            }
+            else
+            {
+                this.AI.ChangeState(new TakeAWalk(this.AI));
+            }
+        }
+
+        virtual public void Run()
+        {
+            this.DeterminateState();
+        }
     }
 }
