@@ -17,11 +17,6 @@ namespace TGC.Group.Model.Vehiculos.AIStates
             this.AI = AI;
         }
 
-        virtual public void EnemySpotted()
-        {
-            return;
-        }
-
         virtual public Quadrant GetCuadrante(TGCVector3 testPoint)
         {
             GlobalConcepts global = GlobalConcepts.GetInstance();
