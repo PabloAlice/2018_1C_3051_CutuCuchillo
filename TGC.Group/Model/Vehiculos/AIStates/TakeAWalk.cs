@@ -13,9 +13,17 @@ namespace TGC.Group.Model.Vehiculos.AIStates
 
         }
 
+        override protected void DeterminateState()
+        {
+            Vehicle car = Scene.GetInstance().auto;
+            if (this.AI.IsEnemyInRadar(car))
+            {
+                this.AI.ChangeState(new FollowingCar(this.AI));
+            }
+        }
+
         public override void Run()
         {
-            //Weapon weapons = Scene.GetInstance().GetWeapons();
 
         }
     }

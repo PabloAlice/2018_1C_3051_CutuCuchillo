@@ -151,11 +151,40 @@ namespace TGC.Group.Model
 
         public void HandleCollisions(Vehicle car)
         {
-            /*if (TgcCollisionUtils.testObbObb(car.GetTGCBoundingOrientedBox(), this.GetObb()))
+            if (TgcCollisionUtils.testObbObb(car.GetTGCBoundingOrientedBox(), this.GetTGCBoundingOrientedBox()))
             {
                 this.Collide(car);
-            }*/
-            return;
+            }
+        }
+
+        private void Collide(Vehicle car)
+        {
+            TgcRay ray = new TgcRay();
+            ray.Origin = this.GetLastPosition();
+            ray.Direction = this.GetDirectionOfCollision();
+            if (this.IntersectRayAABB(ray, car.mesh.BoundingBox))
+            {
+                //car.Impact(this.vectorAdelante, this.velocidadActual);
+                //this.Impact(car.GetVectorAdelante(), car.GetVelocidadActual());
+            }
+        }
+
+        private void Impact(TGCVector3 direction, float velocity)
+        {
+            this.Translate(TGCMatrix.Translation(direction * velocity * 10));
+        }
+
+        private bool IntersectRayAABB(TgcRay ray, TgcBoundingAxisAlignBox aabb)
+        {
+            TgcBoundingAxisAlignBox.Face[] faces = aabb.computeFaces();
+            foreach (TgcBoundingAxisAlignBox.Face face in faces)
+            {
+                if(TgcCollisionUtils.intersectRayPlane(ray, face.Plane, out float t, out TGCVector3 intersection))
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         public TgcMesh GetCollidable(Vehicle car)

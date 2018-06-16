@@ -20,6 +20,10 @@ namespace TGC.Group.Model.Vehiculos.AIStates
         virtual public Quadrant GetCuadrante(TGCVector3 testPoint)
         {
             GlobalConcepts global = GlobalConcepts.GetInstance();
+            if (global.IsInFrontOf(testPoint, AI.planoCostado) && TgcCollisionUtils.testPlaneAABB(AI.directionPlane, Scene.GetInstance().auto.mesh.BoundingBox))
+            {
+                return new QuadranInFrontOf(this.AI.GetEstado());
+            }
             if(global.IsInFrontOf(testPoint, AI.planoCostado) && global.IsInFrontOf(testPoint, AI.directionPlane))
             {
                 return new QuadrantTopRight(this.AI.GetEstado());
@@ -39,22 +43,7 @@ namespace TGC.Group.Model.Vehiculos.AIStates
             throw new Exception("No se encuentra en ningun cuadrante");
         }
 
-        virtual protected void DeterminateState()
-        {
-            Vehicle car = Scene.GetInstance().auto;
-            if (this.AI.IsEnemyInRadar(car))
-            {
-                this.AI.ChangeState(new FollowingCar(this.AI));
-            }
-            else if (!this.AI.DoIHaveEnoughWeapons())
-            {
-                this.AI.ChangeState(new SearchWeapons(this.AI));
-            }
-            else
-            {
-                this.AI.ChangeState(new TakeAWalk(this.AI));
-            }
-        }
+        abstract protected void DeterminateState();
 
         virtual public void Run()
         {

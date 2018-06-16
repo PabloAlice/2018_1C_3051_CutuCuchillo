@@ -125,6 +125,7 @@
     <Compile Include="Model\Timer.cs" />
     <Compile Include="Model\Vehiculos\AIStates\AIState.cs" />
     <Compile Include="Model\Vehiculos\AIStates\FollowingCar.cs" />
+    <Compile Include="Model\Vehiculos\AIStates\QuadranInFrontOf.cs" />
     <Compile Include="Model\Vehiculos\AIStates\Quadrant.cs" />
     <Compile Include="Model\Vehiculos\AIStates\QuadrantBottomLeft.cs" />
     <Compile Include="Model\Vehiculos\AIStates\QuadrantBottomRight.cs" />

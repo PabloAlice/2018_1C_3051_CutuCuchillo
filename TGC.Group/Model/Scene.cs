@@ -38,8 +38,10 @@ namespace TGC.Group.Model
 
         public void HandleCollisions()
         {
+            this.auto.HandleCollisions(this.AI);
             this.VehicleUbication(this.auto).HandleCollisions(this.auto);
             this.VehicleUbication(this.AI).HandleCollisions(this.AI);
+            
         }
 
         private bool IsBetween(TGCVector3 interes, TGCVector3 pmin, TGCVector3 pmax)
