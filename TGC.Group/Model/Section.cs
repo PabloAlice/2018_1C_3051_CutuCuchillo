@@ -110,5 +110,10 @@ namespace TGC.Group.Model
         {
             this.subSections.ForEach(s => s.Dispose());
         }
+
+        public List<SubSection> GetSubSections()
+        {
+            return this.subSections;
+        }
     }
 }
