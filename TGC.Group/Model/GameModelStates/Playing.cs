@@ -59,7 +59,7 @@ namespace TGC.Group.Model.GameModelStates
             this.gameModel.Camara = camaraInterna;
             //this.auto = new Van(new TGCVector3(-60f, 0f, 0f), new SoundsManager());
             this.auto = car;
-
+            auto.ResetScale();
             //this.auto.mesh.D3dMesh.ComputeNormals();
             listener = this.auto.mesh.clone("clon");
             this.gameModel.DirectSound.ListenerTracking = listener;

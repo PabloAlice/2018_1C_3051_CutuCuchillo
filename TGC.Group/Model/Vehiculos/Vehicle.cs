@@ -68,6 +68,11 @@ namespace TGC.Group.Model
 
         }
 
+        public void ResetScale()
+        {
+            matrixs.SetScalation(TGCMatrix.Scaling(escaladoInicial));
+        }
+
         public bool IsInView()
         {
             //por ahora lo unico que tiene obb son los vehiculos
