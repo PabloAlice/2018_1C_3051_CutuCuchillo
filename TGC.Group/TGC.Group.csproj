@@ -150,6 +150,7 @@
     <Compile Include="Model\WeaponState.cs" />
     <Compile Include="Lighting\LightManager.cs" />
     <Compile Include="MyAbrstactions\Tgc3dSound.cs" />
+    <Compile Include="MyAbrstactions\TgcFrustum.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form\GameForm.resx">

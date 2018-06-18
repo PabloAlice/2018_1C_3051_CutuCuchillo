@@ -19,14 +19,13 @@ namespace TGC.Group.Model
         {
             this.position = position;
             this.transformation = transformationMatrix;
-
-            
         }
 
         public void CreateMesh(TgcMesh mesh)
         {
             this.mesh = mesh;
             this.mesh.AutoTransform = false;
+            this.Transform();
             this.mesh.Effect = TgcShaders.loadEffect(GlobalConcepts.GetInstance().GetShadersDir() + "Portal.fx");
             this.mesh.Technique = "Portal";
         }
@@ -52,7 +51,7 @@ namespace TGC.Group.Model
             this.mesh.BoundingBox.Render();
         }
 
-        private void Transform()
+        public void Transform()
         {
             this.mesh.Transform = this.transformation;
             this.mesh.BoundingBox.transform(this.transformation);

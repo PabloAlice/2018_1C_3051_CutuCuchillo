@@ -12,7 +12,6 @@ namespace TGC.Group.Model
         void Dispose();
         TGCVector3 GetPosition();
         TgcMesh GetCollidable(Vehicle car);
-        bool IsInView();
         bool IsInto(TGCVector3 minPoint, TGCVector3 maxPoint);
     }
 }

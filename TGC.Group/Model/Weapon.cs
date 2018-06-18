@@ -51,12 +51,6 @@ namespace TGC.Group.Model
             return theReturn;
         }
 
-        public bool IsInView()
-        {
-            TGCPlane plane = Scene.GetInstance().camera.GetPlane();
-            return TgcCollisionUtils.testSpherePlane(this.sphere, plane) || GlobalConcepts.GetInstance().IsInFrontOf(this.GetPosition(), plane);
-        }
-
         abstract public TGCVector3 GetShootRotation();
 
         public bool IsColliding(Weapon weapon, out Collidable element)
@@ -103,8 +97,18 @@ namespace TGC.Group.Model
 
         public void Render()
         {
-            this.weaponState.Render();
-            this.particle.render(GlobalConcepts.GetInstance().GetElapsedTime());
+            if (this.IsInView(this.mesh))
+            {
+                this.weaponState.Render();
+                this.particle.render(GlobalConcepts.GetInstance().GetElapsedTime());
+            }
+            
+        }
+
+        private bool IsInView(TgcMesh mesh)
+        {
+            this.Transform();
+            return (int)TgcCollisionUtils.classifyFrustumSphere(GlobalConcepts.GetInstance().GetFrustum(), this.sphere) != 0;
         }
 
         public void Dispose()

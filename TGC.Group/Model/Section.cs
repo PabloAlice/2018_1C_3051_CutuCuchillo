@@ -14,7 +14,7 @@ namespace TGC.Group.Model
         private TGCVector3 puntoMinimo, puntoMaximo;
         private Lighting.Light light;
         private TGCBox lightMesh;
-        private uint numberOfPartitions = 2;
+        private uint numberOfPartitions = 1;
 
         public Section(TGCVector3 puntoMinimo, TGCVector3 puntoMaximo)
         {

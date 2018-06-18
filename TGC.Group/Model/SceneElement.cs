@@ -3,6 +3,7 @@ using TGC.Core.SceneLoader;
 using TGC.Core.Mathematica;
 using TGC.Core.Collision;
 using TGC.Core.BoundingVolumes;
+using TGC.Core.Camara;
 
 namespace TGC.Group.Model
 {
@@ -23,7 +24,7 @@ namespace TGC.Group.Model
 
         public bool IsInto(TGCVector3 minPoint, TGCVector3 maxPoint)
         {
-            this.transform();
+            this.Transform();
             foreach (TgcMesh element in this.elements)
             {
                 if (this.AnyIsInside(element.BoundingBox.computeCorners(), minPoint, maxPoint))
@@ -94,7 +95,7 @@ namespace TGC.Group.Model
             return TGCVector3.transform(new TGCVector3(0,0,0), this.transformacion);
         }
 
-        public virtual void transform()
+        public virtual void Transform()
         {
             foreach(TgcMesh elemento in this.elements)
             {
@@ -106,12 +107,15 @@ namespace TGC.Group.Model
 
         public virtual void Render()
         {
-            this.transform();
+            this.Transform();
             foreach (TgcMesh elemento in this.elements)
             {
-                Lighting.LightManager.GetInstance().DoLightMe(elemento);
-                elemento.Render();
-                elemento.BoundingBox.Render();
+                if (this.IsInView(elemento))
+                {
+                    Lighting.LightManager.GetInstance().DoLightMe(elemento);
+                    elemento.Render();
+                    elemento.BoundingBox.Render();
+                }
             }
         }
 
@@ -140,29 +144,16 @@ namespace TGC.Group.Model
             return (element.BoundingBox.PMax + element.BoundingBox.PMin) * 0.5f;
         }
 
-
-        public bool IsInView()
+        public bool IsInView(TgcMesh mesh)
         {
-            this.transform();
-            TGCPlane plane = Scene.GetInstance().camera.GetPlane();
-            foreach (TgcMesh element in this.elements)
-            {
-                if(TgcCollisionUtils.testPlaneAABB(plane, element.BoundingBox) || GlobalConcepts.GetInstance().IsInFrontOf(this.GetPosition(element), plane))
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        private bool IsInFrontOf(TGCVector3 testpoint, TGCPlane plane)
-        {
-            return plane.A * testpoint.X + plane.B * testpoint.Y + plane.C * testpoint.Z + plane.D > 0;
+            this.Transform();
+            return TgcCollisionUtils.classifyFrustumAABB(GlobalConcepts.GetInstance().GetFrustum(), mesh.BoundingBox) != 0;
         }
 
         private TGCPlane SelectPlane(List<TGCPlane> planes, TGCVector3 testPoint)
         {
-            planes.Sort((x,y) => IsInFrontOf(testPoint, x).CompareTo(IsInFrontOf(testPoint, y)));
+            GlobalConcepts g = GlobalConcepts.GetInstance();
+            planes.Sort((x,y) => g.IsInFrontOf(testPoint, x).CompareTo(g.IsInFrontOf(testPoint, y)));
             planes.Reverse();
             return planes[0];
         }
@@ -217,7 +208,7 @@ namespace TGC.Group.Model
 
         public void HandleCollisions(Vehicle car)
         {
-            this.transform();
+            this.Transform();
             foreach (TgcMesh elemento in this.elements)
             {
                 

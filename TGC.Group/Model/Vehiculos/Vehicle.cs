@@ -68,16 +68,15 @@ namespace TGC.Group.Model
 
         }
 
-        public bool IsInView()
-        {
-            //por ahora lo unico que tiene obb son los vehiculos
-            //y se renderizan por su cuenta
-            return true;
-        }
-
         public bool IsInto(TGCVector3 minPoint, TGCVector3 maxPoint)
         {
             return GlobalConcepts.GetInstance().IsBetweenXZ(this.GetPosition(), minPoint, maxPoint);
+        }
+
+        public bool IsInView(TgcMesh mesh)
+        {
+            this.Transform();
+            return TgcCollisionUtils.classifyFrustumAABB(GlobalConcepts.GetInstance().GetFrustum(), mesh.BoundingBox) != 0;
         }
 
         private void CreateSmoke()
@@ -320,18 +319,23 @@ namespace TGC.Group.Model
             //shaderColorModifier.Modify(0.01f);
             //effect.SetValue("time", shaderTime.tiempoTranscurrido());
             //effect.SetValue("bluecolor", shaderColorModifier.Modifier);
-            Lighting.LightManager.GetInstance().DoLightMe(this.mesh);
-            this.mesh.Render();
-            this.RenderBoundingOrientedBox();
-            this.mesh.BoundingBox.Render();
-            delanteraIzquierda.Render();
-            delanteraDerecha.Render();
-            foreach (var rueda in this.ruedas)
+            if (this.IsInView(this.mesh))
             {
-                rueda.Render();
+                Lighting.LightManager.GetInstance().DoLightMe(this.mesh);
+                this.mesh.Render();
+                this.RenderBoundingOrientedBox();
+                this.mesh.BoundingBox.Render();
+                delanteraIzquierda.Render();
+                delanteraDerecha.Render();
+                foreach (var rueda in this.ruedas)
+                {
+                    rueda.Render();
+                }
+                this.smoke.render(this.elapsedTime);
+                this.spark.render(this.elapsedTime);
             }
-            this.smoke.render(this.elapsedTime);
-            this.spark.render(this.elapsedTime);
+            
+
         }
 
 

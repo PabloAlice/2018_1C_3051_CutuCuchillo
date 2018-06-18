@@ -22,15 +22,16 @@ namespace TGC.Group.Model
             this.soundManager.AddSound(this.GetPosition(), 10f, 0, "Portal\\Goku.wav", "Goku", false);
         }
 
+        public bool IsInView(TgcMesh mesh)
+        {
+            //esto no va por que siempre el portal esta en el mismo lugar
+            //this.originPortal.Transform();
+            return TgcCollisionUtils.classifyFrustumAABB(GlobalConcepts.GetInstance().GetFrustum(), mesh.BoundingBox) != 0;
+        }
+
         public bool IsInto(TGCVector3 minPoint, TGCVector3 maxPoint)
         {
             return GlobalConcepts.GetInstance().IsBetweenXZ(this.GetPosition(), minPoint, maxPoint);
-        }
-
-        public bool IsInView()
-        {
-            TGCPlane plane = Scene.GetInstance().camera.GetPlane();
-            return GlobalConcepts.GetInstance().IsInFrontOf(this.GetPosition(), plane) || TgcCollisionUtils.testPlaneAABB(plane, this.originPortal.GetBoundingBox());
         }
 
         public TgcMesh GetCollidable(Vehicle car)
@@ -64,7 +65,7 @@ namespace TGC.Group.Model
 
         public void Render()
         {
-            this.originPortal.Render();
+                this.originPortal.Render();      
         }
 
         public TgcBoundingAxisAlignBox GetBoundingBox()

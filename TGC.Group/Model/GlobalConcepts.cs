@@ -1,5 +1,7 @@
 ﻿using System;
 using Microsoft.DirectX.DirectSound;
+using TGC.Core.BoundingVolumes;
+using TGC.Core.Camara;
 using TGC.Core.Mathematica;
 
 namespace TGC.Group.Model
@@ -10,6 +12,7 @@ namespace TGC.Group.Model
         private static GlobalConcepts instance;
         private string mediaDir;
         private string shaderDir;
+        private TgcFrustum frustum;
         private Device dispositivoDeAudio;
         private float elapsedTime;
         private Microsoft.DirectX.Direct3D.Device screen;
@@ -31,6 +34,16 @@ namespace TGC.Group.Model
         public bool IsBetweenXZ(TGCVector3 position, TGCVector3 minPoint, TGCVector3 maxPoint)
         {
             return position.X >= minPoint.X && position.X <= maxPoint.X && position.Z >= minPoint.Z && position.Z <= maxPoint.Z;
+        }
+
+        public TgcFrustum GetFrustum()
+        {
+            return this.frustum;
+        }
+
+        public void SetFrustum(TgcFrustum frustum)
+        {
+            this.frustum = frustum;
         }
 
         public float DistanceBetweenTwoPoints(TGCVector3 p1, TGCVector3 p2)

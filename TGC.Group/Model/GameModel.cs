@@ -87,6 +87,7 @@ namespace TGC.Group.Model
             this.camaraInterna = new ThirdPersonCamera(camaraDesplazamiento, 0.8f, -33);
             //this.camaraManagement = new CamaraEnTerceraPersona(camaraDesplazamiento, 3f, -50);
             this.Camara = camaraInterna;
+            GlobalConcepts.GetInstance().SetFrustum(this.Frustum);
             this.auto = new Van(new TGCVector3(-60f, 0f, 0f), new SoundsManager());
             //this.auto.mesh.D3dMesh.ComputeNormals();
             listener = this.auto.mesh.clone("clon");

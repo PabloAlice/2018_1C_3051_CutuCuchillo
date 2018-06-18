@@ -66,10 +66,7 @@ namespace TGC.Group.Model
         {
             foreach (Collidable element in this.elements)
             {
-                if (element.IsInView())
-                {
-                    element.Render();                    
-                }
+                element.Render();                    
             }
         }
 
