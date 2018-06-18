@@ -24,8 +24,7 @@ namespace TGC.Group.Model
 
         public bool IsInView(TgcMesh mesh)
         {
-            //esto no va por que siempre el portal esta en el mismo lugar
-            //this.originPortal.Transform();
+            this.originPortal.Transform();
             return TgcCollisionUtils.classifyFrustumAABB(GlobalConcepts.GetInstance().GetFrustum(), mesh.BoundingBox) != 0;
         }
 
@@ -65,7 +64,10 @@ namespace TGC.Group.Model
 
         public void Render()
         {
-                this.originPortal.Render();      
+            if (this.IsInView(this.originPortal.mesh))
+            {
+                this.originPortal.Render();
+            } 
         }
 
         public TgcBoundingAxisAlignBox GetBoundingBox()

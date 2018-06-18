@@ -1,9 +1,7 @@
 ﻿using System.Collections.Generic;
 using TGC.Core.Mathematica;
-using TGC.Group.Lighting;
+using System.Linq;
 using Microsoft.DirectX.Direct3D;
-using TGC.Core.Geometry;
-using System.Drawing;
 using System;
 
 namespace TGC.Group.Model
@@ -13,7 +11,7 @@ namespace TGC.Group.Model
         private List<SubSection> subSections = new List<SubSection>();
         private TGCVector3 puntoMinimo, puntoMaximo;
         private Lighting.Light light;
-        private uint numberOfPartitions = 1;
+        private uint numberOfPartitions = 8;
 
         public Section(TGCVector3 puntoMinimo, TGCVector3 puntoMaximo)
         {
@@ -55,7 +53,7 @@ namespace TGC.Group.Model
         }
 
         public List<Collidable> GetPosiblesCollidables(TGCVector3 position)
-        { 
+        {
             return this.SubsectionUbication(position).GetElements();
         }
 
@@ -68,7 +66,6 @@ namespace TGC.Group.Model
                     return subsection;
                 }
             }
-            System.Console.WriteLine(position);
             throw new Exception("El elementoo no se encuentra en ninguna subseccion");
         }
 
@@ -96,7 +93,13 @@ namespace TGC.Group.Model
         {
             Lighting.LightManager.GetInstance().ResetLights();
             Lighting.LightManager.GetInstance().SuscribeLight(this.light);
-            this.subSections.ForEach(s => s.Render());
+            List<Collidable> elements = new List<Collidable>();
+            foreach (SubSection subsection in this.subSections)
+            {
+                elements.AddRange(subsection.GetElements());
+            }
+            elements = elements.Distinct().ToList();
+            elements.ForEach(e => e.Render());
         }
 
         public void HandleCollisions(Vehicle car)

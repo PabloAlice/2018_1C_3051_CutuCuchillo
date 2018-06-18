@@ -37,7 +37,7 @@ namespace TGC.Group.Model
         {
             if (element.IsInto(this.minPoint, this.maxPoint))
             {
-                this.elements.Add(element);
+                this.elements.Add(element);                
             }
         }
 
@@ -66,7 +66,7 @@ namespace TGC.Group.Model
         {
             foreach (Collidable element in this.elements)
             {
-                element.Render();                    
+                element.Render();
             }
         }
 
