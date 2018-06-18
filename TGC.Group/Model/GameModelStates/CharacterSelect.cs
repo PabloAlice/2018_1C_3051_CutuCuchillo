@@ -7,6 +7,7 @@ using TGC.Core.Mathematica;
 using TGC.Core.SceneLoader;
 using TGC.Group.Model.Vehiculos;
 using Microsoft.DirectX.DirectInput;
+using TGC.Core.Direct3D;
 
 namespace TGC.Group.Model.GameModelStates
 {
@@ -19,7 +20,9 @@ namespace TGC.Group.Model.GameModelStates
         private SoundsManager soundManager = new SoundsManager();
         private int CarsCount { get; set; }
         private int SelectedCarIndex { get; set; }
-
+        private string MediaDir = GlobalConcepts.GetInstance().GetMediaDir();
+        private Drawer2D drawer = new Drawer2D();
+        private CustomSprite choose;
 
 
         public CharacterSelect(GameModel gameModel)
@@ -54,10 +57,22 @@ namespace TGC.Group.Model.GameModelStates
             selectedCar = auto1;
             CarsCount = autos.Count - 1;
 
+
+            var deviceWidth = D3DDevice.Instance.Width;
+            var deviceHeight = D3DDevice.Instance.Height;
+
+            choose = new CustomSprite();
+            choose.Bitmap = new CustomBitmap(MediaDir + "GUI\\Menu\\choose.png", D3DDevice.Instance.Device);
+            choose.Position = new TGCVector2((deviceWidth / 2f) - choose.Bitmap.Width / 2, deviceHeight * 0.8f);
+
         }
 
         public override void Render()
         {
+            drawer.BeginDrawSprite();
+            drawer.DrawSprite(choose);
+            drawer.EndDrawSprite();
+
             piso.Render();
             selectedCar.Render();
         }
@@ -85,6 +100,7 @@ namespace TGC.Group.Model.GameModelStates
         {
             piso.Dispose();
             selectedCar.Dispose();
+            choose.Dispose();
         }
 
         private void NextCar()
