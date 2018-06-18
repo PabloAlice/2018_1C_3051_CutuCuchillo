@@ -101,6 +101,10 @@
     <Compile Include="Model\CustomSprite.cs" />
     <Compile Include="Model\Drawer2D.cs" />
     <Compile Include="Model\FloatModifier.cs" />
+    <Compile Include="Model\GameModelStates\CharacterSelect.cs" />
+    <Compile Include="Model\GameModelStates\GameModelState.cs" />
+    <Compile Include="Model\GameModelStates\InitialMenu.cs" />
+    <Compile Include="Model\GameModelStates\Playing.cs" />
     <Compile Include="Model\InExhibition.cs" />
     <Compile Include="Model\LinearInterpolation.cs" />
     <Compile Include="Model\Misile.cs" />

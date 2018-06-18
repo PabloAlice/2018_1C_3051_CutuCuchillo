@@ -25,12 +25,6 @@ namespace TGC.Group.Model
             this.GenerateSubSections();
         }
 
-        public void SetLightPositionY(float a)
-        {
-            this.light.position = new TGCVector3(this.light.position.X, this.light.position.Y + a, this.light.position.Z);
-            Console.WriteLine("light position: " + this.light.position);
-        }
-
         public List<Collidable> GetWeapons()
         {
             List<Collidable> weapons = new List<Collidable>();
@@ -115,6 +109,11 @@ namespace TGC.Group.Model
         public void Dispose()
         {
             this.subSections.ForEach(s => s.Dispose());
+        }
+
+        public List<SubSection> GetSubSections()
+        {
+            return this.subSections;
         }
     }
 }
