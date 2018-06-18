@@ -129,7 +129,6 @@ namespace TGC.Group.Model
         public void SetCamera(ThirdPersonCamera camera)
         {
             this.camera = camera;
-            this.camera.SetPlane(this.auto.GetVectorAdelante());
         }
 
         public void Init()
@@ -687,6 +686,11 @@ namespace TGC.Group.Model
         public void Render()
         {
             this.VehicleUbication(this.auto).Render();
+        }
+
+        public void RenderRoom()
+        {
+            this.habitacion.Render();
         }
 
         public void Dispose()

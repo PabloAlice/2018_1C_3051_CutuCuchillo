@@ -14,7 +14,7 @@ namespace TGC.Group.Model
 {
     public class GameModel : TgcExample
     {
-        
+
         private GameModelState gameModelState;
 
         public GameModel(string mediaDir, string shadersDir) : base(mediaDir, shadersDir)
@@ -33,13 +33,12 @@ namespace TGC.Group.Model
             GlobalConcepts.GetInstance().SetShaderDir(this.ShadersDir);
             GlobalConcepts.GetInstance().SetDispositivoDeAudio(this.DirectSound.DsDevice);
             GlobalConcepts.GetInstance().SetScreen(D3DDevice.Instance.Device);
-
+            gameModelState = new InitialMenu(this);
             Scene.GetInstance().Init();
 
             GlobalConcepts.GetInstance().SetFrustum(this.Frustum);
             
 
-            gameModelState = new InitialMenu(this);
             //this.Camara = camaraManagement;
             
             //manager = new ObjectManagement(MediaDir + "meshCreator\\meshes\\Habitacion\\Billetes\\Billete2\\Billete2-TgcScene.xml", camaraManagement);
