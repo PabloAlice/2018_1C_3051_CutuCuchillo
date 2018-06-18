@@ -13,16 +13,22 @@ namespace TGC.Group.Model
         private List<SubSection> subSections = new List<SubSection>();
         private TGCVector3 puntoMinimo, puntoMaximo;
         private Lighting.Light light;
-        private TGCBox lightMesh;
+        private TGCBox boxLight;
         private uint numberOfPartitions = 2;
 
         public Section(TGCVector3 puntoMinimo, TGCVector3 puntoMaximo)
         {
             this.puntoMinimo = puntoMinimo;
             this.puntoMaximo = puntoMaximo;
-            var pos = new TGCVector3((puntoMaximo.X + puntoMinimo.X) / 2, puntoMaximo.Y, (puntoMaximo.Z + puntoMinimo.Z) / 2);
-            this.light = new Lighting.Light(new ColorValue(255, 255, 255),  pos, 40, 0.15f);
+            var pos = new TGCVector3((puntoMaximo.X + puntoMinimo.X) / 2, 200, (puntoMaximo.Z + puntoMinimo.Z) / 2);
+            this.light = new Lighting.Light(new ColorValue(255, 255, 255),  pos, 38, 0.25f);
             this.GenerateSubSections();
+        }
+
+        public void SetLightPositionY(float a)
+        {
+            this.light.position = new TGCVector3(this.light.position.X, this.light.position.Y + a, this.light.position.Z);
+            Console.WriteLine("light position: " + this.light.position);
         }
 
         public List<Collidable> GetWeapons()

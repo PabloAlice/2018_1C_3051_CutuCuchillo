@@ -152,7 +152,15 @@ namespace TGC.Group.Model
             {
                 enterMenu = false;
             }
-            
+
+            if (Input.keyDown(Microsoft.DirectX.DirectInput.Key.U))
+            {
+                Scene.GetInstance().VehicleUbication(this.auto).SetLightPositionY(1);
+            }
+            if (Input.keyDown(Microsoft.DirectX.DirectInput.Key.J))
+            {
+                Scene.GetInstance().VehicleUbication(this.auto).SetLightPositionY(-1);
+            }
             this.PostUpdate();
         }
 
