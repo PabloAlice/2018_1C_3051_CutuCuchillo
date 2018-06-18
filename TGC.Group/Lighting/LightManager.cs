@@ -23,6 +23,7 @@ namespace TGC.Group.Lighting
         private List<float> pointLightIntensities;
         private List<float> pointLightAttenuations;
         private ColorValue EmissiveModifier = new ColorValue(0,0,0);
+        private ColorValue AmbientModifier = new ColorValue(255, 255, 255);
         private ColorValue DiffuseModifier = new ColorValue(255,255,255);
         private static LightManager instance;
 
@@ -47,7 +48,9 @@ namespace TGC.Group.Lighting
             mesh.Effect.SetValue("lightIntensity", pointLightIntensities.First());
             mesh.Effect.SetValue("lightAttenuation", pointLightAttenuations.First());
             mesh.Effect.SetValue("materialEmissiveColor", EmissiveModifier);
+            mesh.Effect.SetValue("materialAmbientColor", AmbientModifier);
             mesh.Effect.SetValue("materialDiffuseColor", DiffuseModifier);
+         //   mesh.Effect.SetValue("materialSpecularColor", DiffuseModifier);
         }
 
         public void SuscribeLight(Light light)
