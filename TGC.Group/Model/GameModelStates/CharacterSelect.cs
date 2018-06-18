@@ -20,6 +20,7 @@ namespace TGC.Group.Model.GameModelStates
         private SoundsManager soundManager = new SoundsManager();
         private int CarsCount { get; set; }
         private int SelectedCarIndex { get; set; }
+        private float keyDownTime;
         private string MediaDir = GlobalConcepts.GetInstance().GetMediaDir();
         private Drawer2D drawer = new Drawer2D();
         private CustomSprite choose;
@@ -37,7 +38,7 @@ namespace TGC.Group.Model.GameModelStates
             auto1.matrixs.SetScalation(TGCMatrix.Scaling(0.2f, 0.2f, 0.2f));
             auto1.Transform();
 
-            var auto2 = new Van(new TGCVector3(0f, 0f, 0f), soundManager);
+            var auto2 = new Car(new TGCVector3(0f, 0f, 0f), soundManager);
             soundManager.GetSound("Motor").stop();
             auto2.matrixs.SetScalation(TGCMatrix.Scaling(0.3f, 0.3f, 0.3f));
             auto2.Transform();
@@ -63,7 +64,7 @@ namespace TGC.Group.Model.GameModelStates
 
             choose = new CustomSprite();
             choose.Bitmap = new CustomBitmap(MediaDir + "GUI\\Menu\\choose.png", D3DDevice.Instance.Device);
-            choose.Position = new TGCVector2((deviceWidth / 2f) - choose.Bitmap.Width / 2, deviceHeight * 0.8f);
+            choose.Position = new TGCVector2((deviceWidth / 2f) - choose.Bitmap.Width / 2, deviceHeight * 0.6f);
 
         }
 
@@ -79,21 +80,25 @@ namespace TGC.Group.Model.GameModelStates
 
         public override void Update()
         {
-            if(gameModel.Input.keyDown(Key.RightArrow))
+            if(gameModel.Input.keyDown(Key.RightArrow) && keyDownTime == 0f)
             {
                 NextCar();
+                keyDownTime = 0.5f;
             }
 
-            if(gameModel.Input.keyDown(Key.LeftArrow))
+            if(gameModel.Input.keyDown(Key.LeftArrow) && keyDownTime == 0f)
             {
-
                 PreviousCar();
+                keyDownTime = 0.5f;
             }
 
             if(gameModel.Input.keyDown(Key.Return))
             {
                 gameModel.SetState(new Playing(gameModel, selectedCar));
             }
+
+            UpdateKeyDownTime();
+            selectedCar.Rotate(0.5f * GlobalConcepts.GetInstance().GetElapsedTime());
         }
 
         public override void Dispose()
@@ -115,6 +120,12 @@ namespace TGC.Group.Model.GameModelStates
             SelectedCarIndex--;
             if (SelectedCarIndex < 0) SelectedCarIndex = CarsCount;
             selectedCar = autos[SelectedCarIndex];
+        }
+
+        private void UpdateKeyDownTime()
+        {
+            var nextTime = keyDownTime - GlobalConcepts.GetInstance().GetElapsedTime();
+            keyDownTime = FastMath.Max(0f, nextTime);
         }
     }
 }

@@ -139,6 +139,7 @@
     <Compile Include="Model\Vehiculos\AIStates\Stopped.cs" />
     <Compile Include="Model\Vehiculos\AIStates\TakeAWalk.cs" />
     <Compile Include="Model\Vehiculos\ArtificialIntelligence.cs" />
+    <Compile Include="Model\Vehiculos\Car.cs" />
     <Compile Include="Model\Vehiculos\Estados\Frozen.cs" />
     <Compile Include="Model\Vehiculos\SoundsManagerLegacy.cs" />
     <Compile Include="Model\Vehiculos\Wheel.cs" />
