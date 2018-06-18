@@ -459,7 +459,7 @@ namespace TGC.Group.Model
             //banio
             list = new List<TgcMesh>();
             list = this.GiveMeAMesh("MeshCreator\\Meshes\\Bathroom\\Jabon\\Jabon-TgcScene.xml");
-            this.banio.AddElement(new SceneElement(list, GlobalConcepts.GenerateTransformation(new TGCVector3(0.7f, 0.7f, 0.7f), new TGCVector3(0, 0, 0), new TGCVector3(-75f, 0f, 265f))));
+            this.banio.AddElement(new SceneElement(list, GlobalConcepts.GenerateTransformation(new TGCVector3(0.7f, 0.7f, 0.7f), new TGCVector3(0, 0, 0), new TGCVector3(-105f, 0f, 265f))));
             list = new List<TgcMesh>();
             list = this.GiveMeAMesh("MeshCreator\\Meshes\\Bathroom\\Bathtub\\Bathtub-TgcScene.xml");
             this.banio.AddElement(new SceneElement(list, GlobalConcepts.GenerateTransformation(new TGCVector3(1.5f, 1.8f, 1.5f), new TGCVector3(0, 0, 0), new TGCVector3(-164f, 0f, 270f))));
@@ -471,10 +471,10 @@ namespace TGC.Group.Model
             this.banio.AddElement(new SceneElement(list, GlobalConcepts.GenerateTransformation(new TGCVector3(1.4f, 1.4f, 1.4f), new TGCVector3(0, 0, 0), new TGCVector3(-125, 0f, 170f))));
             list = new List<TgcMesh>();
             list = this.GiveMeAMesh("MeshCreator\\Meshes\\Bathroom\\Esponja\\Esponja-TgcScene.xml");
-            this.banio.AddElement(new SceneElement(list, GlobalConcepts.GenerateTransformation(new TGCVector3(1f, 1f, 1f), new TGCVector3(0, FastMath.QUARTER_PI, 0), new TGCVector3(-165, 0f, 190))));
+            this.banio.AddElement(new SceneElement(list, GlobalConcepts.GenerateTransformation(new TGCVector3(1f, 1f, 1f), new TGCVector3(0, FastMath.QUARTER_PI, 0), new TGCVector3(-165, 0f, 192))));
             list = new List<TgcMesh>();
             list = this.GiveMeAMesh("MeshCreator\\Meshes\\Habitacion\\Banqueta\\Banqueta-TgcScene.xml");
-            this.banio.AddElement(new SceneElement(list, GlobalConcepts.GenerateTransformation(new TGCVector3(0.4f, 0.35f, 0.4f), new TGCVector3(0, 0, 0), new TGCVector3(-170, 0f, 215))));
+            this.banio.AddElement(new SceneElement(list, GlobalConcepts.GenerateTransformation(new TGCVector3(0.4f, 0.35f, 0.4f), new TGCVector3(0, 0, 0), new TGCVector3(-170, 0f, 217))));
             list = new List<TgcMesh>();
             list = this.GiveMeAMesh("MeshCreator\\Meshes\\Bathroom\\Espejo\\Espejo-TgcScene.xml");
             this.banio.AddElement(new SceneElement(list, GlobalConcepts.GenerateTransformation(new TGCVector3(1f, 1f, 1f), new TGCVector3(0, 0, 0), new TGCVector3(-90f, 0f, 298f))));
@@ -500,7 +500,7 @@ namespace TGC.Group.Model
             this.habitacion.AddElement(new SceneElement(list, GlobalConcepts.GenerateTransformation(new TGCVector3(1, 1, 1), new TGCVector3(0, FastMath.PI, 0), new TGCVector3(22f, 0, -158f))));
             list = new List<TgcMesh>();
             list = this.GiveMeAMesh("MeshCreator\\Meshes\\Habitacion\\Placard\\Placard-TgcScene.xml");
-            this.habitacion.AddElement(new SceneElement(list, GlobalConcepts.GenerateTransformation(new TGCVector3(1.2f, 1.5f, 1), new TGCVector3(0, -FastMath.PI_HALF, 0), new TGCVector3(-200f, 0, -105f))));
+            this.habitacion.AddElement(new SceneElement(list, GlobalConcepts.GenerateTransformation(new TGCVector3(1.2f, 1.5f, 1), new TGCVector3(0, -FastMath.PI_HALF, 0), new TGCVector3(-200f, 0, -103f))));
             list = new List<TgcMesh>();
             list = this.GiveMeAMesh("MeshCreator\\Meshes\\Habitacion\\Armario\\Armario-TgcScene.xml");
             this.habitacion.AddElement(new SceneElement(list, GlobalConcepts.GenerateTransformation(new TGCVector3(1, 1, 1), new TGCVector3(0, -FastMath.PI_HALF, 0), new TGCVector3(-30f, -0.5f, 110f))));
@@ -629,7 +629,7 @@ namespace TGC.Group.Model
             //portal que va de abajo del mueble de la cocina, hacia arriba del mueblecomun (unidireccional)
             transformation = GlobalConcepts.GenerateTransformation(scale, new TGCVector3(0, 0, 0), new TGCVector3(197f, 0, 312f));
             portal = new Portal(new TGCVector3(197f, 0, 312f), transformation);
-            targetPosition = new TGCVector3(215, 60, 369);
+            targetPosition = new TGCVector3(210, 65, 365);
             this.cocina.AddElement(new UnidirectionalPortal(portal, targetPosition, new TGCVector3(0, 0, -1), unidirectional));
 
             //portal que conecta el baño con la cocina (bidireccional)
@@ -651,14 +651,14 @@ namespace TGC.Group.Model
 
             //portal que va desde abajo del placard hacia arriba del placard
             transformation = GlobalConcepts.GenerateTransformation(scale, new TGCVector3(0, 0, 0), new TGCVector3(-202f, 0, -159f));
-            portal = new Portal(new TGCVector3(-202f, 0, -164f), transformation);
-            targetPosition = new TGCVector3(-210, 90, -156);
+            portal = new Portal(new TGCVector3(-202f, 0, -166f), transformation);
+            targetPosition = new TGCVector3(-210, 100, -150);
             this.habitacion.AddElement(new UnidirectionalPortal(portal, targetPosition, new TGCVector3(0, 0, 1), unidirectional));
 
             //portal que va desde abajo de la cama hacia arriba de la cama
             transformation = GlobalConcepts.GenerateTransformation(scale, new TGCVector3(0, 0, 0), new TGCVector3(-35f, 0, -173f));
             portal = new Portal(new TGCVector3(-35f, 0, -173f), transformation);
-            targetPosition = new TGCVector3(34, 32, -159);
+            targetPosition = new TGCVector3(32, 40, -160);
             this.habitacion.AddElement(new UnidirectionalPortal(portal, targetPosition, new TGCVector3(-1, 0, 0), unidirectional));
             
         }
