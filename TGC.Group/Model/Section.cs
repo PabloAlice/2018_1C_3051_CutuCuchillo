@@ -11,7 +11,7 @@ namespace TGC.Group.Model
         private List<SubSection> subSections = new List<SubSection>();
         private TGCVector3 puntoMinimo, puntoMaximo;
         private Lighting.Light light;
-        private uint numberOfPartitions = 8;
+        private uint numberOfPartitions = 4;
 
         public Section(TGCVector3 puntoMinimo, TGCVector3 puntoMaximo)
         {
