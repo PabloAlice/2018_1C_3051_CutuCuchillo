@@ -39,9 +39,9 @@ namespace TGC.Group.Model.Vehiculos
 
         }
 
-        public override void Crash(float angle)
+        public override void Crash()
         {
-            base.Crash(angle);
+            base.Crash();
             Scene.GetInstance().camera.rotateY(angle);
         }
     }

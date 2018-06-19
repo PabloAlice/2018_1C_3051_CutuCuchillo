@@ -191,14 +191,17 @@ namespace TGC.Group.Model
             ray.Direction = this.GetDirectionOfCollision();
             if (this.IntersectRayAABB(ray, car.mesh.BoundingBox))
             {
-                //car.Impact(this.vectorAdelante, this.velocidadActual);
-                //this.Impact(car.GetVectorAdelante(), car.GetVelocidadActual());
+                
+                float distanceAI = car.GetDistanceOfCollision(this.vectorAdelante, this.velocidadActual);
+                float distance = this.GetDistanceOfCollision(car.GetVectorAdelante(), car.GetVelocidadActual());
+                car.SetEstado(new Crashing(car, distanceAI, this.GetVectorAdelante()));
+                this.SetEstado(new Crashing(this, distance, car.GetVectorAdelante()));
             }
         }
 
-        private void Impact(TGCVector3 direction, float velocity)
+        private float GetDistanceOfCollision(TGCVector3 direction, float velocity)
         {
-            this.Translate(TGCMatrix.Translation(direction * velocity * 10));
+            return (direction * velocity).Length() * this.elapsedTime;
         }
 
         private bool IntersectRayAABB(TgcRay ray, TgcBoundingAxisAlignBox aabb)

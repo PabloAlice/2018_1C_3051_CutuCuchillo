@@ -1,5 +1,7 @@
 ﻿using TGC.Core.Mathematica;
 using TGC.Core.Collision;
+using Microsoft.DirectX.Direct3D;
+using TGC.Core.Shaders;
 
 namespace TGC.Group.Model
 {
