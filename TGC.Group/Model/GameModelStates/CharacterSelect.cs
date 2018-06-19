@@ -8,14 +8,15 @@ using TGC.Core.SceneLoader;
 using TGC.Group.Model.Vehiculos;
 using Microsoft.DirectX.DirectInput;
 using TGC.Core.Direct3D;
+using TGC.Core.Geometry;
 
 namespace TGC.Group.Model.GameModelStates
 {
     class CharacterSelect : GameModelState
     {
         private GameModel gameModel;
-        private TgcMesh piso;
         private List<Vehicle> autos;
+        private List<Plane> planes = new List<Plane>();
         private Vehicle selectedCar;
         private SoundsManager soundManager = new SoundsManager();
         private int CarsCount { get; set; }
@@ -30,8 +31,10 @@ namespace TGC.Group.Model.GameModelStates
         {
             this.gameModel = gameModel;
 
-            this.piso = new TgcSceneLoader().loadSceneFromFile(GlobalConcepts.GetInstance().GetMediaDir() + "MeshCreator\\Scenes\\CiudadBerreta\\CiudadBerreta-TgcScene.xml").Meshes[2];
-            this.gameModel.Camara = new ThirdPersonCamera(new TGCVector3(0, 0, 0), 100f, 150f); //100 150
+            this.planes.Add(new Plane(new TGCVector3(-30, 0, -30), new TGCVector3(30, 0, 30), new TGCVector3(0,1,0), "Otros\\Paredes\\1.jpg", 1, 1));
+            this.planes.Add(new Plane(new TGCVector3(-30, 0, -30), new TGCVector3(-30, 0, 30), new TGCVector3(1, 0, 0), "Otros\\Paredes\\1.jpg", 1, 1));
+            this.planes.Add(new Plane(new TGCVector3(30, 0, -30), new TGCVector3(30, 0, 30), new TGCVector3(-1, 0, 0), "Otros\\Paredes\\1.jpg", 1, 1));
+            this.planes.Add(new Plane(new TGCVector3(-30, 0, 30), new TGCVector3(30, 0, 30), new TGCVector3(0, 1, 0), "Otros\\Paredes\\1.jpg", 1, 1));
 
             var auto1 = new Van(new TGCVector3(0f, 0f, 0f), soundManager);
             soundManager.GetSound("Motor").stop();
@@ -87,7 +90,7 @@ namespace TGC.Group.Model.GameModelStates
             drawer.DrawSprite(leftArrow);
             drawer.EndDrawSprite();
 
-            piso.Render();
+            this.planes.ForEach(x => x.Render());
             selectedCar.Render();
         }
 
@@ -117,7 +120,7 @@ namespace TGC.Group.Model.GameModelStates
 
         public override void Dispose()
         {
-            piso.Dispose();
+            this.planes.ForEach(x => x.Dispose());
             selectedCar.Dispose();
             choose.Dispose();
             rightArrow.Dispose();
