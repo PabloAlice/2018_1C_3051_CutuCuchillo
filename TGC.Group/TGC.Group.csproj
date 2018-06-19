@@ -138,7 +138,6 @@
     <Compile Include="Model\Vehiculos\AIStates\QuadrantTopLeft.cs" />
     <Compile Include="Model\Vehiculos\AIStates\QuadrantTopRight.cs" />
     <Compile Include="Model\Vehiculos\AIStates\SearchWeapons.cs" />
-    <Compile Include="Model\Vehiculos\AIStates\Stopped.cs" />
     <Compile Include="Model\Vehiculos\AIStates\TakeAWalk.cs" />
     <Compile Include="Model\Vehiculos\ArtificialIntelligence.cs" />
     <Compile Include="Model\Vehiculos\Car.cs" />
