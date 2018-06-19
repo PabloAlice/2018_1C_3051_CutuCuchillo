@@ -23,7 +23,7 @@ namespace TGC.Group.Model.Vehiculos
             this.CreateWheels();
             radarSphere.setValues(this.GetPosition(), 75f);
             radarSphere.setRenderColor(Color.DarkViolet);
-            this.aiState = new Stopped(this);
+            this.aiState = new SearchWeapons(this);
             this.CreateSounds(soundsManager);
             this.velocidadMaximaDeAvance = 20f;
         }
