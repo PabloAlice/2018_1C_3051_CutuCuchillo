@@ -12,10 +12,11 @@ namespace TGC.Group.Model.Vehiculos
     {
         public Car(TGCVector3 posicionInicial, SoundsManager soundsManager) : base(posicionInicial, soundsManager)
         {
+
+            this.escaladoInicial = new TGCVector3(0.01f, 0.01f, 0.01f);
             this.CrearMesh(GlobalConcepts.GetInstance().GetMediaDir() + "meshCreator\\meshes\\Vehiculos\\Auto\\Auto-TgcScene.xml", posicionInicial);
             this.CreateWheels();
             this.CreateSounds(soundsManager);
-            this.escaladoInicial = new TGCVector3(0.01f, 0.01f, 0.01f);
 
         }
 
@@ -26,10 +27,11 @@ namespace TGC.Group.Model.Vehiculos
             TgcMesh ruedaDerecha = ruedaIzquierda.clone("ruedaDerecha");
             TgcMesh ruedaTraseraIzquierda = ruedaIzquierda.clone("ruedaTraseraIzquierda");
             TgcMesh ruedaTraseraDerecha = ruedaIzquierda.clone("ruedaTraseraDerecha");
-            delanteraIzquierda = new Wheel(ruedaIzquierda, new TGCVector3(35f, 15f, 63f));
-            delanteraDerecha = new Wheel(ruedaDerecha, new TGCVector3(-35f, 15f, 63f));
-            ruedas.Add(new Wheel(ruedaTraseraIzquierda, new TGCVector3(38f, 18f, -61f)));
-            ruedas.Add(new Wheel(ruedaTraseraDerecha, new TGCVector3(-34f, 18f, -61f)));
+            var wheelScale = TGCVector3.One * 0.48f;
+            delanteraIzquierda = new Wheel(ruedaIzquierda, new TGCVector3(23.5f, 7.6f, 30f), wheelScale);
+            delanteraDerecha = new Wheel(ruedaDerecha, new TGCVector3(-23.5f, 7.6f, 30f), wheelScale);
+            ruedas.Add(new Wheel(ruedaTraseraIzquierda, new TGCVector3(23f, 7.2f, -33f), wheelScale));
+            ruedas.Add(new Wheel(ruedaTraseraDerecha, new TGCVector3(-23f, 7.2f, -33f), wheelScale));
         }
 
         override protected void CreateSounds(SoundsManager soundsManager)

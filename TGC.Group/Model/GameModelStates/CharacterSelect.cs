@@ -31,7 +31,7 @@ namespace TGC.Group.Model.GameModelStates
             this.gameModel = gameModel;
 
             this.piso = new TgcSceneLoader().loadSceneFromFile(GlobalConcepts.GetInstance().GetMediaDir() + "MeshCreator\\Scenes\\CiudadBerreta\\CiudadBerreta-TgcScene.xml").Meshes[2];
-            this.gameModel.Camara = new ThirdPersonCamera(new TGCVector3(0, 0, 0), 100f, 150f);
+            this.gameModel.Camara = new ThirdPersonCamera(new TGCVector3(0, 0, 0), 100f, 150f); //100 150
 
             var auto1 = new Van(new TGCVector3(0f, 0f, 0f), soundManager);
             soundManager.GetSound("Motor").stop();
@@ -76,6 +76,7 @@ namespace TGC.Group.Model.GameModelStates
             leftArrow.Rotation = FastMath.PI;
             leftArrow.Position = new TGCVector2(deviceWidth / 2 - leftArrow.Bitmap.Width * 3 / 4, deviceHeight / 2);
             leftArrow.Scaling = new TGCVector2(0.2f, 0.2f);
+
         }
 
         public override void Render()
@@ -95,13 +96,13 @@ namespace TGC.Group.Model.GameModelStates
             if(gameModel.Input.keyDown(Key.RightArrow) && keyDownTime == 0f)
             {
                 NextCar();
-                keyDownTime = 0.5f;
+                keyDownTime = 0.3f;
             }
 
             if(gameModel.Input.keyDown(Key.LeftArrow) && keyDownTime == 0f)
             {
                 PreviousCar();
-                keyDownTime = 0.5f;
+                keyDownTime = 0.3f;
             }
 
             if(gameModel.Input.keyDown(Key.Return))
@@ -110,7 +111,7 @@ namespace TGC.Group.Model.GameModelStates
             }
 
             UpdateKeyDownTime();
-            selectedCar.Rotate(0.5f * GlobalConcepts.GetInstance().GetElapsedTime());
+            //selectedCar.Rotate(0.5f * GlobalConcepts.GetInstance().GetElapsedTime());
         }
 
         public override void Dispose()
