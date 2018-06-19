@@ -433,7 +433,7 @@ namespace TGC.Group.Model
 
             list = new List<TgcMesh>();
             list = this.GiveMeAMesh("MeshCreator\\Meshes\\Habitacion\\Rastis\\Rasti-1\\Rastis-1-TgcScene.xml");
-            this.habitacion.AddElement(new SceneElement(list, GlobalConcepts.GenerateTransformation(new TGCVector3(0.2f, 0.2f, 0.2f), new TGCVector3(0, 0, 0), new TGCVector3(-10f, 1f, 3f))));
+            this.habitacion.AddElement(new SceneElement(list, GlobalConcepts.GenerateTransformation(new TGCVector3(0.2f, 0.2f, 0.2f), new TGCVector3(0, 0, 0), new TGCVector3(-10f, 0f, 3f))));
             this.habitacion.AddElement(new SceneElement(list, GlobalConcepts.GenerateTransformation(new TGCVector3(0.2f, 0.2f, 0.2f), new TGCVector3(0, 0f, 0), new TGCVector3(-75f, 0f, -100f))));
             this.habitacion.AddElement(new SceneElement(list, GlobalConcepts.GenerateTransformation(new TGCVector3(0.2f, 0.2f, 0.2f), new TGCVector3(0, 0f, FastMath.PI_HALF), new TGCVector3(75f, 1f, 10f))));
 
@@ -531,7 +531,7 @@ namespace TGC.Group.Model
             //portal que va de abajo del mueble de la cocina, hacia arriba del mueblePared (unidireccional)
             transformation = GlobalConcepts.GenerateTransformation(scale, new TGCVector3(0, FastMath.PI_HALF, 0), new TGCVector3(224f, 0, 375.5f));
             portal = new Portal(new TGCVector3(224f, 0, 375.5f), transformation);
-            targetPosition = new TGCVector3(215, 145, 363);
+            targetPosition = new TGCVector3(215, 170, 363);
             this.cocina.AddElement(new UnidirectionalPortal(portal, targetPosition, new TGCVector3(0, 0, -1), unidirectional));
 
             //portal que va de abajo del mueble de la cocina, hacia arriba del mueblecomun (unidireccional)

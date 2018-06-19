@@ -44,7 +44,8 @@ namespace TGC.Group.Model
         protected TGCMatrix trasladoInicial;
         protected TGCMatrix lastTransformation;
         protected float life = 100f;
-        protected ParticleEmitter smoke, spark;
+        protected ParticleEmitter smoke;
+        protected ParticleTimer spark;
         protected List<Weapon> weapons = new List<Weapon>();
         protected float timeShoot = 0f;
 
@@ -113,15 +114,17 @@ namespace TGC.Group.Model
 
         private void CreateSpark()
         {
-            this.spark = new ParticleEmitter(GlobalConcepts.GetInstance().GetMediaDir() + "Texturas\\Chispas\\Chispas.png", 10);
-            this.spark.Position = this.GetPosition();
-            this.spark.MinSizeParticle = 1f;
-            this.spark.MaxSizeParticle = 2f;
-            this.spark.ParticleTimeToLive = 0.5f;
-            this.spark.CreationFrecuency = 0.1f;
-            this.spark.Dispersion = 30;
-            this.spark.Playing = false;
-            this.spark.Speed = new TGCVector3(1, 1, 1);
+
+            ParticleEmitter particle = new ParticleEmitter(GlobalConcepts.GetInstance().GetMediaDir() + "Texturas\\Chispas\\Chispas.png", 10);
+            particle.Position = this.GetPosition();
+            particle.MinSizeParticle = 1f;
+            particle.MaxSizeParticle = 2f;
+            particle.ParticleTimeToLive = 0.5f;
+            particle.CreationFrecuency = 0.1f;
+            particle.Dispersion = 30;
+            particle.Playing = false;
+            particle.Speed = new TGCVector3(1, 1, 1);
+            this.spark = new ParticleTimer(particle, 1f);
         }
 
         public TGCVector3 GetDirectionOfCollision()
@@ -352,7 +355,7 @@ namespace TGC.Group.Model
                     rueda.Render();
                 }
                 this.smoke.render(this.elapsedTime);
-                this.spark.render(this.elapsedTime);
+                this.spark.Render(this.elapsedTime);
             }
             
 
@@ -505,13 +508,7 @@ namespace TGC.Group.Model
             this.deltaTiempoAvance.resetear();
             this.velocidadActual *= 0.5f;
             this.SoundsManager.GetSound("Choque").play();
-            this.UpdateSpark();
-        }
-
-        private void UpdateSpark()
-        {
-            this.spark.Playing = true;
-            this.spark.Position = this.GetPosition();
+            this.spark.Play(this.GetPosition());
         }
 
 
