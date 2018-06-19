@@ -31,10 +31,11 @@ namespace TGC.Group.Model.GameModelStates
         {
             this.gameModel = gameModel;
 
-            this.planes.Add(new Plane(new TGCVector3(-30, 0, -30), new TGCVector3(30, 0, 30), new TGCVector3(0,1,0), "Otros\\Paredes\\1.jpg", 1, 1));
-            this.planes.Add(new Plane(new TGCVector3(-30, 0, -30), new TGCVector3(-30, 0, 30), new TGCVector3(1, 0, 0), "Otros\\Paredes\\1.jpg", 1, 1));
-            this.planes.Add(new Plane(new TGCVector3(30, 0, -30), new TGCVector3(30, 0, 30), new TGCVector3(-1, 0, 0), "Otros\\Paredes\\1.jpg", 1, 1));
-            this.planes.Add(new Plane(new TGCVector3(-30, 0, 30), new TGCVector3(30, 0, 30), new TGCVector3(0, 1, 0), "Otros\\Paredes\\1.jpg", 1, 1));
+            this.planes.Add(new Plane(new TGCVector3(-90, 0, -90), new TGCVector3(90, 0, 90), new TGCVector3(0,1,0), "Otros\\Paredes\\2.jpg", 1, 1));
+            this.planes.Add(new Plane(new TGCVector3(-90, 0, -90), new TGCVector3(-90, 50, 90), new TGCVector3(1, 0, 0), "Otros\\Paredes\\1.jpg", 1, 1));
+            this.planes.Add(new Plane(new TGCVector3(90, 0, -90), new TGCVector3(90, 50, 90), new TGCVector3(-1, 0, 0), "Otros\\Paredes\\4.jpg", 1, 1));
+            this.planes.Add(new Plane(new TGCVector3(-90, 0, -90), new TGCVector3(90, 50, -90), new TGCVector3(0, 0, 1), "Otros\\Paredes\\3.jpg", 1, 1));
+            this.gameModel.Camara = new ThirdPersonCamera(new TGCVector3(0, 0, 0), 100f, 150f);
 
             var auto1 = new Van(new TGCVector3(0f, 0f, 0f), soundManager);
             soundManager.GetSound("Motor").stop();
