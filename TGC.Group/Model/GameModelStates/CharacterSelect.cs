@@ -43,9 +43,9 @@ namespace TGC.Group.Model.GameModelStates
             auto2.matrixs.SetScalation(TGCMatrix.Scaling(0.3f, 0.3f, 0.3f));
             auto2.Transform();
 
-            var auto3 = new Van(new TGCVector3(0f, 0f, 0f), soundManager);
+            var auto3 = new Hummer(new TGCVector3(0f, 0f, 0f), soundManager);
             soundManager.GetSound("Motor").stop();
-            auto3.matrixs.SetScalation(TGCMatrix.Scaling(0.4f, 0.4f, 0.4f));
+            auto3.matrixs.SetScalation(TGCMatrix.Scaling(0.25f, 0.25f, 0.25f));
             auto3.Transform();
 
             autos = new List<Vehicle>
@@ -111,7 +111,7 @@ namespace TGC.Group.Model.GameModelStates
             }
 
             UpdateKeyDownTime();
-            //selectedCar.Rotate(0.5f * GlobalConcepts.GetInstance().GetElapsedTime());
+            selectedCar.Rotate(GlobalConcepts.GetInstance().GetElapsedTime()*2);
         }
 
         public override void Dispose()

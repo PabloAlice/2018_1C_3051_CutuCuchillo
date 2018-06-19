@@ -142,6 +142,7 @@
     <Compile Include="Model\Vehiculos\ArtificialIntelligence.cs" />
     <Compile Include="Model\Vehiculos\Car.cs" />
     <Compile Include="Model\Vehiculos\Estados\Frozen.cs" />
+    <Compile Include="Model\Vehiculos\Hummer.cs" />
     <Compile Include="Model\Vehiculos\SoundsManagerLegacy.cs" />
     <Compile Include="Model\Vehiculos\Wheel.cs" />
     <Compile Include="Model\Vehiculos\Estados\Forward.cs" />
