@@ -40,6 +40,11 @@ namespace TGC.Group.Model
             return TGCPlane.FromPointNormal(this.GetPosition(), TGCVector3.Up);
         }
 
+        public void SetTexture(float u, float v)
+        {
+            return;
+        }
+
         public bool IsInto(TGCVector3 minPoint, TGCVector3 maxPoint)
         {
             return GlobalConcepts.GetInstance().IsBetweenXZ(this.GetPosition(), minPoint, maxPoint);

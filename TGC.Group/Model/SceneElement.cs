@@ -23,6 +23,11 @@ namespace TGC.Group.Model
             this.transformacion = transformacion;
         }
 
+        public void SetTexture(float u, float v)
+        {
+            return;
+        }
+
         public bool IsColliding(Vehicle car)
         {
             foreach (TgcMesh element in this.elements)

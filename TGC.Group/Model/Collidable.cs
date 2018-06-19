@@ -16,5 +16,6 @@ namespace TGC.Group.Model
         TgcMesh GetCollidable(Vehicle car);
         TGCPlane GetPlaneOfCollision(TgcRay ray, Vehicle car);
         bool IsInto(TGCVector3 minPoint, TGCVector3 maxPoint);
+        void SetTexture(float u, float v);
     }
 }

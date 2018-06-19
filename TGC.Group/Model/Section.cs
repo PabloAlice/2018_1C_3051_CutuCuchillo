@@ -22,6 +22,16 @@ namespace TGC.Group.Model
             this.GenerateSubSections();
         }
 
+        public List<Collidable> GetPlanes()
+        {
+            List<Collidable> candidates = new List<Collidable>();
+            foreach(SubSection subsection in subSections)
+            {
+                candidates.AddRange(subsection.GetElements().FindAll(x => x is Plane));
+            }
+            return candidates;
+        }
+
         public List<Collidable> GetWeapons()
         {
             List<Collidable> weapons = new List<Collidable>();
