@@ -16,7 +16,7 @@ namespace TGC.Group.Model.GameModelStates
         private GameModel gameModel;
 
         private string MediaDir = GlobalConcepts.GetInstance().GetMediaDir();
-        private CustomSprite pressStart;
+        private CustomSprite pressStart, title;
         private Drawer2D drawer = new Drawer2D();
 
         public InitialMenu(GameModel gameModel)
@@ -29,14 +29,20 @@ namespace TGC.Group.Model.GameModelStates
             this.gameModel.Camara = camaraInterna;
             pressStart = new CustomSprite();
             pressStart.Bitmap = new CustomBitmap(MediaDir + "GUI\\Menu\\press-start.png", D3DDevice.Instance.Device);
-            pressStart.Position = new TGCVector2((deviceWidth / 2f) - pressStart.Bitmap.Width / 2, deviceHeight / 8f);
+            pressStart.Position = new TGCVector2((deviceWidth / 2f) - pressStart.Bitmap.Width * 5/20, deviceHeight * 0.7f);
+            pressStart.Scaling = TGCVector2.One * 0.5f;
 
+            title = new CustomSprite();
+            title.Bitmap = new CustomBitmap(MediaDir + "GUI\\Menu\\title.png", D3DDevice.Instance.Device);
+            title.Position = new TGCVector2((deviceWidth / 2f) - title.Bitmap.Width * 3/20, deviceHeight * 0.1f);
+            title.Scaling = TGCVector2.One * 0.3f;
         }
 
         public override void Render()
         {
             drawer.BeginDrawSprite();
             drawer.DrawSprite(pressStart);
+            drawer.DrawSprite(title);
             drawer.EndDrawSprite();
 
             Scene.GetInstance().RenderRoom();
@@ -56,6 +62,7 @@ namespace TGC.Group.Model.GameModelStates
         public override void Dispose()
         {
             pressStart.Dispose();
+            title.Dispose();
             Scene.GetInstance().Dispose();
         }
     }
