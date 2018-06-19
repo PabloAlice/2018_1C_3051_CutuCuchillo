@@ -214,31 +214,32 @@ namespace TGC.Group.Model
             this.banio.AddElement(new Plane(new TGCVector3(-221, 0, 145), new TGCVector3(-52, 180, 300), new TGCVector3(0, 1, 0), "Bathroom\\Paredes\\1.jpg", 7, 7), true);
             //techo
             this.banio.AddElement(new Plane(new TGCVector3(-52, 180, 145), new TGCVector3(-52, 180, 300), new TGCVector3(0, -1, 0), "Bathroom\\Paredes\\1.jpg", 1, 1), true);
-            /*
-            //pared izquierda pieza
+            
+            //marco derecha puerta derecha habitacion
             plane = escena.Meshes[0];
             list = new List<TgcMesh>();
             list.Add(plane);
-            this.habitacion.AddElement(new SceneElement(list, TGCMatrix.Scaling(new TGCVector3(1, 1, 1)) * TGCMatrix.RotationYawPitchRoll(0, 0, 0) * TGCMatrix.Translation(new TGCVector3(0, 0, 0))), true);
+            aux = new SceneElement(list, TGCMatrix.Scaling(new TGCVector3(1, 1, 1)) * TGCMatrix.RotationYawPitchRoll(0, 0, 0) * TGCMatrix.Translation(new TGCVector3(0, 0, 0)));
+            this.habitacion.AddElement(aux, true);
+            this.cocina.AddElement(aux, true);
 
-            //marco derecho puerta cocina-habitacion
+            //marco izquierda puerta derecha habitacion
             plane = escena.Meshes[1];
             list = new List<TgcMesh>();
             list.Add(plane);
             aux = new SceneElement(list, TGCMatrix.Scaling(new TGCVector3(1, 1, 1)) * TGCMatrix.RotationYawPitchRoll(0, 0, 0) * TGCMatrix.Translation(new TGCVector3(0, 0, 0)));
             this.habitacion.AddElement(aux, true);
             this.cocina.AddElement(aux, true);
-
-            //marco izquierda puerta cocina-habitacion
+            
+            //marco derecho puerta izquierda habitacion
             plane = escena.Meshes[2];
             list = new List<TgcMesh>();
             list.Add(plane);
             aux = new SceneElement(list, TGCMatrix.Scaling(new TGCVector3(1, 1, 1)) * TGCMatrix.RotationYawPitchRoll(0, 0, 0) * TGCMatrix.Translation(new TGCVector3(0, 0, 0)));
             this.habitacion.AddElement(aux, true);
-            this.cocina.AddElement(aux, true);
+            this.banio.AddElement(aux, true);
 
-
-            //marco puerta banio-habitacion
+            //marco izquierda puerta izquierda habitacion
             plane = escena.Meshes[3];
             list = new List<TgcMesh>();
             list.Add(plane);
@@ -247,16 +248,16 @@ namespace TGC.Group.Model
             this.banio.AddElement(aux, true);
 
 
-            //marco puerta banio-habitacion
+            //marco derecha puerta cocina banio
             plane = escena.Meshes[4];
             list = new List<TgcMesh>();
             list.Add(plane);
             aux = new SceneElement(list, TGCMatrix.Scaling(new TGCVector3(1, 1, 1)) * TGCMatrix.RotationYawPitchRoll(0, 0, 0) * TGCMatrix.Translation(new TGCVector3(0, 0, 0)));
-            this.habitacion.AddElement(aux, true);
             this.banio.AddElement(aux, true);
+            this.cocina.AddElement(aux, true);
 
 
-            //marco banio-cocina
+            //marco izquierda puerta cocina banio
             plane = escena.Meshes[5];
             list = new List<TgcMesh>();
             list.Add(plane);
@@ -264,145 +265,6 @@ namespace TGC.Group.Model
             this.banio.AddElement(aux, true);
             this.cocina.AddElement(aux, true);
 
-
-            //marco banio-cocina
-            plane = escena.Meshes[6];
-            list = new List<TgcMesh>();
-            list.Add(plane);
-            aux = new SceneElement(list, TGCMatrix.Scaling(new TGCVector3(1, 1, 1)) * TGCMatrix.RotationYawPitchRoll(0, 0, 0) * TGCMatrix.Translation(new TGCVector3(0, 0, 0)));
-            this.banio.AddElement(aux, true);
-            this.cocina.AddElement(aux, true);
-
-
-            //piso habitacion
-            plane = escena.Meshes[7];
-            list = new List<TgcMesh>();
-            list.Add(plane);
-            this.habitacion.AddElement(new SceneElement(list, TGCMatrix.Scaling(new TGCVector3(1, 1, 1)) * TGCMatrix.RotationYawPitchRoll(0, 0, 0) * TGCMatrix.Translation(new TGCVector3(0, 0, 0))), true);
-            
-            //pared trasera habitacion
-            plane = escena.Meshes[8];
-            list = new List<TgcMesh>();
-            list.Add(plane);
-            this.habitacion.AddElement(new SceneElement(list, TGCMatrix.Scaling(new TGCVector3(1, 1, 1)) * TGCMatrix.RotationYawPitchRoll(0, 0, 0) * TGCMatrix.Translation(new TGCVector3(0, 0, 0))), true);
-
-
-            //pared derecha habitacion
-            plane = escena.Meshes[9];
-            list = new List<TgcMesh>();
-            list.Add(plane);
-            this.habitacion.AddElement(new SceneElement(list, TGCMatrix.Scaling(new TGCVector3(1, 1, 1)) * TGCMatrix.RotationYawPitchRoll(0, 0, 0) * TGCMatrix.Translation(new TGCVector3(0, 0, 0))), true);
-
-
-            //techo habitacion
-            plane = escena.Meshes[10];
-            list = new List<TgcMesh>();
-            list.Add(plane);
-            this.habitacion.AddElement(new SceneElement(list, TGCMatrix.Scaling(new TGCVector3(1, 1, 1)) * TGCMatrix.RotationYawPitchRoll(0, 0, 0) * TGCMatrix.Translation(new TGCVector3(0, 0, 0))), true);
-
-
-            //piso banio
-            plane = escena.Meshes[11];
-            list = new List<TgcMesh>();
-            list.Add(plane);
-            this.banio.AddElement(new SceneElement(list, TGCMatrix.Scaling(new TGCVector3(1, 1, 1)) * TGCMatrix.RotationYawPitchRoll(0, 0, 0) * TGCMatrix.Translation(new TGCVector3(0, 0, 0))), true);
-
-
-            //pared izquierda banio
-            plane = escena.Meshes[12];
-            list = new List<TgcMesh>();
-            list.Add(plane);
-            this.banio.AddElement(new SceneElement(list, TGCMatrix.Scaling(new TGCVector3(1, 1, 1)) * TGCMatrix.RotationYawPitchRoll(0, 0, 0) * TGCMatrix.Translation(new TGCVector3(0, 0, 0))), true);
-
-
-            //pared frontal banio
-            plane = escena.Meshes[13];
-            list = new List<TgcMesh>();
-            list.Add(plane);
-            this.banio.AddElement(new SceneElement(list, TGCMatrix.Scaling(new TGCVector3(1, 1, 1)) * TGCMatrix.RotationYawPitchRoll(0, 0, 0) * TGCMatrix.Translation(new TGCVector3(0, 0, 0))), true);
-
-            
-            //techo banio
-            plane = escena.Meshes[14];
-            list = new List<TgcMesh>();
-            list.Add(plane);
-            this.banio.AddElement(new SceneElement(list, TGCMatrix.Scaling(new TGCVector3(1, 1, 1)) * TGCMatrix.RotationYawPitchRoll(0, 0, 0) * TGCMatrix.Translation(new TGCVector3(0, 0, 0))), true);
-
-            
-            //piso cocina
-            plane = escena.Meshes[15];
-            list = new List<TgcMesh>();
-            list.Add(plane);
-            this.cocina.AddElement(new SceneElement(list, TGCMatrix.Scaling(new TGCVector3(1, 1, 1)) * TGCMatrix.RotationYawPitchRoll(0, 0, 0) * TGCMatrix.Translation(new TGCVector3(0, 0, 0))), true);
-
-            //pared frontal cocina
-            plane = escena.Meshes[16];
-            list = new List<TgcMesh>();
-            list.Add(plane);
-            this.cocina.AddElement(new SceneElement(list, TGCMatrix.Scaling(new TGCVector3(1, 1, 1)) * TGCMatrix.RotationYawPitchRoll(0, 0, 0) * TGCMatrix.Translation(new TGCVector3(0, 0, 0))), true);
-
-            //pared derecha cocina
-            plane = escena.Meshes[17];
-            list = new List<TgcMesh>();
-            list.Add(plane);
-            this.cocina.AddElement(new SceneElement(list, TGCMatrix.Scaling(new TGCVector3(1, 1, 1)) * TGCMatrix.RotationYawPitchRoll(0, 0, 0) * TGCMatrix.Translation(new TGCVector3(0, 0, 0))), true);
-
-            //pared habitacion
-            plane = escena.Meshes[18];
-            list = new List<TgcMesh>();
-            list.Add(plane);
-            this.habitacion.AddElement(new SceneElement(list, TGCMatrix.Scaling(new TGCVector3(1, 1, 1)) * TGCMatrix.RotationYawPitchRoll(0, 0, 0) * TGCMatrix.Translation(new TGCVector3(0, 0, 0))), true);
-
-
-            //pared cocina
-            plane = escena.Meshes[19];
-            list = new List<TgcMesh>();
-            list.Add(plane);
-            this.cocina.AddElement(new SceneElement(list, TGCMatrix.Scaling(new TGCVector3(1, 1, 1)) * TGCMatrix.RotationYawPitchRoll(0, 0, 0) * TGCMatrix.Translation(new TGCVector3(0, 0, 0))), true);
-            
-            //techo cocina
-            plane = escena.Meshes[20];
-            list = new List<TgcMesh>();
-            list.Add(plane);
-            this.cocina.AddElement(new SceneElement(list, TGCMatrix.Scaling(new TGCVector3(1, 1, 1)) * TGCMatrix.RotationYawPitchRoll(0, 0, 0) * TGCMatrix.Translation(new TGCVector3(0, 0, 0))), true);
-
-            
-            //pared cocina
-            plane = escena.Meshes[21];
-            list = new List<TgcMesh>();
-            list.Add(plane);
-            this.cocina.AddElement(new SceneElement(list, TGCMatrix.Scaling(new TGCVector3(1, 1, 1)) * TGCMatrix.RotationYawPitchRoll(0, 0, 0) * TGCMatrix.Translation(new TGCVector3(0, 0, 0))), true);
-
-            //pared frontal habitacion
-            plane = escena.Meshes[22];
-            list = new List<TgcMesh>();
-            list.Add(plane);
-            this.habitacion.AddElement(new SceneElement(list, TGCMatrix.Scaling(new TGCVector3(1, 1, 1)) * TGCMatrix.RotationYawPitchRoll(0, 0, 0) * TGCMatrix.Translation(new TGCVector3(0, 0, 0))), true);
-
-            //pared trasera cocina
-            plane = escena.Meshes[23];
-            list = new List<TgcMesh>();
-            list.Add(plane);
-            this.cocina.AddElement(new SceneElement(list, TGCMatrix.Scaling(new TGCVector3(1, 1, 1)) * TGCMatrix.RotationYawPitchRoll(0, 0, 0) * TGCMatrix.Translation(new TGCVector3(0, 0, 0))), true);
-
-            //pared banio
-            plane = escena.Meshes[24];
-            list = new List<TgcMesh>();
-            list.Add(plane);
-            this.banio.AddElement(new SceneElement(list, TGCMatrix.Scaling(new TGCVector3(1, 1, 1)) * TGCMatrix.RotationYawPitchRoll(0, 0, 0) * TGCMatrix.Translation(new TGCVector3(0, 0, 0))), true);
-
-            //pared derecha banio
-            plane = escena.Meshes[25];
-            list = new List<TgcMesh>();
-            list.Add(plane);
-            this.banio.AddElement(new SceneElement(list, TGCMatrix.Scaling(new TGCVector3(1, 1, 1)) * TGCMatrix.RotationYawPitchRoll(0, 0, 0) * TGCMatrix.Translation(new TGCVector3(0, 0, 0))), true);
-            
-            //pared cocina
-            plane = escena.Meshes[26];
-            list = new List<TgcMesh>();
-            list.Add(plane);
-            this.cocina.AddElement(new SceneElement(list, TGCMatrix.Scaling(new TGCVector3(1, 1, 1)) * TGCMatrix.RotationYawPitchRoll(0, 0, 0) * TGCMatrix.Translation(new TGCVector3(0, 0, 0))), true);
-            */
             //cocina
             list = new List<TgcMesh>();
             list = this.GiveMeAMesh("MeshCreator\\Meshes\\Cocina\\DispenserAgua\\DispenserAgua-TgcScene.xml");
