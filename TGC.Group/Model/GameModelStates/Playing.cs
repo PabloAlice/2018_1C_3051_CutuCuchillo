@@ -21,7 +21,6 @@ namespace TGC.Group.Model.GameModelStates
         private TGCVector3 camaraDesplazamiento = new TGCVector3(0, 5, 40);
         private TgcMesh listener;
         private CustomSprite velocimeter, arrowVelocimeter, barOfLifeGreen, barOfLifeRed, menuBackground;
-        private TgcArrow arrow;
         private Drawer2D drawer;
         private string MediaDir = GlobalConcepts.GetInstance().GetMediaDir();
         private TgcText2D textoVelocidadVehiculo, textoOffsetH, textoOffsetF, textoPosicionVehiculo, textoVectorAdelante, AIPosition, textTexture;
@@ -84,7 +83,6 @@ namespace TGC.Group.Model.GameModelStates
         public override void Render()
         {
             Scene.GetInstance().Render();
-            this.arrow.Render();
             this.textoVelocidadVehiculo.render();
             this.textoPosicionVehiculo.render();
             this.textoVectorAdelante.render();
@@ -153,7 +151,6 @@ namespace TGC.Group.Model.GameModelStates
             //this.manager.Action(this.Input);
             Scene.GetInstance().HandleCollisions();
             this.UpdateHub();
-            this.arrow = TgcArrow.fromDirection(this.auto.GetPosition(), Scene.GetInstance().camera.GetNormal());
             float e = 0.05f;
             if (gameModel.Input.keyDown(Key.NumPadPlus))
             {
