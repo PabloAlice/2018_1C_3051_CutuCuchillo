@@ -74,6 +74,11 @@ namespace TGC.Group.Model
             matrixs.SetScalation(TGCMatrix.Scaling(escaladoInicial));
         }
 
+        public void ResetRotation()
+        {
+            matrixs.SetRotation(TGCMatrix.Identity);
+        }
+
         public bool IsColliding(Vehicle car)
         {
             return TgcCollisionUtils.testObbObb(car.GetTGCBoundingOrientedBox(), this.GetTGCBoundingOrientedBox());

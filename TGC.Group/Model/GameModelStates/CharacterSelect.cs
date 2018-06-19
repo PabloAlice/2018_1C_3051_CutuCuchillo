@@ -107,11 +107,12 @@ namespace TGC.Group.Model.GameModelStates
 
             if(gameModel.Input.keyDown(Key.Return))
             {
+                selectedCar.ResetRotation();
                 gameModel.SetState(new Playing(gameModel, selectedCar));
             }
 
             UpdateKeyDownTime();
-            //selectedCar.Rotate(GlobalConcepts.GetInstance().GetElapsedTime()*2/4);
+            selectedCar.Rotate(GlobalConcepts.GetInstance().GetElapsedTime()*2/4);
         }
 
         public override void Dispose()
