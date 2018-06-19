@@ -111,7 +111,7 @@ namespace TGC.Group.Model.GameModelStates
             }
 
             UpdateKeyDownTime();
-            selectedCar.Rotate(GlobalConcepts.GetInstance().GetElapsedTime()*2);
+            //selectedCar.Rotate(GlobalConcepts.GetInstance().GetElapsedTime()*2/4);
         }
 
         public override void Dispose()

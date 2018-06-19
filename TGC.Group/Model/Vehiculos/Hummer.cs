@@ -27,11 +27,11 @@ namespace TGC.Group.Model.Vehiculos
             TgcMesh ruedaDerecha = ruedaIzquierda.clone("ruedaDerecha");
             TgcMesh ruedaTraseraIzquierda = ruedaIzquierda.clone("ruedaTraseraIzquierda");
             TgcMesh ruedaTraseraDerecha = ruedaIzquierda.clone("ruedaTraseraDerecha");
-            var wheelScale = TGCVector3.One * 0.48f;
-            delanteraIzquierda = new Wheel(ruedaIzquierda, new TGCVector3(23.5f, 7.6f, 30f), wheelScale);
-            delanteraDerecha = new Wheel(ruedaDerecha, new TGCVector3(-23.5f, 7.6f, 30f), wheelScale);
-            ruedas.Add(new Wheel(ruedaTraseraIzquierda, new TGCVector3(23f, 7.2f, -33f), wheelScale));
-            ruedas.Add(new Wheel(ruedaTraseraDerecha, new TGCVector3(-23f, 7.2f, -33f), wheelScale));
+            var wheelScale = TGCVector3.One;
+            delanteraIzquierda = new Wheel(ruedaIzquierda, new TGCVector3(33f, 16f, 64f), wheelScale);
+            delanteraDerecha = new Wheel(ruedaDerecha, new TGCVector3(-33f, 16f, 64f), wheelScale);
+            ruedas.Add(new Wheel(ruedaTraseraIzquierda, new TGCVector3(35f, 16f, -54f), wheelScale));
+            ruedas.Add(new Wheel(ruedaTraseraDerecha, new TGCVector3(-35f, 16f, -54f), wheelScale));
         }
 
         override protected void CreateSounds(SoundsManager soundsManager)
