@@ -207,6 +207,20 @@ namespace TGC.Group.Model
             this.cocina.AddElement(new Plane(new TGCVector3(-52, 0, 145), new TGCVector3(-52, 180, 380), new TGCVector3(1, 0, 0), "Cocina\\Paredes\\2.jpg"), true);
             //techo
             this.cocina.AddElement(new Plane(new TGCVector3(-52, 180, 145), new TGCVector3(227, 180, 380), new TGCVector3(0, -1, 0), "Cocina\\Paredes\\2.jpg"), true);
+
+            //banio
+            //pared trasera
+            this.banio.AddElement(new Plane(new TGCVector3(-221, 0, 145), new TGCVector3(-52, 180, 145), new TGCVector3(0, 0, 1), "Bathroom\\Paredes\\1.jpg"), true);
+            //pared izquierda
+            this.banio.AddElement(new Plane(new TGCVector3(-221, 0, 145), new TGCVector3(-221, 180, 380), new TGCVector3(1, 0, 0), "Bathroom\\Paredes\\1.jpg"), true);
+            //pared derecha
+            this.banio.AddElement(new Plane(new TGCVector3(-52, 0, 145), new TGCVector3(-52, 180, 380), new TGCVector3(-1, 0, 0), "Bathroom\\Paredes\\1.jpg"), true);
+            //pared frontal
+            this.banio.AddElement(new Plane(new TGCVector3(-221, 0, 380), new TGCVector3(-52, 180, 380), new TGCVector3(0, 0, -1), "Bathroom\\Paredes\\1.jpg"), true);
+            //pared piso
+            this.banio.AddElement(new Plane(new TGCVector3(-221, 0, 145), new TGCVector3(-52, 180, 380), new TGCVector3(0, 1, 0), "Bathroom\\Paredes\\1.jpg"), true);
+            //techo
+            this.banio.AddElement(new Plane(new TGCVector3(-52, 180, 145), new TGCVector3(-52, 180, 380), new TGCVector3(0, -1, 0), "Bathroom\\Paredes\\1.jpg"), true);
             /*
             //pared izquierda pieza
             plane = escena.Meshes[0];
