@@ -50,6 +50,16 @@ namespace TGC.Group.Model
             return false;
         }
 
+        public bool IsColliding(Vehicle car)
+        {
+            return TgcCollisionUtils.testObbAABB(car.GetTGCBoundingOrientedBox(), this.originPortal.GetBoundingBox());
+        }
+
+        public TGCPlane GetPlaneOfCollision(TgcRay ray, Vehicle car)
+        {
+            return TGCPlane.FromPointNormal(this.GetPosition(), TGCVector3.Up);
+        }
+
         public TgcBoundingAxisAlignBox GetBoundingAlignBox()
         {
             return this.originPortal.mesh.BoundingBox;

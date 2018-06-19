@@ -108,6 +108,7 @@
     <Compile Include="Model\InExhibition.cs" />
     <Compile Include="Model\LinearInterpolation.cs" />
     <Compile Include="Model\Misile.cs" />
+    <Compile Include="Model\Plane.cs" />
     <Compile Include="Model\ReadyToShoot.cs" />
     <Compile Include="Model\Shooted.cs" />
     <Compile Include="Model\SubSection.cs" />

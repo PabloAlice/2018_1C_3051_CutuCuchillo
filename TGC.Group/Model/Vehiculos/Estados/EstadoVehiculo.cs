@@ -30,7 +30,7 @@ namespace TGC.Group.Model.Vehiculos.Estados
             float desplazamientoEnY = -0.3f;
             TGCVector3 nuevoDesplazamiento = new TGCVector3(0, desplazamientoEnY, 0);
             this.Move(nuevoDesplazamiento);
-            var posiblePiso = this.GetColliding();
+            Collidable posiblePiso = this.GetCollidable();
             if (posiblePiso == null)
             {
                 this.auto.GetDeltaTiempoSalto().resetear();
@@ -47,17 +47,15 @@ namespace TGC.Group.Model.Vehiculos.Estados
             }
         }
 
-        protected TgcMesh GetColliding()
+        protected Collidable GetCollidable()
         {
-            List<Collidable> list = Scene.GetInstance().GetPosiblesCollidables(this.auto);
-            foreach (Collidable element in list)
+            List<Collidable> posibleCollidable = Scene.GetInstance().GetPosiblesCollidables(this.auto);
+            foreach (Collidable element in posibleCollidable)
             {
-                var meshito = element.GetCollidable(this.auto);
-                if(meshito != null)
+                if (element.IsColliding(this.auto))
                 {
-                    return meshito;
+                    return element;
                 }
-
             }
             return null;
         }
@@ -85,15 +83,13 @@ namespace TGC.Group.Model.Vehiculos.Estados
 
         }
 
-        protected bool IsReallyTheFloor(TgcMesh element)
+        protected bool IsReallyTheFloor(Collidable element)
         {
             TGCVector3 directionOfCollision = new TGCVector3(0, -1f, 0);
             TgcRay ray = new TgcRay();
             ray.Origin = this.auto.GetLastPosition();
             ray.Direction = directionOfCollision;
-            TgcBoundingAxisAlignBox.Face[] faces;
-            faces = element.BoundingBox.computeFaces();
-            TGCPlane plane = this.CreatePlane(ray, faces, this.auto.GetLastPosition());
+            TGCPlane plane = element.GetPlaneOfCollision(ray, this.auto);
             TGCVector3 normal = new TGCVector3(0, 1, 0);
             if (normal != new TGCVector3(0, 1, 0))
             {

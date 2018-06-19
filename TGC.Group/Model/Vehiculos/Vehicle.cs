@@ -73,6 +73,16 @@ namespace TGC.Group.Model
             matrixs.SetScalation(TGCMatrix.Scaling(escaladoInicial));
         }
 
+        public bool IsColliding(Vehicle car)
+        {
+            return TgcCollisionUtils.testObbObb(car.GetTGCBoundingOrientedBox(), this.GetTGCBoundingOrientedBox());
+        }
+
+        public TGCPlane GetPlaneOfCollision(TgcRay ray, Vehicle car)
+        {
+            return TGCPlane.FromPointNormal(this.GetPosition(), TGCVector3.Up);
+        }
+
         public bool IsInto(TGCVector3 minPoint, TGCVector3 maxPoint)
         {
             return GlobalConcepts.GetInstance().IsBetweenXZ(this.GetPosition(), minPoint, maxPoint);

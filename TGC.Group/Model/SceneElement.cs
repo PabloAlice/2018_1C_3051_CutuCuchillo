@@ -4,6 +4,7 @@ using TGC.Core.Mathematica;
 using TGC.Core.Collision;
 using TGC.Core.BoundingVolumes;
 using TGC.Core.Camara;
+using System;
 
 namespace TGC.Group.Model
 {
@@ -20,6 +21,18 @@ namespace TGC.Group.Model
                 this.elements.Add(mesh);
             }
             this.transformacion = transformacion;
+        }
+
+        public bool IsColliding(Vehicle car)
+        {
+            foreach (TgcMesh element in this.elements)
+            {
+                if(TgcCollisionUtils.testObbAABB(car.GetTGCBoundingOrientedBox(), element.BoundingBox))
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         public bool IsInto(TGCVector3 minPoint, TGCVector3 maxPoint)
@@ -195,12 +208,28 @@ namespace TGC.Group.Model
 
             while (TgcCollisionUtils.testObbAABB(car.GetTGCBoundingOrientedBox(), elemento.BoundingBox))
             {
-                car.Translate(TGCMatrix.Translation(-directionOfCollision * 0.1f));
+                car.Translate(TGCMatrix.Translation(-directionOfCollision * 1f));
                 car.Transform();
             }
         }
 
-        private bool IsColliding(TgcMesh elemento, Vehicle car)
+        public TGCPlane GetPlaneOfCollision(TgcRay ray, Vehicle car)
+        {
+            TgcMesh collide = null;
+            foreach (TgcMesh element in this.elements)
+            {
+                if (IsColliding(element, car))
+                {
+                    collide = element;
+                }
+            }
+            if (collide == null) throw new Exception("Hubo un error no esperado");
+            TgcBoundingAxisAlignBox.Face[] faces = collide.BoundingBox.computeFaces();
+            return this.CreatePlane(ray, faces, car.GetLastPosition());
+        }
+
+
+        public bool IsColliding(TgcMesh elemento, Vehicle car)
         {
             return TgcCollisionUtils.testObbAABB(car.GetTGCBoundingOrientedBox(), elemento.BoundingBox);
             

@@ -35,6 +35,11 @@ namespace TGC.Group.Model
             
         }
 
+        public TGCPlane GetPlaneOfCollision(TgcRay ray, Vehicle car)
+        {
+            return TGCPlane.FromPointNormal(this.GetPosition(), TGCVector3.Up);
+        }
+
         public bool IsInto(TGCVector3 minPoint, TGCVector3 maxPoint)
         {
             return GlobalConcepts.GetInstance().IsBetweenXZ(this.GetPosition(), minPoint, maxPoint);
@@ -57,6 +62,11 @@ namespace TGC.Group.Model
         {
             element = null;
             return false;
+        }
+
+        public bool IsColliding(Vehicle car)
+        {
+            return TgcCollisionUtils.testSphereOBB(this.sphere, car.GetTGCBoundingOrientedBox());
         }
 
         public void Update()

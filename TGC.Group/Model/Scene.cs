@@ -168,6 +168,46 @@ namespace TGC.Group.Model
                 mesh.D3dMesh.GenerateAdjacency(0, adj);
                 mesh.D3dMesh.ComputeNormals(adj);
             });
+            //Habitacion
+            //piso
+            this.habitacion.AddElement(new Plane(new TGCVector3(-221,0,-174), new TGCVector3(227, 180, 145), new TGCVector3(0,1,0), "Habitacion\\Paredes\\1.jpg"), true);
+            //pared izquierda
+            this.habitacion.AddElement(new Plane(new TGCVector3(-221, 0, -174), new TGCVector3(-221, 180, 145), new TGCVector3(1, 0, 0), "Habitacion\\Paredes\\2.jpg"), true);
+            //pared trasera
+            this.habitacion.AddElement(new Plane(new TGCVector3(-221, 0, -174), new TGCVector3(227, 180, 0), new TGCVector3(0, 0, 1), "Habitacion\\Paredes\\3.jpg"), true);
+            //pared derecha
+            this.habitacion.AddElement(new Plane(new TGCVector3(227, 0, -174), new TGCVector3(227, 180, 145), new TGCVector3(-1, 0, 0), "Habitacion\\Paredes\\2.jpg"), true);
+            //pared derecha de la puerta derecha
+            //this.habitacion.AddElement(new Plane(new TGCVector3(227, 0, 145), new TGCVector3(170, 180, 145), new TGCVector3(0, 0, -1), "Habitacion\\Paredes\\2.jpg"), true);
+            //pared frontal
+            this.habitacion.AddElement(new Plane(new TGCVector3(-221, 0, 145), new TGCVector3(227, 180, 145), new TGCVector3(0, 0, -1), "Habitacion\\Paredes\\2.jpg"), true);
+            //pared izquierda de la puerta izquierda
+            //this.habitacion.AddElement(new Plane(new TGCVector3(-221, 0, 145), new TGCVector3(-211, 180, 145), new TGCVector3(0, 0, -1), "Habitacion\\Paredes\\2.jpg"), true);
+            //techo
+            this.habitacion.AddElement(new Plane(new TGCVector3(-221, 180, -174), new TGCVector3(227, 180, 145), new TGCVector3(0, -1, 0), "Habitacion\\Paredes\\4.jpg"), true);
+
+            //cocina
+            //piso
+            this.cocina.AddElement(new Plane(new TGCVector3(-52, 0, 145), new TGCVector3(227, 180, 380), new TGCVector3(0, 1, 0), "Cocina\\Paredes\\1.jpg"), true);
+            //pared izquierda de la puerta derecha
+            //this.cocina.AddElement(new Plane(new TGCVector3(-52, 0, 145), new TGCVector3(92, 180, 145), new TGCVector3(0, 0, 1), "Cocina\\Paredes\\2.jpg"), true);
+            //pared izquierda de la puerta derecha
+            //this.cocina.AddElement(new Plane(new TGCVector3(170, 0, 145), new TGCVector3(227, 180, 145), new TGCVector3(0, 0, 1), "Cocina\\Paredes\\2.jpg"), true);
+            //pared trasera
+            this.cocina.AddElement(new Plane(new TGCVector3(-52, 0, 145), new TGCVector3(227, 180, 145), new TGCVector3(0, 0, 1), "Cocina\\Paredes\\2.jpg"), true);
+            //pared derecha
+            this.cocina.AddElement(new Plane(new TGCVector3(227, 0, 145), new TGCVector3(227, 180, 380), new TGCVector3(-1, 0, 0), "Cocina\\Paredes\\2.jpg"), true);
+            //pared Frontal
+            this.cocina.AddElement(new Plane(new TGCVector3(-52, 0, 380), new TGCVector3(227, 180, 380), new TGCVector3(0, 0, -1), "Cocina\\Paredes\\2.jpg"), true);
+            //pared derecha de puerta izquierda
+            //this.cocina.AddElement(new Plane(new TGCVector3(-52, 0, 380), new TGCVector3(-52, 180, 292), new TGCVector3(1, 0, 0), "Cocina\\Paredes\\2.jpg"), true);
+            //pared izquierda de puerta izquierda
+            //this.cocina.AddElement(new Plane(new TGCVector3(-52, 0, 229), new TGCVector3(-52, 180, 145), new TGCVector3(1, 0, 0), "Cocina\\Paredes\\2.jpg"), true);
+            //pared izquierda
+            this.cocina.AddElement(new Plane(new TGCVector3(-52, 0, 145), new TGCVector3(-52, 180, 380), new TGCVector3(1, 0, 0), "Cocina\\Paredes\\2.jpg"), true);
+            //techo
+            this.cocina.AddElement(new Plane(new TGCVector3(-52, 180, 145), new TGCVector3(227, 180, 380), new TGCVector3(0, -1, 0), "Cocina\\Paredes\\2.jpg"), true);
+            /*
             //pared izquierda pieza
             plane = escena.Meshes[0];
             list = new List<TgcMesh>();
@@ -232,7 +272,6 @@ namespace TGC.Group.Model
             list = new List<TgcMesh>();
             list.Add(plane);
             this.habitacion.AddElement(new SceneElement(list, TGCMatrix.Scaling(new TGCVector3(1, 1, 1)) * TGCMatrix.RotationYawPitchRoll(0, 0, 0) * TGCMatrix.Translation(new TGCVector3(0, 0, 0))), true);
-
             
             //pared trasera habitacion
             plane = escena.Meshes[8];
@@ -356,7 +395,7 @@ namespace TGC.Group.Model
             list = new List<TgcMesh>();
             list.Add(plane);
             this.cocina.AddElement(new SceneElement(list, TGCMatrix.Scaling(new TGCVector3(1, 1, 1)) * TGCMatrix.RotationYawPitchRoll(0, 0, 0) * TGCMatrix.Translation(new TGCVector3(0, 0, 0))), true);
-
+            */
             //cocina
             list = new List<TgcMesh>();
             list = this.GiveMeAMesh("MeshCreator\\Meshes\\Cocina\\DispenserAgua\\DispenserAgua-TgcScene.xml");

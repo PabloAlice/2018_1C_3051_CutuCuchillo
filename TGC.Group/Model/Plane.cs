@@ -7,40 +7,54 @@ using System;
 
 namespace TGC.Group.Model
 {
-    class Planes : Collidable
+    class Plane : Collidable
     {
         TgcPlane plane;
         TgcMesh mesh;
         TGCPlane realPlane;
 
-        public Planes(TGCVector3 origin, TGCVector3 size, TGCVector3 orientation, string fileName)
+        public Plane(TGCVector3 minPoint, TGCVector3 maxPoint, TGCVector3 orientation, string fileName)
         {
             orientation.Normalize();
-            this.plane = new TgcPlane(origin, size, this.GetPlane(orientation), TgcTexture.createTexture(GlobalConcepts.GetInstance().GetMediaDir() + fileName));
+            this.plane = new TgcPlane(new TGCVector3(0,0,0), new TGCVector3(0,0,0), this.GetPlaneOrientation(orientation), TgcTexture.createTexture(GlobalConcepts.GetInstance().GetMediaDir() + "MeshCreator\\Meshes\\" + fileName));
+            this.plane.setExtremes(minPoint, maxPoint);
+            this.plane.updateValues();
             this.mesh = this.plane.toMesh("plane");
-            this.realPlane = TGCPlane.FromPointNormal(origin, orientation);
+            this.realPlane = TGCPlane.FromPointNormal(minPoint, orientation);
         }
 
-        private TgcPlane.Orientations GetPlane(TGCVector3 vector)
+        public TGCPlane GetPlaneOfCollision(TgcRay ray, Vehicle car)
         {
-            if(vector.X > 0)
+            return this.realPlane;
+        }
+
+        private TgcPlane.Orientations GetPlaneOrientation(TGCVector3 vector)
+        {
+            if(vector.X != 0)
             {
                 return TgcPlane.Orientations.YZplane;
             }
-            else if(vector.Y > 0)
+            else if(vector.Y != 0)
             {
                 return TgcPlane.Orientations.XZplane;
             }
-            else if(vector.Z > 0)
+            else if(vector.Z != 0)
             {
                 return TgcPlane.Orientations.XYplane;
             }
             throw new Exception("Error al crear la pared");
         }
 
-        private bool IsColliding(Vehicle car)
+        public bool IsColliding(Vehicle car)
         {
-            return TgcCollisionUtils.testObbAABB(car.GetTGCBoundingOrientedBox(), this.mesh.BoundingBox) || !GlobalConcepts.GetInstance().IsInFrontOf(car.GetPosition(), this.realPlane);
+            foreach (TGCVector3 point in car.mesh.BoundingBox.computeCorners())
+            {
+                if (!GlobalConcepts.GetInstance().IsInFrontOf(point, this.realPlane))
+                {
+                    return true;
+                }
+            }
+            return (int)TgcCollisionUtils.classifyPlaneAABB(this.realPlane, car.mesh.BoundingBox) != 1;
         }
 
         public void HandleCollisions(Vehicle car)
@@ -104,6 +118,7 @@ namespace TGC.Group.Model
             if (this.IsInView())
             {
                 plane.Render();
+                plane.BoundingBox.Render();
             }
         }
 
