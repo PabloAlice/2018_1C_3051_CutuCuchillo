@@ -167,6 +167,76 @@ namespace TGC.Group.Model
             initMatrix.SetTranslation(TGCMatrix.Translation(new TGCVector3(-120f, 0.35f, -30)));
             this.habitacion.AddElement(new BolaHielo(initMatrix, weapon));
 
+            weapon = this.GimeMeASingleMesh("MeshCreator\\Meshes\\Otros\\Weapons\\Misil\\Misil-TgcScene.xml");
+            initMatrix = new TransformationMatrix();
+            initMatrix.SetScalation(TGCMatrix.Scaling(0.02f, 0.02f, 0.02f));
+            initMatrix.SetRotation(TGCMatrix.RotationYawPitchRoll(0, 0, 0));
+            initMatrix.SetTranslation(TGCMatrix.Translation(new TGCVector3(200f, 0.35f, 40)));
+            this.habitacion.AddElement(new Misile(initMatrix, weapon));
+
+            weapon = this.GimeMeASingleMesh("MeshCreator\\Meshes\\Otros\\Weapons\\BolaHielo\\BolaHielo-TgcScene.xml");
+            initMatrix = new TransformationMatrix();
+            initMatrix.SetScalation(TGCMatrix.Scaling(0.02f, 0.02f, 0.02f));
+            initMatrix.SetRotation(TGCMatrix.RotationYawPitchRoll(0, 0, 0));
+            initMatrix.SetTranslation(TGCMatrix.Translation(new TGCVector3(0f, 0.35f, -50)));
+            this.habitacion.AddElement(new BolaHielo(initMatrix, weapon));
+
+            weapon = this.GimeMeASingleMesh("MeshCreator\\Meshes\\Otros\\Weapons\\BolaHielo\\BolaHielo-TgcScene.xml");
+            initMatrix = new TransformationMatrix();
+            initMatrix.SetScalation(TGCMatrix.Scaling(0.02f, 0.02f, 0.02f));
+            initMatrix.SetRotation(TGCMatrix.RotationYawPitchRoll(0, 0, 0));
+            initMatrix.SetTranslation(TGCMatrix.Translation(new TGCVector3(40f, 0.35f, -100)));
+            this.habitacion.AddElement(new BolaHielo(initMatrix, weapon));
+
+            weapon = this.GimeMeASingleMesh("MeshCreator\\Meshes\\Otros\\Weapons\\BolaHielo\\BolaHielo-TgcScene.xml");
+            initMatrix = new TransformationMatrix();
+            initMatrix.SetScalation(TGCMatrix.Scaling(0.02f, 0.02f, 0.02f));
+            initMatrix.SetRotation(TGCMatrix.RotationYawPitchRoll(0, 0, 0));
+            initMatrix.SetTranslation(TGCMatrix.Translation(new TGCVector3(-145f, 0.35f, 90)));
+            this.habitacion.AddElement(new BolaHielo(initMatrix, weapon));
+
+            weapon = this.GimeMeASingleMesh("MeshCreator\\Meshes\\Otros\\Weapons\\Misil\\Misil-TgcScene.xml");
+            initMatrix = new TransformationMatrix();
+            initMatrix.SetScalation(TGCMatrix.Scaling(0.02f, 0.02f, 0.02f));
+            initMatrix.SetRotation(TGCMatrix.RotationYawPitchRoll(0, 0, 0));
+            initMatrix.SetTranslation(TGCMatrix.Translation(new TGCVector3(-41f, 0.35f, -120)));
+            this.habitacion.AddElement(new Misile(initMatrix, weapon));
+
+            weapon = this.GimeMeASingleMesh("MeshCreator\\Meshes\\Otros\\Weapons\\Misil\\Misil-TgcScene.xml");
+            initMatrix = new TransformationMatrix();
+            initMatrix.SetScalation(TGCMatrix.Scaling(0.02f, 0.02f, 0.02f));
+            initMatrix.SetRotation(TGCMatrix.RotationYawPitchRoll(0, 0, 0));
+            initMatrix.SetTranslation(TGCMatrix.Translation(new TGCVector3(209f, 43.35f, -161)));
+            this.habitacion.AddElement(new Misile(initMatrix, weapon));
+
+            weapon = this.GimeMeASingleMesh("MeshCreator\\Meshes\\Otros\\Weapons\\Misil\\Misil-TgcScene.xml");
+            initMatrix = new TransformationMatrix();
+            initMatrix.SetScalation(TGCMatrix.Scaling(0.02f, 0.02f, 0.02f));
+            initMatrix.SetRotation(TGCMatrix.RotationYawPitchRoll(0, 0, 0));
+            initMatrix.SetTranslation(TGCMatrix.Translation(new TGCVector3(84f, 0.35f, 185)));
+            this.cocina.AddElement(new Misile(initMatrix, weapon));
+
+            weapon = this.GimeMeASingleMesh("MeshCreator\\Meshes\\Otros\\Weapons\\Misil\\Misil-TgcScene.xml");
+            initMatrix = new TransformationMatrix();
+            initMatrix.SetScalation(TGCMatrix.Scaling(0.02f, 0.02f, 0.02f));
+            initMatrix.SetRotation(TGCMatrix.RotationYawPitchRoll(0, 0, 0));
+            initMatrix.SetTranslation(TGCMatrix.Translation(new TGCVector3(74f, 39.55f, 334)));
+            this.cocina.AddElement(new Misile(initMatrix, weapon));
+
+            weapon = this.GimeMeASingleMesh("MeshCreator\\Meshes\\Otros\\Weapons\\BolaHielo\\BolaHielo-TgcScene.xml");
+            initMatrix = new TransformationMatrix();
+            initMatrix.SetScalation(TGCMatrix.Scaling(0.02f, 0.02f, 0.02f));
+            initMatrix.SetRotation(TGCMatrix.RotationYawPitchRoll(0, 0, 0));
+            initMatrix.SetTranslation(TGCMatrix.Translation(new TGCVector3(134.5f, 39.25f, 0)));
+            this.cocina.AddElement(new BolaHielo(initMatrix, weapon));
+
+            weapon = this.GimeMeASingleMesh("MeshCreator\\Meshes\\Otros\\Weapons\\BolaHielo\\BolaHielo-TgcScene.xml");
+            initMatrix = new TransformationMatrix();
+            initMatrix.SetScalation(TGCMatrix.Scaling(0.02f, 0.02f, 0.02f));
+            initMatrix.SetRotation(TGCMatrix.RotationYawPitchRoll(0, 0, 0));
+            initMatrix.SetTranslation(TGCMatrix.Translation(new TGCVector3(200f, 142.85f, 333)));
+            this.cocina.AddElement(new BolaHielo(initMatrix, weapon));
+
             TgcScene escena = new TgcSceneLoader().loadSceneFromFile(GlobalConcepts.GetInstance().GetMediaDir() + "Texturas\\Habitacion\\escenaMesheada-TgcScene.xml");
             escena.Meshes.ForEach((mesh) => {
                 var adj = new int[mesh.D3dMesh.NumberFaces * 3];

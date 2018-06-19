@@ -213,7 +213,7 @@ namespace TGC.Group.Model
 
             while (TgcCollisionUtils.testObbAABB(car.GetTGCBoundingOrientedBox(), elemento.BoundingBox))
             {
-                car.Translate(TGCMatrix.Translation(-directionOfCollision * 1f));
+                car.Translate(TGCMatrix.Translation(normal * 1f));
                 car.Transform();
             }
         }
