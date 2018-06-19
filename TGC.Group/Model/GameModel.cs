@@ -74,6 +74,7 @@ namespace TGC.Group.Model
             this.RenderFPS();
             D3DDevice.Instance.Device.EndScene();
             D3DDevice.Instance.Device.Present();
+         
         }
 
         public override void Dispose()

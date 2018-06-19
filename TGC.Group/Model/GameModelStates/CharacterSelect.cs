@@ -23,7 +23,7 @@ namespace TGC.Group.Model.GameModelStates
         private float keyDownTime;
         private string MediaDir = GlobalConcepts.GetInstance().GetMediaDir();
         private Drawer2D drawer = new Drawer2D();
-        private CustomSprite choose;
+        private CustomSprite choose, rightArrow, leftArrow;
 
 
         public CharacterSelect(GameModel gameModel)
@@ -31,7 +31,7 @@ namespace TGC.Group.Model.GameModelStates
             this.gameModel = gameModel;
 
             this.piso = new TgcSceneLoader().loadSceneFromFile(GlobalConcepts.GetInstance().GetMediaDir() + "MeshCreator\\Scenes\\CiudadBerreta\\CiudadBerreta-TgcScene.xml").Meshes[2];
-            this.gameModel.Camara = new ThirdPersonCamera(new TGCVector3(0, 0, 0), 100f, 150f);
+            this.gameModel.Camara = new ThirdPersonCamera(new TGCVector3(0, 0, 0), 100f, 150f); //100 150
 
             var auto1 = new Van(new TGCVector3(0f, 0f, 0f), soundManager);
             soundManager.GetSound("Motor").stop();
@@ -66,12 +66,25 @@ namespace TGC.Group.Model.GameModelStates
             choose.Bitmap = new CustomBitmap(MediaDir + "GUI\\Menu\\choose.png", D3DDevice.Instance.Device);
             choose.Position = new TGCVector2((deviceWidth / 2f) - choose.Bitmap.Width / 2, deviceHeight * 0.6f);
 
+            rightArrow = new CustomSprite();
+            rightArrow.Bitmap = new CustomBitmap(MediaDir + "GUI\\Menu\\right-arrow.png", D3DDevice.Instance.Device);
+            rightArrow.Position = new TGCVector2(deviceWidth / 2 + rightArrow.Bitmap.Width * 3 / 4, deviceHeight / 2 - rightArrow.Bitmap.Height * 0.2f);
+            rightArrow.Scaling = new TGCVector2(0.2f, 0.2f);
+
+            leftArrow = new CustomSprite();
+            leftArrow.Bitmap = new CustomBitmap(MediaDir + "GUI\\Menu\\right-arrow.png", D3DDevice.Instance.Device);
+            leftArrow.Rotation = FastMath.PI;
+            leftArrow.Position = new TGCVector2(deviceWidth / 2 - leftArrow.Bitmap.Width * 3 / 4, deviceHeight / 2);
+            leftArrow.Scaling = new TGCVector2(0.2f, 0.2f);
+
         }
 
         public override void Render()
         {
             drawer.BeginDrawSprite();
             drawer.DrawSprite(choose);
+            drawer.DrawSprite(rightArrow);
+            drawer.DrawSprite(leftArrow);
             drawer.EndDrawSprite();
 
             piso.Render();
@@ -83,13 +96,13 @@ namespace TGC.Group.Model.GameModelStates
             if(gameModel.Input.keyDown(Key.RightArrow) && keyDownTime == 0f)
             {
                 NextCar();
-                keyDownTime = 0.5f;
+                keyDownTime = 0.3f;
             }
 
             if(gameModel.Input.keyDown(Key.LeftArrow) && keyDownTime == 0f)
             {
                 PreviousCar();
-                keyDownTime = 0.5f;
+                keyDownTime = 0.3f;
             }
 
             if(gameModel.Input.keyDown(Key.Return))
@@ -98,7 +111,7 @@ namespace TGC.Group.Model.GameModelStates
             }
 
             UpdateKeyDownTime();
-            selectedCar.Rotate(0.5f * GlobalConcepts.GetInstance().GetElapsedTime());
+            //selectedCar.Rotate(0.5f * GlobalConcepts.GetInstance().GetElapsedTime());
         }
 
         public override void Dispose()
@@ -106,6 +119,8 @@ namespace TGC.Group.Model.GameModelStates
             piso.Dispose();
             selectedCar.Dispose();
             choose.Dispose();
+            rightArrow.Dispose();
+            leftArrow.Dispose();
         }
 
         private void NextCar()
