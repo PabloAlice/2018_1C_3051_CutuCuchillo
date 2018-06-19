@@ -50,6 +50,11 @@ namespace TGC.Group.Model
             return false;
         }
 
+        public void SetTexture(float u, float v)
+        {
+            return;
+        }
+
         public bool IsColliding(Vehicle car)
         {
             return TgcCollisionUtils.testObbAABB(car.GetTGCBoundingOrientedBox(), this.originPortal.GetBoundingBox());

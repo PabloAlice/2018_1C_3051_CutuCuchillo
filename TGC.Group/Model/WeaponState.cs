@@ -13,6 +13,8 @@ namespace TGC.Group.Model
             this.weapon = weapon;
         }
 
+        
+
         virtual public void Render()
         {
             this.weapon.Transform();

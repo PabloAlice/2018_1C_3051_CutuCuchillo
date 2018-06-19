@@ -13,14 +13,21 @@ namespace TGC.Group.Model
         TgcMesh mesh;
         TGCPlane realPlane;
 
-        public Plane(TGCVector3 minPoint, TGCVector3 maxPoint, TGCVector3 orientation, string fileName)
+        public Plane(TGCVector3 minPoint, TGCVector3 maxPoint, TGCVector3 orientation, string fileName, float UCoordinate, float VCoordinate)
         {
             orientation.Normalize();
-            this.plane = new TgcPlane(new TGCVector3(0,0,0), new TGCVector3(0,0,0), this.GetPlaneOrientation(orientation), TgcTexture.createTexture(GlobalConcepts.GetInstance().GetMediaDir() + "MeshCreator\\Meshes\\" + fileName));
+            this.plane = new TgcPlane(new TGCVector3(0,0,0), new TGCVector3(0,0,0), this.GetPlaneOrientation(orientation), TgcTexture.createTexture(GlobalConcepts.GetInstance().GetMediaDir() + "MeshCreator\\Meshes\\" + fileName), UCoordinate, VCoordinate);
             this.plane.setExtremes(minPoint, maxPoint);
             this.plane.updateValues();
             this.mesh = this.plane.toMesh("plane");
             this.realPlane = TGCPlane.FromPointNormal(minPoint, orientation);
+        }
+
+        public void SetTexture(float u, float v)
+        {
+            this.plane.UTile = u;
+            this.plane.VTile = v;
+            this.plane.updateValues();
         }
 
         public TGCPlane GetPlaneOfCollision(TgcRay ray, Vehicle car)

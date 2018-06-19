@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.DirectX.DirectInput;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,8 +24,8 @@ namespace TGC.Group.Model.GameModelStates
         private TgcArrow arrow;
         private Drawer2D drawer;
         private string MediaDir = GlobalConcepts.GetInstance().GetMediaDir();
-        private TgcText2D textoVelocidadVehiculo, textoOffsetH, textoOffsetF, textoPosicionVehiculo, textoVectorAdelante, AIPosition;
-
+        private TgcText2D textoVelocidadVehiculo, textoOffsetH, textoOffsetF, textoPosicionVehiculo, textoVectorAdelante, AIPosition, textTexture;
+        private float u = 1, v = 1;
         private GameModel gameModel;
 
         public Playing(GameModel gameModel, Vehicle car)
@@ -70,6 +71,10 @@ namespace TGC.Group.Model.GameModelStates
             this.auto.SoundsManager.AddSound(this.auto.GetPosition(), 50f, -2500, "BackgroundMusic\\YouCouldBeMine.wav", "YouCouldBeMine", false);
             this.auto.SoundsManager.GetSound("YouCouldBeMine").play(true);
 
+            
+
+
+
             this.Update();
         }
             
@@ -84,6 +89,7 @@ namespace TGC.Group.Model.GameModelStates
             this.textoPosicionVehiculo.render();
             this.textoVectorAdelante.render();
             this.textoOffsetF.render();
+            this.textTexture.render();
             this.textoOffsetH.render();
             this.AIPosition.render();
 
@@ -136,6 +142,10 @@ namespace TGC.Group.Model.GameModelStates
             dialogo = string.Format(dialogo, AI.GetPosition().X, AI.GetPosition().Y, AI.GetPosition().Z);
             AIPosition = Text.newText(dialogo, 120, 95);
 
+            dialogo = "Texture = ({0} | {1})";
+            dialogo = string.Format(dialogo, this.u, this.v);
+            textTexture = Text.newText(dialogo, 120, 105);
+
             this.auto.Action(this.gameModel.Input);
             this.AI.Action(this.gameModel.Input);
             this.listener.Position = this.auto.GetPosition();
@@ -144,6 +154,19 @@ namespace TGC.Group.Model.GameModelStates
             Scene.GetInstance().HandleCollisions();
             this.UpdateHub();
             this.arrow = TgcArrow.fromDirection(this.auto.GetPosition(), Scene.GetInstance().camera.GetNormal());
+            float e = 0.05f;
+            if (gameModel.Input.keyDown(Key.NumPadPlus))
+            {
+                this.u += e;
+                this.v += e;
+                Scene.GetInstance().GetPlanes().ForEach(x => x.SetTexture(u, v));
+            }
+            else if (gameModel.Input.keyDown(Key.NumPadMinus))
+            {
+                this.u -= e;
+                this.v -= e;
+                Scene.GetInstance().GetPlanes().ForEach(x => x.SetTexture(u, v));
+            }
 
         }
 
