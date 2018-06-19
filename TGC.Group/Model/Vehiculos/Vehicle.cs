@@ -520,7 +520,7 @@ namespace TGC.Group.Model
         }
 
 
-        private void Shoot()
+        public void Shoot()
         {
             Weapon weapon = (this.NumberOfWeapons() > 0) ? this.weapons[0] : null;
             if (weapon != null && this.timeShoot == 0f)

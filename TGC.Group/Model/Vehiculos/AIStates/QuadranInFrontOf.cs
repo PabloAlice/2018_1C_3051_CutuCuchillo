@@ -17,6 +17,7 @@ namespace TGC.Group.Model.Vehiculos.AIStates
         override public void Execute()
         {
             this.state.Advance();
+            Scene.GetInstance().AI.Shoot();
         }
     }
 }

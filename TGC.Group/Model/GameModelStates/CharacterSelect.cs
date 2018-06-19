@@ -81,6 +81,8 @@ namespace TGC.Group.Model.GameModelStates
             leftArrow.Position = new TGCVector2(deviceWidth / 2 - leftArrow.Bitmap.Width * 3 / 4, deviceHeight / 2);
             leftArrow.Scaling = new TGCVector2(0.2f, 0.2f);
 
+            
+
         }
 
         public override void Render()
