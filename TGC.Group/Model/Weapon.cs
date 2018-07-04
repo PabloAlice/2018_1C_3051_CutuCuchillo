@@ -4,6 +4,7 @@ using TGC.Core.BoundingVolumes;
 using TGC.Group.Model.Vehiculos;
 using TGC.Core.Collision;
 using TGC.Core.Particle;
+using TGC.Core.Shaders;
 
 namespace TGC.Group.Model
 {
@@ -17,6 +18,7 @@ namespace TGC.Group.Model
         public TransformationMatrix matrix = new TransformationMatrix();
         public SoundsManager soundManager;
         public ParticleEmitter particle;
+        private float time = 0f;
 
         public Weapon(TransformationMatrix matrix, TgcMesh mesh)
         {
@@ -32,7 +34,14 @@ namespace TGC.Group.Model
             this.weaponState = new InExhibition(this);
             this.soundManager = new SoundsManager();
             this.CreateParticle();
+            this.InitializeEffect();
             
+        }
+
+        private void InitializeEffect()
+        {
+            mesh.Effect = TgcShaders.loadEffect(GlobalConcepts.GetInstance().GetShadersDir() + "Arma.fx");
+            mesh.Technique = "Exhibicion";
         }
 
         public TGCPlane GetPlaneOfCollision(TgcRay ray, Vehicle car)
@@ -116,6 +125,8 @@ namespace TGC.Group.Model
 
         public void Render()
         {
+            time += GlobalConcepts.GetInstance().GetElapsedTime();
+            mesh.Effect.SetValue("time", time);
             if (this.IsInView(this.mesh))
             {
                 this.weaponState.Render();
