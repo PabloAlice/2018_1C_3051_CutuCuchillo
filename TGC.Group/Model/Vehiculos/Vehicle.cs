@@ -111,8 +111,8 @@ namespace TGC.Group.Model
         protected void CreateLights(string reverseLightsPath, string breakLightsPath, string frontLightsPath)
         {
             this.reverseLights = new Light(reverseLightsPath);
-            this.frontLights = new Light(breakLightsPath);
-            this.breakLights = new Light(frontLightsPath);
+            this.frontLights = new Light(frontLightsPath);
+            this.breakLights = new Light(breakLightsPath);
             this.frontLights.ActivateLight();
         }
 
@@ -386,6 +386,7 @@ namespace TGC.Group.Model
             this.reverseLights.Render();
             this.breakLights.Render();
             this.frontLights.Render();
+            this.breakLights.DesactivateLight();
         }
 
         public TgcBoundingOrientedBox GetTGCBoundingOrientedBox()

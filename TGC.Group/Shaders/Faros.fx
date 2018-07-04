@@ -41,10 +41,28 @@ VS_OUTPUT vs_main(VS_INPUT Input)
     return (Output);
 }
 
+VS_OUTPUT vs_main2(VS_INPUT Input)
+{
+    VS_OUTPUT Output;
+
+    Output.Position = mul(Input.Position, matWorldViewProj);
+   
+    Output.Texcoord = Input.Texcoord;
+
+    Output.Color = Input.Color;
+
+    return (Output);
+}
+
 
 float4 ps_main(VS_OUTPUT Input) : COLOR0
 {
-    return tex2D(diffuseMap, Input.Texcoord);
+    return 0.4 * tex2D(diffuseMap, Input.Texcoord);
+}
+
+float4 ps_main2(VS_OUTPUT Input) : COLOR0
+{
+    return 7 * tex2D(diffuseMap, Input.Texcoord);
 }
 
 technique Normal
@@ -60,7 +78,7 @@ technique Iluminate
 {
     pass Pass_0
     {
-        VertexShader = compile vs_3_0 vs_main();
-        PixelShader = compile ps_3_0 ps_main();
+        VertexShader = compile vs_3_0 vs_main2();
+        PixelShader = compile ps_3_0 ps_main2();
     }
 }

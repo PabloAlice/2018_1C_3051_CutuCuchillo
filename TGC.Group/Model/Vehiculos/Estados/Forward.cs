@@ -23,6 +23,7 @@ namespace TGC.Group.Model.Vehiculos.Estados
 
         public override void Back()
         {
+            auto.breakLights.ActivateLight();
             Brake(auto.GetConstanteFrenado());
         }
 
@@ -33,6 +34,7 @@ namespace TGC.Group.Model.Vehiculos.Estados
 
         private void Brake(float constante)
         {
+            
             auto.GetDeltaTiempoAvance().resetear();
             auto.SetVelocidadActual(auto.GetVelocidadActual() - constante);
             if (auto.GetVelocidadActual() < 0)

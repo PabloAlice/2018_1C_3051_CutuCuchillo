@@ -1,10 +1,8 @@
-//Matrices de transformacion
 float4x4 matWorld; //Matriz de transformacion World
 float4x4 matWorldView; //Matriz World * View
 float4x4 matWorldViewProj; //Matriz World * View * Projection
 float4x4 matInverseTransposeWorld; //Matriz Transpose(Invert(World))
 
-//Textura para DiffuseMap
 texture texDiffuseMap;
 sampler2D diffuseMap = sampler_state
 {
