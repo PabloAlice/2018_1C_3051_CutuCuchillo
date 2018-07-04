@@ -15,6 +15,11 @@ namespace TGC.Group.Model.Vehiculos
 
             this.escaladoInicial = new TGCVector3(0.01f, 0.01f, 0.01f);
             this.CrearMesh(GlobalConcepts.GetInstance().GetMediaDir() + "meshCreator\\meshes\\Vehiculos\\Auto\\Auto-TgcScene.xml", posicionInicial);
+            string reverseLightsPath, frontLightsPath, breakLightsPath;
+            reverseLightsPath = GlobalConcepts.GetInstance().GetMediaDir() + "meshCreator\\meshes\\Vehiculos\\Auto\\LucesMarchaAtras\\Luces-TgcScene.xml";
+            frontLightsPath = GlobalConcepts.GetInstance().GetMediaDir() + "meshCreator\\meshes\\Vehiculos\\Auto\\LucesDelanteras\\Luces-TgcScene.xml";
+            breakLightsPath = GlobalConcepts.GetInstance().GetMediaDir() + "meshCreator\\meshes\\Vehiculos\\Auto\\LucesFrenado\\Luces-TgcScene.xml";
+            this.CreateLights(reverseLightsPath, breakLightsPath, frontLightsPath);
             this.CreateWheels();
             this.CreateSounds(soundsManager);
 

@@ -7,9 +7,14 @@ namespace TGC.Group.Model.Vehiculos
     {
         public Van(TGCVector3 posicionInicial, SoundsManager soundsManager) : base(posicionInicial, soundsManager)
         {
+            string reverseLightsPath, frontLightsPath, breakLightsPath;
             this.CrearMesh(GlobalConcepts.GetInstance().GetMediaDir() + "meshCreator\\meshes\\Vehiculos\\Camioneta\\Camioneta-TgcScene.xml", posicionInicial);
+            reverseLightsPath = GlobalConcepts.GetInstance().GetMediaDir() + "meshCreator\\meshes\\Vehiculos\\Camioneta\\LucesMarchaAtras\\Luces-TgcScene.xml";
+            frontLightsPath = GlobalConcepts.GetInstance().GetMediaDir() + "meshCreator\\meshes\\Vehiculos\\Camioneta\\LucesDelanteras\\Luces-TgcScene.xml";
+            breakLightsPath = GlobalConcepts.GetInstance().GetMediaDir() + "meshCreator\\meshes\\Vehiculos\\Camioneta\\LucesFrenado\\Luces-TgcScene.xml";
+            this.CreateLights(reverseLightsPath, breakLightsPath, frontLightsPath);
             this.CreateWheels();
-            this.CreateSounds(soundsManager);
+            this.CreateSounds (soundsManager);
             
         }
 
@@ -39,9 +44,9 @@ namespace TGC.Group.Model.Vehiculos
 
         }
 
-        public override void Crash()
+        public override void Crash(float angle)
         {
-            base.Crash();
+            base.Crash(angle);
             Scene.GetInstance().camera.rotateY(angle);
         }
     }

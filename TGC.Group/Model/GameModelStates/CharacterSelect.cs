@@ -25,30 +25,33 @@ namespace TGC.Group.Model.GameModelStates
         private string MediaDir = GlobalConcepts.GetInstance().GetMediaDir();
         private Drawer2D drawer = new Drawer2D();
         private CustomSprite choose, rightArrow, leftArrow;
+        private SoundsManager backgroundMusic;
 
 
         public CharacterSelect(GameModel gameModel)
         {
             this.gameModel = gameModel;
-
+            this.backgroundMusic = new SoundsManager();
+            this.backgroundMusic.AddSound(TGCVector3.Empty, 50f, 0, "Init\\song.wav", "song", false);
+            this.backgroundMusic.GetSound("song").play(true);
             this.planes.Add(new Plane(new TGCVector3(-90, 0, -90), new TGCVector3(90, 0, 90), new TGCVector3(0,1,0), "Otros\\Paredes\\2.jpg", 1, 1));
             this.planes.Add(new Plane(new TGCVector3(-90, 0, -90), new TGCVector3(-90, 50, 90), new TGCVector3(1, 0, 0), "Otros\\Paredes\\1.jpg", 1, 1));
             this.planes.Add(new Plane(new TGCVector3(90, 0, -90), new TGCVector3(90, 50, 90), new TGCVector3(-1, 0, 0), "Otros\\Paredes\\4.jpg", 1, 1));
             this.planes.Add(new Plane(new TGCVector3(-90, 0, -90), new TGCVector3(90, 50, -90), new TGCVector3(0, 0, 1), "Otros\\Paredes\\3.jpg", 1, 1));
             this.gameModel.Camara = new ThirdPersonCamera(new TGCVector3(0, 0, 0), 100f, 150f);
 
+            this.soundManager = new SoundsManager();
             var auto1 = new Van(new TGCVector3(0f, 0f, 0f), soundManager);
-            soundManager.GetSound("Motor").stop();
             auto1.matrixs.SetScalation(TGCMatrix.Scaling(0.2f, 0.2f, 0.2f));
             auto1.Transform();
 
+            this.soundManager = new SoundsManager();
             var auto2 = new Car(new TGCVector3(0f, 0f, 0f), soundManager);
-            soundManager.GetSound("Motor").stop();
             auto2.matrixs.SetScalation(TGCMatrix.Scaling(0.3f, 0.3f, 0.3f));
             auto2.Transform();
 
+            this.soundManager = new SoundsManager();
             var auto3 = new Hummer(new TGCVector3(0f, 0f, 0f), soundManager);
-            soundManager.GetSound("Motor").stop();
             auto3.matrixs.SetScalation(TGCMatrix.Scaling(0.25f, 0.25f, 0.25f));
             auto3.Transform();
 
@@ -114,6 +117,8 @@ namespace TGC.Group.Model.GameModelStates
             if(gameModel.Input.keyDown(Key.Return))
             {
                 selectedCar.ResetRotation();
+                this.backgroundMusic.GetSound("song").stop();
+                selectedCar.SoundsManager.GetSound("Motor").play(true);
                 gameModel.SetState(new Playing(gameModel, selectedCar));
             }
 
@@ -124,10 +129,11 @@ namespace TGC.Group.Model.GameModelStates
         public override void Dispose()
         {
             this.planes.ForEach(x => x.Dispose());
-            selectedCar.Dispose();
+            //selectedCar.Dispose();
             choose.Dispose();
             rightArrow.Dispose();
             leftArrow.Dispose();
+            this.backgroundMusic.Dispose();
         }
 
         private void NextCar()

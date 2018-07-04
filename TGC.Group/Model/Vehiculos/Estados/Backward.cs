@@ -8,6 +8,7 @@ namespace TGC.Group.Model.Vehiculos.Estados
 
         public Backward(Vehicle auto) : base(auto)
         {
+            auto.reverseLights.ActivateLight();
         }
 
         public override TGCVector3 GetCarDirection()
@@ -39,6 +40,7 @@ namespace TGC.Group.Model.Vehiculos.Estados
             {
                 auto.SetVelocidadActual(0);
                 auto.GetDeltaTiempoAvance().resetear();
+                auto.reverseLights.DesactivateLight();
                 this.auto.SetEstado(new Stopped(this.auto));
                 return;
             }

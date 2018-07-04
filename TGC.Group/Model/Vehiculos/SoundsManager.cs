@@ -43,6 +43,11 @@ namespace TGC.Group.Model.Vehiculos
             this.sounds.ForEach(s => s.sound.Position = position);
         }
 
+        public void Dispose()
+        {
+            this.sounds.ForEach(s => s.sound.dispose());
+        }
+
         public Tgc3dSound GetSound(string name)
         {
             return this.sounds.Find(sound => sound.Equals(name)).sound;

@@ -48,6 +48,9 @@ namespace TGC.Group.Model
         protected ParticleTimer spark;
         protected List<Weapon> weapons = new List<Weapon>();
         protected float timeShoot = 0f;
+        public Light frontLights;
+        public Light reverseLights;
+        public Light breakLights;
 
         //Timer shaderTime = new Timer();
         //FloatModifier shaderColorModifier = new FloatModifier(0.84f, 0.74f, 0.94f);
@@ -103,6 +106,14 @@ namespace TGC.Group.Model
         {
             this.Transform();
             return TgcCollisionUtils.classifyFrustumAABB(GlobalConcepts.GetInstance().GetFrustum(), mesh.BoundingBox) != 0;
+        }
+
+        protected void CreateLights(string reverseLightsPath, string breakLightsPath, string frontLightsPath)
+        {
+            this.reverseLights = new Light(reverseLightsPath);
+            this.frontLights = new Light(breakLightsPath);
+            this.breakLights = new Light(frontLightsPath);
+            this.frontLights.ActivateLight();
         }
 
         private void CreateSmoke()
@@ -362,6 +373,7 @@ namespace TGC.Group.Model
                 {
                     rueda.Render();
                 }
+                this.RenderLights();
                 this.smoke.render(this.elapsedTime);
                 this.spark.Render(this.elapsedTime);
             }
@@ -369,6 +381,12 @@ namespace TGC.Group.Model
 
         }
 
+        private void RenderLights()
+        {
+            this.reverseLights.Render();
+            this.breakLights.Render();
+            this.frontLights.Render();
+        }
 
         public TgcBoundingOrientedBox GetTGCBoundingOrientedBox()
         {
@@ -380,10 +398,18 @@ namespace TGC.Group.Model
             return this.obb;
         }
 
+        private void DisposeLights()
+        {
+            this.frontLights.Dispose();
+            this.breakLights.Dispose();
+            this.reverseLights.Dispose();
+        }
+
         public void Dispose()
         {
             this.mesh.Dispose();
             this.mesh.Effect.Dispose();
+            this.DisposeLights();
         }
 
         public Timer GetDeltaTiempoAvance()
@@ -473,17 +499,27 @@ namespace TGC.Group.Model
 
         virtual public void Transform()
         {
-            var transformacion = this.matrixs.GetTransformation();
+            TGCMatrix transformacion = this.matrixs.GetTransformation();
             this.mesh.Transform = transformacion;
             this.obb.ActualizarBoundingOrientedBox(this.matrixs.GetTranslation());
             this.delanteraIzquierda.Transform(transformacion);
             this.delanteraDerecha.Transform(transformacion);
             this.mesh.BoundingBox.transform(transformacion);
-
+            this.TransformLights(transformacion);
             foreach (var rueda in this.ruedas)
             {
                 rueda.Transform(transformacion);
             }
+        }
+
+        private void TransformLights(TGCMatrix matrix)
+        {
+            this.breakLights.SetTransformation(matrix);
+            this.frontLights.SetTransformation(matrix);
+            this.reverseLights.SetTransformation(matrix);
+            this.breakLights.Transform();
+            this.frontLights.Transform();
+            this.reverseLights.Transform();
         }
 
         public void Rotate(float rotacion)
@@ -572,17 +608,9 @@ namespace TGC.Group.Model
             {
                 this.estado.Advance();
             }
-            else
-            {
-                // int freq = (int)(this.constanteDeRozamiento / this.GetElapsedTime());
-                // int f2 = this.SoundsManager.desacceleratingVelSound.SoundBuffer.Frequency;
-                // this.SoundsManager.SetDesAccFrequency(f2);
-            }
 
             if (input.keyDown(Key.S))
             {
-                //int freq = (int)(this.constanteFrenado / this.GetElapsedTime());
-                //this.SoundsManager.SetDesAccFrequency(freq);
                 this.estado.Back();
             }
 
