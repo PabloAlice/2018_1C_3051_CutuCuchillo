@@ -12,7 +12,7 @@ namespace TGC.Group.Model
         public Shooted(Weapon weapon, Vehicle car) : base(weapon)
         {
             this.car = car;
-            this.velocity = 30f;
+            this.velocity = 90f;
             this.weapon.direction = car.GetVectorAdelante();
             this.weapon.matrix.SetTranslation(TGCMatrix.Translation(car.GetPosition()));
             this.weapon.matrix.Translate(TGCMatrix.Translation(new TGCVector3(0,0.35f,0)));
@@ -28,8 +28,6 @@ namespace TGC.Group.Model
                 this.Move();
                 this.weapon.Transform();
             }
-            this.weapon.matrix.Translate(TGCMatrix.Translation(this.weapon.direction * this.velocity * GlobalConcepts.GetInstance().GetElapsedTime() * 10));
-            this.weapon.Transform();
         }
 
         public override void HandleCollision(Vehicle car)
