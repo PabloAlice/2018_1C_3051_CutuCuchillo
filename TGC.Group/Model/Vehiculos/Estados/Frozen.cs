@@ -21,7 +21,7 @@ namespace TGC.Group.Model.Vehiculos.Estados
                 disminucionVelocidad = ((x, y, z) => Math.Min(x, y+z));
             }
 
-            this.auto.Congelar();
+            this.auto.Freeze();
             this.auto.GetDeltaTiempoAvance().resetear();
 
         }
@@ -79,7 +79,7 @@ namespace TGC.Group.Model.Vehiculos.Estados
             auto.Move(auto.GetVectorAdelante() * auto.GetVelocidadActual() * auto.GetElapsedTime());
             if (timer.tiempoTranscurrido() > 10f)
             {
-                this.auto.Descongelar();
+                this.auto.UnFreeze();
                 this.auto.SetEstado(new Stopped(this.auto));
             }
         }

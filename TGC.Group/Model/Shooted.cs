@@ -67,15 +67,30 @@ namespace TGC.Group.Model
 
         private void CheckCollision()
         {
+            Collidable c = null;
             foreach (Collidable element in Scene.GetInstance().GetPosiblesCollidables(weapon))
             {
+                //ésto está hecho a lo negro por que sino no anda, vaya a saber uno por qué
                 if (element.IsColliding(this.weapon))
                 {
-                    this.Detach(element);
-                    this.car.Remove(this.weapon);
-                    this.Explode();
-                    this.weapon.Collide(element);
+                    c = element;
+                    break;
                 }
+            }
+            if (Scene.GetInstance().auto.IsColliding(this.weapon))
+            {
+                c = Scene.GetInstance().auto;
+            }
+            else if (Scene.GetInstance().AI.IsColliding(this.weapon))
+            {
+                c = Scene.GetInstance().AI;
+            }
+            if(c != null)
+            {
+                this.Detach(c);
+                this.car.Remove(this.weapon);
+                this.Explode();
+                this.weapon.Collide(c);
             }
         }
 

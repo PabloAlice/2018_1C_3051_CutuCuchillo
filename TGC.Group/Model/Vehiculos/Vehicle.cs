@@ -72,6 +72,11 @@ namespace TGC.Group.Model
 
         }
 
+        public void TakeDamage(float powerOfDamage)
+        {
+            this.life = FastMath.Max(0, life - powerOfDamage);
+        }
+
         public void ResetScale()
         {
             matrixs.SetScalation(TGCMatrix.Scaling(escaladoInicial));
@@ -190,7 +195,7 @@ namespace TGC.Group.Model
 
         public void HandleCollision(Weapon weapon)
         {
-            weapon.IAmTheCar();
+            weapon.IAmTheCar(this);
         }
 
         private void Collide(Vehicle car)
@@ -547,7 +552,7 @@ namespace TGC.Group.Model
 
         virtual public void Crash(float angle)
         {
-            this.life = (this.life - 5f < 0) ? 0 : this.life - 5f;
+            this.TakeDamage(2.5f);
             this.deltaTiempoAvance.resetear();
             this.velocidadActual *= 0.5f;
             this.SoundsManager.GetSound("Choque").play();
@@ -710,12 +715,17 @@ namespace TGC.Group.Model
             return this.weapons.Count;
         }
 
-        public void Congelar()
+        public void ChangeToFreeze()
+        {
+            this.estado = new Frozen(this);
+        }
+
+        public void Freeze()
         {
             this.mesh.Technique = "Freeze";
         }
 
-        public void Descongelar()
+        public void UnFreeze()
         {
             this.mesh.Technique = "Unfreeze";
         }

@@ -13,6 +13,7 @@ namespace TGC.Group.Model
         {
             this.soundManager.AddSound(this.GetPosition(), 10f, 0, "Weapons\\Bomba.wav", "Bomba", false);
             this.soundManager.AddSound(this.GetPosition(), 10f, 0, "Explosion\\Bomba.wav", "Explosion", false);
+            this.powerOfDamage = 30f;
         }
 
         override protected void CreateParticle()
@@ -57,7 +58,7 @@ namespace TGC.Group.Model
             this.soundManager.GetSound("Bomba").stop();
         }
 
-        public override void IAmTheCar()
+        public override void IAmTheCar(Vehicle car)
         {
             numberOfCollisions = 0;
         }

@@ -10,6 +10,7 @@ namespace TGC.Group.Model
         {
             this.soundManager.AddSound(this.GetPosition(), 10f, 0, "Weapons\\BolaHielo.wav", "BolaHielo", false);
             this.soundManager.AddSound(this.GetPosition(), 10f, 0, "Explosion\\BolaHielo.wav", "Explosion", false);
+            this.powerOfDamage = 15f;
         }
 
         public override void Shoot()
@@ -45,6 +46,12 @@ namespace TGC.Group.Model
         public override TGCVector3 GetShootRotation()
         {
             return new TGCVector3(0,0,0);
+        }
+
+        public override void IAmTheCar(Vehicle car)
+        {
+            base.IAmTheCar(car);
+            car.ChangeToFreeze();
         }
     }
 }

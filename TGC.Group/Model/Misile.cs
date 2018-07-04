@@ -10,6 +10,7 @@ namespace TGC.Group.Model
         {
             this.soundManager.AddSound(this.GetPosition(), 10f, 0, "Weapons\\Misil.wav", "Misil", false);
             this.soundManager.AddSound(this.GetPosition(), 10f, 0, "Explosion\\Misil.wav", "Explosion", false);
+            this.powerOfDamage = 60f;
         }
 
         public override void Shoot()

@@ -19,6 +19,7 @@ namespace TGC.Group.Model
         public SoundsManager soundManager;
         public ParticleEmitter particle;
         private float time = 0f;
+        protected float powerOfDamage;
 
         public Weapon(TransformationMatrix matrix, TgcMesh mesh)
         {
@@ -150,8 +151,9 @@ namespace TGC.Group.Model
 
         abstract public void Collide(Collidable collided);
 
-        virtual public void IAmTheCar()
+        virtual public void IAmTheCar(Vehicle car)
         {
+            car.TakeDamage(powerOfDamage);
             return;
         }
 
