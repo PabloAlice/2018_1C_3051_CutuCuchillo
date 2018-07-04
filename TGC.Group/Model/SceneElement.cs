@@ -30,6 +30,7 @@ namespace TGC.Group.Model
 
         public bool IsColliding(Vehicle car)
         {
+            this.Transform();
             foreach (TgcMesh element in this.elements)
             {
                 if(TgcCollisionUtils.testObbAABB(car.GetTGCBoundingOrientedBox(), element.BoundingBox))
@@ -213,7 +214,7 @@ namespace TGC.Group.Model
 
             while (TgcCollisionUtils.testObbAABB(car.GetTGCBoundingOrientedBox(), elemento.BoundingBox))
             {
-                car.Translate(TGCMatrix.Translation(normal * 1f));
+                car.Translate(TGCMatrix.Translation(normal));
                 car.Transform();
             }
         }

@@ -84,7 +84,7 @@ namespace TGC.Group.Model
 
             while (IsColliding(car))
             {
-                car.Translate(TGCMatrix.Translation(-directionOfCollision * 0.1f));
+                car.Translate(TGCMatrix.Translation(normal * 0.1f));
                 car.Transform();
             }
         }

@@ -49,8 +49,8 @@ namespace TGC.Group.Model.Vehiculos.Estados
 
         protected Collidable GetCollidable()
         {
-            List<Collidable> posibleCollidable = Scene.GetInstance().GetPosiblesCollidables(this.auto);
-            foreach (Collidable element in posibleCollidable)
+            List<Collidable> posiblesCollidable = Scene.GetInstance().GetPosiblesCollidables(this.auto);
+            foreach (Collidable element in posiblesCollidable)
             {
                 if (element.IsColliding(this.auto))
                 {

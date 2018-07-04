@@ -106,7 +106,24 @@ namespace TGC.Group.Model
             {
                 return this.banio;
             }
-            throw new Exception("Saliste del escenario");
+            return this.NearestSection(position);
+            
+        }
+
+        private Section NearestSection(TGCVector3 position)
+        {
+            List<Section> sections = new List<Section>();
+            sections.Add(this.habitacion);
+            sections.Add(this.cocina);
+            sections.Add(this.banio);
+            sections.Sort((x1,x2) => this.distance(x1.Center(), position).CompareTo(this.distance(x2.Center(), position)));
+            return sections[0];
+        }
+
+        private float distance(TGCVector3 p1, TGCVector3 p2)
+        {
+            TGCVector3 vector = p2 - p1;
+            return TGCVector3.Length(vector);
         }
 
         private Section WeaponUbication(Weapon weapon)

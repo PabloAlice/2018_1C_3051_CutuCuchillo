@@ -44,6 +44,11 @@ namespace TGC.Group.Model
             return weapons;
         }
 
+        public TGCVector3 Center()
+        {
+            return new TGCVector3((puntoMaximo.X + puntoMinimo.X) / 2, 0, (puntoMaximo.Z + puntoMinimo.Z) / 2);
+        }
+
         private void GenerateSubSections()
         {
             float width = (puntoMaximo.X - puntoMinimo.X) / this.numberOfPartitions;
@@ -76,7 +81,7 @@ namespace TGC.Group.Model
                     return subsection;
                 }
             }
-            throw new Exception("El elementoo no se encuentra en ninguna subseccion");
+            return this.subSections[0];
         }
 
         public TGCVector3 GetPuntoMinimo()
