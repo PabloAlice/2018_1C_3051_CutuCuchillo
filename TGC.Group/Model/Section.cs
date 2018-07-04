@@ -32,14 +32,12 @@ namespace TGC.Group.Model
             return candidates;
         }
 
-        public List<Collidable> GetWeapons()
+        public List<Weapon> GetWeapons()
         {
-            List<Collidable> weapons = new List<Collidable>();
-            List<Collidable> weaponsSubsection = new List<Collidable>();
+            List<Weapon> weapons = new List<Weapon>();
             foreach (SubSection subSection in this.subSections)
             {
-                weaponsSubsection = subSection.GetWeapons();
-                weapons.AddRange(weaponsSubsection);
+                weapons.AddRange(subSection.GetWeapons());
             }
             return weapons;
         }

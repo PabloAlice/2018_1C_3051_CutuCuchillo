@@ -28,14 +28,14 @@ namespace TGC.Group.Model.Vehiculos.AIStates
         public override void Run()
         {
             base.Run();
-            List<Collidable> weapons = Scene.GetInstance().GetWeapons(this.AI);
-            Collidable weapon = this.SelectTheNearest(weapons);
+            List<Weapon> weapons = Scene.GetInstance().GetWeapons(this.AI);
+            Weapon weapon = this.SelectTheNearest(weapons);
             Quadrant quadrant = this.GetCuadrante(weapon.GetPosition());
             quadrant.Execute();
                        
         }
 
-        private Collidable SelectTheNearest(List<Collidable> weapons)
+        private Weapon SelectTheNearest(List<Weapon> weapons)
         {
             GlobalConcepts g = GlobalConcepts.GetInstance();
             weapons.Sort((w1, w2) => g.DistanceBetweenTwoPoints(this.AI.GetPosition(), w1.GetPosition()).CompareTo(g.DistanceBetweenTwoPoints(this.AI.GetPosition(), w2.GetPosition())));

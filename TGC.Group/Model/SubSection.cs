@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using TGC.Core.Mathematica;
+using System.Linq;
 using TGC.Core.Geometry;
 using System.Drawing;
 
@@ -28,9 +29,10 @@ namespace TGC.Group.Model
             return this.maxPoint;
         }
 
-        public List<Collidable> GetWeapons()
+        public List<Weapon> GetWeapons()
         {
-            return this.elements.FindAll(e => e is Weapon);
+            List<Weapon> weapons = this.elements.FindAll(e => e is Weapon).Cast<Weapon>().ToList();
+            return weapons.FindAll(w => !(w.weaponState is ReadyToShoot));
         }
 
         public void AddElement(Collidable element)
