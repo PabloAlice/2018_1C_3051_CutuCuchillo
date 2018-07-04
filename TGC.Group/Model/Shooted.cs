@@ -12,7 +12,7 @@ namespace TGC.Group.Model
         public Shooted(Weapon weapon, Vehicle car) : base(weapon)
         {
             this.car = car;
-            this.velocity = car.GetMaximunForwardVelocity() * 1.2f;
+            this.velocity = 30f;
             this.weapon.direction = car.GetVectorAdelante();
             this.weapon.matrix.SetTranslation(TGCMatrix.Translation(car.GetPosition()));
             this.weapon.matrix.Translate(TGCMatrix.Translation(new TGCVector3(0,0.35f,0)));
@@ -28,6 +28,8 @@ namespace TGC.Group.Model
                 this.Move();
                 this.weapon.Transform();
             }
+            this.weapon.matrix.Translate(TGCMatrix.Translation(this.weapon.direction * this.velocity * GlobalConcepts.GetInstance().GetElapsedTime() * 10));
+            this.weapon.Transform();
         }
 
         public override void HandleCollision(Vehicle car)
@@ -65,14 +67,24 @@ namespace TGC.Group.Model
 
         private void CheckCollision()
         {
-            Collidable collided;
-            if (this.IsColliding(out collided))
+            foreach (Collidable element in Scene.GetInstance().GetPosiblesCollidables(weapon))
             {
-                this.car.Remove(this.weapon);
-                this.Explode();
-                this.weapon.Collide(collided);
-                
+                if (element.IsColliding(this.weapon))
+                {
+                    this.Detach(element);
+                    this.car.Remove(this.weapon);
+                    this.Explode();
+                    this.weapon.Collide(element);
+                }
+            }
+        }
 
+        private void Detach(Collidable collided)
+        {
+            while (collided.IsColliding(this.weapon))
+            {
+                this.MoveBackward();
+                this.weapon.Transform();
             }
         }
 
@@ -81,31 +93,6 @@ namespace TGC.Group.Model
             this.weapon.particle.Playing = true;
             this.weapon.particle.Position = this.weapon.GetPosition();
             this.weapon.soundManager.GetSound("Explosion").play();
-        }
-
-        private bool IsColliding(out Collidable collided)
-        {
-            List<Collidable> elements = Scene.GetInstance().GetPosiblesCollidables(this.weapon);
-            foreach (Collidable element in elements)
-            {
-                if (element.IsColliding(this.weapon, out collided))
-                {
-                    this.Detach(collided);
-                    return true;
-                }
-            }
-            collided = null;
-            return false;
-        }
-
-        private void Detach(Collidable collided)
-        {
-            Collidable c;
-            while(collided.IsColliding(this.weapon, out c))
-            {
-                this.MoveBackward();
-                this.weapon.Transform();
-            }
         }
 
     }

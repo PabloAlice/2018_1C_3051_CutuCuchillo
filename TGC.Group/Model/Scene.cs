@@ -38,7 +38,7 @@ namespace TGC.Group.Model
 
         public void HandleCollisions()
         {
-            this.auto.HandleCollisions(this.AI);
+            this.auto.HandleCollision(this.AI);
             this.VehicleUbication(this.auto).HandleCollisions(this.auto);
             this.VehicleUbication(this.AI).HandleCollisions(this.AI);
             
@@ -676,11 +676,6 @@ namespace TGC.Group.Model
         {
             TgcScene tgcScene = new TgcSceneLoader().loadSceneFromFile(GlobalConcepts.GetInstance().GetMediaDir() + ruta);
             return tgcScene.Meshes;
-            tgcScene.Meshes.ForEach((mesh) => {
-                var adj = new int[mesh.D3dMesh.NumberFaces * 3];
-                mesh.D3dMesh.GenerateAdjacency(0, adj);
-                mesh.D3dMesh.ComputeNormals(adj);
-            });
 
         }
         private TgcMesh GimeMeASingleMesh(string ruta)

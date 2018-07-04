@@ -30,8 +30,9 @@ namespace TGC.Group.Model
             this.particle.Speed = new TGCVector3(1, 1, 1);
         }
 
-        public override void Collide(Collidable collided)
+        public override void Collide(Collidable element)
         {
+            element.HandleCollision(this);
             this.weaponState = new InExhibition(this);
             return;
         }

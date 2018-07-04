@@ -46,6 +46,7 @@ namespace TGC.Group.Model
         public override void Collide(Collidable element)
         {
             numberOfCollisions--;
+            element.HandleCollision(this);
             if (this.numberOfCollisions == 0)
             {
                 this.weaponState = new InExhibition(this);
@@ -54,6 +55,11 @@ namespace TGC.Group.Model
             }
             this.Bounce(element);
             this.soundManager.GetSound("Bomba").stop();
+        }
+
+        public override void IAmTheCar()
+        {
+            numberOfCollisions = 0;
         }
 
         private void Bounce(Collidable element)

@@ -63,9 +63,8 @@ namespace TGC.Group.Model
 
         abstract public TGCVector3 GetShootRotation();
 
-        public bool IsColliding(Weapon weapon, out Collidable element)
+        public bool IsColliding(Weapon weapon)
         {
-            element = null;
             return false;
         }
 
@@ -100,9 +99,14 @@ namespace TGC.Group.Model
 
         }
 
-        public void HandleCollisions(Vehicle car)
+        public void HandleCollision(Vehicle car)
         {
             this.weaponState.HandleCollision(car);
+        }
+
+        public void HandleCollision(Weapon weapon)
+        {
+            return;
         }
 
         public void Shoot(Vehicle car)
@@ -134,6 +138,11 @@ namespace TGC.Group.Model
         abstract public void Move();
 
         abstract public void Collide(Collidable collided);
+
+        virtual public void IAmTheCar()
+        {
+            return;
+        }
 
     }
 }

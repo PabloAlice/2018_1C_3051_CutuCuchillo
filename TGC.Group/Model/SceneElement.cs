@@ -68,18 +68,21 @@ namespace TGC.Group.Model
             return false;
         }
 
-        public bool IsColliding(Weapon weapon, out Collidable elementOut)
+        public bool IsColliding(Weapon weapon)
         {
             foreach (TgcMesh element in this.elements)
             {
                 if(TgcCollisionUtils.testSphereAABB(weapon.sphere, element.BoundingBox))
                 {
-                    elementOut = this;
                     return true;
                 }
             }
-            elementOut = null;
             return false;
+        }
+
+        public void HandleCollision(Weapon weapon)
+        {
+            return;
         }
 
         public TgcMesh GetCollidable(Vehicle car)
@@ -241,7 +244,7 @@ namespace TGC.Group.Model
             
         }
 
-        public void HandleCollisions(Vehicle car)
+        public void HandleCollision(Vehicle car)
         {
             this.Transform();
             foreach (TgcMesh elemento in this.elements)

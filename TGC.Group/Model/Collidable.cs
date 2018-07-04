@@ -7,8 +7,9 @@ namespace TGC.Group.Model
 {
     interface Collidable
     {
-        void HandleCollisions(Vehicle car);
-        bool IsColliding(Weapon weapon, out Collidable element);
+        void HandleCollision(Vehicle car);
+        bool IsColliding(Weapon weapon);
+        void HandleCollision(Weapon weapon);
         bool IsColliding(Vehicle car);
         void Render();
         void Dispose();

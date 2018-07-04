@@ -76,7 +76,7 @@ namespace TGC.Group.Model
         {
             foreach (Collidable element in this.elements)
             {
-                element.HandleCollisions(car);
+                element.HandleCollision(car);
             }
         }
 

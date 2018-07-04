@@ -39,15 +39,14 @@ namespace TGC.Group.Model
             return null;
         }
 
-        public bool IsColliding(Weapon weapon, out Collidable element)
+        public bool IsColliding(Weapon weapon)
         {
-            if(TgcCollisionUtils.testSphereAABB(weapon.sphere, this.GetBoundingAlignBox()))
-            {
-                element = this;
-                return true;
-            }
-            element = null;
-            return false;
+            return TgcCollisionUtils.testSphereAABB(weapon.sphere, this.GetBoundingAlignBox());
+        }
+
+        public void HandleCollision(Weapon weapon)
+        {
+            return;
         }
 
         public void SetTexture(float u, float v)
@@ -90,7 +89,7 @@ namespace TGC.Group.Model
             return this.originPortal.GetBoundingBox();
         }
 
-        public void HandleCollisions(Vehicle car)
+        public void HandleCollision(Vehicle car)
         {
             if (TgcCollisionUtils.testObbAABB(car.GetTGCBoundingOrientedBox(), this.GetBoundingBox())){
                 this.GetBoundingBox().setRenderColor(Color.Red);

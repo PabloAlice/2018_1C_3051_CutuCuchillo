@@ -35,6 +35,11 @@ namespace TGC.Group.Model
             return this.realPlane;
         }
 
+        public void HandleCollision(Weapon weapon)
+        {
+            return;
+        }
+
         private TgcPlane.Orientations GetPlaneOrientation(TGCVector3 vector)
         {
             if(vector.X != 0)
@@ -64,7 +69,7 @@ namespace TGC.Group.Model
             return (int)TgcCollisionUtils.classifyPlaneAABB(this.realPlane, car.mesh.BoundingBox) != 1;
         }
 
-        public void HandleCollisions(Vehicle car)
+        public void HandleCollision(Vehicle car)
         {
             if (this.IsColliding(car))
             {
@@ -89,15 +94,9 @@ namespace TGC.Group.Model
             }
         }
 
-        public bool IsColliding(Weapon weapon, out Collidable element)
+        public bool IsColliding(Weapon weapon)
         {
-            if (TgcCollisionUtils.testSphereAABB(weapon.sphere, this.mesh.BoundingBox))
-            {
-                element = this;
-                return true;
-            }
-            element = null;
-            return false;
+            return TgcCollisionUtils.testSphereAABB(weapon.sphere, this.mesh.BoundingBox);
         }
 
         public bool IsInto(TGCVector3 minPoint, TGCVector3 maxPoint)

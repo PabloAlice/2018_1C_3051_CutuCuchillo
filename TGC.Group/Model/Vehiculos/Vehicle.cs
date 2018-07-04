@@ -175,24 +175,22 @@ namespace TGC.Group.Model
             this.weapons.Add(weapon);
         }
 
-        public bool IsColliding(Weapon weapon, out Collidable element)
+        public bool IsColliding(Weapon weapon)
         {
-
-            if (TgcCollisionUtils.testSphereOBB(weapon.sphere, this.obb.GetBoundingOrientedBox()))
-            {
-                element = this;
-                return true;
-            }
-            element = null;
-            return false;
+            return TgcCollisionUtils.testSphereOBB(weapon.sphere, this.obb.GetBoundingOrientedBox());
         }
 
-        public void HandleCollisions(Vehicle car)
+        public void HandleCollision(Vehicle car)
         {
             if (TgcCollisionUtils.testObbObb(car.GetTGCBoundingOrientedBox(), this.GetTGCBoundingOrientedBox()))
             {
                 this.Collide(car);
             }
+        }
+
+        public void HandleCollision(Weapon weapon)
+        {
+            weapon.IAmTheCar();
         }
 
         private void Collide(Vehicle car)
