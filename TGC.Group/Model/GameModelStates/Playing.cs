@@ -1,4 +1,5 @@
-﻿using Microsoft.DirectX.DirectInput;
+﻿using Microsoft.DirectX.Direct3D;
+using Microsoft.DirectX.DirectInput;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +21,7 @@ namespace TGC.Group.Model.GameModelStates
         private ThirdPersonCamera camaraInterna;
         private TGCVector3 camaraDesplazamiento = new TGCVector3(0, 5, 40);
         private TgcMesh listener;
-        private CustomSprite velocimeter, arrowVelocimeter, barOfLifeGreen, barOfLifeRed, menuBackground;
+        private CustomSprite velocimeter, arrowVelocimeter, barOfLifeGreen, barOfLifeRed;
         private Drawer2D drawer;
         private string MediaDir = GlobalConcepts.GetInstance().GetMediaDir();
         private TgcText2D textoVelocidadVehiculo, textoOffsetH, textoOffsetF, textoPosicionVehiculo, textoVectorAdelante, AIPosition, textTexture;
@@ -70,9 +71,13 @@ namespace TGC.Group.Model.GameModelStates
             this.auto.SoundsManager.AddSound(this.auto.GetPosition(), 50f, -2500, "BackgroundMusic\\YouCouldBeMine.wav", "YouCouldBeMine", false);
             this.auto.SoundsManager.GetSound("YouCouldBeMine").play(true);
 
-            
-
-
+            /*var aspectRatio = D3DDevice.Instance.AspectRatio;
+            TGCMatrix view = TGCMatrix.LookAtLH(gameModel.Camara.Position, gameModel.Camara.LookAt, gameModel.Camara.UpVector);
+            TGCMatrix proj = TGCMatrix.PerspectiveFovLH(Geometry.DegreeToRadian(360), aspectRatio, 0, 1);
+            this.gameModel.Frustum.updateVolume(view, proj);
+            D3DDevice.Instance.Device.Transform.View = view;
+            D3DDevice.Instance.Device.Transform.Projection = proj;
+            */
 
             this.Update();
         }
