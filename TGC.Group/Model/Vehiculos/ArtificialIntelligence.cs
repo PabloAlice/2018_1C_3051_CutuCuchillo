@@ -19,7 +19,7 @@ namespace TGC.Group.Model.Vehiculos
 
         public ArtificialIntelligence(TGCVector3 posicionInicial, SoundsManager soundsManager) : base(posicionInicial, soundsManager)
         {
-            this.CrearMesh(GlobalConcepts.GetInstance().GetMediaDir() + "meshCreator\\meshes\\Vehiculos\\Camioneta\\Camioneta-TgcScene.xml", posicionInicial);
+            this.CreateMesh(GlobalConcepts.GetInstance().GetMediaDir() + "meshCreator\\meshes\\Vehiculos\\Camioneta\\Camioneta-TgcScene.xml", posicionInicial);
             string reverseLightsPath, frontLightsPath, breakLightsPath;
             reverseLightsPath = GlobalConcepts.GetInstance().GetMediaDir() + "meshCreator\\meshes\\Vehiculos\\Camioneta\\LucesMarchaAtras\\Luces-TgcScene.xml";
             frontLightsPath = GlobalConcepts.GetInstance().GetMediaDir() + "meshCreator\\meshes\\Vehiculos\\Camioneta\\LucesDelanteras\\Luces-TgcScene.xml";

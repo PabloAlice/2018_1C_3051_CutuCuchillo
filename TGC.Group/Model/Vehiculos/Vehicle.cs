@@ -71,7 +71,6 @@ namespace TGC.Group.Model
             this.velocidadMaximaDeRetroceso = this.velocidadMaximaDeAvance * 0.7f;
             this.CreateSmoke();
             this.CreateSpark();
-            this.pointsOfCollision = new PointsOfCollision();
 
         }
 
@@ -255,7 +254,7 @@ namespace TGC.Group.Model
             this.obb.Rotate(rotacion);
         }
 
-        protected void CrearMesh(string rutaAMesh, TGCVector3 posicionInicial)
+        protected void CreateMesh(string rutaAMesh, TGCVector3 posicionInicial)
         {
             TgcSceneLoader loader = new TgcSceneLoader();
             TgcScene scene = loader.loadSceneFromFile(rutaAMesh);
@@ -267,7 +266,9 @@ namespace TGC.Group.Model
             this.mesh.BoundingBox.transform(this.matrixs.GetTransformation());
             this.obb = new BoundingOrientedBox(this.mesh.BoundingBox);
             this.mesh.Effect = TgcShaders.loadEffect(GlobalConcepts.GetInstance().GetShadersDir() + "EfectosVehiculo.fx");
-            mesh.Technique = "Deform";
+            mesh.Technique = "Iluminate";
+            this.pointsOfCollision = new PointsOfCollision(mesh.getVertexPositions());
+            this.pointsOfCollision.medium = (mesh.BoundingBox.PMax + mesh.BoundingBox.PMin) * 0.5f;
 
         }
 
@@ -389,6 +390,10 @@ namespace TGC.Group.Model
         {
             Lighting.LightManager.GetInstance().DoLightMe(this.mesh.Effect);
             this.mesh.Effect.SetValue("pointsOfCollision", this.pointsOfCollision.GetPointsOfCollision());
+            this.mesh.Effect.SetValue("radio", this.pointsOfCollision.radio);
+            this.mesh.Effect.SetValue("constantOfDeformation", this.pointsOfCollision.constantOfDeformation);
+            Vector4 vector = new Vector4(pointsOfCollision.medium.X, pointsOfCollision.medium.Y, pointsOfCollision.medium.Z,1);
+            this.mesh.Effect.SetValue("medium", vector);
         }
 
         private void RenderLights()
@@ -673,6 +678,23 @@ namespace TGC.Group.Model
             {
                 estado = new Frozen(this);
             }
+            if (input.keyDown(Key.NumPad1))
+            {
+                this.pointsOfCollision.constantOfDeformation += 10f;
+            }
+            if (input.keyDown(Key.NumPad2))
+            {
+                this.pointsOfCollision.constantOfDeformation -= 10f;
+            }
+
+            if (input.keyDown(Key.NumPad7))
+            {
+                this.pointsOfCollision.radio -= 0.01f;
+            }
+            if (input.keyDown(Key.NumPad9))
+            {
+                this.pointsOfCollision.radio += 0.01f;
+            }
         }
 
         virtual protected void UpdateValues()
@@ -740,12 +762,24 @@ namespace TGC.Group.Model
         private class PointsOfCollision{
             private Vector4[] pointsOfCollision;
             private int index = 0;
-            private int max = 6;
+            private int max = 1;
+            public float radio = 8;
+            public float constantOfDeformation = 0.01f;
+            public TGCVector3 medium;
 
-            public PointsOfCollision()
+            public PointsOfCollision(TGCVector3[] vertexsPosition)
             {
                 pointsOfCollision = new Vector4[max];
                 this.Reset();
+                this.AddPointOfCollision(vertexsPosition[6]);
+                //this.AddPointOfCollision(vertexsPosition[7]);
+                //this.AddPointOfCollision(vertexsPosition[28]);
+                //this.AddPointOfCollision(vertexsPosition[33]);
+                //this.AddPointOfCollision(vertexsPosition[44]);
+                //this.AddPointOfCollision(vertexsPosition[47]);
+                //this.AddPointOfCollision(vertexsPosition[70]);
+                //this.AddPointOfCollision(vertexsPosition[130]);
+                //this.AddPointOfCollision(vertexsPosition[169]);
             }
 
             public void Reset()

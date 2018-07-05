@@ -96,7 +96,8 @@ namespace TGC.Group.Model
 
         public bool IsColliding(Weapon weapon)
         {
-            return TgcCollisionUtils.testSphereAABB(weapon.sphere, this.mesh.BoundingBox);
+            System.Console.WriteLine("me trabe1");
+            return TgcCollisionUtils.classifyPointPlane(weapon.GetPosition(), this.realPlane) == 0;
         }
 
         public bool IsInto(TGCVector3 minPoint, TGCVector3 maxPoint)

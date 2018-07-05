@@ -14,7 +14,7 @@ namespace TGC.Group.Model.Vehiculos
         {
 
             this.escaladoInicial = new TGCVector3(0.01f, 0.01f, 0.01f);
-            this.CrearMesh(GlobalConcepts.GetInstance().GetMediaDir() + "meshCreator\\meshes\\Vehiculos\\Hummer\\Hummer-TgcScene.xml", posicionInicial);
+            this.CreateMesh(GlobalConcepts.GetInstance().GetMediaDir() + "meshCreator\\meshes\\Vehiculos\\Hummer\\Hummer-TgcScene.xml", posicionInicial);
             string reverseLightsPath, frontLightsPath, breakLightsPath;
             reverseLightsPath = GlobalConcepts.GetInstance().GetMediaDir() + "meshCreator\\meshes\\Vehiculos\\Hummer\\LucesMarchaAtras\\Luces-TgcScene.xml";
             frontLightsPath = GlobalConcepts.GetInstance().GetMediaDir() + "meshCreator\\meshes\\Vehiculos\\Hummer\\LucesDelanteras\\Luces-TgcScene.xml";

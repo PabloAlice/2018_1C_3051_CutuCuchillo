@@ -3,7 +3,10 @@ float4x4 matWorldView; //Matriz World * View
 float4x4 matWorldViewProj; //Matriz World * View * Projection
 float4x4 matInverseTransposeWorld; //Matriz Transpose(Invert(World))
 
-float4 pointsOfCollision[6];
+float4 pointsOfCollision[1];
+float radio;
+float constantOfDeformation;
+float medium;
 
 //Material del mesh
 float3 materialEmissiveColor; //Color RGB
@@ -31,6 +34,23 @@ sampler2D diffuseMap = sampler_state
     MAGFILTER = LINEAR;
     MIPFILTER = LINEAR;
 };
+
+float4 newPosition(float4 vertexPosition)
+{
+    float4 newRealPoint = mul(vertexPosition, matWorldViewProj);
+    for (int i = 0; i < 1; i++)
+    {
+        if (distance(pointsOfCollision[i], vertexPosition) <= radio)
+        {
+            float4 newposition = float4(vertexPosition.x * constantOfDeformation, vertexPosition.y * constantOfDeformation, vertexPosition.z * constantOfDeformation, vertexPosition.z);
+            newRealPoint = mul(newposition, matWorldViewProj);
+        }
+        
+    }
+
+    return newRealPoint;
+        
+}
 
 
 /* FREEZE */
@@ -85,49 +105,6 @@ float4 Freeze_ps(FREEZE_OUTPUT Input) : COLOR0
 
 /* FREEZE */
 
-/* DEFORMACIONES */
-
-struct DEFORMATION_INPUT
-{
-    float4 Position : POSITION0;
-    float4 Color : COLOR0;
-    float2 Texcoord : TEXCOORD0;
-};
-
-struct DEFORMATION_OUTPUT
-{
-    float4 Position : POSITION0;
-    float4 Color : COLOR0;
-    float2 Texcoord : TEXCOORD0;
-};
-
-DEFORMATION_OUTPUT Deformation_vs(DEFORMATION_INPUT Input)
-{
-    DEFORMATION_OUTPUT Output;
-    float4 flag = float4(0,0,0,0);
-    for (int i = 0; i < 6; i++)
-    {
-        if (distance(pointsOfCollision[i], flag) == 0)
-        {
-            Output.Position = mul(Input.Position, matWorldViewProj);
-        }
-    }
-
-    Output.Texcoord = Input.Texcoord;
-
-    Output.Color = Input.Color;
-
-    return (Output);
-}
-
-//Pixel Shader
-float4 Deformation_ps(float2 Texcoord : TEXCOORD0) : COLOR0
-{
-    return tex2D(diffuseMap, Texcoord);
-}
-
-/* DEFORMACIONES */
-
 /**************************************************************************************/
 /* DIFFUSE_MAP */
 /**************************************************************************************/
@@ -157,7 +134,8 @@ VS_OUTPUT_DIFFUSE_MAP vs_DiffuseMap(VS_INPUT_DIFFUSE_MAP input)
 {
     VS_OUTPUT_DIFFUSE_MAP output;
 
-	//Proyectar posicion
+    //Proyectar posicion
+    //output.Position = newPosition(input.Position);
     output.Position = mul(input.Position, matWorldViewProj);
 
 	//Enviar Texcoord directamente
@@ -243,15 +221,6 @@ technique Freeze
     {
         VertexShader = compile vs_3_0 Freeze_vs();
         PixelShader = compile ps_3_0 Freeze_ps();
-    }
-}
-
-technique Deform
-{
-    pass Pass_0
-    {
-        VertexShader = compile vs_3_0 Deformation_vs();
-        PixelShader = compile ps_3_0 Deformation_ps();
     }
 }
 
