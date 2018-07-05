@@ -9,6 +9,7 @@ using Microsoft.DirectX.DirectInput;
 using TGC.Core.Shaders;
 using TGC.Core.Collision;
 using TGC.Core.Particle;
+using Microsoft.DirectX;
 
 namespace TGC.Group.Model
 {
@@ -51,6 +52,7 @@ namespace TGC.Group.Model
         public Light frontLights;
         public Light reverseLights;
         public Light breakLights;
+        private PointsOfCollision pointsOfCollision;
 
         //Timer shaderTime = new Timer();
         //FloatModifier shaderColorModifier = new FloatModifier(0.84f, 0.74f, 0.94f);
@@ -69,6 +71,7 @@ namespace TGC.Group.Model
             this.velocidadMaximaDeRetroceso = this.velocidadMaximaDeAvance * 0.7f;
             this.CreateSmoke();
             this.CreateSpark();
+            this.pointsOfCollision = new PointsOfCollision();
 
         }
 
@@ -130,12 +133,11 @@ namespace TGC.Group.Model
             this.smoke.ParticleTimeToLive = 0.5f;
             this.smoke.CreationFrecuency = 0.001f;
             this.smoke.Dispersion = 20;
-            this.smoke.Speed = new TGCVector3(1,1,1);
+            this.smoke.Speed = new TGCVector3(1, 1, 1);
         }
 
         private void CreateSpark()
         {
-
             ParticleEmitter particle = new ParticleEmitter(GlobalConcepts.GetInstance().GetMediaDir() + "Texturas\\Chispas\\Chispas.png", 10);
             particle.Position = this.GetPosition();
             particle.MinSizeParticle = 1f;
@@ -205,7 +207,6 @@ namespace TGC.Group.Model
             ray.Direction = this.GetDirectionOfCollision();
             if (this.IntersectRayAABB(ray, car.mesh.BoundingBox))
             {
-                
                 float distanceAI = car.GetDistanceOfCollision(this.vectorAdelante, this.velocidadActual);
                 float distance = this.GetDistanceOfCollision(car.GetVectorAdelante(), car.GetVelocidadActual());
                 car.SetEstado(new Crashing(car, distanceAI, this.GetVectorAdelante()));
@@ -223,7 +224,7 @@ namespace TGC.Group.Model
             TgcBoundingAxisAlignBox.Face[] faces = aabb.computeFaces();
             foreach (TgcBoundingAxisAlignBox.Face face in faces)
             {
-                if(TgcCollisionUtils.intersectRayPlane(ray, face.Plane, out float t, out TGCVector3 intersection))
+                if (TgcCollisionUtils.intersectRayPlane(ray, face.Plane, out float t, out TGCVector3 intersection))
                 {
                     return true;
                 }
@@ -265,8 +266,8 @@ namespace TGC.Group.Model
             this.trasladoInicial = this.matrixs.GetTranslation();
             this.mesh.BoundingBox.transform(this.matrixs.GetTransformation());
             this.obb = new BoundingOrientedBox(this.mesh.BoundingBox);
-            this.mesh.Effect =  TgcShaders.loadEffect(GlobalConcepts.GetInstance().GetShadersDir() + "EfectosVehiculo.fx");
-            mesh.Technique = "Iluminate";
+            this.mesh.Effect = TgcShaders.loadEffect(GlobalConcepts.GetInstance().GetShadersDir() + "EfectosVehiculo.fx");
+            mesh.Technique = "Deform";
 
         }
 
@@ -275,10 +276,10 @@ namespace TGC.Group.Model
             float angle = GlobalConcepts.GetInstance().AngleBetweenVectors(normal, output);
             TGCVector3 result = TGCVector3.Cross(output, normal);
             //por la regla de la mano derecha
-            angle = (result.Y < 0)? angle + FastMath.PI : angle;
+            angle = (result.Y < 0) ? angle + FastMath.PI : angle;
             this.Girar(angle);
             return angle;
-            
+
         }
 
         public void SetVectorAdelante(TGCVector3 vector)
@@ -289,11 +290,11 @@ namespace TGC.Group.Model
         public float GetVelocidadDeRotacion()
         {
             double anguloRadianes = delanteraIzquierda.FrontVectorAngle();
-            if(anguloRadianes <= 0.5f )
+            if (anguloRadianes <= 0.5f)
             {
                 return this.velocidadRotacion;
             }
-            return (float) anguloRadianes * 1.5f;
+            return (float)anguloRadianes * 1.5f;
         }
 
         //sirve para imprimirlo por pantalla
@@ -333,11 +334,11 @@ namespace TGC.Group.Model
             this.RotateOBB(rotacionReal);
         }
 
-       
+
         public void SetElapsedTime()
         {
             this.elapsedTime = GlobalConcepts.GetInstance().GetElapsedTime();
-            if(this.deltaTiempoAvance.tiempoTranscurrido() != 0)
+            if (this.deltaTiempoAvance.tiempoTranscurrido() != 0)
             {
                 this.deltaTiempoAvance.acumularTiempo(this.elapsedTime);
             }
@@ -380,13 +381,14 @@ namespace TGC.Group.Model
                 this.smoke.render(this.elapsedTime);
                 this.spark.Render(this.elapsedTime);
             }
-            
+
 
         }
 
         private void SetEffectAtributes()
         {
             Lighting.LightManager.GetInstance().DoLightMe(this.mesh.Effect);
+            this.mesh.Effect.SetValue("pointsOfCollision", this.pointsOfCollision.GetPointsOfCollision());
         }
 
         private void RenderLights()
@@ -552,7 +554,7 @@ namespace TGC.Group.Model
 
         public TGCVector3 GetLastPosition()
         {
-            return TGCVector3.transform(new TGCVector3(0,0,0), this.lastTransformation);
+            return TGCVector3.transform(new TGCVector3(0, 0, 0), this.lastTransformation);
         }
 
         virtual public void Crash(float angle)
@@ -581,7 +583,7 @@ namespace TGC.Group.Model
             this.lastTransformation = this.matrixs.GetTransformation();
             this.UpdateValues();
             this.ManageEntry(input);
-            
+
         }
 
         virtual protected void ManageEntry(TgcD3dInput input)
@@ -686,7 +688,7 @@ namespace TGC.Group.Model
 
         private void UpdateShootTime()
         {
-            if(this.timeShoot > 0)
+            if (this.timeShoot > 0)
             {
                 this.timeShoot -= this.elapsedTime;
                 this.timeShoot = FastMath.Max(0f, this.timeShoot);
@@ -733,6 +735,39 @@ namespace TGC.Group.Model
         public void UnFreeze()
         {
             this.mesh.Technique = "Iluminate";
+        }
+
+        private class PointsOfCollision{
+            private Vector4[] pointsOfCollision;
+            private int index = 0;
+            private int max = 6;
+
+            public PointsOfCollision()
+            {
+                pointsOfCollision = new Vector4[max];
+                this.Reset();
+            }
+
+            public void Reset()
+            {
+                for (int i = 0; i < max; i++)
+                {
+                    pointsOfCollision[i] = new Vector4(0, 0, 0, 0);
+                }
+            }
+
+            public void AddPointOfCollision(TGCVector3 point)
+            {
+                if (index == max) return;
+                pointsOfCollision[index] = new Vector4(point.X, point.Y, point.Z, 1);
+                index++;
+            }
+
+            public Vector4[] GetPointsOfCollision()
+            {
+                return this.pointsOfCollision;
+            } 
+
         }
     }
 }

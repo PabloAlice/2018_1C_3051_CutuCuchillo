@@ -3,6 +3,8 @@ float4x4 matWorldView; //Matriz World * View
 float4x4 matWorldViewProj; //Matriz World * View * Projection
 float4x4 matInverseTransposeWorld; //Matriz Transpose(Invert(World))
 
+float4 pointsOfCollision[6];
+
 //Material del mesh
 float3 materialEmissiveColor; //Color RGB
 float3 materialAmbientColor; //Color RGB
@@ -82,6 +84,49 @@ float4 Freeze_ps(FREEZE_OUTPUT Input) : COLOR0
 }
 
 /* FREEZE */
+
+/* DEFORMACIONES */
+
+struct DEFORMATION_INPUT
+{
+    float4 Position : POSITION0;
+    float4 Color : COLOR0;
+    float2 Texcoord : TEXCOORD0;
+};
+
+struct DEFORMATION_OUTPUT
+{
+    float4 Position : POSITION0;
+    float4 Color : COLOR0;
+    float2 Texcoord : TEXCOORD0;
+};
+
+DEFORMATION_OUTPUT Deformation_vs(DEFORMATION_INPUT Input)
+{
+    DEFORMATION_OUTPUT Output;
+    float4 flag = float4(0,0,0,0);
+    for (int i = 0; i < 6; i++)
+    {
+        if (distance(pointsOfCollision[i], flag) == 0)
+        {
+            Output.Position = mul(Input.Position, matWorldViewProj);
+        }
+    }
+
+    Output.Texcoord = Input.Texcoord;
+
+    Output.Color = Input.Color;
+
+    return (Output);
+}
+
+//Pixel Shader
+float4 Deformation_ps(float2 Texcoord : TEXCOORD0) : COLOR0
+{
+    return tex2D(diffuseMap, Texcoord);
+}
+
+/* DEFORMACIONES */
 
 /**************************************************************************************/
 /* DIFFUSE_MAP */
@@ -198,6 +243,15 @@ technique Freeze
     {
         VertexShader = compile vs_3_0 Freeze_vs();
         PixelShader = compile ps_3_0 Freeze_ps();
+    }
+}
+
+technique Deform
+{
+    pass Pass_0
+    {
+        VertexShader = compile vs_3_0 Deformation_vs();
+        PixelShader = compile ps_3_0 Deformation_ps();
     }
 }
 
