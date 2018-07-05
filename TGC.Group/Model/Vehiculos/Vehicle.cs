@@ -265,8 +265,8 @@ namespace TGC.Group.Model
             this.trasladoInicial = this.matrixs.GetTranslation();
             this.mesh.BoundingBox.transform(this.matrixs.GetTransformation());
             this.obb = new BoundingOrientedBox(this.mesh.BoundingBox);
-            this.mesh.Effect =  TgcShaders.loadEffect(GlobalConcepts.GetInstance().GetShadersDir() + "FrozenMeshShader.fx");
-            mesh.Technique = "Unfreeze";
+            this.mesh.Effect =  TgcShaders.loadEffect(GlobalConcepts.GetInstance().GetShadersDir() + "EfectosVehiculo.fx");
+            mesh.Technique = "Iluminate";
 
         }
 
@@ -366,7 +366,7 @@ namespace TGC.Group.Model
             //effect.SetValue("bluecolor", shaderColorModifier.Modifier);
             if (this.IsInView(this.mesh))
             {
-                Lighting.LightManager.GetInstance().DoLightMe(this.mesh);
+                this.SetEffectAtributes();
                 this.mesh.Render();
                 this.RenderBoundingOrientedBox();
                 this.mesh.BoundingBox.Render();
@@ -382,6 +382,11 @@ namespace TGC.Group.Model
             }
             
 
+        }
+
+        private void SetEffectAtributes()
+        {
+            Lighting.LightManager.GetInstance().DoLightMe(this.mesh.Effect);
         }
 
         private void RenderLights()
@@ -727,7 +732,7 @@ namespace TGC.Group.Model
 
         public void UnFreeze()
         {
-            this.mesh.Technique = "Unfreeze";
+            this.mesh.Technique = "Iluminate";
         }
     }
 }

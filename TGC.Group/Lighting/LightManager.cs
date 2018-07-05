@@ -53,6 +53,18 @@ namespace TGC.Group.Lighting
          //   mesh.Effect.SetValue("materialSpecularColor", DiffuseModifier);
         }
 
+        public void DoLightMe(Effect effect)
+        {
+            effect.SetValue("lightColor", lightColors.First());
+            effect.SetValue("lightPosition", pointLightPositions.First());
+            effect.SetValue("lightIntensity", pointLightIntensities.First());
+            effect.SetValue("lightAttenuation", pointLightAttenuations.First());
+            effect.SetValue("materialEmissiveColor", EmissiveModifier);
+            effect.SetValue("materialAmbientColor", AmbientModifier);
+            effect.SetValue("materialDiffuseColor", DiffuseModifier);
+            //   mesh.Effect.SetValue("materialSpecularColor", DiffuseModifier);
+        }
+
         public void SuscribeLight(Light light)
         {
             if (this.lights.Contains(light)) return;

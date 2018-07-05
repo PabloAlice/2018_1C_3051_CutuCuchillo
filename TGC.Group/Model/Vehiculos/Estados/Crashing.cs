@@ -16,6 +16,7 @@ namespace TGC.Group.Model.Vehiculos.Estados
         {
             this.distance = distance;
             this.direction = direction;
+            car.UnFreeze();
         }
 
         override public TGCVector3 GetCarDirection()

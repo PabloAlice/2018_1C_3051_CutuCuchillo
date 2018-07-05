@@ -40,7 +40,7 @@ struct VS_INPUT_DIFFUSE_MAP
 	float3 Normal : NORMAL0;
 	float4 Color : COLOR;
 	float2 Texcoord : TEXCOORD0;
-};
+}; 
 
 //Output del Vertex Shader
 struct VS_OUTPUT_DIFFUSE_MAP
