@@ -37,7 +37,7 @@ sampler2D diffuseMap = sampler_state
 
 float4 newPosition(float4 vertexPosition)
 {
-    float4 newRealPoint = mul(vertexPosition, matWorldViewProj);
+    /*float4 newRealPoint = mul(vertexPosition, matWorldViewProj);
     for (int i = 0; i < 1; i++)
     {
         if (distance(pointsOfCollision[i], vertexPosition) <= radio)
@@ -48,8 +48,14 @@ float4 newPosition(float4 vertexPosition)
         
     }
 
-    return newRealPoint;
-        
+    return newRealPoint;*/
+    float4 newposition;
+    if (distance(pointsOfCollision[0], vertexPosition) <= radio)
+    {
+        newposition = float4(vertexPosition.x * constantOfDeformation, vertexPosition.y * constantOfDeformation, vertexPosition.z * constantOfDeformation, vertexPosition.z);
+    }
+    return mul(newposition, matWorldViewProj);
+
 }
 
 
@@ -136,7 +142,18 @@ VS_OUTPUT_DIFFUSE_MAP vs_DiffuseMap(VS_INPUT_DIFFUSE_MAP input)
 
     //Proyectar posicion
     //output.Position = newPosition(input.Position);
-    output.Position = mul(input.Position, matWorldViewProj);
+    //output.Position = mul(input.Position, matWorldViewProj);
+
+    if (distance(pointsOfCollision[0], input.Position) <= radio)
+    {
+        float4 newposition = float4(input.Position.x * constantOfDeformation, input.Position.y * constantOfDeformation, input.Position.z * constantOfDeformation, 1);
+        output.Position = mul(newposition, matWorldViewProj);
+
+    }
+    else
+    {
+        output.Position = mul(input.Position, matWorldViewProj);
+    }
 
 	//Enviar Texcoord directamente
     output.Texcoord = input.Texcoord;

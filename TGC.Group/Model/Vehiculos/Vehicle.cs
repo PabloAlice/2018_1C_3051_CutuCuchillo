@@ -392,6 +392,7 @@ namespace TGC.Group.Model
             this.mesh.Effect.SetValue("pointsOfCollision", this.pointsOfCollision.GetPointsOfCollision());
             this.mesh.Effect.SetValue("radio", this.pointsOfCollision.radio);
             this.mesh.Effect.SetValue("constantOfDeformation", this.pointsOfCollision.constantOfDeformation);
+            System.Console.WriteLine(this.pointsOfCollision.constantOfDeformation);
             Vector4 vector = new Vector4(pointsOfCollision.medium.X, pointsOfCollision.medium.Y, pointsOfCollision.medium.Z,1);
             this.mesh.Effect.SetValue("medium", vector);
         }
@@ -680,11 +681,11 @@ namespace TGC.Group.Model
             }
             if (input.keyDown(Key.NumPad1))
             {
-                this.pointsOfCollision.constantOfDeformation += 10f;
+                this.pointsOfCollision.constantOfDeformation += 0.01f;
             }
             if (input.keyDown(Key.NumPad2))
             {
-                this.pointsOfCollision.constantOfDeformation -= 10f;
+                this.pointsOfCollision.constantOfDeformation -= 0.01f;
             }
 
             if (input.keyDown(Key.NumPad7))
@@ -764,7 +765,7 @@ namespace TGC.Group.Model
             private int index = 0;
             private int max = 1;
             public float radio = 8;
-            public float constantOfDeformation = 0.01f;
+            public float constantOfDeformation = 0.89f;
             public TGCVector3 medium;
 
             public PointsOfCollision(TGCVector3[] vertexsPosition)
@@ -788,6 +789,7 @@ namespace TGC.Group.Model
                 {
                     pointsOfCollision[i] = new Vector4(0, 0, 0, 0);
                 }
+                index = 0;
             }
 
             public void AddPointOfCollision(TGCVector3 point)
