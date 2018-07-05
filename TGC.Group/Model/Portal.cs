@@ -13,7 +13,6 @@ namespace TGC.Group.Model
         private TGCVector3 position;
         public TgcMesh mesh;
         TGCMatrix transformation;
-        SoundsManager soundManager;
         float time = 0;
 
 		Lighting.Light light;
@@ -21,11 +20,6 @@ namespace TGC.Group.Model
 		private ColorValue EmissiveModifier = new ColorValue(50, 0, 0);
 		private ColorValue AmbientModifier = new ColorValue(255, 255, 255);
 		private ColorValue DiffuseModifier = new ColorValue(255, 150, 150);
-		
-
-		private Surface g_pDepthStencil; // Depth-stencil buffer
-		private Texture g_pRenderTarget, g_pRenderTarget4, g_pRenderTarget4Aux;
-		private VertexBuffer g_pVBV3D;
 
 		public Portal(TGCVector3 position, TGCMatrix transformationMatrix)
         {

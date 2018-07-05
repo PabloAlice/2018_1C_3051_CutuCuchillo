@@ -28,6 +28,8 @@ namespace TGC.Group.Model
                 this.Move();
                 this.weapon.Transform();
             }
+            this.weapon.matrix.Translate(TGCMatrix.Translation(this.weapon.direction * this.velocity * GlobalConcepts.GetInstance().GetElapsedTime() * 2));
+            this.weapon.Transform();
         }
 
         public override void HandleCollision(Vehicle car)
