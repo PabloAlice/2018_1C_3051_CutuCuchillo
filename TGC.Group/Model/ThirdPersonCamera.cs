@@ -9,8 +9,8 @@ namespace TGC.Group.Model
     class ThirdPersonCamera : TgcCamera
     {
         private TGCVector3 position;
-        private TGCPlane plano;
         public LinearInterpolation interpolador;
+        private TgcBoundingAxisAlignBox aabb;
 
         /// <summary>
         ///     Crear una nueva camara
@@ -23,12 +23,6 @@ namespace TGC.Group.Model
         public void Update(Vehicle car)
         {
             Scene.GetInstance().camera.Target = (car.GetPosition()) + car.GetVectorAdelante() * 30;
-            this.SetPlane(car.GetVectorAdelante());
-        }
-
-        public TGCPlane GetPlane()
-        {
-            return this.plano;
         }
 
         public ThirdPersonCamera(TGCVector3 target, float offsetHeight, float offsetForward) : this()
@@ -43,29 +37,6 @@ namespace TGC.Group.Model
         {
                 float rotate = this.interpolador.Update(elapsedTime);
                 this.rotateY(rotate);
-        }
-
-        public TGCVector3 GetNormal()
-        {
-            return new TGCVector3(this.plano.A, this.plano.B, this.plano.C);
-        }
-
-        public void SetPlane(TGCVector3 direccion)
-        {
-            this.plano = TGCPlane.FromPointNormal(this.position, direccion);
-        }
-
-        private bool IsInFrontOf(TGCVector3 position)
-        { 
-            float value = this.plano.A * position.X + this.plano.B * position.Y + this.plano.C * position.Z + this.plano.D;
-            return value > 0;
-        }
-
-        public bool IsInView(TgcBoundingAxisAlignBox bb)
-        {
-            TGCVector3 objectPosition = bb.Position;
-            return TgcCollisionUtils.testPlaneAABB(this.plano, bb) || this.IsInFrontOf(bb.Position);
-            //todo fijarse que hay una forma mas facil de hacer esto con el frustum
         }
 
         public ThirdPersonCamera(TGCVector3 target, TGCVector3 targetDisplacement, float offsetHeight, float offsetForward)
