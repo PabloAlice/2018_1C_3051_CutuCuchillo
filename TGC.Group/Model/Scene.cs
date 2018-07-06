@@ -298,10 +298,57 @@ namespace TGC.Group.Model
 
             Life life;
 
+            //habitacion
             initMatrix = new TransformationMatrix();
             initMatrix.SetScalation(TGCMatrix.Scaling(0.025f, 0.025f, 0.025f));
             initMatrix.SetRotation(TGCMatrix.RotationYawPitchRoll(0, 0, 0));
-            initMatrix.SetTranslation(TGCMatrix.Translation(new TGCVector3(10, 0.5f, 0f)));
+            initMatrix.SetTranslation(TGCMatrix.Translation(new TGCVector3(117, 0.5f, 45f)));
+            life = new Life(initMatrix.GetTransformation());
+            this.habitacion.AddElement(life);
+
+            initMatrix = new TransformationMatrix();
+            initMatrix.SetScalation(TGCMatrix.Scaling(0.025f, 0.025f, 0.025f));
+            initMatrix.SetRotation(TGCMatrix.RotationYawPitchRoll(0, 0, 0));
+            initMatrix.SetTranslation(TGCMatrix.Translation(new TGCVector3(-174f, 0.5f, 7f)));
+            life = new Life(initMatrix.GetTransformation());
+            this.habitacion.AddElement(life);
+
+            initMatrix = new TransformationMatrix();
+            initMatrix.SetScalation(TGCMatrix.Scaling(0.025f, 0.025f, 0.025f));
+            initMatrix.SetRotation(TGCMatrix.RotationYawPitchRoll(0, 0, 0));
+            initMatrix.SetTranslation(TGCMatrix.Translation(new TGCVector3(-4f, 0.5f, -131)));
+            life = new Life(initMatrix.GetTransformation());
+            this.habitacion.AddElement(life);
+
+            //banio
+
+            initMatrix = new TransformationMatrix();
+            initMatrix.SetScalation(TGCMatrix.Scaling(0.025f, 0.025f, 0.025f));
+            initMatrix.SetRotation(TGCMatrix.RotationYawPitchRoll(0, 0, 0));
+            initMatrix.SetTranslation(TGCMatrix.Translation(new TGCVector3(-135f, 0.5f, 205f)));
+            life = new Life(initMatrix.GetTransformation());
+            this.habitacion.AddElement(life);
+
+            //cocina
+
+            initMatrix = new TransformationMatrix();
+            initMatrix.SetScalation(TGCMatrix.Scaling(0.025f, 0.025f, 0.025f));
+            initMatrix.SetRotation(TGCMatrix.RotationYawPitchRoll(0, 0, 0));
+            initMatrix.SetTranslation(TGCMatrix.Translation(new TGCVector3(-90, 39.5f, 353f)));
+            life = new Life(initMatrix.GetTransformation());
+            this.habitacion.AddElement(life);
+
+            initMatrix = new TransformationMatrix();
+            initMatrix.SetScalation(TGCMatrix.Scaling(0.025f, 0.025f, 0.025f));
+            initMatrix.SetRotation(TGCMatrix.RotationYawPitchRoll(0, 0, 0));
+            initMatrix.SetTranslation(TGCMatrix.Translation(new TGCVector3(-201f, 143.5f, 275f)));
+            life = new Life(initMatrix.GetTransformation());
+            this.habitacion.AddElement(life);
+
+            initMatrix = new TransformationMatrix();
+            initMatrix.SetScalation(TGCMatrix.Scaling(0.025f, 0.025f, 0.025f));
+            initMatrix.SetRotation(TGCMatrix.RotationYawPitchRoll(0, 0, 0));
+            initMatrix.SetTranslation(TGCMatrix.Translation(new TGCVector3(-43, 0.5f, 203f)));
             life = new Life(initMatrix.GetTransformation());
             this.habitacion.AddElement(life);
 

@@ -81,7 +81,7 @@ namespace TGC.Group.Model
         private void CheckTime()
         {
             if (!visible) time.acumularTiempo(GlobalConcepts.GetInstance().GetElapsedTime());
-            if(time.tiempoTranscurrido() > 10f)
+            if(time.tiempoTranscurrido() > 60f)
             {
                 visible = true;
                 time.resetear();
