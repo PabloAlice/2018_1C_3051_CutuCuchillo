@@ -34,6 +34,8 @@ VS_OUTPUT vs_main(VS_INPUT Input)
 {
     VS_OUTPUT Output;
 
+    Input.Position.y = Input.Position.y + 5 * cos(time);
+
     Output.Position = mul(Input.Position, matWorldViewProj);
    
     Output.Texcoord = Input.Texcoord;
@@ -46,7 +48,7 @@ VS_OUTPUT vs_main(VS_INPUT Input)
 
 float4 ps_main(VS_OUTPUT Input) : COLOR0
 {
-    return (1 + abs(50 * cos(time))) * tex2D(diffuseMap, Input.Texcoord);
+    return tex2D(diffuseMap, Input.Texcoord);
 }
 
 technique Normal

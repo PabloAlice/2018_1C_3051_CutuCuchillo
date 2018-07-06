@@ -12,7 +12,8 @@ namespace TGC.Group.Model
         private TGCMatrix transformation;
         private TgcMesh mesh;
         private bool visible = true;
-        private Timer time;
+        private Timer timer;
+        private float time = 0;
         private SoundsManager sound;
 
         public Life(TGCMatrix matrix)
@@ -23,7 +24,7 @@ namespace TGC.Group.Model
             mesh.AutoTransform = false;
             transformation = matrix;
             Transform();
-            time = new Timer();
+            timer = new Timer();
             mesh.Effect = TgcShaders.loadEffect(GlobalConcepts.GetInstance().GetShadersDir() + "Vida.fx");
             mesh.Technique = "Normal";
             sound = new SoundsManager();
@@ -71,7 +72,7 @@ namespace TGC.Group.Model
             CheckTime();
             transformation = TGCMatrix.RotationYawPitchRoll(GlobalConcepts.GetInstance().GetElapsedTime(), 0, 0) * transformation;
             Transform();
-            mesh.Effect.SetValue("time", GlobalConcepts.GetInstance().GetAcumulateTime());
+            mesh.Effect.SetValue("time", time);
             if (this.IsInView(this.mesh) && visible)
             {
                 this.mesh.Render();
@@ -80,11 +81,11 @@ namespace TGC.Group.Model
 
         private void CheckTime()
         {
-            if (!visible) time.acumularTiempo(GlobalConcepts.GetInstance().GetElapsedTime());
-            if(time.tiempoTranscurrido() > 60f)
+            if (!visible) timer.acumularTiempo(GlobalConcepts.GetInstance().GetElapsedTime());
+            if(timer.tiempoTranscurrido() > 60f)
             {
                 visible = true;
-                time.resetear();
+                timer.resetear();
             }
         }
 
@@ -119,6 +120,7 @@ namespace TGC.Group.Model
 
         public void HandleCollision(Vehicle car)
         {
+            time += GlobalConcepts.GetInstance().GetElapsedTime();
             if (IsColliding(car))
             {
                 car.Cure(30);
