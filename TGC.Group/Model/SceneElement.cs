@@ -42,10 +42,9 @@ namespace TGC.Group.Model
 
         public void Collide(TgcMesh element, ThirdPersonCamera camera)
         {
+            
             while (IsColliding(element, camera))
             {
-                System.Console.WriteLine("me trabe pues");
-                System.Console.WriteLine(camera.Position);
                 camera.ZoomIn();
             }
         }
