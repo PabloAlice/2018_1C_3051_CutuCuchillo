@@ -74,6 +74,11 @@ namespace TGC.Group.Model
 
         }
 
+        public void HandleCollision(ThirdPersonCamera camera)
+        {
+            return;
+        }
+
         public void TakeDamage(float powerOfDamage)
         {
             this.life = FastMath.Max(0, life - powerOfDamage);

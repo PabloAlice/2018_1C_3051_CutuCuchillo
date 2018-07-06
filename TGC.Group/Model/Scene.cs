@@ -44,6 +44,15 @@ namespace TGC.Group.Model
             
         }
 
+        public void HandleCollisions(ThirdPersonCamera camera)
+        {
+            List<Collidable> posibleCollidables = CameraUbication(camera).GetPosiblesCollidables(camera.GetPosition());
+            foreach (Collidable element in posibleCollidables)
+            {
+                element.HandleCollision(camera);
+            }
+        }
+
         private bool IsBetween(TGCVector3 interes, TGCVector3 pmin, TGCVector3 pmax)
         {
             return interes.X > pmin.X && interes.X < pmax.X && interes.Z > pmin.Z && interes.Z < pmax.Z;
@@ -108,6 +117,25 @@ namespace TGC.Group.Model
             }
             return this.NearestSection(position);
             
+        }
+
+        private Section CameraUbication(ThirdPersonCamera camera)
+        {
+            TGCVector3 position = camera.GetPosition();
+            if (this.IsIn(this.cocina, position))
+            {
+                return this.cocina;
+            }
+            else if (this.IsIn(this.habitacion, position))
+            {
+                return this.habitacion;
+            }
+            else if (this.IsIn(this.banio, position))
+            {
+                return this.banio;
+            }
+            return this.NearestSection(position);
+
         }
 
         private Section NearestSection(TGCVector3 position)

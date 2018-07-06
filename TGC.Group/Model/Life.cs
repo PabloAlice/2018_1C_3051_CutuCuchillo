@@ -30,6 +30,11 @@ namespace TGC.Group.Model
             sound.AddSound(GetPosition(), 50, 0, "Vida\\Vida.wav", "Vida", false);
         }
 
+        public void HandleCollision(ThirdPersonCamera camera)
+        {
+            return;
+        }
+
         public void SetTexture(float u, float v)
         {
             return;

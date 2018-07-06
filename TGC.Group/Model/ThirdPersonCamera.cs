@@ -10,7 +10,7 @@ namespace TGC.Group.Model
     {
         private TGCVector3 position;
         public LinearInterpolation interpolador;
-        private TgcBoundingAxisAlignBox aabb;
+        public TgcBoundingAxisAlignBox aabb;
 
         /// <summary>
         ///     Crear una nueva camara
@@ -18,11 +18,33 @@ namespace TGC.Group.Model
         public ThirdPersonCamera()
         {
             resetValues();
+            aabb = new TgcBoundingAxisAlignBox(new TGCVector3(-1, -1, -1), new TGCVector3(1, 1, 1));
         }
 
         public void Update(Vehicle car)
         {
-            Scene.GetInstance().camera.Target = (car.GetPosition()) + car.GetVectorAdelante() * 30;
+            Target = (car.GetPosition()) + car.GetVectorAdelante() * 30;
+            OffsetForward = -33;
+            UpdateCamera(GlobalConcepts.GetInstance().GetElapsedTime());
+            CalculateAABB();
+            Scene.GetInstance().HandleCollisions(this);
+        }
+
+        private void CalculateAABB()
+        {
+            aabb.scaleTranslate(Position, new TGCVector3(1, 1, 1));
+        }
+
+        public void ZoomIn()
+        {
+            OffsetForward += 0.01f;
+            UpdateCamera(GlobalConcepts.GetInstance().GetElapsedTime());
+            CalculateAABB();
+        }
+
+        public TGCVector3 GetPosition()
+        {
+            return Position;
         }
 
         public ThirdPersonCamera(TGCVector3 target, float offsetHeight, float offsetForward) : this()
@@ -46,6 +68,7 @@ namespace TGC.Group.Model
             TargetDisplacement = targetDisplacement;
             OffsetHeight = offsetHeight;
             OffsetForward = offsetForward;
+            aabb = new TgcBoundingAxisAlignBox(new TGCVector3(-1, -1, -1), new TGCVector3(1, 1, 1));
         }
 
         /// <summary>

@@ -39,6 +39,11 @@ namespace TGC.Group.Model
             
         }
 
+        public void HandleCollision(ThirdPersonCamera camera)
+        {
+            return;
+        }
+
         private void InitializeEffect()
         {
             mesh.Effect = TgcShaders.loadEffect(GlobalConcepts.GetInstance().GetShadersDir() + "Arma.fx");

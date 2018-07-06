@@ -30,6 +30,17 @@ namespace TGC.Group.Model
             this.plane.updateValues();
         }
 
+        public void HandleCollision(ThirdPersonCamera camera)
+        {
+            return;
+            while (IsColliding(camera))
+            {
+                System.Console.WriteLine("me trabe pues");
+                System.Console.WriteLine(camera.Position);
+                camera.ZoomIn();
+            }
+        }
+
         public TGCPlane GetPlaneOfCollision(TgcRay ray, Vehicle car)
         {
             return this.realPlane;
@@ -55,6 +66,11 @@ namespace TGC.Group.Model
                 return TgcPlane.Orientations.XYplane;
             }
             throw new Exception("Error al crear la pared");
+        }
+
+        public bool IsColliding(ThirdPersonCamera camera)
+        {
+            return (int)TgcCollisionUtils.classifyPlaneAABB(realPlane, camera.aabb) != 1;
         }
 
         public bool IsColliding(Vehicle car)

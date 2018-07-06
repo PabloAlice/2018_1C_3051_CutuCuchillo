@@ -18,5 +18,6 @@ namespace TGC.Group.Model
         TGCPlane GetPlaneOfCollision(TgcRay ray, Vehicle car);
         bool IsInto(TGCVector3 minPoint, TGCVector3 maxPoint);
         void SetTexture(float u, float v);
+        void HandleCollision(ThirdPersonCamera camera);
     }
 }
