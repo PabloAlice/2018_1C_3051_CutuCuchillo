@@ -18,7 +18,7 @@ namespace TGC.Group.Model
         public ThirdPersonCamera()
         {
             resetValues();
-            aabb = new TgcBoundingAxisAlignBox(new TGCVector3(-1, -1, -1), new TGCVector3(1, 1, 1));
+            aabb = new TgcBoundingAxisAlignBox(new TGCVector3(-1, -1, -1), new TGCVector3(0.2f,0.2f,0.2f));
         }
 
         public void Update(Vehicle car)
@@ -32,7 +32,7 @@ namespace TGC.Group.Model
 
         private void CalculateAABB()
         {
-            aabb.scaleTranslate(Position, new TGCVector3(1, 1, 1));
+            aabb.scaleTranslate(Position, new TGCVector3(0.2f,0.2f,0.2f));
         }
 
         public void ZoomIn()
@@ -68,7 +68,7 @@ namespace TGC.Group.Model
             TargetDisplacement = targetDisplacement;
             OffsetHeight = offsetHeight;
             OffsetForward = offsetForward;
-            aabb = new TgcBoundingAxisAlignBox(new TGCVector3(-1, -1, -1), new TGCVector3(1, 1, 1));
+            aabb = new TgcBoundingAxisAlignBox(new TGCVector3(-1, -1, -1), new TGCVector3(0.2f,0.2f,0.2f));
         }
 
         /// <summary>
