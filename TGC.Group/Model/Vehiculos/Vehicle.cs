@@ -194,6 +194,11 @@ namespace TGC.Group.Model
             }
         }
 
+        public void Cure(float value)
+        {
+            life = FastMath.Min(100, life + value);
+        }
+
         public void HandleCollision(Weapon weapon)
         {
             weapon.IAmTheCar(this);

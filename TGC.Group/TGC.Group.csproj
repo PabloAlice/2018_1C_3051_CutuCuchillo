@@ -106,6 +106,7 @@
     <Compile Include="Model\GameModelStates\InitialMenu.cs" />
     <Compile Include="Model\GameModelStates\Playing.cs" />
     <Compile Include="Model\InExhibition.cs" />
+    <Compile Include="Model\Life.cs" />
     <Compile Include="Model\LinearInterpolation.cs" />
     <Compile Include="Model\Misile.cs" />
     <Compile Include="Model\ParticleTimer.cs" />

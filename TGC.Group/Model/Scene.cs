@@ -268,6 +268,15 @@ namespace TGC.Group.Model
             initMatrix.SetTranslation(TGCMatrix.Translation(new TGCVector3(-206, 0.35f, 232f)));
             this.cocina.AddElement(new Misile(initMatrix, weapon));
 
+            Life life;
+
+            initMatrix = new TransformationMatrix();
+            initMatrix.SetScalation(TGCMatrix.Scaling(0.025f, 0.025f, 0.025f));
+            initMatrix.SetRotation(TGCMatrix.RotationYawPitchRoll(0, 0, 0));
+            initMatrix.SetTranslation(TGCMatrix.Translation(new TGCVector3(10, 0.5f, 0f)));
+            life = new Life(initMatrix.GetTransformation());
+            this.habitacion.AddElement(life);
+
             TgcScene escena = new TgcSceneLoader().loadSceneFromFile(GlobalConcepts.GetInstance().GetMediaDir() + "Texturas\\Habitacion\\escenaMesheada-TgcScene.xml");
             escena.Meshes.ForEach((mesh) => {
                 var adj = new int[mesh.D3dMesh.NumberFaces * 3];
@@ -584,7 +593,7 @@ namespace TGC.Group.Model
             this.habitacion.AddElement(new SceneElement(list, GlobalConcepts.GenerateTransformation(new TGCVector3(0.5f, 0.5f, 0.5f), new TGCVector3(0, 0, 0), new TGCVector3(-173f, 28f, 15f))));
             list = new List<TgcMesh>();
             list = this.GiveMeAMesh("MeshCreator\\Meshes\\Habitacion\\Lapiz\\Lapiz-TgcScene.xml");
-            this.habitacion.AddElement(new SceneElement(list, GlobalConcepts.GenerateTransformation(new TGCVector3(0.3f, 0.3f, 0.3f), new TGCVector3(0, FastMath.PI_HALF, 0), new TGCVector3(208f, 42.5f, -130f))));
+            this.habitacion.AddElement(new SceneElement(list, GlobalConcepts.GenerateTransformation(new TGCVector3(0.3f, 0.3f, 0.3f), new TGCVector3(0, FastMath.PI_HALF, 0), new TGCVector3(208f, 43.8f, -130f))));
 
 
             //puertas

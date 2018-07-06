@@ -73,7 +73,6 @@ namespace TGC.Group.Model
                 //ésto está hecho a lo negro por que sino no anda, vaya a saber uno por qué
                 if (element.IsColliding(this.weapon))
                 {
-                    System.Console.WriteLine("me trabe3");
                     c = element;
                     break;
                 }

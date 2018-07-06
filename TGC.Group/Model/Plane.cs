@@ -96,7 +96,6 @@ namespace TGC.Group.Model
 
         public bool IsColliding(Weapon weapon)
         {
-            System.Console.WriteLine("me trabe1");
             return TgcCollisionUtils.classifyPointPlane(weapon.GetPosition(), this.realPlane) == 0;
         }
 
