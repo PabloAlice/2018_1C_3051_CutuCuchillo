@@ -389,10 +389,9 @@ namespace TGC.Group.Model
         private void SetEffectAtributes()
         {
             Lighting.LightManager.GetInstance().DoLightMe(this.mesh.Effect);
-            this.mesh.Effect.SetValue("pointsOfCollision", this.pointsOfCollision.GetPointsOfCollision());
+            this.mesh.Effect.SetValue("pointsOfCollision", this.pointsOfCollision.CalculateDeformation(life));
             this.mesh.Effect.SetValue("radio", this.pointsOfCollision.radio);
             this.mesh.Effect.SetValue("constantOfDeformation", this.pointsOfCollision.constantOfDeformation);
-            System.Console.WriteLine(this.pointsOfCollision.constantOfDeformation);
             Vector4 vector = new Vector4(pointsOfCollision.medium.X, pointsOfCollision.medium.Y, pointsOfCollision.medium.Z,1);
             this.mesh.Effect.SetValue("medium", vector);
         }
@@ -763,24 +762,32 @@ namespace TGC.Group.Model
         private class PointsOfCollision{
             private Vector4[] pointsOfCollision;
             private int index = 0;
-            private int max = 1;
+            //si se cambia el numero máximo de elementos, hay que cambiarlo tambien en el shader
+            private int max = 12;
             public float radio = 8;
             public float constantOfDeformation = 0.89f;
             public TGCVector3 medium;
+            private TGCVector3[] vertexsPositions;
 
             public PointsOfCollision(TGCVector3[] vertexsPosition)
             {
                 pointsOfCollision = new Vector4[max];
                 this.Reset();
-                this.AddPointOfCollision(vertexsPosition[6]);
-                //this.AddPointOfCollision(vertexsPosition[7]);
-                //this.AddPointOfCollision(vertexsPosition[28]);
-                //this.AddPointOfCollision(vertexsPosition[33]);
-                //this.AddPointOfCollision(vertexsPosition[44]);
-                //this.AddPointOfCollision(vertexsPosition[47]);
-                //this.AddPointOfCollision(vertexsPosition[70]);
-                //this.AddPointOfCollision(vertexsPosition[130]);
-                //this.AddPointOfCollision(vertexsPosition[169]);
+                this.vertexsPositions = new TGCVector3[max];
+                this.vertexsPositions[0] = (vertexsPosition[6]);
+                this.vertexsPositions[1] = (vertexsPosition[7]);
+                this.vertexsPositions[2] = (vertexsPosition[28]);
+                this.vertexsPositions[3] = (vertexsPosition[33]);
+                this.vertexsPositions[4] = (vertexsPosition[44]);
+                this.vertexsPositions[5] = (vertexsPosition[47]);
+                this.vertexsPositions[6] = (vertexsPosition[70]);
+                this.vertexsPositions[7] = (vertexsPosition[130]);
+                this.vertexsPositions[8] = (vertexsPosition[169]);
+                this.vertexsPositions[9] = (vertexsPosition[239]);
+                this.vertexsPositions[10] = (vertexsPosition[414]);
+                this.vertexsPositions[11] = (vertexsPosition[773]);
+
+
             }
 
             public void Reset()
@@ -792,17 +799,41 @@ namespace TGC.Group.Model
                 index = 0;
             }
 
+            public void AddFirst(int numberOfElements)
+            {
+                for (int i = 0; i < numberOfElements; i++)
+                {
+                    this.AddPointOfCollision(this.vertexsPositions[i]);
+                }
+            }
+
+            public Vector4[] CalculateDeformation(float life)
+            {
+                this.Reset();
+                if (life > 75)
+                {
+                }
+                else if (life > 50)
+                {
+                    this.AddFirst(4);
+                }
+                else if(life > 25)
+                {
+                    this.AddFirst(8);
+                }
+                else
+                {
+                    this.AddFirst(12);
+                }
+                return this.pointsOfCollision;
+            }
+
             public void AddPointOfCollision(TGCVector3 point)
             {
-                if (index == max) return;
+                if (index >= max) return;
                 pointsOfCollision[index] = new Vector4(point.X, point.Y, point.Z, 1);
                 index++;
             }
-
-            public Vector4[] GetPointsOfCollision()
-            {
-                return this.pointsOfCollision;
-            } 
 
         }
     }
