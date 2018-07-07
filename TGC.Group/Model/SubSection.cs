@@ -29,10 +29,21 @@ namespace TGC.Group.Model
             return this.maxPoint;
         }
 
+        public List<TypeOfPortal> GetPortals()
+        {
+            return this.elements.FindAll(p => p is TypeOfPortal).Cast<TypeOfPortal>().ToList();
+        }
+
         public List<Weapon> GetWeapons()
         {
-            List<Weapon> weapons = this.elements.FindAll(e => e is Weapon).Cast<Weapon>().ToList();
+            List<Weapon> weapons = this.elements.FindAll(e => e is Weapon && e.GetPosition().Y < 2f).Cast<Weapon>().ToList();
             return weapons.FindAll(w => !(w.weaponState is ReadyToShoot));
+        }
+
+        public List<Life> GetLifes()
+        {
+            List<Life> lifes = this.elements.FindAll(e => e is Life).Cast<Life>().ToList();
+            return lifes.FindAll(l => l.IsVisible());
         }
 
         public void AddElement(Collidable element)

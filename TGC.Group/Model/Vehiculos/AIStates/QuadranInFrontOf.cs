@@ -17,7 +17,7 @@ namespace TGC.Group.Model.Vehiculos.AIStates
         override public void Execute()
         {
             this.state.Advance();
-            Scene.GetInstance().AI.Shoot();
+            if(Scene.GetInstance().VehicleUbication(Scene.GetInstance().auto) == Scene.GetInstance().VehicleUbication(Scene.GetInstance().AI))Scene.GetInstance().AI.Shoot();
         }
     }
 }

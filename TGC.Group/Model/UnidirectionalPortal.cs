@@ -14,6 +14,11 @@ namespace TGC.Group.Model
             this.originPortal.CreateMesh(mesh);
         }
 
+        public override bool GoTo(Section section)
+        {
+            return GlobalConcepts.GetInstance().IsBetweenXZ(targetPosition, section.GetPuntoMinimo(), section.GetPuntoMaximo());
+        }
+
         public override TGCVector3 GetTargetPosition()
         {
             return this.targetPosition;

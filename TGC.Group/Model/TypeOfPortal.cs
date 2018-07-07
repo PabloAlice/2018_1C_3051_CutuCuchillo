@@ -22,6 +22,8 @@ namespace TGC.Group.Model
             this.soundManager.AddSound(this.GetPosition(), 10f, 0, "Portal\\Goku.wav", "Goku", false);
         }
 
+        abstract public bool GoTo(Section section);
+
         public void HandleCollision(ThirdPersonCamera camera)
         {
             return;
@@ -111,11 +113,11 @@ namespace TGC.Group.Model
             var yCross = TGCVector3.Cross(car.vectorAdelante, this.outDirection).Y;
             var giro = (yCross > 0) ? acos : -acos;
             car.Girar(giro);
-            Scene.GetInstance().camera.rotateY(giro);
+            if(!(car is ArtificialIntelligence))Scene.GetInstance().camera.rotateY(giro);
             if (car.GetVelocidadActual() < 0)
             {
                 car.Girar(FastMath.PI);
-                Scene.GetInstance().camera.rotateY(FastMath.PI);
+                if (!(car is ArtificialIntelligence)) Scene.GetInstance().camera.rotateY(FastMath.PI);
             }
         }
 

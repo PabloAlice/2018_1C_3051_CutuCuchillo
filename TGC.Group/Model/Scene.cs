@@ -15,9 +15,13 @@ namespace TGC.Group.Model
 
         private Scene()
         {
-            this.cocina = new Section(new TGCVector3(-52, 0, 145), new TGCVector3(227, 0, 380));
-            this.habitacion = new Section(new TGCVector3(-221,0,-174), new TGCVector3(227,0,145));
-            this.banio = new Section(new TGCVector3(-221, 0, 145), new TGCVector3(-52, 0, 300));
+            cocina = new Section(new TGCVector3(-52, 0, 145), new TGCVector3(227, 0, 380));
+            habitacion = new Section(new TGCVector3(-221,0,-174), new TGCVector3(227,0,145));
+            banio = new Section(new TGCVector3(-221, 0, 145), new TGCVector3(-52, 0, 300));
+            cocina.SetNextSection(habitacion);
+            habitacion.SetNextSection(banio);
+            banio.SetNextSection(cocina);
+
 
         }
 
@@ -69,6 +73,11 @@ namespace TGC.Group.Model
             return this.VehicleUbication(car).GetWeapons();
         }
 
+        public List<Life> GetLifes(Vehicle car)
+        {
+            return this.VehicleUbication(car).GetLifes();
+        }
+
         public void AddToSection(Collidable element)
         {
             TGCVector3 position = element.GetPosition();
@@ -100,7 +109,7 @@ namespace TGC.Group.Model
             return this.WeaponUbication(weapon).GetPosiblesCollidables(weapon.GetPosition());
         }
 
-        private Section VehicleUbication(Vehicle car)
+        public Section VehicleUbication(Vehicle car)
         {
             TGCVector3 position = car.GetPosition();
             if (this.IsIn(this.cocina, position))
@@ -195,7 +204,7 @@ namespace TGC.Group.Model
             initMatrix = new TransformationMatrix();
             initMatrix.SetScalation(TGCMatrix.Scaling(0.02f, 0.02f, 0.02f));
             initMatrix.SetRotation(TGCMatrix.RotationYawPitchRoll(0,0,0));
-            initMatrix.SetTranslation(TGCMatrix.Translation(new TGCVector3(0, 0.35f, 0)));
+            initMatrix.SetTranslation(TGCMatrix.Translation(new TGCVector3(-21f, 0.35f, 5f)));
             this.habitacion.AddElement(new Bomb(initMatrix, weapon));
 
             weapon = this.GimeMeASingleMesh("MeshCreator\\Meshes\\Otros\\Weapons\\Misil\\Misil-TgcScene.xml");
@@ -223,7 +232,7 @@ namespace TGC.Group.Model
             initMatrix = new TransformationMatrix();
             initMatrix.SetScalation(TGCMatrix.Scaling(0.02f, 0.02f, 0.02f));
             initMatrix.SetRotation(TGCMatrix.RotationYawPitchRoll(0, 0, 0));
-            initMatrix.SetTranslation(TGCMatrix.Translation(new TGCVector3(0f, 0.35f, -50)));
+            initMatrix.SetTranslation(TGCMatrix.Translation(new TGCVector3(0f, 0.35f, -65)));
             this.habitacion.AddElement(new BolaHielo(initMatrix, weapon));
 
             weapon = this.GimeMeASingleMesh("MeshCreator\\Meshes\\Otros\\Weapons\\BolaHielo\\BolaHielo-TgcScene.xml");

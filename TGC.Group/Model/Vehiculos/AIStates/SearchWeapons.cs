@@ -12,23 +12,15 @@ namespace TGC.Group.Model.Vehiculos.AIStates
 
         }
 
-        override protected void DeterminateState()
+        override public void Run()
         {
-            Vehicle car = Scene.GetInstance().auto;
-            if (this.AI.IsEnemyInRadar(car))
-            {
-                this.AI.ChangeState(new FollowingCar(this.AI));
-            }
-            else if (this.AI.DoIHaveEnoughWeapons())
-            {
-                this.AI.ChangeState(new TakeAWalk(this.AI));
-            }
-        }
-
-        public override void Run()
-        {
-            base.Run();
             List<Weapon> weapons = Scene.GetInstance().GetWeapons(this.AI);
+            if (weapons.Count == 0)
+            {
+                AI.ChangeState(new GoToAnotherSection(AI));
+                AI.aiState.Run();
+                return;
+            }
             Weapon weapon = this.SelectTheNearest(weapons);
             Quadrant quadrant = this.GetCuadrante(weapon.GetPosition());
             quadrant.Execute();

@@ -132,6 +132,9 @@
     <Compile Include="Model\Timer.cs" />
     <Compile Include="Model\Vehiculos\AIStates\AIState.cs" />
     <Compile Include="Model\Vehiculos\AIStates\FollowingCar.cs" />
+    <Compile Include="Model\Vehiculos\AIStates\FoundLife.cs" />
+    <Compile Include="Model\Vehiculos\AIStates\GoToAnotherSection.cs" />
+    <Compile Include="Model\Vehiculos\AIStates\GoToEnemySection.cs" />
     <Compile Include="Model\Vehiculos\AIStates\QuadranInFrontOf.cs" />
     <Compile Include="Model\Vehiculos\AIStates\Quadrant.cs" />
     <Compile Include="Model\Vehiculos\AIStates\QuadrantBottomLeft.cs" />
