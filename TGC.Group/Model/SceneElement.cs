@@ -23,6 +23,20 @@ namespace TGC.Group.Model
             this.transformacion = transformacion;
         }
 
+        public SceneElement(List<TgcMesh> elementos)
+        {
+            foreach (TgcMesh mesh in elementos)
+            {
+                mesh.AutoTransform = false;
+                this.elements.Add(mesh);
+            }
+        }
+
+        public void Init()
+        {
+
+        }
+
         private bool IsColliding(TgcMesh element, ThirdPersonCamera camera)
         {
             return TgcCollisionUtils.testAABBAABB(element.BoundingBox, camera.aabb);
@@ -122,15 +136,6 @@ namespace TGC.Group.Model
             }
 
             return null;
-        }
-
-        public SceneElement(List<TgcMesh> elementos)
-        {
-            foreach (TgcMesh mesh in elementos)
-            {
-                mesh.AutoTransform = false;
-                this.elements.Add(mesh);
-            }
         }
 
         public TgcBoundingAxisAlignBox GetBoundingAlignBox()

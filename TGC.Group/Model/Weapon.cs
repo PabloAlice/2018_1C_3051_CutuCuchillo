@@ -39,6 +39,8 @@ namespace TGC.Group.Model
             
         }
 
+        public void Init() { }
+
         public void HandleCollision(ThirdPersonCamera camera)
         {
             return;

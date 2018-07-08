@@ -26,18 +26,13 @@ namespace TGC.Group.Model
 
         public override void Init()
         {
-
-            var deviceHeight = D3DDevice.Instance.Height;
-            var deviceWidth = D3DDevice.Instance.Width;
             GlobalConcepts.GetInstance().SetMediaDir(this.MediaDir);
             GlobalConcepts.GetInstance().SetShaderDir(this.ShadersDir);
             GlobalConcepts.GetInstance().SetDispositivoDeAudio(this.DirectSound.DsDevice);
             GlobalConcepts.GetInstance().SetScreen(D3DDevice.Instance.Device);
-            gameModelState = new InitialMenu(this);
-            Scene.GetInstance().Init();
-
             GlobalConcepts.GetInstance().SetFrustum(this.Frustum);
-            
+            gameModelState = new InitialMenu(this);
+            gameModelState.Init();
 
             //this.Camara = camaraManagement;
             

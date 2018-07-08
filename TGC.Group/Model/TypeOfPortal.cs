@@ -22,6 +22,8 @@ namespace TGC.Group.Model
             this.soundManager.AddSound(this.GetPosition(), 10f, 0, "Portal\\Goku.wav", "Goku", false);
         }
 
+        public void Init() { }
+
         abstract public bool GoTo(Section section);
 
         public void HandleCollision(ThirdPersonCamera camera)

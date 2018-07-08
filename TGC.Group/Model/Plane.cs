@@ -22,7 +22,10 @@ namespace TGC.Group.Model
             this.mesh = this.plane.toMesh("plane");
             this.realPlane = TGCPlane.FromPointNormal(minPoint, orientation);
         }
+        public void Init()
+        {
 
+        }
         public void SetTexture(float u, float v)
         {
             this.plane.UTile = u;

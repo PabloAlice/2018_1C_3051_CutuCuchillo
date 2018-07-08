@@ -22,13 +22,18 @@ namespace TGC.Group.Model
             TgcScene scene = loader.loadSceneFromFile(GlobalConcepts.GetInstance().GetMediaDir() + "MeshCreator\\Meshes\\Otros\\Vida\\Vida-TgcScene.xml");
             mesh = scene.Meshes[0];
             mesh.AutoTransform = false;
-            transformation = matrix;
             Transform();
             timer = new Timer();
             mesh.Effect = TgcShaders.loadEffect(GlobalConcepts.GetInstance().GetShadersDir() + "Vida.fx");
             mesh.Technique = "Normal";
             sound = new SoundsManager();
             sound.AddSound(GetPosition(), 50, 0, "Vida\\Vida.wav", "Vida", false);
+            mesh.AutoTransform = false;
+            transformation = matrix;
+        }
+        public void Init()
+        {
+            
         }
 
         public bool IsVisible()
