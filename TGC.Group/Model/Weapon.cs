@@ -17,7 +17,7 @@ namespace TGC.Group.Model
         public TransformationMatrix initialTransformation = new TransformationMatrix();
         public TransformationMatrix matrix = new TransformationMatrix();
         public SoundsManager soundManager;
-        public ParticleEmitter particle;
+        public ParticleTimer particle;
         private float time = 0f;
         protected float powerOfDamage;
 
@@ -135,7 +135,7 @@ namespace TGC.Group.Model
         {
             time += GlobalConcepts.GetInstance().GetElapsedTime();
             mesh.Effect.SetValue("time", time);
-            this.particle.render(GlobalConcepts.GetInstance().GetElapsedTime());
+            this.particle.Render(GlobalConcepts.GetInstance().GetElapsedTime());
             if (this.IsInView(this.mesh))
             {
                 this.weaponState.Render();

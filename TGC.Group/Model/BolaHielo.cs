@@ -20,15 +20,16 @@ namespace TGC.Group.Model
 
         override protected void CreateParticle()
         {
-            this.particle = new ParticleEmitter(GlobalConcepts.GetInstance().GetMediaDir() + "Texturas\\Explosion\\Bomba.png", 10);
-            this.particle.Position = this.GetPosition();
-            this.particle.MinSizeParticle = 1f;
-            this.particle.MaxSizeParticle = 2f;
-            this.particle.ParticleTimeToLive = 0.5f;
-            this.particle.CreationFrecuency = 0.1f;
-            this.particle.Dispersion = 30;
-            this.particle.Playing = false;
-            this.particle.Speed = new TGCVector3(1, 1, 1);
+            ParticleEmitter particle = new ParticleEmitter(GlobalConcepts.GetInstance().GetMediaDir() + "Texturas\\Explosion\\Bomba.png", 10);
+            particle.Position = this.GetPosition();
+            particle.MinSizeParticle = 1f;
+            particle.MaxSizeParticle = 2f;
+            particle.ParticleTimeToLive = 0.5f;
+            particle.CreationFrecuency = 0.1f;
+            particle.Dispersion = 30;
+            particle.Playing = false;
+            particle.Speed = new TGCVector3(1, 1, 1);
+            this.particle = new ParticleTimer(particle, 2f);
         }
 
         public override void Collide(Collidable element)

@@ -106,9 +106,8 @@ namespace TGC.Group.Model
 
         protected void Explode()
         {
-            this.weapon.particle.Playing = true;
-            this.weapon.particle.Position = this.weapon.GetPosition();
-            this.weapon.soundManager.GetSound("Explosion").play();
+            weapon.particle.Play(weapon.GetPosition());
+            weapon.soundManager.GetSound("Explosion").play();
         }
 
     }
