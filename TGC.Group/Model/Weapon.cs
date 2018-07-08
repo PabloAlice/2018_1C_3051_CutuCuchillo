@@ -135,10 +135,11 @@ namespace TGC.Group.Model
         {
             time += GlobalConcepts.GetInstance().GetElapsedTime();
             mesh.Effect.SetValue("time", time);
+            this.particle.render(GlobalConcepts.GetInstance().GetElapsedTime());
             if (this.IsInView(this.mesh))
             {
                 this.weaponState.Render();
-                this.particle.render(GlobalConcepts.GetInstance().GetElapsedTime());
+                
             }
             
         }

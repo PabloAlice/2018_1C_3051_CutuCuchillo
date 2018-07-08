@@ -20,7 +20,7 @@ namespace TGC.Group.Model
 
         override protected void CreateParticle()
         {
-            this.particle = new ParticleEmitter(GlobalConcepts.GetInstance().GetMediaDir() + "Texturas\\Chispas\\Chispas.png", 10);
+            this.particle = new ParticleEmitter(GlobalConcepts.GetInstance().GetMediaDir() + "Texturas\\Explosion\\Bomba.png", 10);
             this.particle.Position = this.GetPosition();
             this.particle.MinSizeParticle = 1f;
             this.particle.MaxSizeParticle = 2f;

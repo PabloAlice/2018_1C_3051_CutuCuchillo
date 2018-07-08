@@ -98,9 +98,9 @@ namespace TGC.Group.Model
         {
             while (collided.IsColliding(this.weapon))
             {
-                System.Console.WriteLine("me trabe2");
                 this.MoveBackward();
                 this.weapon.Transform();
+                System.Console.WriteLine(weapon.GetPosition());
             }
         }
 

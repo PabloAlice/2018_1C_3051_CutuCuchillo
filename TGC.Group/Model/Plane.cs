@@ -115,7 +115,8 @@ namespace TGC.Group.Model
 
         public bool IsColliding(Weapon weapon)
         {
-            return TgcCollisionUtils.classifyPointPlane(weapon.GetPosition(), this.realPlane) == 0;
+            //return TgcCollisionUtils.classifyPointPlane(weapon.GetPosition(), this.realPlane) == 0;
+            return !GlobalConcepts.GetInstance().IsInFrontOf(weapon.GetPosition(), realPlane);
         }
 
         public bool IsInto(TGCVector3 minPoint, TGCVector3 maxPoint)

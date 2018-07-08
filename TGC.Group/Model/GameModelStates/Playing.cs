@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using TGC.Core.Direct3D;
 using TGC.Core.Geometry;
 using TGC.Core.Mathematica;
+using TGC.Core.Particle;
 using TGC.Core.SceneLoader;
 using TGC.Core.Text;
 using TGC.Group.Model.Vehiculos;
@@ -27,6 +28,7 @@ namespace TGC.Group.Model.GameModelStates
         private TgcText2D textoVelocidadVehiculo, textoOffsetH, textoOffsetF, textoPosicionVehiculo, textoVectorAdelante, AIPosition, textTexture;
         private float u = 1, v = 1;
         private GameModel gameModel;
+        private ParticleEmitter particle;
 
         public Playing(GameModel gameModel, Vehicle car)
         {
@@ -78,6 +80,9 @@ namespace TGC.Group.Model.GameModelStates
             D3DDevice.Instance.Device.Transform.View = view;
             D3DDevice.Instance.Device.Transform.Projection = proj;
             */
+            particle = new ParticleEmitter(GlobalConcepts.GetInstance().GetMediaDir() + "Texturas\\Chispas\\Chispas.png", 10);
+            particle.Position = new TGCVector3(0,0,0);
+            particle.Playing = true;
 
             this.Update();
         }
@@ -101,6 +106,8 @@ namespace TGC.Group.Model.GameModelStates
 
             this.AI.Transform();
             this.AI.Render();
+
+            particle.render(gameModel.ElapsedTime);
 
             //this.manager.Transform();
             //this.manager.Render();
