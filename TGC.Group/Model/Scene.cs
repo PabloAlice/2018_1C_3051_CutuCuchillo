@@ -709,10 +709,10 @@ namespace TGC.Group.Model
             this.habitacion.AddElement(new UnidirectionalPortal(portal, targetPosition, new TGCVector3(1,0,0), unidirectional));
 
             //portal que conecta la habitacion con la cocina (bidireccional)
-            transformation = GlobalConcepts.GenerateTransformation(scale, new TGCVector3(0, 0, 0), new TGCVector3(133f, 0, 143f));
-            portal = new Portal(new TGCVector3(133f, 0, 143f), transformation);
-            transformation2 = GlobalConcepts.GenerateTransformation(scale, new TGCVector3(0, 0, 0), new TGCVector3(133f, 0, 149f));
-            portal2 = new Portal(new TGCVector3(133f, 0, 149f), transformation2);
+            transformation = GlobalConcepts.GenerateTransformation(scale, new TGCVector3(0, 0, 0), new TGCVector3(133f, 0, 142f));
+            portal = new Portal(new TGCVector3(133f, 0, 142f), transformation);
+            transformation2 = GlobalConcepts.GenerateTransformation(scale, new TGCVector3(0, 0, 0), new TGCVector3(133f, 0, 149.5f));
+            portal2 = new Portal(new TGCVector3(133f, 0, 149.5f), transformation2);
             this.habitacion.AddElement(new BidirectionalPortal(portal, portal2, new TGCVector3(0,0,1), bidirectional));
             this.cocina.AddElement(new BidirectionalPortal(portal2, portal, new TGCVector3(0, 0, -1), bidirectional));
 
@@ -735,19 +735,19 @@ namespace TGC.Group.Model
             this.cocina.AddElement(new UnidirectionalPortal(portal, targetPosition, new TGCVector3(0, 0, -1), unidirectional));
 
             //portal que conecta el baño con la cocina (bidireccional)
-            transformation = GlobalConcepts.GenerateTransformation(scale, new TGCVector3(0, FastMath.PI_HALF, 0), new TGCVector3(-48f, 0, 258f));
-            portal = new Portal(new TGCVector3(-48f, 0, 258f), transformation);
-            transformation2 = GlobalConcepts.GenerateTransformation(scale, new TGCVector3(0, FastMath.PI_HALF, 0), new TGCVector3(-55f, 0, 258f));
-            portal2 = new Portal(new TGCVector3(-55f, 0, 258f), transformation2);
+            transformation = GlobalConcepts.GenerateTransformation(scale, new TGCVector3(0, FastMath.PI_HALF, 0), new TGCVector3(-48.5f, 0, 258f));
+            portal = new Portal(new TGCVector3(-48.5f, 0, 258f), transformation);
+            transformation2 = GlobalConcepts.GenerateTransformation(scale, new TGCVector3(0, FastMath.PI_HALF, 0), new TGCVector3(-56.5f, 0, 258f));
+            portal2 = new Portal(new TGCVector3(-56.5f, 0, 258f), transformation2);
             this.cocina.AddElement(new BidirectionalPortal(portal, portal2, new TGCVector3(-1,0,0), bidirectional));
             this.banio.AddElement(new BidirectionalPortal(portal2, portal, new TGCVector3(1, 0, 0), bidirectional));
 
 
             //portal que conecta el baño con la habitacion
-            transformation = GlobalConcepts.GenerateTransformation(scale, new TGCVector3(0, 0, 0), new TGCVector3(-170f, 0, 148f));
-            portal = new Portal(new TGCVector3(-170f, 0, 148f), transformation);
-            transformation2 = GlobalConcepts.GenerateTransformation(scale, new TGCVector3(0, 0, 0), new TGCVector3(-170f, 0, 142f));
-            portal2 = new Portal(new TGCVector3(-170f, 0, 142f), transformation2);
+            transformation = GlobalConcepts.GenerateTransformation(scale, new TGCVector3(0, 0, 0), new TGCVector3(-170f, 0, 148.5f));
+            portal = new Portal(new TGCVector3(-170f, 0, 148.5f), transformation);
+            transformation2 = GlobalConcepts.GenerateTransformation(scale, new TGCVector3(0, 0, 0), new TGCVector3(-170f, 0, 141.5f));
+            portal2 = new Portal(new TGCVector3(-170f, 0, 141.5f), transformation2);
             this.banio.AddElement(new BidirectionalPortal(portal, portal2, new TGCVector3(0, 0, -1), bidirectional));
             this.habitacion.AddElement(new BidirectionalPortal(portal2, portal, new TGCVector3(0, 0, 1), bidirectional));
 
