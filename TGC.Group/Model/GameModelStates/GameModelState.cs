@@ -12,6 +12,8 @@ namespace TGC.Group.Model.GameModelStates
 
         virtual public void Update() { }
 
+        virtual public void Init() { }
+
         virtual public void Render() { }
 
         virtual public void Dispose() { }

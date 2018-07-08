@@ -19,6 +19,11 @@ namespace TGC.Group.Model
             this.maxPoint = puntoMaximo;
         }
 
+        public void Init()
+        {
+            elements.ForEach(e => e.Init());
+        }
+
         public TGCVector3 GetMinPoint()
         {
             return this.minPoint;

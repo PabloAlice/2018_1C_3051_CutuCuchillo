@@ -762,7 +762,11 @@ namespace TGC.Group.Model
             portal = new Portal(new TGCVector3(-35f, 0, -173f), transformation);
             targetPosition = new TGCVector3(32, 40, -160);
             this.habitacion.AddElement(new UnidirectionalPortal(portal, targetPosition, new TGCVector3(-1, 0, 0), unidirectional));
-            
+
+            this.habitacion.Init();
+            this.banio.Init();
+            this.cocina.Init();
+
         }
 
         private List<TgcMesh> GiveMeAMesh(string ruta)

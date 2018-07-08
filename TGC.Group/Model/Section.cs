@@ -19,8 +19,14 @@ namespace TGC.Group.Model
             this.puntoMinimo = puntoMinimo;
             this.puntoMaximo = puntoMaximo;
             var pos = new TGCVector3((puntoMaximo.X + puntoMinimo.X) / 2, 200, (puntoMaximo.Z + puntoMinimo.Z) / 2);
-            this.light = new Lighting.Light(new ColorValue(255, 255, 255),  pos, 38, 0.25f);
+            this.light = new Lighting.Light(new ColorValue(255, 255, 255), pos, 38, 0.25f);
             this.GenerateSubSections();
+
+        }
+
+        public void Init()
+        {
+            subSections.ForEach(ss => ss.Init());
         }
 
         public void SetNextSection(Section section)

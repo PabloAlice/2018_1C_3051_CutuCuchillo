@@ -24,18 +24,23 @@ namespace TGC.Group.Model.GameModelStates
             this.gameModel = gameModel;
             var deviceWidth = D3DDevice.Instance.Width;
             var deviceHeight = D3DDevice.Instance.Height;
-            var camaraInterna = new ThirdPersonCamera(new TGCVector3(0f, 0f, 0f), 12.6f, -81.5f);
-            Scene.GetInstance().SetCamera(camaraInterna);
-            this.gameModel.Camara = camaraInterna;
             pressStart = new CustomSprite();
             pressStart.Bitmap = new CustomBitmap(MediaDir + "GUI\\Menu\\press-start.png", D3DDevice.Instance.Device);
-            pressStart.Position = new TGCVector2((deviceWidth / 2f) - pressStart.Bitmap.Width * 5/20, deviceHeight * 0.7f);
+            pressStart.Position = new TGCVector2((deviceWidth / 2f) - pressStart.Bitmap.Width * 5 / 20, deviceHeight * 0.7f);
             pressStart.Scaling = TGCVector2.One * 0.5f;
 
             title = new CustomSprite();
             title.Bitmap = new CustomBitmap(MediaDir + "GUI\\Menu\\title.png", D3DDevice.Instance.Device);
-            title.Position = new TGCVector2((deviceWidth / 2f) - title.Bitmap.Width * 3/20, deviceHeight * 0.1f);
+            title.Position = new TGCVector2((deviceWidth / 2f) - title.Bitmap.Width * 3 / 20, deviceHeight * 0.1f);
             title.Scaling = TGCVector2.One * 0.3f;
+        }
+        public override void Init()
+        {
+            
+            var camaraInterna = new ThirdPersonCamera(new TGCVector3(0f, 0f, 0f), 12.6f, -81.5f);
+            this.gameModel.Camara = camaraInterna;
+            Scene.GetInstance().SetCamera(camaraInterna);
+            Scene.GetInstance().Init();
         }
 
         public override void Render()
@@ -50,7 +55,7 @@ namespace TGC.Group.Model.GameModelStates
 
         public override void Update()
         {
-            if (gameModel.Input.keyDown(Microsoft.DirectX.DirectInput.Key.Return))
+            if (gameModel.Input.keyDown(Key.Return))
             {
                 this.gameModel.SetState(new CharacterSelect(gameModel));
             }
