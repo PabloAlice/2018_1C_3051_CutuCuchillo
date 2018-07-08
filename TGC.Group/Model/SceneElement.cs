@@ -23,6 +23,46 @@ namespace TGC.Group.Model
             this.transformacion = transformacion;
         }
 
+        public SceneElement(List<TgcMesh> elementos)
+        {
+            foreach (TgcMesh mesh in elementos)
+            {
+                mesh.AutoTransform = false;
+                this.elements.Add(mesh);
+            }
+        }
+
+        public void Init()
+        {
+
+        }
+
+        private bool IsColliding(TgcMesh element, ThirdPersonCamera camera)
+        {
+            return TgcCollisionUtils.testAABBAABB(element.BoundingBox, camera.aabb);
+        }
+
+        public void HandleCollision(ThirdPersonCamera camera)
+        {
+            Transform();
+            foreach (TgcMesh element in elements)
+            {
+                if (IsColliding(element, camera))
+                {
+                    Collide(element, camera);
+                }
+            }
+        }
+
+        public void Collide(TgcMesh element, ThirdPersonCamera camera)
+        {
+            
+            while (IsColliding(element, camera))
+            {
+                camera.ZoomIn();
+            }
+        }
+
         public void SetTexture(float u, float v)
         {
             return;
@@ -96,15 +136,6 @@ namespace TGC.Group.Model
             }
 
             return null;
-        }
-
-        public SceneElement(List<TgcMesh> elementos)
-        {
-            foreach (TgcMesh mesh in elementos)
-            {
-                mesh.AutoTransform = false;
-                this.elements.Add(mesh);
-            }
         }
 
         public TgcBoundingAxisAlignBox GetBoundingAlignBox()

@@ -22,12 +22,26 @@ namespace TGC.Group.Model
             this.mesh = this.plane.toMesh("plane");
             this.realPlane = TGCPlane.FromPointNormal(minPoint, orientation);
         }
+        public void Init()
+        {
 
+        }
         public void SetTexture(float u, float v)
         {
             this.plane.UTile = u;
             this.plane.VTile = v;
             this.plane.updateValues();
+        }
+
+        public void HandleCollision(ThirdPersonCamera camera)
+        {
+            return;
+            while (IsColliding(camera))
+            {
+                System.Console.WriteLine("me trabe pues");
+                System.Console.WriteLine(camera.Position);
+                camera.ZoomIn();
+            }
         }
 
         public TGCPlane GetPlaneOfCollision(TgcRay ray, Vehicle car)
@@ -55,6 +69,11 @@ namespace TGC.Group.Model
                 return TgcPlane.Orientations.XYplane;
             }
             throw new Exception("Error al crear la pared");
+        }
+
+        public bool IsColliding(ThirdPersonCamera camera)
+        {
+            return (int)TgcCollisionUtils.classifyPlaneAABB(realPlane, camera.aabb) != 1;
         }
 
         public bool IsColliding(Vehicle car)
@@ -96,8 +115,8 @@ namespace TGC.Group.Model
 
         public bool IsColliding(Weapon weapon)
         {
-            System.Console.WriteLine("me trabe1");
-            return TgcCollisionUtils.classifyPointPlane(weapon.GetPosition(), this.realPlane) == 0;
+            //return TgcCollisionUtils.classifyPointPlane(weapon.GetPosition(), this.realPlane) == 0;
+            return !GlobalConcepts.GetInstance().IsInFrontOf(weapon.GetPosition(), realPlane);
         }
 
         public bool IsInto(TGCVector3 minPoint, TGCVector3 maxPoint)

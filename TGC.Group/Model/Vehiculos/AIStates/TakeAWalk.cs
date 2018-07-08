@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TGC.Group.Model.Vehiculos.AIStates
+﻿namespace TGC.Group.Model.Vehiculos.AIStates
 {
     class TakeAWalk : AIState
     {
@@ -13,16 +7,7 @@ namespace TGC.Group.Model.Vehiculos.AIStates
 
         }
 
-        override protected void DeterminateState()
-        {
-            Vehicle car = Scene.GetInstance().auto;
-            if (this.AI.IsEnemyInRadar(car))
-            {
-                this.AI.ChangeState(new FollowingCar(this.AI));
-            }
-        }
-
-        public override void Run()
+        override public void Run()
         {
 
         }

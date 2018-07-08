@@ -43,11 +43,6 @@ namespace TGC.Group.Model.Vehiculos.AIStates
             throw new Exception("No se encuentra en ningun cuadrante");
         }
 
-        abstract protected void DeterminateState();
-
-        virtual public void Run()
-        {
-            this.DeterminateState();
-        }
+        abstract public void Run();
     }
 }

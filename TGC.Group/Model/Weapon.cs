@@ -39,6 +39,13 @@ namespace TGC.Group.Model
             
         }
 
+        public void Init() { }
+
+        public void HandleCollision(ThirdPersonCamera camera)
+        {
+            return;
+        }
+
         private void InitializeEffect()
         {
             mesh.Effect = TgcShaders.loadEffect(GlobalConcepts.GetInstance().GetShadersDir() + "Arma.fx");
@@ -128,10 +135,11 @@ namespace TGC.Group.Model
         {
             time += GlobalConcepts.GetInstance().GetElapsedTime();
             mesh.Effect.SetValue("time", time);
+            this.particle.render(GlobalConcepts.GetInstance().GetElapsedTime());
             if (this.IsInView(this.mesh))
             {
                 this.weaponState.Render();
-                this.particle.render(GlobalConcepts.GetInstance().GetElapsedTime());
+                
             }
             
         }

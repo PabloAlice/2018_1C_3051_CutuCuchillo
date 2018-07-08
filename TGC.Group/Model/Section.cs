@@ -12,14 +12,41 @@ namespace TGC.Group.Model
         private TGCVector3 puntoMinimo, puntoMaximo;
         private Lighting.Light light;
         private uint numberOfPartitions = 4;
+        private Section nextSection;
 
         public Section(TGCVector3 puntoMinimo, TGCVector3 puntoMaximo)
         {
             this.puntoMinimo = puntoMinimo;
             this.puntoMaximo = puntoMaximo;
             var pos = new TGCVector3((puntoMaximo.X + puntoMinimo.X) / 2, 200, (puntoMaximo.Z + puntoMinimo.Z) / 2);
-            this.light = new Lighting.Light(new ColorValue(255, 255, 255),  pos, 38, 0.25f);
+            this.light = new Lighting.Light(new ColorValue(255, 255, 255), pos, 38, 0.25f);
             this.GenerateSubSections();
+
+        }
+
+        public void Init()
+        {
+            subSections.ForEach(ss => ss.Init());
+        }
+
+        public void SetNextSection(Section section)
+        {
+            nextSection = section;
+        }
+
+        public List<TypeOfPortal> GetPortalsThatGoTo(Section section)
+        {
+            List<TypeOfPortal> candidates = new List<TypeOfPortal>();
+            foreach (SubSection subsection in subSections)
+            {
+                candidates.AddRange(subsection.GetPortals().FindAll(p => p.GoTo(section)));
+            }
+            return candidates;
+        }
+
+        public Section NextSection()
+        {
+            return nextSection;
         }
 
         public List<Collidable> GetPlanes()
@@ -40,6 +67,16 @@ namespace TGC.Group.Model
                 weapons.AddRange(subSection.GetWeapons());
             }
             return weapons;
+        }
+
+        public List<Life> GetLifes()
+        {
+            List<Life> lifes = new List<Life>();
+            foreach (SubSection subSection in this.subSections)
+            {
+                lifes.AddRange(subSection.GetLifes());
+            }
+            return lifes;
         }
 
         public TGCVector3 Center()

@@ -12,11 +12,13 @@ namespace TGC.Group.Model
         void HandleCollision(Weapon weapon);
         bool IsColliding(Vehicle car);
         void Render();
+        void Init();
         void Dispose();
         TGCVector3 GetPosition();
         TgcMesh GetCollidable(Vehicle car);
         TGCPlane GetPlaneOfCollision(TgcRay ray, Vehicle car);
         bool IsInto(TGCVector3 minPoint, TGCVector3 maxPoint);
         void SetTexture(float u, float v);
+        void HandleCollision(ThirdPersonCamera camera);
     }
 }

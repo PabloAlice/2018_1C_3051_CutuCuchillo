@@ -30,7 +30,8 @@ namespace TGC.Group.Model.Vehiculos
             radarSphere.setRenderColor(Color.DarkViolet);
             this.aiState = new SearchWeapons(this);
             this.CreateSounds(soundsManager);
-            this.velocidadMaximaDeAvance = 20f;
+            this.velocidadMaximaDeAvance = 40f;
+            velocidadRotacion = 2f;
         }
 
         private void CreateWheels()
@@ -61,8 +62,49 @@ namespace TGC.Group.Model.Vehiculos
 
         protected override void ManageEntry(TgcD3dInput input)
         {
+            this.DeterminateState();
             this.aiState.Run();
             return;
+        }
+
+        private void DeterminateState()
+        {
+            Vehicle car = Scene.GetInstance().auto;
+            
+            if (!HaveEnoughLife())
+            {
+                ChangeState(new FoundLife(this));
+            }
+            else if (!DoIHaveEnoughWeapons())
+            {
+                ChangeState(new SearchWeapons(this));
+            }
+            else if (IsEnemyInAnotherSection(car))
+            {
+                ChangeState(new GoToEnemySection(this));
+            
+            }
+            else if (IsEnemyInRadar(car))
+            {
+                ChangeState(new FollowingCar(this));
+            }
+            else
+            {
+                ChangeState(new GoToAnotherSection(this));
+            }
+            
+        }
+
+        private bool IsEnemyInAnotherSection(Vehicle car)
+        {
+            Section myUbication = Scene.GetInstance().VehicleUbication(this);
+            Section enemyUbication = Scene.GetInstance().VehicleUbication(car);
+            return myUbication != enemyUbication;
+        }
+
+        private bool HaveEnoughLife()
+        {
+            return life >= 50;
         }
 
         public bool DoIHaveEnoughWeapons()
