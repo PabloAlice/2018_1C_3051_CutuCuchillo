@@ -1,8 +1,13 @@
+//Matrices de transformacion
 float4x4 matWorld; //Matriz de transformacion World
 float4x4 matWorldView; //Matriz World * View
 float4x4 matWorldViewProj; //Matriz World * View * Projection
 float4x4 matInverseTransposeWorld; //Matriz Transpose(Invert(World))
 
+float screen_dx = 1024;
+float screen_dy = 768;
+
+//Textura para DiffuseMap
 texture texDiffuseMap;
 sampler2D diffuseMap = sampler_state
 {
@@ -14,122 +19,69 @@ sampler2D diffuseMap = sampler_state
     MIPFILTER = LINEAR;
 };
 
-float time;
+float time = 0;
 
-//Material del mesh
-float3 materialEmissiveColor; //Color RGB
-float3 materialAmbientColor; //Color RGB
-float4 materialDiffuseColor; //Color ARGB (tiene canal Alpha)
-float3 materialSpecularColor; //Color RGB
-float materialSpecularExp; //Exponente de specular
-
-//Parametros de la Luz
-float3 lightColor; //Color RGB de la luz
-float4 lightPosition; //Posicion de la luz
-float4 eyePosition; //Posicion de la camara
-float lightIntensity; //Intensidad de la luz
-float lightAttenuation; //Factor de atenuacion de la luz
+/**************************************************************************************/
+/* RenderScene */
+/**************************************************************************************/
 
 //Input del Vertex Shader
 struct VS_INPUT
 {
     float4 Position : POSITION0;
-	float3 Normal : NORMAL0;
-	float4 Color : COLOR;
-	float2 Texcoord : TEXCOORD0;
+    float4 Color : COLOR0;
+    float2 Texcoord : TEXCOORD0;
 };
 
 //Output del Vertex Shader
 struct VS_OUTPUT
 {
     float4 Position : POSITION0;
-	float2 Texcoord : TEXCOORD0;
-	float3 WorldPosition : TEXCOORD1;
-	float3 WorldNormal : TEXCOORD2;
-	float3 LightVec	: TEXCOORD3;
-	float3 HalfAngleVec	: TEXCOORD4;
+    float2 Texcoord : TEXCOORD0;
+    float2 RealPos : TEXCOORD1;
+    float4 Color : COLOR0;
 };
 
-VS_OUTPUT vs_main(VS_INPUT input)
+//Vertex Shader
+VS_OUTPUT vs_main(VS_INPUT Input)
 {
-    VS_OUTPUT output;
+    VS_OUTPUT Output;
+
+    Output.RealPos = Input.Position;
+
+	// Animar posicion
+    float X = Input.Position.x;
+    float Y = Input.Position.y;
+    float Z = Input.Position.z;
+    Input.Position.y = Y * cos(time) + X * sin(time);
+    Input.Position.x = X * cos(time) - Y * sin(time);
 
 	//Proyectar posicion
-	output.Position = mul(input.Position, matWorldViewProj);
+    Output.Position = mul(Input.Position, matWorldViewProj);
 
-	//Enviar Texcoord directamente
-	output.Texcoord = input.Texcoord;
+	//Propago las coordenadas de textura
+    Output.Texcoord = Input.Texcoord;
 
-	//Posicion pasada a World-Space (necesaria para atenuacion por distancia)
-	output.WorldPosition = mul(input.Position, matWorld);
+	//Propago el color x vertice
+    Output.Color = Input.Color;
 
-	/* Pasar normal a World-Space
-	Solo queremos rotarla, no trasladarla ni escalarla.
-	Por eso usamos matInverseTransposeWorld en vez de matWorld */
-	output.WorldNormal = mul(input.Normal, matInverseTransposeWorld).xyz;
-
-	//LightVec (L): vector que va desde el vertice hacia la luz. Usado en Diffuse y Specular
-	output.LightVec = lightPosition.xyz - output.WorldPosition;
-
-	//ViewVec (V): vector que va desde el vertice hacia la camara.
-	float3 viewVector = eyePosition.xyz - output.WorldPosition;
-
-	//HalfAngleVec (H): vector de reflexion simplificado de Phong-Blinn (H = |V + L|). Usado en Specular
-	output.HalfAngleVec = viewVector + output.LightVec;
-
-	return output;
+    return (Output);
 }
 
-//Input del Pixel Shader
-struct PS_MAIN
+float frecuencia = 100;
+//Pixel Shader
+float4 ps_main(VS_OUTPUT Input) : COLOR0
 {
-	float2 Texcoord : TEXCOORD0;
-	float3 WorldPosition : TEXCOORD1;
-	float3 WorldNormal : TEXCOORD2;
-	float3 LightVec	: TEXCOORD3;
-	float3 HalfAngleVec	: TEXCOORD4;
-};
+    //Input.Position.y = Y * cos(time) - Z * sin(time);
+    //Input.Position.z = Z * cos(time) + Y * sin(time);
+    //float y = Input.Texcoord.y * screen_dy + sin(time * frecuencia);
+    //Input.Texcoord.y = y / screen_dy;
+    float Y = Input.Texcoord.y / Input.RealPos.y;
+    float dist = 1 / sqrt(pow(distance(Input.RealPos.x, 0), 2) + pow(distance(Input.RealPos.y, 0), 2));
 
-float4 ps_main(PS_MAIN input) : COLOR0
-{
-	
-    float u = input.Texcoord.x;
-    float v = input.Texcoord.y;
-    float r = distance(input.Texcoord, float2(0.5, 0.5));
-    float u2 = 0.5 + r * cos(time);
-    float v2 = 0.5 + r * sin(time);
-	float2 outputTexCoord = float2(u2, v2);
-
-	//Normalizar vectores
-	float3 Nn = normalize(input.WorldNormal);
-	float3 Ln = normalize(input.LightVec);
-	float3 Hn = normalize(input.HalfAngleVec);
-
-	//Calcular intensidad de luz, con atenuacion por distancia
-	float distAtten = length(lightPosition.xyz - input.WorldPosition) * lightAttenuation;
-	float intensity = lightIntensity / distAtten; //Dividimos intensidad sobre distancia (lo hacemos lineal pero tambien podria ser i/d^2)
-
-	//Obtener texel de la textura
-	float4 texelColor = tex2D(diffuseMap, outputTexCoord);
-
-	//Componente Ambient
-	float3 ambientLight = intensity * lightColor * materialAmbientColor;
-
-	//Componente Diffuse: N dot L
-	float3 n_dot_l = dot(Nn, Ln);
-	float3 diffuseLight = intensity * lightColor * materialDiffuseColor.rgb * max(0.0, n_dot_l); //Controlamos que no de negativo
-
-	//Componente Specular: (N dot H)^exp
-	float3 n_dot_h = dot(Nn, Hn);
-	float3 specularLight = n_dot_l <= 0.0
-			? float3(0.0, 0.0, 0.0)
-			: (intensity * lightColor * materialSpecularColor * pow(max(0.0, n_dot_h), materialSpecularExp));
-
-	/* Color final: modular (Emissive + Ambient + Diffuse) por el color de la textura, y luego sumar Specular.
-	   El color Alpha sale del diffuse material */
-	float4 finalColor = float4(saturate(materialEmissiveColor + ambientLight + diffuseLight) * texelColor + specularLight, materialDiffuseColor.a);
-
-	return finalColor;
+    
+    float4 Color = tex2D(diffuseMap, Input.Texcoord.xy) * (1 - frac(time)) * dist * 10; // * (max(0, abs(sin(time)) * Y)); //(abs(sin(time)) * Input.Texcoord.x * 5);
+    return Color;
 }
 
 technique Portal

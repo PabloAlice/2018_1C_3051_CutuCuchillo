@@ -8,29 +8,29 @@ using TGC.Group.Lighting;
 
 namespace TGC.Group.Model
 {
-	class Portal
+    class Portal
     {
         private TGCVector3 position;
         public TgcMesh mesh;
         TGCMatrix transformation;
-        float time = 0;
+        float time = 10;
 
-		Lighting.Light light;
+        Lighting.Light light;
 
-		private ColorValue EmissiveModifier = new ColorValue(50, 0, 0);
-		private ColorValue AmbientModifier = new ColorValue(255, 255, 255);
-		private ColorValue DiffuseModifier = new ColorValue(255, 150, 150);
+        private ColorValue EmissiveModifier = new ColorValue(50, 0, 0);
+        private ColorValue AmbientModifier = new ColorValue(255, 255, 255);
+        private ColorValue DiffuseModifier = new ColorValue(255, 150, 150);
 
-		public Portal(TGCVector3 position, TGCMatrix transformationMatrix)
+        public Portal(TGCVector3 position, TGCMatrix transformationMatrix)
         {
             this.position = position;
             this.transformation = transformationMatrix;
 
-			float intensity = 50;
-			float attenuation = 80;
-			this.light = new Lighting.Light(new ColorValue(255, 255, 255), position, intensity, attenuation);
+            float intensity = 50;
+            float attenuation = 80;
+            this.light = new Lighting.Light(new ColorValue(255, 255, 255), position, intensity, attenuation);
 
-		}
+        }
 
         public void CreateMesh(TgcMesh mesh)
         {
@@ -39,8 +39,8 @@ namespace TGC.Group.Model
             this.Transform();
             this.mesh.Effect = TgcShaders.loadEffect(GlobalConcepts.GetInstance().GetShadersDir() + "Portal.fx");
             this.mesh.Technique = "Portal";
-						
-		}
+
+        }
 
         public TGCVector3 GetPosition()
         {
@@ -59,24 +59,11 @@ namespace TGC.Group.Model
             time += GlobalConcepts.GetInstance().GetElapsedTime();
             mesh.Effect.SetValue("time", time);
 
-			ApplyLightingEffect();
-
             //this.Rotate(TGCMatrix.RotationZ(0.05f));
             this.Transform();
             this.mesh.Render();
             this.mesh.BoundingBox.Render();
         }
-
-		private void ApplyLightingEffect()
-		{
-			mesh.Effect.SetValue("lightColor", light.lightColor);
-			mesh.Effect.SetValue("lightPosition", TGCVector3.Vector3ToVector4(light.position));
-			mesh.Effect.SetValue("lightIntensity", light.intensity);
-			mesh.Effect.SetValue("lightAttenuation", light.attenuation);
-			mesh.Effect.SetValue("materialEmissiveColor", EmissiveModifier);
-			mesh.Effect.SetValue("materialAmbientColor", AmbientModifier);
-			mesh.Effect.SetValue("materialDiffuseColor", DiffuseModifier);
-		}
 
         public void Transform()
         {
