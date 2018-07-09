@@ -13,7 +13,7 @@ namespace TGC.Group.Model
         private TGCVector3 position;
         public TgcMesh mesh;
         TGCMatrix transformation;
-        float time = 10;
+        float time = 1000;
 
         Lighting.Light light;
 
@@ -55,8 +55,7 @@ namespace TGC.Group.Model
 
         public void Render()
         {
-            //time = (float)new Random().NextDouble();
-            time += GlobalConcepts.GetInstance().GetElapsedTime();
+            SetTime(time += GlobalConcepts.GetInstance().GetElapsedTime());
             mesh.Effect.SetValue("time", time);
 
             //this.Rotate(TGCMatrix.RotationZ(0.05f));
@@ -80,6 +79,15 @@ namespace TGC.Group.Model
         {
             this.Transform();
             return this.mesh.BoundingBox;
+        }
+
+        private void SetTime(float _time)
+        {
+            time = _time;
+            if(time > 100000)
+            {
+                time = 1000;
+            }
         }
     }
 }

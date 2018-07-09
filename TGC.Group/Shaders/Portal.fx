@@ -72,15 +72,16 @@ float frecuencia = 100;
 //Pixel Shader
 float4 ps_main(VS_OUTPUT Input) : COLOR0
 {
-    //Input.Position.y = Y * cos(time) - Z * sin(time);
-    //Input.Position.z = Z * cos(time) + Y * sin(time);
-    //float y = Input.Texcoord.y * screen_dy + sin(time * frecuencia);
-    //Input.Texcoord.y = y / screen_dy;
+    float u = Input.Texcoord.x;
+    float v = Input.Texcoord.y;
+    float r = distance(Input.Texcoord, float2(0.5, 0.5));
+    float u2 = 0.5 + r * cos(time * 0.1);
+    float v2 = 0.5 + r * sin(time * 0.1);
     float Y = Input.Texcoord.y / Input.RealPos.y;
     float dist = 1 / sqrt(pow(distance(Input.RealPos.x, 0), 2) + pow(distance(Input.RealPos.y, 0), 2));
 
     
-    float4 Color = tex2D(diffuseMap, Input.Texcoord.xy) * (1 - frac(time)) * dist * 10; // * (max(0, abs(sin(time)) * Y)); //(abs(sin(time)) * Input.Texcoord.x * 5);
+    float4 Color = tex2D(diffuseMap, float2(u2, v2)) * (1 - frac(time)) * dist * 10; // * (max(0, abs(sin(time)) * Y)); //(abs(sin(time)) * Input.Texcoord.x * 5);
     return Color;
 }
 
