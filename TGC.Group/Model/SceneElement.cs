@@ -288,5 +288,16 @@ namespace TGC.Group.Model
                 }
             }
         }
+
+        public void RenderShadows()
+        {
+            foreach (TgcMesh mesh in this.elements)
+            {
+                if (this.IsInView(mesh))
+                {
+                    Lighting.LightManager.GetInstance().RenderMyShadow(mesh);
+                }
+            }
+        }
     }
 }

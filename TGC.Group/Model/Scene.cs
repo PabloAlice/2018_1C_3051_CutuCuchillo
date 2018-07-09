@@ -1,5 +1,8 @@
-﻿using System;
+﻿using Microsoft.DirectX.Direct3D;
+using System;
 using System.Collections.Generic;
+using System.Drawing;
+using TGC.Core.Direct3D;
 using TGC.Core.Mathematica;
 using TGC.Core.SceneLoader;
 using TGC.Group.Model.Vehiculos;
@@ -12,6 +15,9 @@ namespace TGC.Group.Model
         public Vehicle auto, AI;
         private Section cocina, banio, habitacion;
         public ThirdPersonCamera camera;
+        // FOR SHADOW MAP
+        private Surface g_pDSShadow; // Depth-stencil buffer for rendering to shadow map
+        // FOR SHADOW MAP
 
         private Scene()
         {
@@ -21,7 +27,8 @@ namespace TGC.Group.Model
             cocina.SetNextSection(habitacion);
             habitacion.SetNextSection(banio);
             banio.SetNextSection(cocina);
-
+            var SHADOWMAP_SIZE = Lighting.LightManager.GetInstance().SHADOWMAP_SIZE;
+            g_pDSShadow = D3DDevice.Instance.Device.CreateDepthStencilSurface( SHADOWMAP_SIZE, SHADOWMAP_SIZE, DepthFormat.D24S8, MultiSampleType.None, 0, true);
 
         }
 
@@ -786,7 +793,42 @@ namespace TGC.Group.Model
 
         public void Render()
         {
+            // Shadow maps:
+            D3DDevice.Instance.Device.EndScene(); // termino el thread anterior
+            D3DDevice.Instance.Device.Clear(ClearFlags.Target | ClearFlags.ZBuffer, Color.Black, 1.0f, 0);
+
+            //Genero el shadow map
+            RenderShadowMap();
+
+            D3DDevice.Instance.Device.BeginScene();
+            // dibujo la escena pp dicha
+            D3DDevice.Instance.Device.Clear(ClearFlags.Target | ClearFlags.ZBuffer, Color.Black, 1.0f, 0);
             this.VehicleUbication(this.auto).Render();
+        }
+
+        public void RenderShadowMap() {
+            
+            // Primero genero el shadow map, para ello dibujo desde el pto de vista de luz
+            // a una textura, con el VS y PS que generan un mapa de profundidades.
+            var pOldRT = D3DDevice.Instance.Device.GetRenderTarget(0);
+            var pShadowSurf = Lighting.LightManager.GetInstance().g_pShadowMap.GetSurfaceLevel(0);
+            D3DDevice.Instance.Device.SetRenderTarget(0, pShadowSurf);
+            var pOldDS = D3DDevice.Instance.Device.DepthStencilSurface;
+            D3DDevice.Instance.Device.DepthStencilSurface = g_pDSShadow;
+            D3DDevice.Instance.Device.Clear(ClearFlags.Target | ClearFlags.ZBuffer, Color.Black, 1.0f, 0);
+            D3DDevice.Instance.Device.BeginScene();
+
+            // Hago el render de la escena pp dicha
+            this.VehicleUbication(this.auto).RenderShadows();
+
+            // Termino
+            D3DDevice.Instance.Device.EndScene();
+
+            //TextureLoader.Save("shadowmap.bmp", ImageFileFormat.Bmp, g_pShadowMap);
+
+            // restuaro el render target y el stencil
+            D3DDevice.Instance.Device.DepthStencilSurface = pOldDS;
+            D3DDevice.Instance.Device.SetRenderTarget(0, pOldRT);
         }
 
         public void RenderRoom()

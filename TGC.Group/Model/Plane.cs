@@ -152,5 +152,10 @@ namespace TGC.Group.Model
         {
             return TgcCollisionUtils.classifyFrustumAABB(GlobalConcepts.GetInstance().GetFrustum(), this.plane.toMesh("plane").BoundingBox) != 0;
         }
+
+        public void RenderShadows()
+        {
+            Lighting.LightManager.GetInstance().RenderMyShadow(this.mesh);
+        }
     }
 }

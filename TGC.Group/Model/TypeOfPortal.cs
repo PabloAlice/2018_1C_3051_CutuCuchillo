@@ -127,5 +127,13 @@ namespace TGC.Group.Model
         {
             return this.originPortal.GetPosition();
         }
+
+        public void RenderShadows()
+        {
+            if (this.IsInView(this.originPortal.mesh))
+            {
+                Lighting.LightManager.GetInstance().RenderMyShadow(this.originPortal.mesh);
+            }
+        }
     }
 }

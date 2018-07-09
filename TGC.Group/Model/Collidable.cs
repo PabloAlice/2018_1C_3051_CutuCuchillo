@@ -12,6 +12,7 @@ namespace TGC.Group.Model
         void HandleCollision(Weapon weapon);
         bool IsColliding(Vehicle car);
         void Render();
+        void RenderShadows();
         void Init();
         void Dispose();
         TGCVector3 GetPosition();

@@ -207,7 +207,7 @@
     <None Include="Shaders\FrozenMeshShader.fx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Shaders\ShadowMap.fx">
+    <None Include="Shaders\ShadowShader.fx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Shaders\Vida.fx">
@@ -263,6 +263,7 @@
     <Content Include="Media\CarSounds\max-vel.wav" />
     <Content Include="Media\CarSounds\min-vel.wav" />
     <Content Include="Media\LogoTGC-TgcScene.xml" />
+    <Content Include="Shaders\LightAndShadow.fx" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

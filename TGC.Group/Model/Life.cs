@@ -137,9 +137,12 @@ namespace TGC.Group.Model
                 car.Cure(30);
                 sound.GetSound("Vida").play();
                 visible = false;
-            }
-            
+            }   
         }
 
+        public void RenderShadows()
+        {
+            Lighting.LightManager.GetInstance().RenderMyShadow(this.mesh);
+        }
     }
 }

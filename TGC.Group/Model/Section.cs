@@ -19,7 +19,7 @@ namespace TGC.Group.Model
             this.puntoMinimo = puntoMinimo;
             this.puntoMaximo = puntoMaximo;
             var pos = new TGCVector3((puntoMaximo.X + puntoMinimo.X) / 2, 200, (puntoMaximo.Z + puntoMinimo.Z) / 2);
-            this.light = new Lighting.Light(new ColorValue(255, 255, 255), pos, 38, 0.25f);
+            this.light = new Lighting.Light(new ColorValue(255, 255, 255), pos, 20, 0.15f);
             this.GenerateSubSections();
 
         }
@@ -150,6 +150,19 @@ namespace TGC.Group.Model
             }
             elements = elements.Distinct().ToList();
             elements.ForEach(e => e.Render());
+        }
+
+        public void RenderShadows()
+        {
+            Lighting.LightManager.GetInstance().ResetLights();
+            Lighting.LightManager.GetInstance().SuscribeLight(this.light);
+            List<Collidable> elements = new List<Collidable>();
+            foreach (SubSection subsection in this.subSections)
+            {
+                elements.AddRange(subsection.GetElements());
+            }
+            elements = elements.Distinct().ToList();
+            elements.ForEach(e => e.RenderShadows());
         }
 
         public void HandleCollisions(Vehicle car)

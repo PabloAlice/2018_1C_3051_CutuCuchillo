@@ -140,8 +140,15 @@ namespace TGC.Group.Model
             if (this.IsInView(this.mesh))
             {
                 this.weaponState.Render();
+            }   
+        }
+
+        public void RenderShadows()
+        {
+            if (this.IsInView(this.mesh))
+            {
+                Lighting.LightManager.GetInstance().RenderMyShadow(this.mesh);
             }
-            
         }
 
         private bool IsInView(TgcMesh mesh)

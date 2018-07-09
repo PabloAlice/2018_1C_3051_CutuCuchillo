@@ -58,15 +58,6 @@ namespace TGC.Group.Model
         public Vehiculos.Light reverseLights;
         public Vehiculos.Light breakLights;
         private PointsOfCollision pointsOfCollision;
-        // FOR SHADOW MAP
-        private readonly int SHADOWMAP_SIZE = 1024;
-        private TGCVector3 g_LightDir; // direccion de la luz actual
-        private TGCVector3 g_LightPos; // posicion de la luz actual (la que estoy analizando)
-        private TGCMatrix g_LightView; // matriz de view del light
-        private TGCMatrix g_mShadowProj; // Projection matrix for shadow map
-        private Surface g_pDSShadow; // Depth-stencil buffer for rendering to shadow map
-        private Texture g_pShadowMap; // Texture to which the shadow map is rendered
-        // FOR SHADOW MAP
 
         //Timer shaderTime = new Timer();
         //FloatModifier shaderColorModifier = new FloatModifier(0.84f, 0.74f, 0.94f);
@@ -83,9 +74,6 @@ namespace TGC.Group.Model
             this.vectorDireccion = this.vectorAdelante;
             this.estado = new Stopped(this);
             this.velocidadMaximaDeRetroceso = this.velocidadMaximaDeAvance * 0.7f;
-            g_LightPos = new TGCVector3(80, 120, 0);
-            g_LightDir = TGCVector3.Empty;
-            g_LightDir.Normalize();
             this.Init();
         }
 
@@ -93,73 +81,6 @@ namespace TGC.Group.Model
         {
             this.CreateSmoke();
             this.CreateSpark();
-            //--------------------------------------------------------------------------------------
-            // Creo el shadowmap.
-            // Format.R32F
-            // Format.X8R8G8B8
-            g_pShadowMap = new Texture(D3DDevice.Instance.Device, SHADOWMAP_SIZE, SHADOWMAP_SIZE, 1, Usage.RenderTarget, Format.R32F, Pool.Default);
-
-            // tengo que crear un stencilbuffer para el shadowmap manualmente
-            // para asegurarme que tenga la el mismo tamano que el shadowmap, y que no tenga
-            // multisample, etc etc.
-            g_pDSShadow = D3DDevice.Instance.Device.CreateDepthStencilSurface(SHADOWMAP_SIZE, SHADOWMAP_SIZE, DepthFormat.D24S8, MultiSampleType.None, 0, true);
-            // por ultimo necesito una matriz de proyeccion para el shadowmap, ya
-            // que voy a dibujar desde el pto de vista de la luz.
-            // El angulo tiene que ser mayor a 45 para que la sombra no falle en los extremos del cono de luz
-            // de hecho, un valor mayor a 90 todavia es mejor, porque hasta con 90 grados es muy dificil
-            // lograr que los objetos del borde generen sombras
-            var aspectRatio = D3DDevice.Instance.AspectRatio;
-            g_mShadowProj = TGCMatrix.PerspectiveFovLH(Geometry.DegreeToRadian(80), aspectRatio, 50, 5000);
-            // D3DDevice.Instance.Device.Transform.Projection = TGCMatrix.PerspectiveFovLH(Geometry.DegreeToRadian(45.0f), aspectRatio, 2f, 1500f).ToMatrix();
-        }
-
-        public void RenderShadowMap()
-        {
-            // Calculo la matriz de view de la luz
-            this.mesh.Effect.SetValue("g_vLightPos", new Vector4(g_LightPos.X, g_LightPos.Y, g_LightPos.Z, 1));
-            this.mesh.Effect.SetValue("g_vLightDir", new Vector4(g_LightDir.X, g_LightDir.Y, g_LightDir.Z, 1));
-            g_LightView = TGCMatrix.LookAtLH(g_LightPos, g_LightPos + g_LightDir, new TGCVector3(0, 0, 1));
-
-            // inicializacion standard:
-            this.mesh.Effect.SetValue("g_mProjLight", g_mShadowProj.ToMatrix());
-            this.mesh.Effect.SetValue("g_mViewLightProj", (g_LightView * g_mShadowProj).ToMatrix());
-
-            // Primero genero el shadow map, para ello dibujo desde el pto de vista de luz
-            // a una textura, con el VS y PS que generan un mapa de profundidades.
-            var pOldRT = D3DDevice.Instance.Device.GetRenderTarget(0);
-            var pShadowSurf = g_pShadowMap.GetSurfaceLevel(0);
-            D3DDevice.Instance.Device.SetRenderTarget(0, pShadowSurf);
-            var pOldDS = D3DDevice.Instance.Device.DepthStencilSurface;
-            D3DDevice.Instance.Device.DepthStencilSurface = g_pDSShadow;
-            D3DDevice.Instance.Device.Clear(ClearFlags.Target | ClearFlags.ZBuffer, Color.Black, 1.0f, 0);
-            D3DDevice.Instance.Device.BeginScene();
-
-            // Hago el render de la escena pp dicha
-            this.mesh.Effect.SetValue("g_txShadow", g_pShadowMap);
-            RenderScene(true);
-
-            // Termino
-            D3DDevice.Instance.Device.EndScene();
-
-            //TextureLoader.Save("shadowmap.bmp", ImageFileFormat.Bmp, g_pShadowMap);
-
-            // restuaro el render target y el stencil
-            D3DDevice.Instance.Device.DepthStencilSurface = pOldDS;
-            D3DDevice.Instance.Device.SetRenderTarget(0, pOldRT);
-        }
-
-        public void RenderScene(bool shadow)
-        {
-            // avion
-            if (shadow)
-            {
-                this.mesh.Technique = "RenderShadow";
-            }
-            else
-            {
-                this.mesh.Technique = "RenderScene";
-            }
-            this.mesh.Render();
         }
 
         public void HandleCollision(ThirdPersonCamera camera)
@@ -904,6 +825,11 @@ namespace TGC.Group.Model
         public void UnFreeze()
         {
             this.mesh.Technique = "Iluminate";
+        }
+
+        public void RenderShadows()
+        {
+            Lighting.LightManager.GetInstance().RenderMyShadow(this.mesh);
         }
 
         private class PointsOfCollision{
