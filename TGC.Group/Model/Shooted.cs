@@ -88,7 +88,6 @@ namespace TGC.Group.Model
             if(c != null)
             {
                 //this.Detach(c);
-                this.car.Remove(this.weapon);
                 this.Explode();
                 this.weapon.Collide(c);
             }
