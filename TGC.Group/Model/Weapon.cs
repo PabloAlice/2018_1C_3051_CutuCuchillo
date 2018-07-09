@@ -135,6 +135,7 @@ namespace TGC.Group.Model
         {
             time += GlobalConcepts.GetInstance().GetElapsedTime();
             mesh.Effect.SetValue("time", time);
+            if (time > 100f) time = 0f;
             this.particle.Render(GlobalConcepts.GetInstance().GetElapsedTime());
             if (this.IsInView(this.mesh))
             {
