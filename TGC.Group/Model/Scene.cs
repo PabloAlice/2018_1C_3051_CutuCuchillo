@@ -791,22 +791,27 @@ namespace TGC.Group.Model
         }
 
 
-        public void Render()
+        public void Render(Vehicle auto, Vehicle ai)
         {
             // Shadow maps:
             D3DDevice.Instance.Device.EndScene(); // termino el thread anterior
             D3DDevice.Instance.Device.Clear(ClearFlags.Target | ClearFlags.ZBuffer, Color.Black, 1.0f, 0);
 
             //Genero el shadow map
-            RenderShadowMap();
+            RenderShadowMap(auto, ai);
 
             D3DDevice.Instance.Device.BeginScene();
             // dibujo la escena pp dicha
             D3DDevice.Instance.Device.Clear(ClearFlags.Target | ClearFlags.ZBuffer, Color.Black, 1.0f, 0);
+            auto.Transform();
+            auto.Render();
+
+            AI.Transform();
+            AI.Render();
             this.VehicleUbication(this.auto).Render();
         }
 
-        public void RenderShadowMap() {
+        public void RenderShadowMap(Vehicle auto, Vehicle ai) {
             
             // Primero genero el shadow map, para ello dibujo desde el pto de vista de luz
             // a una textura, con el VS y PS que generan un mapa de profundidades.
@@ -819,6 +824,8 @@ namespace TGC.Group.Model
             D3DDevice.Instance.Device.BeginScene();
 
             // Hago el render de la escena pp dicha
+            auto.RenderShadows();
+            ai.RenderShadows();
             this.VehicleUbication(this.auto).RenderShadows();
 
             // Termino

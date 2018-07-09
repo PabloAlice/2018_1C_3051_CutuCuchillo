@@ -74,13 +74,10 @@ namespace TGC.Group.Model.GameModelStates
 
             this.Update();
         }
-            
-        
-        
 
         public override void Render()
         {
-            Scene.GetInstance().Render();
+            Scene.GetInstance().Render(this.auto, this.AI);
             this.textoVelocidadVehiculo.render();
             this.textoPosicionVehiculo.render();
             this.textoVectorAdelante.render();
@@ -89,12 +86,6 @@ namespace TGC.Group.Model.GameModelStates
             this.textoOffsetH.render();
             textoArmaSeleccionada.render();
             this.AIPosition.render();
-
-            this.auto.Transform();
-            this.auto.Render();
-
-            this.AI.Transform();
-            this.AI.Render();
 
             //this.manager.Transform();
             //this.manager.Render();

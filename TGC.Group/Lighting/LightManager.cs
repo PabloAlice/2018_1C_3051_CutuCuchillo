@@ -30,7 +30,7 @@ namespace TGC.Group.Lighting
         private static LightManager instance;
         // FOR SHADOW MAP
         public int SHADOWMAP_SIZE { get; set; } = 1024;
-        private TGCVector3 g_LightDir; // direccion de la luz actual
+        private TGCVector3 g_LightDir;  // direccion de la luz actual
         private TGCVector3 g_LightPos; // posicion de la luz actual (la que estoy analizando)
         private TGCMatrix g_LightView; // matriz de view del light
         private TGCMatrix g_mShadowProj; // Projection matrix for shadow map
@@ -43,34 +43,37 @@ namespace TGC.Group.Lighting
             this.pointLightPositions = new List<Vector4>();
             this.pointLightIntensities = new List<float>();
             this.pointLightAttenuations = new List<float>();
-            this.shadowEffect = TgcShaders.loadEffect(GlobalConcepts.GetInstance().GetShadersDir() + "ShadowShader.fx");
+            this.shadowEffect = TgcShaders.loadEffect(GlobalConcepts.GetInstance().GetShadersDir() + "TgcMeshSpotLightShader.fx");
             this.lightEffect = TgcShaders.loadEffect(GlobalConcepts.GetInstance().GetShadersDir() + "TgcMeshPointLightShader.fx");
             g_pShadowMap = new Texture(D3DDevice.Instance.Device, SHADOWMAP_SIZE, SHADOWMAP_SIZE, 1, Usage.RenderTarget, Format.R32F, Pool.Default);
             var aspectRatio = D3DDevice.Instance.AspectRatio;
             g_mShadowProj = TGCMatrix.PerspectiveFovLH(Geometry.DegreeToRadian(80), aspectRatio, 50, 5000);
+            g_LightPos = new TGCVector3(0, 200, 0);
+            g_LightDir = TGCVector3.Empty - g_LightPos;
+
         }
 
         public void DoLightMe(TgcMesh mesh)
         {
-            if (this.lights.Count == 0) return;
-            string currentTechnique = "DIFFUSE_MAP";
-            mesh.Effect = this.lightEffect;
-            mesh.Technique = currentTechnique;
+            mesh.Effect = this.shadowEffect;
+            mesh.Technique = "RenderScene";
 
-            mesh.Effect.SetValue("lightColor", lightColors.First());
-            mesh.Effect.SetValue("lightPosition", pointLightPositions.First());
-            mesh.Effect.SetValue("lightIntensity", pointLightIntensities.First());
-            mesh.Effect.SetValue("lightAttenuation", pointLightAttenuations.First());
-            mesh.Effect.SetValue("materialEmissiveColor", EmissiveModifier);
-            mesh.Effect.SetValue("materialAmbientColor", AmbientModifier);
-            mesh.Effect.SetValue("materialDiffuseColor", DiffuseModifier);
-         //   mesh.Effect.SetValue("materialSpecularColor", DiffuseModifier);
+            this.shadowEffect.SetValue("g_vLightPos", new Vector4(g_LightPos.X, g_LightPos.Y, g_LightPos.Z, 1));
+            this.shadowEffect.SetValue("g_vLightDir", new Vector4(g_LightDir.X, g_LightDir.Y, g_LightDir.Z, 1));
+            g_LightView = TGCMatrix.LookAtLH(g_LightPos, g_LightPos + g_LightDir, new TGCVector3(0, 0, 1));
+
+            // inicializacion standard:
+            this.shadowEffect.SetValue("g_mProjLight", g_mShadowProj.ToMatrix());
+            this.shadowEffect.SetValue("g_mViewLightProj", (g_LightView * g_mShadowProj).ToMatrix());
+            this.shadowEffect.SetValue("g_txShadow", g_pShadowMap);
+            //   mesh.Effect.SetValue("materialSpecularColor", DiffuseModifier);
         }
         public void RenderMyShadow(TgcMesh mesh)
         {
             mesh.Effect = this.shadowEffect;
             mesh.Technique = "RenderShadow";
-
+            g_LightPos = new TGCVector3(pointLightPositions.First().X, pointLightPositions.First().Y, pointLightPositions.First().Z);
+            g_LightDir = TGCVector3.Empty - g_LightPos;
             this.shadowEffect.SetValue("g_vLightPos", new Vector4(g_LightPos.X, g_LightPos.Y, g_LightPos.Z, 1));
             this.shadowEffect.SetValue("g_vLightDir", new Vector4(g_LightDir.X, g_LightDir.Y, g_LightDir.Z, 1));
             g_LightView = TGCMatrix.LookAtLH(g_LightPos, g_LightPos + g_LightDir, new TGCVector3(0, 0, 1));

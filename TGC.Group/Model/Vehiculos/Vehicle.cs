@@ -58,7 +58,7 @@ namespace TGC.Group.Model
         public Vehiculos.Light reverseLights;
         public Vehiculos.Light breakLights;
         private PointsOfCollision pointsOfCollision;
-
+        private Microsoft.DirectX.Direct3D.Effect vehicleEffect;
         //Timer shaderTime = new Timer();
         //FloatModifier shaderColorModifier = new FloatModifier(0.84f, 0.74f, 0.94f);
 
@@ -284,7 +284,8 @@ namespace TGC.Group.Model
             this.trasladoInicial = this.matrixs.GetTranslation();
             this.mesh.BoundingBox.transform(this.matrixs.GetTransformation());
             this.obb = new BoundingOrientedBox(this.mesh.BoundingBox);
-            this.mesh.Effect = TgcShaders.loadEffect(GlobalConcepts.GetInstance().GetShadersDir() + "EfectosVehiculo.fx");
+            this.vehicleEffect = TgcShaders.loadEffect(GlobalConcepts.GetInstance().GetShadersDir() + "EfectosVehiculo.fx");
+            this.mesh.Effect = this.vehicleEffect;
             mesh.Technique = "Iluminate";
             this.pointsOfCollision = new PointsOfCollision(mesh.getVertexPositions());
             this.pointsOfCollision.medium = (mesh.BoundingBox.PMax + mesh.BoundingBox.PMin) * 0.5f;
@@ -407,12 +408,13 @@ namespace TGC.Group.Model
 
         private void SetEffectAtributes()
         {
-            Lighting.LightManager.GetInstance().DoLightMe(this.mesh.Effect);
-            this.mesh.Effect.SetValue("pointsOfCollision", this.pointsOfCollision.CalculateDeformation(life));
-            this.mesh.Effect.SetValue("radio", this.pointsOfCollision.radio);
-            this.mesh.Effect.SetValue("constantOfDeformation", this.pointsOfCollision.constantOfDeformation);
-            Vector4 vector = new Vector4(pointsOfCollision.medium.X, pointsOfCollision.medium.Y, pointsOfCollision.medium.Z,1);
-            this.mesh.Effect.SetValue("medium", vector);
+            this.mesh.Effect = this.vehicleEffect;
+            Lighting.LightManager.GetInstance().DoLightMe(this.mesh);
+        //    this.mesh.Effect.SetValue("pointsOfCollision", this.pointsOfCollision.CalculateDeformation(life));
+        //    this.mesh.Effect.SetValue("radio", this.pointsOfCollision.radio);
+        //    this.mesh.Effect.SetValue("constantOfDeformation", this.pointsOfCollision.constantOfDeformation);
+         //   Vector4 vector = new Vector4(pointsOfCollision.medium.X, pointsOfCollision.medium.Y, pointsOfCollision.medium.Z,1);
+         //   this.mesh.Effect.SetValue("medium", vector);
         }
 
         private void RenderLights()
