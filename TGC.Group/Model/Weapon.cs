@@ -139,7 +139,6 @@ namespace TGC.Group.Model
             if (this.IsInView(this.mesh))
             {
                 this.weaponState.Render();
-                
             }
             
         }

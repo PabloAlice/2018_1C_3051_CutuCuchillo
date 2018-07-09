@@ -83,7 +83,6 @@ namespace TGC.Group.Model.Vehiculos.Estados
                 this.auto.SetEstado(new Stopped(this.auto));
             }
             auto.mesh.Effect.SetValue("acumulateTime", this.timer.tiempoTranscurrido());
-            System.Console.WriteLine(this.timer.tiempoTranscurrido());
         }
     }
 }

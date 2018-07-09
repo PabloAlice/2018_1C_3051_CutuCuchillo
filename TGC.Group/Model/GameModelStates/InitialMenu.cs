@@ -1,13 +1,6 @@
 ﻿using Microsoft.DirectX.DirectInput;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TGC.Core.Direct3D;
-using TGC.Core.Input;
 using TGC.Core.Mathematica;
-using TGC.Core.Text;
 
 namespace TGC.Group.Model.GameModelStates
 {
