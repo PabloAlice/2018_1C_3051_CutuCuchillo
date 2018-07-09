@@ -110,6 +110,7 @@ namespace TGC.Group.Model
 
         public bool IsColliding(Weapon weapon)
         {
+            Transform();
             foreach (TgcMesh element in this.elements)
             {
                 if(TgcCollisionUtils.testSphereAABB(weapon.sphere, element.BoundingBox))

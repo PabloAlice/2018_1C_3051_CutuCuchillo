@@ -9,7 +9,6 @@ namespace TGC.Group.Model
     class ThirdPersonCamera : TgcCamera
     {
         private TGCVector3 position;
-        public LinearInterpolation interpolador;
         public TgcBoundingAxisAlignBox aabb;
 
         /// <summary>
@@ -52,13 +51,6 @@ namespace TGC.Group.Model
             Target = target;
             OffsetHeight = offsetHeight;
             OffsetForward = offsetForward;
-            interpolador = new LinearInterpolation();
-        }
-
-        public void UpdateInterpolation(float elapsedTime)
-        {
-                float rotate = this.interpolador.Update(elapsedTime);
-                this.rotateY(rotate);
         }
 
         public ThirdPersonCamera(TGCVector3 target, TGCVector3 targetDisplacement, float offsetHeight, float offsetForward)

@@ -78,6 +78,8 @@ namespace TGC.Group.Model
 
         public void Render()
         {
+            time += GlobalConcepts.GetInstance().GetElapsedTime();
+            if (time > 100f) time = 0f;
             sound.GetSound("Vida").Position = GetPosition();
             CheckTime();
             transformation = TGCMatrix.RotationYawPitchRoll(GlobalConcepts.GetInstance().GetElapsedTime(), 0, 0) * transformation;
@@ -130,7 +132,6 @@ namespace TGC.Group.Model
 
         public void HandleCollision(Vehicle car)
         {
-            time += GlobalConcepts.GetInstance().GetElapsedTime();
             if (IsColliding(car))
             {
                 car.Cure(30);

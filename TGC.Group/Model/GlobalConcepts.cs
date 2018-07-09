@@ -16,7 +16,6 @@ namespace TGC.Group.Model
         private Device dispositivoDeAudio;
         private float elapsedTime;
         private Microsoft.DirectX.Direct3D.Device screen;
-        private float acumulateTime = 0;
 
         private GlobalConcepts()
         {
@@ -91,12 +90,6 @@ namespace TGC.Group.Model
         public void SetElapsedTime(float value)
         {
             this.elapsedTime = value;
-            this.acumulateTime += value;
-        }
-
-        public float GetAcumulateTime()
-        {
-            return this.acumulateTime;
         }
 
         public TGCMatrix GenerateTransformation(TGCVector3 escala, TGCVector3 rotacion, TGCVector3 traslado)
