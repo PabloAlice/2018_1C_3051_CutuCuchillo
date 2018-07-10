@@ -9,6 +9,7 @@ using TGC.Group.Model.Vehiculos;
 using Microsoft.DirectX.DirectInput;
 using TGC.Core.Direct3D;
 using TGC.Core.Geometry;
+using TGC.Core.Sound;
 
 namespace TGC.Group.Model.GameModelStates
 {
@@ -26,14 +27,14 @@ namespace TGC.Group.Model.GameModelStates
         private Drawer2D drawer = new Drawer2D();
         private CustomSprite choose, rightArrow, leftArrow;
         private SoundsManager backgroundMusic;
+        private MyAbstractions.Tgc3dSound init;
 
 
-        public CharacterSelect(GameModel gameModel)
+        public CharacterSelect(GameModel gameModel, MyAbstractions.Tgc3dSound init)
         {
             this.gameModel = gameModel;
-            this.backgroundMusic = new SoundsManager();
-            this.backgroundMusic.AddSound(TGCVector3.Empty, 50f, 0, "Init\\song.wav", "song", false);
-            this.backgroundMusic.GetSound("song").play(true);
+            this.init = init;
+            this.init.play(true);
             this.planes.Add(new Plane(new TGCVector3(-90, 0, -90), new TGCVector3(90, 0, 90), new TGCVector3(0,1,0), "Otros\\Paredes\\2.jpg", 1, 1));
             this.planes.Add(new Plane(new TGCVector3(-90, 0, -90), new TGCVector3(-90, 50, 90), new TGCVector3(1, 0, 0), "Otros\\Paredes\\1.jpg", 1, 1));
             this.planes.Add(new Plane(new TGCVector3(90, 0, -90), new TGCVector3(90, 50, 90), new TGCVector3(-1, 0, 0), "Otros\\Paredes\\4.jpg", 1, 1));
@@ -117,7 +118,7 @@ namespace TGC.Group.Model.GameModelStates
             if(gameModel.Input.keyDown(Key.Return))
             {
                 selectedCar.ResetRotation();
-                this.backgroundMusic.GetSound("song").stop();
+                this.init.stop();
                 selectedCar.SoundsManager.GetSound("Motor").play(true);
                 gameModel.SetState(new Playing(gameModel, selectedCar));
             }

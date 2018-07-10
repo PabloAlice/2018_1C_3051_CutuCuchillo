@@ -1,6 +1,7 @@
 ﻿using Microsoft.DirectX.DirectInput;
 using TGC.Core.Direct3D;
 using TGC.Core.Mathematica;
+using TGC.Group.Model.Vehiculos;
 
 namespace TGC.Group.Model.GameModelStates
 {
@@ -50,7 +51,9 @@ namespace TGC.Group.Model.GameModelStates
         {
             if (gameModel.Input.keyDown(Key.Return))
             {
-                this.gameModel.SetState(new CharacterSelect(gameModel));
+                SoundsManager backgroundMusic = new SoundsManager();
+                backgroundMusic.AddSound(TGCVector3.Empty, 50f, 0, "Init\\song.wav", "song", false);
+                this.gameModel.SetState(new CharacterSelect(gameModel, backgroundMusic.GetSound("song")));
             }
 
 
