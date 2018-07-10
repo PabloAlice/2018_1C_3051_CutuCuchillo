@@ -173,8 +173,8 @@ namespace TGC.Group.Model.GameModelStates
                 this.auto.SoundsManager.GetSound("YouCouldBeMine").play(false);
                 this.auto.SoundsManager.GetSound("YouCouldBeMine").stop();
                 // Agregar grito
-                this.auto.SoundsManager.AddSound(this.auto.GetPosition(), 0f, 0, "Muerte.wav", "gritoMuerte", false);
-                this.auto.SoundsManager.GetSound("gritoMuerte").play();
+                this.auto.SoundsManager.AddSound(this.auto.GetPosition(), 50f, 0, "Muerte.wav", "muerte", false);
+                this.auto.SoundsManager.GetSound("muerte").play();
                 gameModel.SetState(new GameOver(gameModel, auto));
             }
         }
