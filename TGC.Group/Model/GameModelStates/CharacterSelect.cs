@@ -119,7 +119,6 @@ namespace TGC.Group.Model.GameModelStates
             {
                 selectedCar.ResetRotation();
                 this.init.stop();
-                selectedCar.SoundsManager.GetSound("Motor").play(true);
                 gameModel.SetState(new Playing(gameModel, selectedCar));
             }
 

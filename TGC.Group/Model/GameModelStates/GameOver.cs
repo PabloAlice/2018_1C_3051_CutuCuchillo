@@ -39,8 +39,6 @@ namespace TGC.Group.Model.GameModelStates
             auto.ResetScale();
             //this.auto.mesh.D3dMesh.ComputeNormals();
             Scene.GetInstance().SetVehiculo(this.auto);
-            this.auto.SoundsManager.AddSound(this.auto.GetPosition(), 50f, 0, "BackgroundMusic\\YouCouldBeMine.wav", "YouCouldBeMine", false);
-            this.auto.SoundsManager.GetSound("YouCouldBeMine").play(true);
             this.Update();
         }
 

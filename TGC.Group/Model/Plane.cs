@@ -74,10 +74,9 @@ namespace TGC.Group.Model
             return;
             while (IsColliding(camera))
             {
-                System.Console.WriteLine("me trabe pues");
-                System.Console.WriteLine(camera.Position);
                 camera.ZoomIn();
             }
+            return;
         }
 
         public TGCPlane GetPlaneOfCollision(TgcRay ray, Vehicle car)
@@ -109,7 +108,7 @@ namespace TGC.Group.Model
 
         public bool IsColliding(ThirdPersonCamera camera)
         {
-            return (int)TgcCollisionUtils.classifyPlaneAABB(realPlane, camera.aabb) != 1;
+            return !GlobalConcepts.GetInstance().IsInFrontOf(camera.Position, realPlane);
         }
 
         public bool IsColliding(Vehicle car)
