@@ -48,7 +48,7 @@ namespace TGC.Group.Model
         //se guarda el traslado inicial porque se usa como pivote
         protected TGCMatrix trasladoInicial;
         protected TGCMatrix lastTransformation;
-        protected float life = 100f;
+        public float life = 100f;
         protected ParticleEmitter smoke;
         protected ParticleTimer spark;
         protected List<Weapon> weapons = new List<Weapon>();

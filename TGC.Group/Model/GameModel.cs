@@ -73,16 +73,18 @@ namespace TGC.Group.Model
 
             if (Input.keyDown(Microsoft.DirectX.DirectInput.Key.D5))
             {
-                Lighting.LightManager.GetInstance().SpecularModifier.Red += 1;
-                Lighting.LightManager.GetInstance().SpecularModifier.Green += 1;
-                Lighting.LightManager.GetInstance().SpecularModifier.Blue += 1;
+                var modifier = 0.05f;
+                Lighting.LightManager.GetInstance().SpecularModifier.Red += modifier;
+                Lighting.LightManager.GetInstance().SpecularModifier.Green += modifier;
+                Lighting.LightManager.GetInstance().SpecularModifier.Blue += modifier;
             }
 
             if (Input.keyDown(Microsoft.DirectX.DirectInput.Key.D6))
             {
-                Lighting.LightManager.GetInstance().SpecularModifier.Red -= 1;
-                Lighting.LightManager.GetInstance().SpecularModifier.Green -= 1;
-                Lighting.LightManager.GetInstance().SpecularModifier.Blue -= 1;
+                var modifier = 0.05f;
+                Lighting.LightManager.GetInstance().SpecularModifier.Red -= modifier;
+                Lighting.LightManager.GetInstance().SpecularModifier.Green -= modifier;
+                Lighting.LightManager.GetInstance().SpecularModifier.Blue -= modifier;
             }
 
             if (Input.keyDown(Microsoft.DirectX.DirectInput.Key.D7))
@@ -96,6 +98,16 @@ namespace TGC.Group.Model
             }
 
             this.PostUpdate();
+
+            if (Input.keyDown(Microsoft.DirectX.DirectInput.Key.L))
+            {
+                Scene.GetInstance().AI.life -= 50;
+            }
+
+            if (Input.keyDown(Microsoft.DirectX.DirectInput.Key.K))
+            {
+                Scene.GetInstance().auto.life -= 50;
+            }
         }
 
 

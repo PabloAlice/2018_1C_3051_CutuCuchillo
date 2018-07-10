@@ -114,8 +114,12 @@ namespace TGC.Group.Form
                     //Solo renderizamos si la aplicacion tiene foco, para no consumir recursos innecesarios.
                     if (ApplicationActive())
                     {
-                        Modelo.Update();
-                        Modelo.Render();
+                        try
+                        {
+                            Modelo.Update();
+                            Modelo.Render();
+                        }
+                        catch (Exception e) { return; }
                     }
                     else
                     {

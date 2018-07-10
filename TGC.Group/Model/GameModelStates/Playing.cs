@@ -157,6 +157,14 @@ namespace TGC.Group.Model.GameModelStates
                 this.auto.SoundsManager.GetSound("muerte").play();
                 gameModel.SetState(new GameOver(gameModel, auto));
             }
+
+            if(Scene.GetInstance().AI.GetLife() <= 0)
+            {
+                this.auto.SoundsManager.GetSound("YouCouldBeMine").stop();
+
+                gameModel.SetState(new Win(gameModel, auto));
+            }
+
         }
 
         private void UpdateHub()
