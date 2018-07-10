@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Collections.Generic;
 using TGC.Core.Mathematica;
 using TGC.Core.SceneLoader;
 using TGC.Group.Model.Vehiculos.Estados;
@@ -820,12 +819,11 @@ namespace TGC.Group.Model
             {
                 NextWeapon();
             }
-            /*
             if (input.keyDown(Key.C))
             {
                 estado = new Frozen(this);
             }
-
+            /*
             if (input.keyDown(Key.K))
             {
                 life -= 50;

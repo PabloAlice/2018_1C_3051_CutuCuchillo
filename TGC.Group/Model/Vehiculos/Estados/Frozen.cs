@@ -66,6 +66,11 @@ namespace TGC.Group.Model.Vehiculos.Estados
             base.UpdateWheels();
         }
 
+        public override void JumpUpdate()
+        {
+            return;
+        }
+
         public override void FrozenTimeUpdate()
         {
             timer.acumularTiempo(this.auto.GetElapsedTime());

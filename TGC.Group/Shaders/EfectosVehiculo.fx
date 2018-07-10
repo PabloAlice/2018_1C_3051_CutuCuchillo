@@ -97,7 +97,7 @@ FREEZE_OUTPUT Freeze_vs(FREEZE_INPUT Input)
 
     Output.RealPosition = Input.Position;
 
-    Output.Position = mul(Input.Position, matWorldViewProj);
+    Output.Position = newPosition(Input.Position);
 
     Output.Texcoord = Input.Texcoord;
 
