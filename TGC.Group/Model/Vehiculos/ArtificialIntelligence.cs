@@ -85,11 +85,6 @@ namespace TGC.Group.Model.Vehiculos
             {
                 ChangeState(new SearchWeapons(this));
             }
-            else if (IsEnemyInAnotherSection(car))
-            {
-                ChangeState(new GoToEnemySection(this));
-            
-            }
             else if (IsEnemyInRadar(car))
             {
                 ChangeState(new FollowingCar(this));

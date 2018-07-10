@@ -110,9 +110,9 @@ namespace TGC.Group.Model
         {
             var dot = TGCVector3.Dot(car.vectorAdelante, this.outDirection);
             var modulusProduct = car.vectorAdelante.Length() * this.outDirection.Length();
-            var acos = (float)Math.Acos(dot / modulusProduct);
+            var angle = (float)Math.Acos(dot / modulusProduct);
             var yCross = TGCVector3.Cross(car.vectorAdelante, this.outDirection).Y;
-            var giro = (yCross > 0) ? acos : -acos;
+            var giro = (yCross > 0) ? angle : -angle;
             car.Girar(giro);
             if(!(car is ArtificialIntelligence))Scene.GetInstance().camera.rotateY(giro);
             if (car.GetVelocidadActual() < 0)
