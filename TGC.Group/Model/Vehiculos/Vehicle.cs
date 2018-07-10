@@ -738,29 +738,29 @@ namespace TGC.Group.Model
         {
             if (input.keyDown(Key.NumPad4))
             {
-                Scene.GetInstance().camera.rotateY(-0.005f);
+                Scene.GetInstance().camera.rotateY(-0.0005f);
             }
             if (input.keyDown(Key.NumPad6))
             {
-                Scene.GetInstance().camera.rotateY(0.005f);
+                Scene.GetInstance().camera.rotateY(0.0005f);
             }
 
             if (input.keyDown(Key.RightArrow))
             {
-                Scene.GetInstance().camera.OffsetHeight += 0.05f;
+                Scene.GetInstance().camera.OffsetHeight += 0.005f;
             }
             if (input.keyDown(Key.LeftArrow))
             {
-                Scene.GetInstance().camera.OffsetHeight -= 0.05f;
+                Scene.GetInstance().camera.OffsetHeight -= 0.005f;
             }
 
             if (input.keyDown(Key.UpArrow))
             {
-                Scene.GetInstance().camera.OffsetForward += 0.05f;
+                Scene.GetInstance().camera.OffsetForward += 0.1f;
             }
             if (input.keyDown(Key.DownArrow))
             {
-                Scene.GetInstance().camera.OffsetForward -= 0.05f;
+                Scene.GetInstance().camera.OffsetForward -= 0.1f;
             }
 
             if (input.keyDown(Key.W))

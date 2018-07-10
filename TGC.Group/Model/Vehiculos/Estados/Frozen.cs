@@ -77,7 +77,7 @@ namespace TGC.Group.Model.Vehiculos.Estados
             auto.GetDeltaTiempoAvance().acumularTiempo(auto.GetElapsedTime());
             auto.SetVelocidadActual(disminucionVelocidad(0f,auto.GetVelocidadActual(),auto.GetDeltaTiempoAvance().tiempoTranscurrido()));
             auto.Move(auto.GetVectorAdelante() * auto.GetVelocidadActual() * auto.GetElapsedTime());
-            if (timer.tiempoTranscurrido() > 10f)
+            if (timer.tiempoTranscurrido() > 5f)
             {
                 this.auto.UnFreeze();
                 this.auto.SetEstado(new Stopped(this.auto));
