@@ -147,6 +147,7 @@ namespace TGC.Group.Model
             mesh.Effect.SetValue("time", time);
             if (time > 100f) time = 0f;
             this.particle.Render(GlobalConcepts.GetInstance().GetElapsedTime());
+            this.weaponState.Update();
             if (this.IsInView(this.mesh))
             {
                 this.weaponState.Render();
