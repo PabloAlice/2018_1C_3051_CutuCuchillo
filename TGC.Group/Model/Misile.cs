@@ -48,7 +48,7 @@ namespace TGC.Group.Model
         {
             float angle = GlobalConcepts.GetInstance().AngleBetweenVectors(new TGCVector3(0,0,1), direction);
             TGCVector3 result = TGCVector3.Cross(direction, new TGCVector3(0, 0, 1));
-            angle = (result.Y > 0) ? angle + FastMath.PI : angle;
+            angle = (result.Y > 0) ? -angle : angle;
             return new TGCVector3(FastMath.PI_HALF, angle, 0);
         }
     }

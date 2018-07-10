@@ -80,13 +80,13 @@ namespace TGC.Group.Model.GameModelStates
         public override void Render()
         {
             Scene.GetInstance().Render();
-            this.textoVelocidadVehiculo.render();
+            /*this.textoVelocidadVehiculo.render();
             this.textoPosicionVehiculo.render();
             this.textoVectorAdelante.render();
             this.textoOffsetF.render();
             this.textoOffsetH.render();
             textoArmaSeleccionada.render();
-            this.AIPosition.render();
+            this.AIPosition.render();*/
 
             this.auto.Transform();
             this.auto.Render();
@@ -113,7 +113,7 @@ namespace TGC.Group.Model.GameModelStates
         {
             string dialogo;
 
-            dialogo = "Velocidad = {0}km";
+            /*dialogo = "Velocidad = {0}km";
             dialogo = string.Format(dialogo, auto.GetVelocidadActual());
             textoVelocidadVehiculo = Text.newText(dialogo, 120, 10);
 
@@ -140,7 +140,7 @@ namespace TGC.Group.Model.GameModelStates
             dialogo = "Arma = {0}; Cantidad = {1}";
             dialogo = string.Format(dialogo, auto.GetNameSelectWeapon(), auto.GetNumberOfBulletsOfFirstWeapon());
             textoArmaSeleccionada = Text.newText(dialogo, 120, 115);
-
+            */
             this.auto.Action(this.gameModel.Input);
             this.AI.Action(this.gameModel.Input);
             this.listener.Position = this.auto.GetPosition();
