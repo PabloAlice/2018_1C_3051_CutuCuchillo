@@ -39,6 +39,11 @@ namespace TGC.Group.Lighting
             this.effect = TgcShaders.Instance.TgcMeshPointLightShader;
         }
 
+        public void ChangeLights(ColorValue color)
+        {
+            DiffuseModifier = color;
+        }
+
         public void DoLightMe(TgcMesh mesh)
         {
             if (this.lights.Count == 0) return;

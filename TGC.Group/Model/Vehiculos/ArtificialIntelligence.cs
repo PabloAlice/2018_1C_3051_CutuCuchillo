@@ -6,6 +6,7 @@ using TGC.Core.BoundingVolumes;
 using TGC.Group.Model.Vehiculos.AIStates;
 using TGC.Core.Geometry;
 using System.Drawing;
+using Microsoft.DirectX.Direct3D;
 
 namespace TGC.Group.Model.Vehiculos
 {
@@ -32,6 +33,11 @@ namespace TGC.Group.Model.Vehiculos
             this.CreateSounds(soundsManager);
             this.velocidadMaximaDeAvance = 40f;
             velocidadRotacion = 2f;
+        }
+
+        protected override void ChangeLights(ColorValue color)
+        {
+            return;
         }
 
         private void CreateWheels()

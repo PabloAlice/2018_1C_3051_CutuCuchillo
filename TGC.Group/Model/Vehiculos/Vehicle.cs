@@ -880,13 +880,16 @@ namespace TGC.Group.Model
             if (this.life >= 50)
             {
                 this.smoke.Playing = false;
+                ChangeLights(new ColorValue(255, 255, 255));
             }
             else if (this.life < 50 && this.life >= 20) {
                 this.smoke.Playing = true;
+                ChangeLights(new ColorValue(255, 164, 32));
             }
             else
             {
                 this.smoke.changeTexture(GlobalConcepts.GetInstance().GetMediaDir() + "Texturas\\Humo\\fuego.png");
+                ChangeLights(new ColorValue(255, 0, 0));
             }
             this.smoke.Position = this.GetPosition();
         }
@@ -909,6 +912,11 @@ namespace TGC.Group.Model
         public void Freeze()
         {
             this.mesh.Technique = "Freeze";
+        }
+
+        virtual protected void ChangeLights(ColorValue color)
+        {
+            Lighting.LightManager.GetInstance().ChangeLights(color);
         }
 
         public void UnFreeze()
@@ -963,6 +971,8 @@ namespace TGC.Group.Model
                     this.AddPointOfCollision(this.vertexsPositions[i]);
                 }
             }
+
+            
 
             public Vector4[] CalculateDeformation(float life)
             {
