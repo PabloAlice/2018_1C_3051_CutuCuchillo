@@ -668,15 +668,59 @@ namespace TGC.Group.Model
             this.spark.Play(this.GetPosition());
         }
 
+        private void NextWeapon()
+        {
+            if (!HaveWeapons()) return;
+            Weapon actualWeapon = weapons[0];
+            Type type = actualWeapon.GetType();
+            Weapon nextWeapon = weapons.Find(w => w != actualWeapon && !w.Equals(type));
+            if (nextWeapon == null) return;
+            weapons.Remove(nextWeapon);
+            weapons.Insert(0, nextWeapon);
+        }
 
         public void Shoot()
         {
-            Weapon weapon = (this.NumberOfWeapons() > 0) ? this.weapons[0] : null;
+            Weapon weapon = (HaveWeapons()) ? this.weapons[0] : null;
             if (weapon != null && this.timeShoot == 0f)
             {
                 weapon.Shoot(this);
                 this.timeShoot = 0.5f;
+                Remove(weapon);
+                NextSameWeapon(weapon);
             }
+        }
+
+        private void NextSameWeapon(Weapon weapon)
+        {
+            Type type = weapon.GetType();
+            Weapon nextWeapon = weapons.Find(w => w.GetType() == type);
+            if (nextWeapon == null) return;
+            Remove(nextWeapon);
+            weapons.Insert(0, nextWeapon);
+        }
+
+        public string GetNameSelectWeapon()
+        {
+            if (!HaveWeapons()) return "EMPTY";
+            return weapons[0].ToString();
+        }
+
+
+        public string GetNumberOfBulletsOfFirstWeapon()
+        {
+            if (!HaveWeapons()) return "EMPTY";
+            Weapon weapon = weapons[0];
+            Type type = weapon.GetType();
+            int count = 1;
+            foreach (Weapon w in weapons)
+            {
+                if(w.GetType() == type && w != weapon)
+                {
+                    count++;
+                }
+            }
+            return count.ToString();
         }
 
         public void Action(TgcD3dInput input)
@@ -771,6 +815,11 @@ namespace TGC.Group.Model
                 this.SoundsManager.GetSound("Alarma").play();
             }
 
+            if (input.keyUp(Key.U))
+            {
+                NextWeapon();
+            }
+
             if (input.keyDown(Key.C))
             {
                 estado = new Frozen(this);
@@ -845,9 +894,9 @@ namespace TGC.Group.Model
             this.weapons.Remove(weapon);
         }
 
-        public int NumberOfWeapons()
+        public bool HaveWeapons()
         {
-            return this.weapons.Count;
+            return this.weapons.Count > 0;
         }
 
         public void ChangeToFreeze()

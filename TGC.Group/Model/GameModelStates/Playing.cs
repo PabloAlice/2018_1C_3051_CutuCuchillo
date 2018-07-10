@@ -17,7 +17,7 @@ namespace TGC.Group.Model.GameModelStates
         private CustomSprite velocimeter, arrowVelocimeter, barOfLifeGreen, barOfLifeRed;
         private Drawer2D drawer;
         private string MediaDir = GlobalConcepts.GetInstance().GetMediaDir();
-        private TgcText2D textoVelocidadVehiculo, textoOffsetH, textoOffsetF, textoPosicionVehiculo, textoVectorAdelante, AIPosition, textTexture;
+        private TgcText2D textoVelocidadVehiculo, textoOffsetH, textoArmaSeleccionada, textoOffsetF, textoPosicionVehiculo, textoVectorAdelante, AIPosition, textTexture;
         private float u = 1, v = 1;
         private GameModel gameModel;
 
@@ -87,6 +87,7 @@ namespace TGC.Group.Model.GameModelStates
             this.textoOffsetF.render();
             this.textTexture.render();
             this.textoOffsetH.render();
+            textoArmaSeleccionada.render();
             this.AIPosition.render();
 
             this.auto.Transform();
@@ -141,6 +142,10 @@ namespace TGC.Group.Model.GameModelStates
             dialogo = "Texture = ({0} | {1})";
             dialogo = string.Format(dialogo, this.u, this.v);
             textTexture = Text.newText(dialogo, 120, 105);
+
+            dialogo = "Arma = {0}; Cantidad = {1}";
+            dialogo = string.Format(dialogo, auto.GetNameSelectWeapon(), auto.GetNumberOfBulletsOfFirstWeapon());
+            textoArmaSeleccionada = Text.newText(dialogo, 120, 120);
 
             this.auto.Action(this.gameModel.Input);
             this.AI.Action(this.gameModel.Input);

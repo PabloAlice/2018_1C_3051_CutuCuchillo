@@ -165,5 +165,10 @@ namespace TGC.Group.Model
             return;
         }
 
+        public override string ToString()
+        {
+            return this.GetType().ToString();
+        }
+
     }
 }
