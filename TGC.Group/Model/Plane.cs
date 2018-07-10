@@ -143,7 +143,8 @@ namespace TGC.Group.Model
         {
             if (this.IsInView())
             {
-                plane.Render();
+                Lighting.LightManager.GetInstance().DoLightMe(this.mesh);
+                this.mesh.Render();
                 plane.BoundingBox.Render();
             }
         }
@@ -155,7 +156,10 @@ namespace TGC.Group.Model
 
         public void RenderShadows()
         {
-            Lighting.LightManager.GetInstance().RenderMyShadow(this.mesh);
+            if (this.IsInView())
+            {
+                Lighting.LightManager.GetInstance().RenderMyShadow(this.mesh);
+            }
         }
     }
 }
