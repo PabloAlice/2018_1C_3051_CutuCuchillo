@@ -28,11 +28,14 @@ struct VS_OUTPUT
     float4 Position : POSITION0;
     float2 Texcoord : TEXCOORD0;
     float4 Color : COLOR0;
+    float4 RealPos : TEXCOORD1;
 };
 
 VS_OUTPUT vs_main(VS_INPUT Input)
 {
     VS_OUTPUT Output;
+
+    Output.RealPos = Input.Position;
 
     Input.Position.y = Input.Position.y + 5 * cos(time);
 
@@ -48,7 +51,24 @@ VS_OUTPUT vs_main(VS_INPUT Input)
 
 float4 ps_main(VS_OUTPUT Input) : COLOR0
 {
-    return tex2D(diffuseMap, Input.Texcoord);
+    float dist = 1 / sqrt(pow(distance(Input.RealPos.x, 0), 2) + pow(distance(Input.RealPos.y, 0), 2));
+    float modifier = frac(time);
+    modifier = modifier * 200;
+    float4 Base = tex2D(diffuseMap, Input.Texcoord.xy);
+    float4 Color = tex2D(diffuseMap, Input.Texcoord.xy) * dist * modifier;
+    if (Color.x < Base.x || Color.x > Base.x * 10)
+    {
+        Color.x = Base.x;
+    }
+    if (Color.y < Base.y || Color.y > Base.y * 10)
+    {
+        Color.y = Base.y;
+    }
+    if (Color.z < Base.z || Color.z > Base.z * 10)
+    {
+        Color.z = Base.z;
+    }
+    return Color;
 }
 
 technique Normal
