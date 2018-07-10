@@ -4,6 +4,7 @@ using TGC.Core.SceneLoader;
 using TGC.Core.Collision;
 using TGC.Core.Textures;
 using System;
+using TGC.Core.Shaders;
 
 namespace TGC.Group.Model
 {
@@ -21,6 +22,8 @@ namespace TGC.Group.Model
             this.plane.updateValues();
             this.mesh = this.plane.toMesh("plane");
             this.realPlane = TGCPlane.FromPointNormal(minPoint, orientation);
+            mesh.Effect = TgcShaders.Instance.TgcMeshPointLightShader;
+            mesh.Technique = "DIFFUSE_MAP";
         }
         public void Init()
         {
@@ -144,7 +147,7 @@ namespace TGC.Group.Model
             if (this.IsInView())
             {
                 Lighting.LightManager.GetInstance().DoLightMe(mesh);
-                plane.Render();
+                mesh.Render();
                 //plane.BoundingBox.Render();
             }
         }

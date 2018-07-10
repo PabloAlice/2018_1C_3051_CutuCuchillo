@@ -56,7 +56,7 @@ namespace TGC.Group.Lighting
             mesh.Effect.SetValue("materialAmbientColor", AmbientModifier);
             mesh.Effect.SetValue("materialDiffuseColor", DiffuseModifier);
             mesh.Effect.SetValue("materialSpecularColor", SpecularModifier);
-            effect.SetValue("materialSpecularExp", SpecularEx);
+            mesh.Effect.SetValue("materialSpecularExp", SpecularEx);
         }
 
         public void DoLightMe(Effect effect)
