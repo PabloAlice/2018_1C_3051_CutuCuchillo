@@ -403,7 +403,7 @@ namespace TGC.Group.Model
             //pared frontal
             this.banio.AddElement(new Plane(new TGCVector3(-221, 0, 300), new TGCVector3(-52, 180, 300), new TGCVector3(0, 0, -1), "Bathroom\\Paredes\\1.jpg", 4.6f, 4.6f), true);
             //piso
-            this.banio.AddElement(new Plane(new TGCVector3(-221, 0, 145), new TGCVector3(-52, 180, 300), new TGCVector3(0, 1, 0), "Bathroom\\Paredes\\1.jpg", 7, 7), true);
+            this.banio.AddElement(new Plane(new TGCVector3(-221, 0, 145), new TGCVector3(-52, 180, 300), new TGCVector3(0, 1, 0), "Bathroom\\Paredes\\2.jpg", 7, 7), true);
             //techo
             this.banio.AddElement(new Plane(new TGCVector3(-52, 180, 145), new TGCVector3(-52, 180, 300), new TGCVector3(0, -1, 0), "Bathroom\\Paredes\\1.jpg", 1, 1), true);
             

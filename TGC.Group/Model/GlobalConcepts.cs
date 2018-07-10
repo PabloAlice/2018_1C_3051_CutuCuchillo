@@ -1,8 +1,7 @@
-﻿using System;
-using Microsoft.DirectX.DirectSound;
+﻿using Microsoft.DirectX.DirectSound;
 using TGC.Core.BoundingVolumes;
-using TGC.Core.Camara;
 using TGC.Core.Mathematica;
+using TGC.Core.Input;
 
 namespace TGC.Group.Model
 {
@@ -20,6 +19,11 @@ namespace TGC.Group.Model
         private GlobalConcepts()
         {
         }
+
+        /*public SetInput()
+        {
+
+        }*/
 
         public static GlobalConcepts GetInstance()
         {

@@ -5,6 +5,8 @@ using TGC.Core.Collision;
 using TGC.Core.Textures;
 using System;
 using TGC.Core.Shaders;
+using TGC.Core.BoundingVolumes;
+using System.Collections.Generic;
 
 namespace TGC.Group.Model
 {
@@ -13,6 +15,7 @@ namespace TGC.Group.Model
         TgcPlane plane;
         TgcMesh mesh;
         TGCPlane realPlane;
+        public List<TgcArrow> arrows = new List<TgcArrow>();
 
         public Plane(TGCVector3 minPoint, TGCVector3 maxPoint, TGCVector3 orientation, string fileName, float UCoordinate, float VCoordinate)
         {
@@ -21,6 +24,9 @@ namespace TGC.Group.Model
             this.plane.setExtremes(minPoint, maxPoint);
             this.plane.updateValues();
             this.mesh = this.plane.toMesh("plane");
+            mesh.AutoTransform = false;
+            //negrada atomica
+            InvertNormals(orientation);
             this.realPlane = TGCPlane.FromPointNormal(minPoint, orientation);
             mesh.Effect = TgcShaders.Instance.TgcMeshPointLightShader;
             mesh.Technique = "DIFFUSE_MAP";
@@ -29,6 +35,33 @@ namespace TGC.Group.Model
         {
 
         }
+
+        private void InvertNormals(TGCVector3 vector)
+        {
+            TGCVector3 p = mesh.BoundingBox.calculateBoxCenter();
+            if (vector.X > 0)
+            {
+                mesh.Transform = TGCMatrix.Translation(-p);
+                mesh.Transform = mesh.Transform * TGCMatrix.RotationY(FastMath.ToRad(180));
+                mesh.Transform = mesh.Transform * TGCMatrix.Translation(p);
+            }
+            
+            else if (vector.Y > 0)
+            {
+
+                mesh.Transform = TGCMatrix.Translation(-p);
+                mesh.Transform = mesh.Transform * TGCMatrix.RotationX(FastMath.ToRad(180));
+                mesh.Transform = mesh.Transform * TGCMatrix.Translation(p);
+            }
+            else if (vector.Z < 0)
+            {
+
+                mesh.Transform = TGCMatrix.Translation(-p);
+                mesh.Transform = mesh.Transform * TGCMatrix.RotationY(FastMath.ToRad(180));
+                mesh.Transform = mesh.Transform * TGCMatrix.Translation(p);
+            }
+        }
+
         public void SetTexture(float u, float v)
         {
             this.plane.UTile = u;
@@ -148,7 +181,11 @@ namespace TGC.Group.Model
             {
                 Lighting.LightManager.GetInstance().DoLightMe(mesh);
                 mesh.Render();
-                //plane.BoundingBox.Render();
+                plane.BoundingBox.Render();
+                foreach (TgcArrow arrow in arrows)
+                {
+                    arrow.Render();
+                }
             }
         }
 

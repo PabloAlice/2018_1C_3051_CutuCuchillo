@@ -28,6 +28,7 @@ namespace TGC.Group.Model
         {
             GlobalConcepts.GetInstance().SetMediaDir(this.MediaDir);
             GlobalConcepts.GetInstance().SetShaderDir(this.ShadersDir);
+            //GlobalConcepts.GetInstance().SetInput(Input);
             GlobalConcepts.GetInstance().SetDispositivoDeAudio(this.DirectSound.DsDevice);
             GlobalConcepts.GetInstance().SetScreen(D3DDevice.Instance.Device);
             GlobalConcepts.GetInstance().SetFrustum(this.Frustum);
