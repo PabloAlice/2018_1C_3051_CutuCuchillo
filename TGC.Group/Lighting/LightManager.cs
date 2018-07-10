@@ -22,14 +22,14 @@ namespace TGC.Group.Lighting
         private List<Vector4> pointLightPositions;
         private List<float> pointLightIntensities;
         private List<float> pointLightAttenuations;
-        private ColorValue EmissiveModifier = new ColorValue(0,0,0);
+        private ColorValue EmissiveModifier = new ColorValue(0, 0, 0);
         private ColorValue AmbientModifier = new ColorValue(255, 255, 255);
-        private ColorValue DiffuseModifier = new ColorValue(255,255,255);
+        private ColorValue DiffuseModifier = new ColorValue(255, 255, 255);
         private static LightManager instance;
 
         public LightManager() {
             this.lights = new List<Light>();
-            this.lightColors = new List<ColorValue> ();
+            this.lightColors = new List<ColorValue>();
             this.pointLightPositions = new List<Vector4>();
             this.pointLightIntensities = new List<float>();
             this.pointLightAttenuations = new List<float>();
@@ -50,18 +50,18 @@ namespace TGC.Group.Lighting
             mesh.Effect.SetValue("materialEmissiveColor", EmissiveModifier);
             mesh.Effect.SetValue("materialAmbientColor", AmbientModifier);
             mesh.Effect.SetValue("materialDiffuseColor", DiffuseModifier);
-         //   mesh.Effect.SetValue("materialSpecularColor", DiffuseModifier);
+            //   mesh.Effect.SetValue("materialSpecularColor", DiffuseModifier);
         }
 
         public void DoLightMe(Effect effect)
         {
-            effect.SetValue("lightColor", lightColors.First());
-            effect.SetValue("lightPosition", pointLightPositions.First());
-            effect.SetValue("lightIntensity", pointLightIntensities.First());
-            effect.SetValue("lightAttenuation", pointLightAttenuations.First());
-            effect.SetValue("materialEmissiveColor", EmissiveModifier);
-            effect.SetValue("materialAmbientColor", AmbientModifier);
-            effect.SetValue("materialDiffuseColor", DiffuseModifier);
+                effect.SetValue("lightColor", lightColors.First());
+                effect.SetValue("lightPosition", pointLightPositions.First());
+                effect.SetValue("lightIntensity", pointLightIntensities.First());
+                effect.SetValue("lightAttenuation", pointLightAttenuations.First());
+                effect.SetValue("materialEmissiveColor", EmissiveModifier);
+                effect.SetValue("materialAmbientColor", AmbientModifier);
+                effect.SetValue("materialDiffuseColor", DiffuseModifier);
             //   mesh.Effect.SetValue("materialSpecularColor", DiffuseModifier);
         }
 

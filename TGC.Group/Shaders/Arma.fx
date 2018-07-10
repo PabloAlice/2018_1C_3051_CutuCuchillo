@@ -29,13 +29,14 @@ struct VS_OUTPUT
     float4 Position : POSITION0;
     float2 Texcoord : TEXCOORD0;
     float4 Color : COLOR0;
+    float4 RealPos : TEXCOORD1;
 };
 
 //Vertex Shader
 VS_OUTPUT vs_main(VS_INPUT input)
 {
     VS_OUTPUT output;
-
+    output.RealPos = input.Position;
 	//Proyectar posicion
     output.Position = mul(input.Position, matWorldViewProj);
     output.Texcoord = input.Texcoord;
@@ -46,9 +47,12 @@ VS_OUTPUT vs_main(VS_INPUT input)
 
 
 //Pixel Shader
-float4 ps_main_2(VS_OUTPUT input) : COLOR0
+float4 ps_main_2(VS_OUTPUT Input) : COLOR0
 {
-    return tex2D(diffuseMap, input.Texcoord) * (1,0,0,1);
+    float dist = 1 / sqrt(pow(distance(Input.RealPos.x, 0), 2) + pow(distance(Input.RealPos.y, 0), 2));
+    
+    float4 Color = tex2D(diffuseMap, Input.Texcoord.xy) * abs(pow(sin(time), 2) + 0.1) * dist * 15;
+    return Color;
 }
 
 float4 ps_main(VS_OUTPUT input) : COLOR0

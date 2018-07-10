@@ -13,6 +13,7 @@ using Microsoft.DirectX;
 using Microsoft.DirectX.Direct3D;
 using TGC.Core.Direct3D;
 using System.Drawing;
+using System;
 
 namespace TGC.Group.Model
 {
@@ -774,6 +775,11 @@ namespace TGC.Group.Model
             {
                 estado = new Frozen(this);
             }
+
+            if (input.keyDown(Key.K))
+            {
+                life -= 50;
+            }
             if (input.keyDown(Key.NumPad1))
             {
                 this.pointsOfCollision.constantOfDeformation += 0.01f;
@@ -802,6 +808,10 @@ namespace TGC.Group.Model
             this.estado.JumpUpdate();
             this.estado.FrozenTimeUpdate();
             //this.camara.UpdateInterpolation(this.elapsedTime);
+            if(GetLife() <= 0)
+            {
+                SetEstado(new Dead(this));
+            }
         }
 
         private void UpdateShootTime()

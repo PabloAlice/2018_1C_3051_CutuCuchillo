@@ -81,5 +81,10 @@ namespace TGC.Group.Model
         {
             this.gameModelState = state;
         }
+
+        public GameModelState GetState()
+        {
+            return this.gameModelState;
+        }
     }
 }

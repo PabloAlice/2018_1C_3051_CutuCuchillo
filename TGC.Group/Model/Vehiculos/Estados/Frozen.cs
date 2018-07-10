@@ -46,11 +46,6 @@ namespace TGC.Group.Model.Vehiculos.Estados
             return;
         }
 
-        public override void JumpUpdate()
-        {
-            return;
-        }
-
         public override void Move(TGCVector3 desplazamiento)
         {
             return;

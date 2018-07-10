@@ -163,6 +163,15 @@ namespace TGC.Group.Model.GameModelStates
                 Scene.GetInstance().GetPlanes().ForEach(x => x.SetTexture(u, v));
             }
 
+            if (auto.GetLife() <= 0)
+            {
+                this.auto.SoundsManager.GetSound("YouCouldBeMine").play(false);
+                this.auto.SoundsManager.GetSound("YouCouldBeMine").stop();
+                // Agregar grito
+                //this.auto.SoundsManager.AddSound(this.auto.GetPosition(), 50f, -2500, "BackgroundMusic\\YouCouldBeMine.wav", "YouCouldBeMine", false);
+
+                gameModel.SetState(new GameOver(gameModel, auto));
+            }
         }
 
         private void UpdateHub()

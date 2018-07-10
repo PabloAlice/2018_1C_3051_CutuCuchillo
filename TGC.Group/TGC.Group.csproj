@@ -103,6 +103,7 @@
     <Compile Include="Model\FloatModifier.cs" />
     <Compile Include="Model\GameModelStates\CharacterSelect.cs" />
     <Compile Include="Model\GameModelStates\GameModelState.cs" />
+    <Compile Include="Model\GameModelStates\GameOver.cs" />
     <Compile Include="Model\GameModelStates\InitialMenu.cs" />
     <Compile Include="Model\GameModelStates\Playing.cs" />
     <Compile Include="Model\InExhibition.cs" />
@@ -145,6 +146,7 @@
     <Compile Include="Model\Vehiculos\ArtificialIntelligence.cs" />
     <Compile Include="Model\Vehiculos\Car.cs" />
     <Compile Include="Model\Vehiculos\Estados\Crashing.cs" />
+    <Compile Include="Model\Vehiculos\Estados\Dead.cs" />
     <Compile Include="Model\Vehiculos\Estados\Frozen.cs" />
     <Compile Include="Model\Vehiculos\Hummer.cs" />
     <Compile Include="Model\Vehiculos\Light.cs" />
