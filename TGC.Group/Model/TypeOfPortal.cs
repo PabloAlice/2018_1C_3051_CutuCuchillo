@@ -101,7 +101,6 @@ namespace TGC.Group.Model
         public void HandleCollision(Vehicle car)
         {
             if (TgcCollisionUtils.testObbAABB(car.GetTGCBoundingOrientedBox(), this.GetBoundingBox())){
-                this.GetBoundingBox().setRenderColor(Color.Red);
                 this.Collide(car);
                 this.soundManager.GetSound("Goku").play();
             }

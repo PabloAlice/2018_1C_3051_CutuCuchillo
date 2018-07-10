@@ -125,7 +125,7 @@ namespace TGC.Group.Model.Vehiculos
         override public void Render()
         {
             base.Render();
-            radarSphere.Render();
+            //radarSphere.Render();
         }
 
         override protected void UpdateValues()

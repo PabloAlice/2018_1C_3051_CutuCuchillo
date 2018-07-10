@@ -61,7 +61,6 @@ namespace TGC.Group.Model
             //this.Rotate(TGCMatrix.RotationZ(0.05f));
             this.Transform();
             this.mesh.Render();
-            this.mesh.BoundingBox.Render();
         }
 
         public void Transform()

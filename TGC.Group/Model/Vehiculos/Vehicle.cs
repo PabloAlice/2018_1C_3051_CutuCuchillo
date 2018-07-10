@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using TGC.Core.Mathematica;
 using TGC.Core.SceneLoader;
 using TGC.Group.Model.Vehiculos.Estados;
@@ -467,8 +468,8 @@ namespace TGC.Group.Model
             {
                 this.SetEffectAtributes();
                 this.mesh.Render();
-                this.RenderBoundingOrientedBox();
-                this.mesh.BoundingBox.Render();
+                //this.RenderBoundingOrientedBox();
+                //this.mesh.BoundingBox.Render();
                 delanteraIzquierda.Render();
                 delanteraDerecha.Render();
                 foreach (var rueda in this.ruedas)
@@ -819,7 +820,7 @@ namespace TGC.Group.Model
             {
                 NextWeapon();
             }
-
+            /*
             if (input.keyDown(Key.C))
             {
                 estado = new Frozen(this);
@@ -829,6 +830,7 @@ namespace TGC.Group.Model
             {
                 life -= 50;
             }
+            */
             if (input.keyDown(Key.NumPad1))
             {
                 this.pointsOfCollision.constantOfDeformation += 0.01f;

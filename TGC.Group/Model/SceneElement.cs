@@ -3,7 +3,6 @@ using TGC.Core.SceneLoader;
 using TGC.Core.Mathematica;
 using TGC.Core.Collision;
 using TGC.Core.BoundingVolumes;
-using TGC.Core.Camara;
 using System;
 
 namespace TGC.Group.Model
@@ -168,7 +167,7 @@ namespace TGC.Group.Model
                 {
                     Lighting.LightManager.GetInstance().DoLightMe(elemento);
                     elemento.Render();
-                    elemento.BoundingBox.Render();
+                    //elemento.BoundingBox.Render();
                 }
             }
         }

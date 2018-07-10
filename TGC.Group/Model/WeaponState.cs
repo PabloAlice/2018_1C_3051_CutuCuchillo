@@ -17,7 +17,7 @@ namespace TGC.Group.Model
         {
             this.weapon.Transform();
             this.weapon.mesh.Render();
-            this.weapon.sphere.Render();
+            //this.weapon.sphere.Render();
         }
 
         public void Dispose()

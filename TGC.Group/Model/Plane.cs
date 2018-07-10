@@ -144,7 +144,7 @@ namespace TGC.Group.Model
             if (this.IsInView())
             {
                 plane.Render();
-                plane.BoundingBox.Render();
+                //plane.BoundingBox.Render();
             }
         }
 

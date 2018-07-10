@@ -21,8 +21,6 @@ namespace TGC.Group.Model
             cocina.SetNextSection(habitacion);
             habitacion.SetNextSection(banio);
             banio.SetNextSection(cocina);
-
-
         }
 
         public static Scene GetInstance()
