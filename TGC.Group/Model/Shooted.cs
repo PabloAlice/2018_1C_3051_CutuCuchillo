@@ -88,7 +88,8 @@ namespace TGC.Group.Model
             }
             if(c != null)
             {
-                //this.Detach(c);
+                //negrada atomica para que funcionen bien las explosiones
+                if(!(c is Plane))this.Detach(c);
                 this.Explode();
                 this.weapon.Collide(c);
             }

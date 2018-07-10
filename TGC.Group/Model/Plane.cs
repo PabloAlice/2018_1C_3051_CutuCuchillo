@@ -15,7 +15,6 @@ namespace TGC.Group.Model
         TgcPlane plane;
         TgcMesh mesh;
         TGCPlane realPlane;
-        public List<TgcArrow> arrows = new List<TgcArrow>();
 
         public Plane(TGCVector3 minPoint, TGCVector3 maxPoint, TGCVector3 orientation, string fileName, float UCoordinate, float VCoordinate)
         {
@@ -181,10 +180,6 @@ namespace TGC.Group.Model
                 Lighting.LightManager.GetInstance().DoLightMe(mesh);
                 mesh.Render();
                 plane.BoundingBox.Render();
-                foreach (TgcArrow arrow in arrows)
-                {
-                    arrow.Render();
-                }
             }
         }
 
