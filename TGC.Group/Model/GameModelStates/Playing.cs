@@ -17,8 +17,7 @@ namespace TGC.Group.Model.GameModelStates
         private CustomSprite velocimeter, arrowVelocimeter, barOfLifeGreen, barOfLifeRed;
         private Drawer2D drawer;
         private string MediaDir = GlobalConcepts.GetInstance().GetMediaDir();
-        private TgcText2D textoVelocidadVehiculo, textoOffsetH, textoArmaSeleccionada, textoOffsetF, textoPosicionVehiculo, textoVectorAdelante, AIPosition, textTexture;
-        private float u = 1, v = 1;
+        private TgcText2D textoVelocidadVehiculo, textoOffsetH, textoArmaSeleccionada, textoOffsetF, textoPosicionVehiculo, textoVectorAdelante, AIPosition;
         private GameModel gameModel;
 
         public Playing(GameModel gameModel, Vehicle car)
@@ -85,7 +84,6 @@ namespace TGC.Group.Model.GameModelStates
             this.textoPosicionVehiculo.render();
             this.textoVectorAdelante.render();
             this.textoOffsetF.render();
-            this.textTexture.render();
             this.textoOffsetH.render();
             textoArmaSeleccionada.render();
             this.AIPosition.render();
@@ -137,15 +135,11 @@ namespace TGC.Group.Model.GameModelStates
 
             dialogo = "AI Position = ({0} | {1} | {2}";
             dialogo = string.Format(dialogo, AI.GetPosition().X, AI.GetPosition().Y, AI.GetPosition().Z);
-            AIPosition = Text.newText(dialogo, 120, 95);
-
-            dialogo = "Texture = ({0} | {1})";
-            dialogo = string.Format(dialogo, this.u, this.v);
-            textTexture = Text.newText(dialogo, 120, 105);
+            AIPosition = Text.newText(dialogo, 120, 100);
 
             dialogo = "Arma = {0}; Cantidad = {1}";
             dialogo = string.Format(dialogo, auto.GetNameSelectWeapon(), auto.GetNumberOfBulletsOfFirstWeapon());
-            textoArmaSeleccionada = Text.newText(dialogo, 120, 120);
+            textoArmaSeleccionada = Text.newText(dialogo, 120, 115);
 
             this.auto.Action(this.gameModel.Input);
             this.AI.Action(this.gameModel.Input);
@@ -154,19 +148,6 @@ namespace TGC.Group.Model.GameModelStates
             //this.manager.Action(this.Input);
             Scene.GetInstance().HandleCollisions();
             this.UpdateHub();
-            float e = 0.05f;
-            if (gameModel.Input.keyDown(Key.NumPadPlus))
-            {
-                this.u += e;
-                this.v += e;
-                Scene.GetInstance().GetPlanes().ForEach(x => x.SetTexture(u, v));
-            }
-            else if (gameModel.Input.keyDown(Key.NumPadMinus))
-            {
-                this.u -= e;
-                this.v -= e;
-                Scene.GetInstance().GetPlanes().ForEach(x => x.SetTexture(u, v));
-            }
 
             if (auto.GetLife() <= 0)
             {

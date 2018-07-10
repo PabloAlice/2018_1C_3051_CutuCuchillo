@@ -35,8 +35,9 @@ namespace TGC.Group.Model
             this.weaponState = new InExhibition(this);
             this.soundManager = new SoundsManager();
             this.CreateParticle();
-            this.InitializeEffect();
-            
+            mesh.Effect = TgcShaders.loadEffect(GlobalConcepts.GetInstance().GetShadersDir() + "Arma.fx");
+            ExhibitionEffect();
+
         }
 
         public void Init() { }
@@ -46,9 +47,13 @@ namespace TGC.Group.Model
             return;
         }
 
-        private void InitializeEffect()
+        public void NormalEffect()
         {
-            mesh.Effect = TgcShaders.loadEffect(GlobalConcepts.GetInstance().GetShadersDir() + "Arma.fx");
+            mesh.Technique = "Normal";
+        }
+
+        public void ExhibitionEffect()
+        {
             mesh.Technique = "Exhibicion";
         }
 

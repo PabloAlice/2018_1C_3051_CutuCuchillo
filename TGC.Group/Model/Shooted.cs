@@ -19,6 +19,7 @@ namespace TGC.Group.Model
             TGCVector3 rotation = this.weapon.GetShootRotation();
             this.weapon.matrix.SetRotation(TGCMatrix.RotationYawPitchRoll(rotation.Y, rotation.X, rotation.Z));
             this.MoveAwayFromTheCar(car);
+            weapon.NormalEffect();
         }
 
         private void MoveAwayFromTheCar(Vehicle car)

@@ -12,7 +12,7 @@ namespace TGC.Group.Model
         {
             this.weapon.matrix = this.weapon.ReturnSame(this.weapon.initialTransformation);
             this.weapon.Transform();
-
+            weapon.ExhibitionEffect();
         }
 
         public override void HandleCollision(Vehicle car)

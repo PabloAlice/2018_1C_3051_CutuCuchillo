@@ -499,11 +499,11 @@ namespace TGC.Group.Model
             this.cocina.AddElement(new SceneElement(list, GlobalConcepts.GenerateTransformation(new TGCVector3(0.5f, 0.5f, 0.5f), new TGCVector3(0, 0f, FastMath.PI_HALF), new TGCVector3(60f, 15f, 378f))));
 
             list = new List<TgcMesh>();
-            list = this.GiveMeAMesh("MeshCreator\\Meshes\\Cocina\\CopaMadera\\CopaMadera-TgcScene.xml");
-            this.cocina.AddElement(new SceneElement(list, GlobalConcepts.GenerateTransformation(new TGCVector3(0.07f, 0.07f, 0.07f), new TGCVector3(0, 0, 0), new TGCVector3(94f, 43.5f, 340f))));
-            this.cocina.AddElement(new SceneElement(list, GlobalConcepts.GenerateTransformation(new TGCVector3(0.07f, 0.07f, 0.07f), new TGCVector3(0, FastMath.PI, 0), new TGCVector3(70f, 43.5f, 315f))));
-            this.cocina.AddElement(new SceneElement(list, GlobalConcepts.GenerateTransformation(new TGCVector3(0.07f, 0.07f, 0.07f), new TGCVector3(0, FastMath.PI_HALF, 0), new TGCVector3(125f, 43.5f, 355f))));
-            this.cocina.AddElement(new SceneElement(list, GlobalConcepts.GenerateTransformation(new TGCVector3(0.07f, 0.07f, 0.07f), new TGCVector3(0, -FastMath.PI_HALF, 0), new TGCVector3(130f, 43.5f, 325f))));
+            list = this.GiveMeAMesh("MeshCreator\\Meshes\\Cocina\\Vaso\\Vaso-TgcScene.xml");
+            this.cocina.AddElement(new SceneElement(list, GlobalConcepts.GenerateTransformation(new TGCVector3(0.2f, 0.2f, 0.2f), new TGCVector3(0, 0, 0), new TGCVector3(94f, 39f, 340f))));
+            this.cocina.AddElement(new SceneElement(list, GlobalConcepts.GenerateTransformation(new TGCVector3(0.2f, 0.2f, 0.2f), new TGCVector3(0, FastMath.PI, 0), new TGCVector3(70f, 39, 315f))));
+            this.cocina.AddElement(new SceneElement(list, GlobalConcepts.GenerateTransformation(new TGCVector3(0.2f, 0.2f, 0.2f), new TGCVector3(0, FastMath.PI_HALF, 0), new TGCVector3(125f, 39, 355f))));
+            this.cocina.AddElement(new SceneElement(list, GlobalConcepts.GenerateTransformation(new TGCVector3(0.2f, 0.2f, 0.2f), new TGCVector3(0, -FastMath.PI_HALF, 0), new TGCVector3(130f, 39, 325f))));
 
             list = new List<TgcMesh>();
             list = this.GiveMeAMesh("MeshCreator\\Meshes\\Cocina\\Tenedor\\Tenedor-TgcScene.xml");
@@ -653,8 +653,8 @@ namespace TGC.Group.Model
             this.habitacion.AddElement(new SceneElement(list, GlobalConcepts.GenerateTransformation(new TGCVector3(0.5f, 0.5f, 0.5f), new TGCVector3(0, 0f, FastMath.PI_HALF), new TGCVector3(60f, 15f, 144f))));
 
             list = new List<TgcMesh>();
-            list = this.GiveMeAMesh("MeshCreator\\Meshes\\Habitacion\\Pelota\\Pelota-TgcScene.xml");
-            this.habitacion.AddElement(new SceneElement(list, GlobalConcepts.GenerateTransformation(new TGCVector3(0.4f, 0.4f, 0.4f), new TGCVector3(0, 0f, 0), new TGCVector3(153f, 0f, 85f))));
+            list = this.GiveMeAMesh("MeshCreator\\Meshes\\Habitacion\\Mesa\\Mesa-TgcScene.xml");
+            this.habitacion.AddElement(new SceneElement(list, GlobalConcepts.GenerateTransformation(new TGCVector3(0.4f, 0.4f, 0.4f), new TGCVector3(0, 0f, 0), new TGCVector3(153f, 0f, 75f))));
             list = new List<TgcMesh>();
             list = this.GiveMeAMesh("MeshCreator\\Meshes\\Habitacion\\Notebook\\Notebook-TgcScene.xml");
             this.habitacion.AddElement(new SceneElement(list, GlobalConcepts.GenerateTransformation(new TGCVector3(0.5f, 0.5f, 0.5f), new TGCVector3(0, 0, 0), new TGCVector3(174f, 42.5f, -99f))));
@@ -672,7 +672,7 @@ namespace TGC.Group.Model
             this.habitacion.AddElement(new SceneElement(list, GlobalConcepts.GenerateTransformation(new TGCVector3(0.1f, 0.1f, 0.1f), new TGCVector3(0, 0, 0), new TGCVector3(24f, 32.2f, -154f))));
             list = new List<TgcMesh>();
             list = this.GiveMeAMesh("MeshCreator\\Meshes\\Habitacion\\CajaPizza\\CajaPizza-TgcScene.xml");
-            this.habitacion.AddElement(new SceneElement(list, GlobalConcepts.GenerateTransformation(new TGCVector3(0.5f, 0.5f, 0.5f), new TGCVector3(0, 0, 0), new TGCVector3(-173f, 28f, 15f))));
+            this.habitacion.AddElement(new SceneElement(list, GlobalConcepts.GenerateTransformation(new TGCVector3(0.5f, 0.5f, 0.5f), new TGCVector3(0, 0, 0), new TGCVector3(-173f, 27.5f, 15f))));
             list = new List<TgcMesh>();
             list = this.GiveMeAMesh("MeshCreator\\Meshes\\Habitacion\\Lapiz\\Lapiz-TgcScene.xml");
             this.habitacion.AddElement(new SceneElement(list, GlobalConcepts.GenerateTransformation(new TGCVector3(0.3f, 0.3f, 0.3f), new TGCVector3(0, FastMath.PI_HALF, 0), new TGCVector3(208f, 43.8f, -130f))));
