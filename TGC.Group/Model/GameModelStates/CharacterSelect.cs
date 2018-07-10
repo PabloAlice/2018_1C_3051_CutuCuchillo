@@ -26,7 +26,6 @@ namespace TGC.Group.Model.GameModelStates
         private string MediaDir = GlobalConcepts.GetInstance().GetMediaDir();
         private Drawer2D drawer = new Drawer2D();
         private CustomSprite choose, rightArrow, leftArrow;
-        private SoundsManager backgroundMusic;
         private MyAbstractions.Tgc3dSound init;
 
 
@@ -119,6 +118,7 @@ namespace TGC.Group.Model.GameModelStates
             {
                 selectedCar.ResetRotation();
                 this.init.stop();
+                selectedCar.SoundsManager.GetSound("Motor").play(true);
                 gameModel.SetState(new Playing(gameModel, selectedCar));
             }
 
@@ -133,7 +133,6 @@ namespace TGC.Group.Model.GameModelStates
             choose.Dispose();
             rightArrow.Dispose();
             leftArrow.Dispose();
-            this.backgroundMusic.Dispose();
         }
 
         private void NextCar()

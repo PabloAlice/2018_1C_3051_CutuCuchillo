@@ -60,7 +60,7 @@ namespace TGC.Group.Model.GameModelStates
             this.AI = new ArtificialIntelligence(new TGCVector3(70f, 0f, 0f), new SoundsManager());
             Scene.GetInstance().AI = this.AI;
             Scene.GetInstance().SetCamera(camaraInterna);
-            this.auto.SoundsManager.AddSound(this.auto.GetPosition(), 50f, -1500, "BackgroundMusic\\YouCouldBeMine.wav", "YouCouldBeMine", false);
+            this.auto.SoundsManager.AddSound(this.auto.GetPosition(), 50f, -500, "BackgroundMusic\\Burn.wav", "YouCouldBeMine", false);
             this.auto.SoundsManager.GetSound("YouCouldBeMine").play(true);
 
             /*var aspectRatio = D3DDevice.Instance.AspectRatio;
