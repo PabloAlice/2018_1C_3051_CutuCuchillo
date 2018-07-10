@@ -57,7 +57,6 @@ namespace TGC.Group.Model
 
         public override void Render()
         {
-            this.Update();
             base.Render();
         }
 

@@ -124,7 +124,7 @@ namespace TGC.Group.Model
 
             this.gameModelState.Render();
 
-            this.RenderFPS();
+            //this.RenderFPS();
             D3DDevice.Instance.Device.EndScene();
             D3DDevice.Instance.Device.Present();
          
