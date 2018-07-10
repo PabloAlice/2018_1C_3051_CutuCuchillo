@@ -20,13 +20,13 @@ namespace TGC.Group.Lighting
         private List<Light> lights;
         private List<ColorValue> lightColors;
         private List<Vector4> pointLightPositions;
-        private List<float> pointLightIntensities;
-        private List<float> pointLightAttenuations;
+        public List<float> pointLightIntensities;
+        public List<float> pointLightAttenuations;
         private ColorValue EmissiveModifier = new ColorValue(0, 0, 0);
         private ColorValue AmbientModifier = new ColorValue(255, 255, 255);
         private ColorValue DiffuseModifier = new ColorValue(255, 255, 255);
-        private ColorValue SpecularModifier = new ColorValue(255, 255, 255);
-        private float SpecularEx = 8;
+        public ColorValue SpecularModifier = new ColorValue(255, 255, 255);
+        public float SpecularEx = 8;
         private static LightManager instance;
 
         public LightManager()

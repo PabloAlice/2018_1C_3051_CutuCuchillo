@@ -39,7 +39,7 @@ namespace TGC.Group.Model
             
             //manager = new ObjectManagement(MediaDir + "meshCreator\\meshes\\Habitacion\\Billetes\\Billete2\\Billete2-TgcScene.xml", camaraManagement);
             
-        }
+        
 
         public override void Update()
         {
@@ -50,6 +50,51 @@ namespace TGC.Group.Model
             //Comentado para que los sonidos funcionen correctamente
             //this.auto = Escena.getInstance().calculateCollisions(this.auto);
             this.gameModelState.Update();
+
+            if(Input.keyDown(Microsoft.DirectX.DirectInput.Key.D1))
+            {
+                Lighting.LightManager.GetInstance().pointLightIntensities.ForEach(lightsito => lightsito += 0.01f);
+            }
+
+            if (Input.keyDown(Microsoft.DirectX.DirectInput.Key.D2))
+            {
+                Lighting.LightManager.GetInstance().pointLightIntensities.ForEach(lightsito => lightsito -= 0.01f);
+            }
+
+            if(Input.keyDown(Microsoft.DirectX.DirectInput.Key.D3))
+            {
+                Lighting.LightManager.GetInstance().pointLightAttenuations.ForEach(lightsito => lightsito += 0.01f);
+            }
+
+            if (Input.keyDown(Microsoft.DirectX.DirectInput.Key.D4))
+            {
+                Lighting.LightManager.GetInstance().pointLightAttenuations.ForEach(lightsito => lightsito -= 0.01f);
+            }
+
+            if (Input.keyDown(Microsoft.DirectX.DirectInput.Key.D5))
+            {
+                Lighting.LightManager.GetInstance().SpecularModifier.Red += 1;
+                Lighting.LightManager.GetInstance().SpecularModifier.Green += 1;
+                Lighting.LightManager.GetInstance().SpecularModifier.Blue += 1;
+            }
+
+            if (Input.keyDown(Microsoft.DirectX.DirectInput.Key.D6))
+            {
+                Lighting.LightManager.GetInstance().SpecularModifier.Red -= 1;
+                Lighting.LightManager.GetInstance().SpecularModifier.Green -= 1;
+                Lighting.LightManager.GetInstance().SpecularModifier.Blue -= 1;
+            }
+
+            if (Input.keyDown(Microsoft.DirectX.DirectInput.Key.D7))
+            {
+                Lighting.LightManager.GetInstance().SpecularEx += 0.01f;
+            }
+
+            if (Input.keyDown(Microsoft.DirectX.DirectInput.Key.D7))
+            {
+                Lighting.LightManager.GetInstance().SpecularEx -= 0.01f;
+            }
+
             this.PostUpdate();
         }
 
