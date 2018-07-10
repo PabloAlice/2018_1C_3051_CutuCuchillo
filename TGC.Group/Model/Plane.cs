@@ -143,6 +143,7 @@ namespace TGC.Group.Model
         {
             if (this.IsInView())
             {
+                Lighting.LightManager.GetInstance().DoLightMe(mesh);
                 plane.Render();
                 //plane.BoundingBox.Render();
             }

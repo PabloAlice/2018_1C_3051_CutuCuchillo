@@ -25,15 +25,18 @@ namespace TGC.Group.Lighting
         private ColorValue EmissiveModifier = new ColorValue(0, 0, 0);
         private ColorValue AmbientModifier = new ColorValue(255, 255, 255);
         private ColorValue DiffuseModifier = new ColorValue(255, 255, 255);
+        private ColorValue SpecularModifier = new ColorValue(255, 255, 255);
+        private float SpecularEx = 8;
         private static LightManager instance;
 
-        public LightManager() {
+        public LightManager()
+        {
             this.lights = new List<Light>();
             this.lightColors = new List<ColorValue>();
             this.pointLightPositions = new List<Vector4>();
             this.pointLightIntensities = new List<float>();
             this.pointLightAttenuations = new List<float>();
-            this.effect = TgcShaders.loadEffect(GlobalConcepts.GetInstance().GetShadersDir() + "TgcMeshPointLightShader.fx");
+            this.effect = TgcShaders.Instance.TgcMeshPointLightShader;
         }
 
         public void DoLightMe(TgcMesh mesh)
@@ -42,27 +45,33 @@ namespace TGC.Group.Lighting
             string currentTechnique = "DIFFUSE_MAP";
             mesh.Effect = this.effect;
             mesh.Technique = currentTechnique;
+            TGCVector3 p = Scene.GetInstance().camera.Position;
 
             mesh.Effect.SetValue("lightColor", lightColors.First());
             mesh.Effect.SetValue("lightPosition", pointLightPositions.First());
+            mesh.Effect.SetValue("eyePosition", TGCVector3.Vector3ToFloat4Array(p));
             mesh.Effect.SetValue("lightIntensity", pointLightIntensities.First());
             mesh.Effect.SetValue("lightAttenuation", pointLightAttenuations.First());
             mesh.Effect.SetValue("materialEmissiveColor", EmissiveModifier);
             mesh.Effect.SetValue("materialAmbientColor", AmbientModifier);
             mesh.Effect.SetValue("materialDiffuseColor", DiffuseModifier);
-            //   mesh.Effect.SetValue("materialSpecularColor", DiffuseModifier);
+            mesh.Effect.SetValue("materialSpecularColor", SpecularModifier);
+            effect.SetValue("materialSpecularExp", SpecularEx);
         }
 
         public void DoLightMe(Effect effect)
         {
-                effect.SetValue("lightColor", lightColors.First());
-                effect.SetValue("lightPosition", pointLightPositions.First());
-                effect.SetValue("lightIntensity", pointLightIntensities.First());
-                effect.SetValue("lightAttenuation", pointLightAttenuations.First());
-                effect.SetValue("materialEmissiveColor", EmissiveModifier);
-                effect.SetValue("materialAmbientColor", AmbientModifier);
-                effect.SetValue("materialDiffuseColor", DiffuseModifier);
-            //   mesh.Effect.SetValue("materialSpecularColor", DiffuseModifier);
+            TGCVector3 p = Scene.GetInstance().camera.Position;
+            effect.SetValue("lightColor", lightColors.First());
+            effect.SetValue("lightPosition", pointLightPositions.First());
+            effect.SetValue("eyePosition", TGCVector3.Vector3ToFloat4Array(p));
+            effect.SetValue("lightIntensity", pointLightIntensities.First());
+            effect.SetValue("lightAttenuation", pointLightAttenuations.First());
+            effect.SetValue("materialEmissiveColor", EmissiveModifier);
+            effect.SetValue("materialAmbientColor", AmbientModifier);
+            effect.SetValue("materialDiffuseColor", DiffuseModifier);
+            effect.SetValue("materialSpecularColor", SpecularModifier);
+            effect.SetValue("materialSpecularExp", SpecularEx);
         }
 
         public void SuscribeLight(Light light)
