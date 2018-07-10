@@ -170,7 +170,6 @@ namespace TGC.Group.Model.GameModelStates
 
             if (auto.GetLife() <= 0)
             {
-                this.auto.SoundsManager.GetSound("YouCouldBeMine").play(false);
                 this.auto.SoundsManager.GetSound("YouCouldBeMine").stop();
                 // Agregar grito
                 this.auto.SoundsManager.AddSound(this.auto.GetPosition(), 50f, 0, "Muerte.wav", "muerte", false);
