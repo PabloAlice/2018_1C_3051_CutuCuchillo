@@ -40,6 +40,11 @@ namespace TGC.Group.Model
 
         }
 
+        public void PickUp()
+        {
+            soundManager.GetSound("PickUp").play();
+        }
+
         public void Init() { }
 
         public void HandleCollision(ThirdPersonCamera camera)

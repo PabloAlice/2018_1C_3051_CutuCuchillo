@@ -8,8 +8,8 @@ namespace TGC.Group.Model
     {
         public BolaHielo(TransformationMatrix matrix, TgcMesh mesh) : base(matrix, mesh)
         {
-            this.soundManager.AddSound(this.GetPosition(), 10f, 0, "Weapons\\BolaHielo.wav", "BolaHielo", false);
-            this.soundManager.AddSound(this.GetPosition(), 10f, 0, "Explosion\\BolaHielo.wav", "Explosion", false);
+            this.soundManager.AddSound(this.GetPosition(), 50, 0, "Weapons\\BolaHielo.wav", "BolaHielo", false);
+            this.soundManager.AddSound(this.GetPosition(), 50, 0, "Explosion\\BolaHielo.wav", "Explosion", false);
             this.powerOfDamage = 15f;
         }
 

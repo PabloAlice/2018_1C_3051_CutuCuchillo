@@ -27,7 +27,7 @@ namespace TGC.Group.Model
             mesh.Effect = TgcShaders.loadEffect(GlobalConcepts.GetInstance().GetShadersDir() + "Vida.fx");
             mesh.Technique = "Normal";
             sound = new SoundsManager();
-            sound.AddSound(GetPosition(), 50, 0, "Vida\\Vida.wav", "Vida", false);
+            sound.AddSound(GetPosition(), 50, 0, "Duke\\DameIAmGood.wav", "Vida", false);
             mesh.AutoTransform = false;
             transformation = matrix;
         }

@@ -8,8 +8,8 @@ namespace TGC.Group.Model
     {
         public Misile(TransformationMatrix matrix, TgcMesh mesh) : base(matrix, mesh)
         {
-            this.soundManager.AddSound(this.GetPosition(), 10f, 0, "Weapons\\Misil.wav", "Misil", false);
-            this.soundManager.AddSound(this.GetPosition(), 10f, 0, "Explosion\\Misil.wav", "Explosion", false);
+            this.soundManager.AddSound(this.GetPosition(), 50f, 0, "Weapons\\Misil.wav", "Misil", false);
+            this.soundManager.AddSound(this.GetPosition(), 50f, 0, "Explosion\\Misil.wav", "Explosion", false);
             this.powerOfDamage = 60f;
         }
 

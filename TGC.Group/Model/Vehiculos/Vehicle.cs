@@ -307,6 +307,8 @@ namespace TGC.Group.Model
                 float distance = this.GetDistanceOfCollision(car.GetVectorAdelante(), car.GetVelocidadActual());
                 car.SetEstado(new Crashing(car, distanceAI, this.GetVectorAdelante()));
                 this.SetEstado(new Crashing(this, distance, car.GetVectorAdelante()));
+                car.TakeDamage(5f);
+                TakeDamage(5f);
             }
         }
 
@@ -661,7 +663,7 @@ namespace TGC.Group.Model
 
         virtual public void Crash(float angle)
         {
-            this.TakeDamage(2.5f);
+            this.TakeDamage(2f);
             this.deltaTiempoAvance.resetear();
             this.velocidadActual *= 0.5f;
             this.SoundsManager.GetSound("Choque").play();

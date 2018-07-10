@@ -100,7 +100,6 @@ namespace TGC.Group.Model
             {
                 this.MoveBackward();
                 this.weapon.Transform();
-                System.Console.WriteLine(weapon.GetPosition());
             }
         }
 
