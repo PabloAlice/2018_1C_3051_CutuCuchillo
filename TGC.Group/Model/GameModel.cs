@@ -36,9 +36,9 @@ namespace TGC.Group.Model
             gameModelState.Init();
 
             //this.Camara = camaraManagement;
-            
+
             //manager = new ObjectManagement(MediaDir + "meshCreator\\meshes\\Habitacion\\Billetes\\Billete2\\Billete2-TgcScene.xml", camaraManagement);
-            
+        }
         
 
         public override void Update()
