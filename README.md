@@ -4,11 +4,11 @@
 [![GitHub license](https://img.shields.io/github/license/tgc-utn/tgc-group.svg)](https://github.com/tgc-utn/tgc-group/blob/master/LICENSE)
 [![GitHub release](https://img.shields.io/github/release/tgc-utn/tgc-group.svg)](https://github.com/tgc-utn/tgc-group/releases)
 
-## Enunciado
-[Click Me!](https://docs.google.com/document/d/10_9YngZLLZzIyVjXMp61XSO1rYHBJRgFBm-CUNm2vdw/edit#heading=h.s533wt5jsnjg)
-
 ## Descripción
-Proyecto plantilla para los trabajos prácticos de la asignatura electiva [Técnicas de Gráficos por Computadora](http://tgc-utn.github.io/) (TGC) en la carrera de Ingeniería en Sistemas de Información. Universidad Tecnológica Nacional, Facultad Regional Buenos Aires (UTN-FRBA).
+Videojuego realizado por estudiantes de Ingeniería en Sistemas De Información de la Universidad Tecnológica Nacional para la materia [Técnicas de Gráficos por 
+Computadora](http://tgc-utn.github.io/) (TGC). 
+La cátedra provee a los alumnos una plataforma para el desarrollo de trabajos prácticos denominada TGC.Core. Esta plataforma es un Framework desarrollado en Microsoft 
+.NET, bajo lenguaje C# y utiliza la API gráfica Microsoft DirectX 9 para el renderizado de gráficos.
 
 ## Requisitos
 * [DirectX 9 SDK](http://www.microsoft.com/en-us/download/details.aspx?displaylang=en&id=6812)
@@ -17,16 +17,18 @@ Proyecto plantilla para los trabajos prácticos de la asignatura electiva [Técn
 * [TGC.Core](https://www.nuget.org/packages/TGC.Core/) (se baja automáticamente al hacer build por primera vez)
 
 ## Integrantes ##
-TGC, Tgcito  |  Apellido, Nombre
------------- | -------------
-<img src="https://github.com/tgc-utn/tgc-utn.github.io/blob/master/images/robotgc.png" height="500"> | <img src="https://github.com/tgc-utn/tgc-utn.github.io/blob/master/images/trofeotp.png" height="500">
+Alice, Pablo  |  Corti, Geronimo  |  Lopez, Alberto  | Torrico, Juan Manuel
+------------ | ------------- | ------------- | -------------
+<img src="https://avatars3.githubusercontent.com/u/11988423?s=400&v=4" height="300"> | <img src="https://avatars1.githubusercontent.com/u/16749803?s=400&v=4" 
+height="300"> | <img src="https://avatars0.githubusercontent.com/u/12456166?s=400&v=4" height="300"> | <img 
+src="https://avatars2.githubusercontent.com/u/11897599?s=460&v=4" height="300">
 
 ## ScreenShot ##
-![screenshot1](https://github.com/tgc-utn/tgc-group/blob/master/TGC.Group/Media/cajaMadera4.jpg)
-![screenshot2](https://github.com/tgc-utn/tgc-group/blob/master/TGC.Group/Media/cajaMadera4.jpg)
-![screenshot3](https://github.com/tgc-utn/tgc-group/blob/master/TGC.Group/Media/cajaMadera4.jpg)
-![screenshot4](https://github.com/tgc-utn/tgc-group/blob/master/TGC.Group/Media/cajaMadera4.jpg)
-![screenshot5](https://github.com/tgc-utn/tgc-group/blob/master/TGC.Group/Media/cajaMadera4.jpg)
+![screenshot1](https://raw.githubusercontent.com/TorricoJM/2018_1C_3051_CutuCuchillo/master/TGC.Group/Screenshots/cutucuchillo1.png)
+![screenshot2](https://raw.githubusercontent.com/TorricoJM/2018_1C_3051_CutuCuchillo/master/TGC.Group/Screenshots/cutucuchillo2.png)
+![screenshot3](https://raw.githubusercontent.com/TorricoJM/2018_1C_3051_CutuCuchillo/master/TGC.Group/Screenshots/cutucuchillo3.png)
+![screenshot4](https://raw.githubusercontent.com/TorricoJM/2018_1C_3051_CutuCuchillo/master/TGC.Group/Screenshots/cutucuchillo4.png)
+![screenshot5](https://raw.githubusercontent.com/TorricoJM/2018_1C_3051_CutuCuchillo/master/TGC.Group/Screenshots/cutucuchillo5.png)
 
 ## Game Play ##
-[![Watch the video](https://img.youtube.com/vi/qESIu8ozanU/0.jpg)](https://www.youtube.com/playlist?list=PLRM4L32DjvnazuMl8wZlbpEYL5Qh63ulG)
+[![Watch the video](https://www.youtube.com/watch?v=N_myE3wCPsA)
