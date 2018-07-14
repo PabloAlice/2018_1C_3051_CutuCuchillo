@@ -29,5 +29,5 @@ La cátedra provee a los alumnos una plataforma para el desarrollo de trabajos p
 ![screenshot5](https://github.com/TorricoJM/2018_1C_3051_CutuCuchillo/blob/master/TGC.Group/Screenshots/cutucuchillo5.png)
 
 ## Game Play ##
-[![Watch the video](https://img.youtube.com/vi/N_myE3wCPsA/hqdefault.jpg)](https://www.youtube.com/watch?v=N_myE3wCPsA)
+[![Watch the video](https://github.com/TorricoJM/2018_1C_3051_CutuCuchillo/blob/master/TGC.Group/Screenshots/thumbnail.png)](https://www.youtube.com/watch?v=N_myE3wCPsA)
 
