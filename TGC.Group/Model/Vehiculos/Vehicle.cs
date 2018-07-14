@@ -756,11 +756,11 @@ namespace TGC.Group.Model
 
             if (input.keyDown(Key.UpArrow))
             {
-                Scene.GetInstance().camera.OffsetForward += 0.1f;
+                Scene.GetInstance().camera.OffsetForward += 0.01f;
             }
             if (input.keyDown(Key.DownArrow))
             {
-                Scene.GetInstance().camera.OffsetForward -= 0.1f;
+                Scene.GetInstance().camera.OffsetForward -= 0.01f;
             }
 
             if (input.keyDown(Key.W))
