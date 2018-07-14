@@ -18,10 +18,9 @@ La cátedra provee a los alumnos una plataforma para el desarrollo de trabajos p
 
 ## Integrantes ##
 Alice, Pablo  |  Corti, Geronimo  |  Lopez, Alberto  | Torrico, Juan Manuel
------------- | ------------- | ------------- | -------------
-<img src="https://avatars3.githubusercontent.com/u/11988423?s=400&v=4" height="300"> | <img src="https://avatars1.githubusercontent.com/u/16749803?s=400&v=4" 
-height="300"> | <img src="https://avatars0.githubusercontent.com/u/12456166?s=400&v=4" height="300"> | <img 
-src="https://avatars2.githubusercontent.com/u/11897599?s=460&v=4" height="300">
+------------ | ------------ | ------------ | ------------
+<img src="https://avatars3.githubusercontent.com/u/11988423" height="300"> | <img src="https://avatars1.githubusercontent.com/u/16749803" height="300"> | <img 
+src="https://avatars0.githubusercontent.com/u/12456166" height="300"> | <img src="https://avatars2.githubusercontent.com/u/11897599" height="300">
 
 ## ScreenShot ##
 ![screenshot1](https://raw.githubusercontent.com/TorricoJM/2018_1C_3051_CutuCuchillo/master/TGC.Group/Screenshots/cutucuchillo1.png)
@@ -31,4 +30,5 @@ src="https://avatars2.githubusercontent.com/u/11897599?s=460&v=4" height="300">
 ![screenshot5](https://raw.githubusercontent.com/TorricoJM/2018_1C_3051_CutuCuchillo/master/TGC.Group/Screenshots/cutucuchillo5.png)
 
 ## Game Play ##
-[![Watch the video](https://www.youtube.com/watch?v=N_myE3wCPsA)
+[![Watch the video](https://www.youtube.com/watch?v=N_myE3wCPsA)]
+
